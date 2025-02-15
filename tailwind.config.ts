@@ -23,6 +23,7 @@ export default {
       gridTemplateColumns: {
         responsiveGrid: 'repeat(auto-fit , minmax(28rem , 1fr))',
         responsiveGrid2: 'repeat(auto-fit , minmax(20rem , 1fr))',
+        responsiveGrid3: 'repeat(auto-fill , minmax(6rem , 1fr))',
       },
     },
   },

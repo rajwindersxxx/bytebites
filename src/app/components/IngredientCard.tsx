@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 interface Ingredient {
   name: string;
@@ -19,15 +20,15 @@ export default function IngredientCard({ ingredient }: props) {
   const imageBaseUrl = 'https://img.spoonacular.com/ingredients_100x100/'
   const {
     name,
-    // image,
+    image,
     consistency,
     amount,
     measures
   }  = ingredient
   return (
-    <div className="bg-natural-beige w-96 rounded-md p-4 flex item-center gap-2 ">
-      <div className='bg-red-400 h-20 w-20 rounded-full'>
-
+    <div className="bg-natural-beige w-80 rounded-md p-4 flex item-center gap-4 ">
+      <div className=' h-20 w-20 rounded-full relative overflow-hidden'>
+        <Image fill src={`${imageBaseUrl}${image}`} alt='img'  />
       </div>
       <div>
         <h4 className='text-xl font-bold capitalize'> {name} </h4>

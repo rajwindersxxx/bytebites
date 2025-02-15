@@ -8,9 +8,9 @@ import RecipeInstructions from '@/app/components/RecipeInstructions';
 interface props {
   params: { recipeId: string };
 }
-export default function page({ params }: props) {
-  // const { recipeId } = await params;
-  // console.log(recipeId);
+export default async function page({ params }: props) {
+  const { recipeId } = await params;
+  console.log(recipeId);
   const {
     // id,
     image,
