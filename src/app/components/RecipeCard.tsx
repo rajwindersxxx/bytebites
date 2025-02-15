@@ -35,7 +35,7 @@ export default function RecipeCard({ data, baseUrlImage }: props) {
   return (
     <Link
       href={`/explore/${id}`}
-      className="w-[28rem] h-36 bg-natural-beige rounded-md overflow-hidden grid grid-cols-[1fr_1.7fr] transition-all hover:scale-105 hover:shadow-md"
+      className="min-w-[28rem] min-h-36 bg-natural-beige rounded-md overflow-hidden grid grid-cols-[1fr_1.7fr] transition-all hover:scale-105 hover:shadow-md"
     >
       <div className="h-full relative ">
         {baseUrlImage ? (

@@ -1,5 +1,6 @@
 import { getRandomRecipes } from '../api/foodApi';
 import RecipeCard from '../components/RecipeCard';
+import SearchRecipeForm from '../components/SearchRecipeForm';
 interface recipe {
   id: number;
   image: string;
@@ -18,7 +19,15 @@ export default async function ExplorePage() {
   );
   return (
     <div className="container  mx-auto p-4 my-8 border">
-      <h2 className="text-center text-4xl mb-8">Explore Some of recipes </h2>
+      <div className='grid grid-cols-3 place-items-center mb-4'>
+        <div></div>
+        <div>
+          <h2 className="text-center text-4xl">Explore Some of recipes </h2>
+        </div>
+        <div className='justify-self-end pr-5'>
+          <SearchRecipeForm />
+        </div>
+      </div>
       <div className="grid grid-cols-responsiveGrid gap-4 mx-auto place-items-center">
         {recipeData.map((recipe) => (
           <RecipeCard data={recipe} key={recipe.id} />

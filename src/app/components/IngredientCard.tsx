@@ -31,7 +31,7 @@ export default function IngredientCard({ ingredient }: props) {
         <Image fill src={`${imageBaseUrl}${image}`} alt='img' sizes='100%' />
       </div>
       <div>
-        <h4 className='text-xl font-bold capitalize'> {name} </h4>
+        <h4 className='text-xl font-bold capitalize'> {name.length > 15 ? `${name.slice(0,15)}...`: name} </h4>
         <p>Amount:  <span className="font-bold">{amount} </span>{measures.metric.unitShort}</p>
         <p>consistency: <span className="font-bold">{consistency === 'SOLID'? '🧊': '💧'} </span></p>
       </div>

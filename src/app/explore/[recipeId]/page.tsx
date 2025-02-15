@@ -22,7 +22,7 @@ export default async function page({ params }: props) {
   } = data;
   return (
     <div className="container mx-auto p-12 m-8 border grid grid-cols-[1fr_1fr_1fr] gap-12  ">
-      <div className=" min-h-[22rem] my-4 overflow-hidden relative rounded-md border border-natural-green">
+      <div className=" overflow-hidden relative rounded-lg border border-natural-green">
         <Image src={image} priority={true} alt="title" fill className=" object-cover" sizes='100%'/>
       </div>
       <RecipeDetail detail={otherDetails} />

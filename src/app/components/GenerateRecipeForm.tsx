@@ -5,8 +5,8 @@ import { IconButton, PrimaryButton, SecondaryButton } from './button';
 export default function GenerateRecipeForm() {
   return (
     <>
-      <h2 className="text-4xl">Find Recipe or generate using AI </h2>
-      <form className="flex flex-col gap-4">
+      <h2 className="text-4xl mb-4">Generate Recipe using AI </h2>
+      <form className="flex flex-col gap-8">
         <div className="grid lg:grid-cols-[1fr_1fr_auto] md:grid-cols-[1fr_auto] gap-4">
           <Input placeHolder="Enter Ingredient 1" />
           <Input placeHolder="Enter recipe to search" />
