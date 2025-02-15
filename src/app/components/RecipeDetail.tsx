@@ -45,8 +45,8 @@ export default function RecipeDetail({ detail }: Props) {
           <span className="font-bold">{pricePerServing}</span> $ per serving
         </p>
         <p>{vegetarian ? '🍀 vegetarian' : '🥩 non-vegetarian'} </p>
-        <p>🇨🇻 Cuisines {cuisines.join(', ')} </p>
-        <p>🍷 Pair with {winePairing.pairedWines.join(', ')} </p>
+        {cuisines.length > 0 && <p>🇨🇻 Cuisines {cuisines.join(', ')} </p>}
+       {winePairing && <p>🍷 Pair with {winePairing?.pairedWines.join(', ')} </p>}
         <p className="col-start-3">{veryPopular && '🌟 popular'} </p>
       </div>
     </div>

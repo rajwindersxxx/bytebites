@@ -28,7 +28,7 @@ export default function IngredientCard({ ingredient }: props) {
   return (
     <div className="bg-natural-beige w-80 rounded-md p-4 flex item-center gap-4 ">
       <div className=' h-20 w-20 rounded-full relative overflow-hidden'>
-        <Image fill src={`${imageBaseUrl}${image}`} alt='img'  />
+        <Image fill src={`${imageBaseUrl}${image}`} alt='img' sizes='100%' />
       </div>
       <div>
         <h4 className='text-xl font-bold capitalize'> {name} </h4>

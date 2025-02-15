@@ -1,0 +1,98 @@
+export const similarRecipe = [
+  {
+    id: 1055614,
+    image: 'how-to-make-a-louisiana-style-gumbo-1055614.jpg',
+    imageType: 'jpg',
+    title: 'How to Make a Louisiana Style Gumbo',
+    readyInMinutes: 120,
+    servings: 10,
+    sourceUrl:
+      'https://spoonacular.com/how-to-make-a-louisiana-style-gumbo-1055614',
+  },
+  {
+    id: 636355,
+    image: 'BRUSCHETTA-STUFFED-PORTOBELLOS-636355.jpg',
+    imageType: 'jpg',
+    title: 'BRUSCHETTA STUFFED PORTOBELLOS',
+    readyInMinutes: 45,
+    servings: 2,
+    sourceUrl: 'https://spoonacular.com/bruschetta-stuffed-portobellos-636355',
+  },
+  {
+    id: 636356,
+    image: 'Bruschetta-Stuffed-Potatoes-636356.jpg',
+    imageType: 'jpg',
+    title: 'Bruschetta Stuffed Potatoes',
+    readyInMinutes: 45,
+    servings: 6,
+    sourceUrl: 'https://spoonacular.com/bruschetta-stuffed-potatoes-636356',
+  },
+  {
+    id: 648715,
+    image: 'Kale-Bruschetta-648715.jpg',
+    imageType: 'jpg',
+    title: 'Kale Bruschetta',
+    readyInMinutes: 45,
+    servings: 1,
+    sourceUrl: 'https://spoonacular.com/kale-bruschetta-648715',
+  },
+  {
+    id: 658585,
+    image: 'Roasted-Fish-Bruschetta-658585.jpg',
+    imageType: 'jpg',
+    title: 'Roasted Fish Bruschetta',
+    readyInMinutes: 45,
+    servings: 4,
+    sourceUrl: 'https://spoonacular.com/roasted-fish-bruschetta-658585',
+  },
+  {
+    id: 658753,
+    image: 'Roma-Tomato-Bruschetta-658753.jpg',
+    imageType: 'jpg',
+    title: 'Roma Tomato Bruschetta',
+    readyInMinutes: 45,
+    servings: 4,
+    sourceUrl: 'https://spoonacular.com/roma-tomato-bruschetta-658753',
+  },
+  {
+    id: 664470,
+    image: 'Vegan-Pea-and-Mint-Pesto-Bruschetta-664470.jpg',
+    imageType: 'jpg',
+    title: 'Vegan Pea and Mint Pesto Bruschetta',
+    readyInMinutes: 45,
+    servings: 10,
+    sourceUrl:
+      'https://spoonacular.com/vegan-pea-and-mint-pesto-bruschetta-664470',
+  },
+  {
+    id: 650654,
+    image: 'Make-Olive-Gardens-Delicious-Pasta-Fagioli-At-Home-650654.jpg',
+    imageType: 'jpg',
+    title: 'Make Olive Garden’s Delicious Pasta Fagioli At Home',
+    readyInMinutes: 45,
+    servings: 20,
+    sourceUrl:
+      'https://spoonacular.com/make-olive-gardens-delicious-pasta-fagioli-at-home-650654',
+  },
+  {
+    id: 638236,
+    image: 'Chicken-Pasta-Primavera---Flower-Patch-Farmgirl-Style-638236.jpg',
+    imageType: 'jpg',
+    title: 'Chicken Pasta Primavera - Flower Patch Farmgirl Style',
+    readyInMinutes: 45,
+    servings: 8,
+    sourceUrl:
+      'https://spoonacular.com/chicken-pasta-primavera-flower-patch-farmgirl-style-638236',
+  },
+  {
+    id: 644102,
+    image:
+      'Fusilli-With-Eggplant---Sausage-Chunks---Mediterranean-Style-Pasta-644102.jpg',
+    imageType: 'jpg',
+    title: 'Fusilli With Eggplant & Sausage Chunks - Mediterranean Style Pasta',
+    readyInMinutes: 45,
+    servings: 4,
+    sourceUrl:
+      'https://spoonacular.com/fusilli-with-eggplant-sausage-chunks-mediterranean-style-pasta-644102',
+  },
+];
