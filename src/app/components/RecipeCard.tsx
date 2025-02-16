@@ -9,9 +9,9 @@ interface props {
 interface RecipeData {
   image: string;
   title: string;
-  readyInMinutes: number;
+  readyInMinutes?: number;
   id: number;
-  servings: number;
+  servings?: number;
   vegetarian?: boolean;
   pricePerServing?: number;
   veryPopular?: boolean;
@@ -34,8 +34,8 @@ export default function RecipeCard({ data, baseUrlImage }: props) {
 
   return (
     <Link
-      href={`/explore/${id}`}
-      className="min-w-[28rem] min-h-36 bg-natural-beige rounded-md overflow-hidden grid grid-cols-[1fr_1.7fr] transition-all hover:scale-105 hover:shadow-md"
+      href={`/recipeDetail?recipeId=${id}`}
+      className="min-w-[28rem] bg-natural-beige rounded-md overflow-hidden grid grid-cols-[1fr_1.7fr] transition-all hover:scale-105 hover:shadow-md"
     >
       <div className="h-full relative ">
         {baseUrlImage ? (
@@ -62,10 +62,12 @@ export default function RecipeCard({ data, baseUrlImage }: props) {
           {title.length > 25 && ' ...'}
         </h3>
         <div className="grid grid-cols-[1fr_0.5fr_1fr] gap-2 items-center justify-center content-center">
-          <p>⏱️ {readyInMinutes} min </p>
-          <p>👨‍👩‍👧‍👦 {servings} </p>
+          {readyInMinutes && <p>⏱️ {readyInMinutes} min </p>}
+          {servings && <p>👨‍👩‍👧‍👦 {servings} </p>}
           {pricePerServing && <p>💸 {pricePerServing} $</p>}
-          {!baseUrlImage && <p>{vegetarian ? '🍀 veg' : '🥩 non-veg'} </p>}
+          {(!baseUrlImage && servings) && (
+            <p>{vegetarian ? '🍀 veg' : '🥩 non-veg'} </p>
+          )}
           <p className="col-start-3">{veryPopular && '🌟 popular'} </p>
           {extendedIngredients && (
             <p className="col-span-2">

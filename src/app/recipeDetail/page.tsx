@@ -7,10 +7,10 @@ import RecipeInstructions from '@/app/components/RecipeInstructions';
 import SimilarRecipes from '@/app/components/SimilarRecipes';
 import { getRecipeDetails } from '@/app/api/foodApi';
 interface props {
-  params: { recipeId: string };
+  searchParams: { recipeId: string };
 }
-export default async function page({ params }: props) {
-  const { recipeId } = await params;
+export default async function page({ searchParams }: props) {
+  const { recipeId } = await searchParams;
   const data = await getRecipeDetails(Number(recipeId))
   const {
     id,

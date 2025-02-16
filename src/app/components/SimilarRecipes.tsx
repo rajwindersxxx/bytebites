@@ -19,7 +19,7 @@ export default async function SimilarRecipes({ id }: props) {
       <h2 className="text-2xl mb-8"> 📝 Similar Recipes</h2>
       <div className='flex flex-col gap-4'>
         {data.map((item) => (
-          <RecipeCard data={item} baseUrlImage={baseUrlImage} key={item.id} />
+          <RecipeCard data={item} baseUrlImage={baseUrlImage} key={item.id + item.title} />
         ))}
       </div>
     </div>

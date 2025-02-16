@@ -1,9 +1,11 @@
+import { FOOD_URL, SEARCH_RESULTS_COUNT } from "../config/foodApiConfig";
+
 const apiKey = process.env.FOOD_API_KEY;
-const FOOD_URL = 'https://api.spoonacular.com';
-export async function getSearchedRecipe(recipeName: string) {
+
+export async function getSearchedRecipe(recipeName: string, offset: number) {
   try {
     const res = await fetch(
-      `${FOOD_URL}/recipes/complexSearch?apiKey=${apiKey}&query=${recipeName}`
+      `${FOOD_URL}/recipes/complexSearch?apiKey=${apiKey}&query=${recipeName}&offset=${offset}&&number=${SEARCH_RESULTS_COUNT}`
     );
     if (!res.ok) {
       throw new Error(`HTTP error! Status: ${res.status}`);
