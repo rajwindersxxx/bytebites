@@ -1,7 +1,7 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from 'next/font/google';
-import './globals.css';
-import Header from './components/Header';
+import "./globals.css";
+import Header from "./_components/Header";
 
 // const geistSans = Geist({
 //   variable: '--font-geist-sans',
@@ -14,9 +14,9 @@ import Header from './components/Header';
 // });
 
 export const metadata: Metadata = {
-  title: 'ByteBite',
+  title: "ByteBite",
   description:
-    'Interactive AI-powered recipe generator and meal planner. Users enter ingredients they have at home, and the system generates a recipe for them using AI. They can also save meals, plan their week, and get shopping lists based on their selections.',
+    "Interactive AI-powered recipe generator and meal planner. Users enter ingredients they have at home, and the system generates a recipe for them using AI. They can also save meals, plan their week, and get shopping lists based on their selections.",
 };
 
 export default function RootLayout({
@@ -25,10 +25,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en"  className='text-gray-800'>
+    <html lang="en" className="text-gray-800">
       <body className={`bg-natural-cream`}>
         <Header />
-        <main >{children}</main>
+        <main>{children}</main>
       </body>
     </html>
   );

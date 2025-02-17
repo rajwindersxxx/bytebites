@@ -1,14 +1,14 @@
-'use client';
-import { SecondaryButton } from './button';
-import { useCustomParams } from '../hooks/useCustomParams';
+"use client";
+import { SecondaryButton } from "./button";
+import { useCustomParams } from "../_hooks/useCustomParams";
 
 interface props {
   totalResults: number;
-  pageSize: number
+  pageSize: number;
 }
-export default function Pagination({ totalResults , pageSize}: props ) {
+export default function Pagination({ totalResults, pageSize }: props) {
   const { getParams, setParams } = useCustomParams();
-  const { page: getCurrPage } = getParams('page');
+  const { page: getCurrPage } = getParams("page");
   const curPage = getCurrPage ? Number(getCurrPage) : 1;
   const totalPages = Math.ceil(totalResults / pageSize);
   const startResult = (curPage - 1) * pageSize + 1;

@@ -1,4 +1,4 @@
-import GenerateRecipeForm from '../components/GenerateRecipeForm';
+import GenerateRecipeForm from "../_components/GenerateRecipeForm";
 
 export default function GenerateRecipePage() {
   return (

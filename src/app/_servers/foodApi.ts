@@ -1,4 +1,4 @@
-import { FOOD_URL, SEARCH_RESULTS_COUNT } from "../config/foodApiConfig";
+import { FOOD_URL, SEARCH_RESULTS_COUNT } from "../_config/foodApiConfig";
 
 const apiKey = process.env.FOOD_API_KEY;
 
@@ -13,7 +13,7 @@ export async function getSearchedRecipe(recipeName: string, offset: number) {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error('Error fetching recipe:', error);
+    console.error("Error fetching recipe:", error);
     return null;
   }
 }
@@ -29,7 +29,7 @@ export async function getRandomRecipes(count: number) {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error('Error fetching recipe:', error);
+    console.error("Error fetching recipe:", error);
     return null;
   }
 }
@@ -45,7 +45,7 @@ export async function getRecipeDetails(id: number) {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error('Error fetching recipe:', error);
+    console.error("Error fetching recipe:", error);
     return null;
   }
 }
@@ -60,7 +60,7 @@ export async function getSimilarRecipes(id: number) {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error('Error fetching recipe:', error);
+    console.error("Error fetching recipe:", error);
     return null;
   }
 }
