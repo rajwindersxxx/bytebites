@@ -4,8 +4,9 @@ interface props {
   placeHolder: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   value?: string
+  disabled?:boolean
 }
-export default function Input({ type = 'text', placeHolder , onChange, value}: props) {
+export default function Input({ type = 'text', placeHolder , onChange, value,disabled = false, ...props}: props) {
   return (
     <input
       type={type}
@@ -13,6 +14,9 @@ export default function Input({ type = 'text', placeHolder , onChange, value}: p
       placeholder={placeHolder}
       onChange={onChange}
       value={value}
+      disabled={disabled}
+      {...props}
+      required
     />
   );
 }

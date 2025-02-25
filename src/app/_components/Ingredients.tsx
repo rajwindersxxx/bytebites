@@ -21,7 +21,7 @@ export default function Ingredients({ extendedIngredients }: props) {
       <h2 className="text-2xl mb-8">🍳 Ingredients </h2>
       <div className="bg-natural-cream  grid grid-cols-responsiveGrid2 gap-4 my-4 place-items-center ">
         {extendedIngredients.map((ingredient) => (
-          <IngredientCard ingredient={ingredient} key={ingredient.id + ingredient.name} />
+          <IngredientCard ingredient={ingredient} key={ingredient.id + Math.random()} />
         ))}
       </div>
     </div>

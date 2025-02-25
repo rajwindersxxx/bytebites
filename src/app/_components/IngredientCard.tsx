@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
+import { INGREDIENT_IMAGE_URL } from '../_config/foodApiConfig';
 interface Ingredient {
   name: string;
   image: string;
@@ -17,7 +18,6 @@ interface props {
 }
 
 export default function IngredientCard({ ingredient }: props) {
-  const imageBaseUrl = 'https://img.spoonacular.com/ingredients_100x100/'
   const {
     name,
     image,
@@ -28,7 +28,7 @@ export default function IngredientCard({ ingredient }: props) {
   return (
     <div className="bg-natural-beige w-80 rounded-md p-4 flex item-center gap-4 ">
       <div className=' h-20 w-20 rounded-full relative overflow-hidden'>
-        <Image fill src={`${imageBaseUrl}${image}`} alt='img' sizes='100%' />
+        <Image fill src={`${INGREDIENT_IMAGE_URL}/${image}`} alt='img' sizes='100%' />
       </div>
       <div>
         <h4 className='text-xl font-bold capitalize'> {name.length > 15 ? `${name.slice(0,15)}...`: name} </h4>

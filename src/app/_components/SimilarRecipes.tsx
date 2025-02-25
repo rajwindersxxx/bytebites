@@ -1,6 +1,7 @@
 import React from "react";
 import RecipeCard from "./RecipeCard";
 import { getSimilarRecipes } from "../_servers/foodApi";
+import { RECIPE_IMAGE_URL } from "../_config/foodApiConfig";
 interface props {
   id: number;
 }
@@ -12,7 +13,6 @@ interface similarRecipe {
   servings: number;
 }
 export default async function SimilarRecipes({ id }: props) {
-  const baseUrlImage = "https://img.spoonacular.com/recipes";
   const data: similarRecipe[] = await getSimilarRecipes(id);
   return (
     <div>
@@ -21,7 +21,7 @@ export default async function SimilarRecipes({ id }: props) {
         {data.map((item) => (
           <RecipeCard
             data={item}
-            baseUrlImage={baseUrlImage}
+            baseUrlImage={RECIPE_IMAGE_URL}
             key={item.id + item.title}
           />
         ))}

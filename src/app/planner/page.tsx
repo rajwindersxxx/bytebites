@@ -1,3 +1,5 @@
 export default function MealPlannerPage() {
-  return <h1>MealPlannerPage</h1>;
+  return <div>
+    <h1>server action example</h1>
+  </div>;
 }

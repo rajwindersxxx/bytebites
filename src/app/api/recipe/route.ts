@@ -1,5 +1,5 @@
 // app/api/users/route.js
-import { getRandomRecipes } from "@/app/_servers/foodApi";
+// import { getRandomRecipes } from "@/app/_servers/foodApi";
 import { recipeData } from "../../data/recipeData";
 
 export async function GET() {
@@ -10,7 +10,7 @@ export async function GET() {
   return new Response(JSON.stringify(recipeData), {
     status: 200,
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
 }

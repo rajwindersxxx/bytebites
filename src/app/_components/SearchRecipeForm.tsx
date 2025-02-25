@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Input from "./Input";
-import { PrimaryButton } from "./button";
+import { PrimaryButton } from "./Buttons";
 import { useCustomParams } from "../_hooks/useCustomParams";
 
 export default function SearchRecipeForm() {

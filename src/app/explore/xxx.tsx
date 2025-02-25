@@ -1,6 +1,6 @@
 "use client";
 
-import { SecondaryButton } from "../_components/button";
+import { SecondaryButton } from "../_components/Buttons";
 
 interface ErrorProps {
   error: {
@@ -11,11 +11,11 @@ interface ErrorProps {
 
 export default function error({ error, reset }: ErrorProps) {
   return (
-    <div className="flex justify-center flex-col gap-8 items-center h-[65vh] text-center">
+    <div className="flex h-[65vh] flex-col items-center justify-center gap-8 text-center">
       <h1 className="text-3xl font-semibold">Something went wrong!</h1>
       <p className="text-lg">{error.message}</p>
       <SecondaryButton
-        className="inline-block bg-accent-500 text-primary-800 px-6 py-3 text-lg"
+        className="bg-accent-500 text-primary-800 inline-block px-6 py-3 text-lg"
         onClick={reset}
       >
         Try again

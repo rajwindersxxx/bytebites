@@ -1,5 +1,5 @@
 "use client";
-import { SecondaryButton } from "./button";
+import { SecondaryButton } from "./Buttons";
 import { useCustomParams } from "../_hooks/useCustomParams";
 
 interface props {
@@ -16,14 +16,14 @@ export default function Pagination({ totalResults, pageSize }: props) {
     curPage === totalPages ? totalResults : startResult + pageSize;
 
   return (
-    <div className="h-16 border rounded-md flex justify-between items-center m-4 p-2">
+    <div className="m-4 flex h-16 items-center justify-between rounded-md border p-2">
       <div className="flex gap-4">
-        <p className=" text-secondary">
+        <p className="text-secondary">
           Showing {startResult} to {endResults} of {totalResults}
         </p>
       </div>
 
-      <div className="flex gap-4 items-center">
+      <div className="flex items-center gap-4">
         <SecondaryButton
           onClick={() => {
             if (curPage !== 1) setParams({ page: String(curPage - 1) });
