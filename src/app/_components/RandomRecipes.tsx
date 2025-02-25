@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import RecipeCard from "./RecipeCard";
-import { SITE_URL } from "../_config/siteConfig";
+import { getRandomRecipeData } from "../_actions/action";
 
 // Define the correct interface for a single recipe
 interface Recipe {
@@ -18,13 +18,10 @@ interface Recipe {
 }
 
 export default function RandomRecipes() {
-  // Use the Recipe interface for recipeData
   const [recipeData, setRecipeData] = useState<Recipe[]>([]);
-
   useEffect(() => {
     async function getRecipe() {
-      const res = await fetch(`${SITE_URL}/api/recipe`);
-      const data = await res.json();
+      const data = await getRandomRecipeData() as [];
       setRecipeData(data);
     }
     getRecipe();
