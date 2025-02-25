@@ -4,7 +4,7 @@ import RecipeCard from "@/app/_components/RecipeCard";
 import Pagination from "@/app/_components/Pagination";
 import { getSearchedRecipe } from "@/app/_servers/foodApi";
 import { SEARCH_RESULTS_COUNT } from "@/app/_config/foodApiConfig";
-import { searchRecipe } from "../../data/searchRecipe";
+import { searchRecipe } from "../../_data/searchRecipe";
 interface SearchParams {
   search: string;
   page: number;
@@ -30,7 +30,7 @@ export default async function FilterPage({
   // const { results, number, totalResults } = searchRecipe;
   return (
     <Suspense fallback={<Spinner />}>
-      <div className="grid grid-cols-responsiveGrid gap-4 mx-auto place-items-center">
+      <div className="mx-auto grid grid-cols-responsiveGrid place-items-center gap-4">
         {results.map((recipe) => (
           <RecipeCard data={recipe} key={recipe.id + recipe.title} />
         ))}

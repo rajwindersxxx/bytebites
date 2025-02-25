@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
+import Link from "next/link";
+import React from "react";
+import { ImageElement } from "./ImageElement";
 
 interface props {
   data: RecipeData;
@@ -35,40 +35,35 @@ export default function RecipeCard({ data, baseUrlImage }: props) {
   return (
     <Link
       href={`/recipeDetail?recipeId=${id}`}
-      className="min-w-[28rem] bg-natural-beige rounded-md overflow-hidden grid grid-cols-[1fr_1.7fr] transition-all hover:scale-105 hover:shadow-md"
+      className="grid min-w-[28rem] grid-cols-[1fr_1.7fr] overflow-hidden rounded-md bg-natural-beige transition-all hover:scale-105 hover:shadow-md"
     >
-      <div className="h-full relative ">
+      <div className="relative h-full">
         {baseUrlImage ? (
-          <Image
+          <ImageElement
             src={`${baseUrlImage}/${image}`}
             alt={title}
-            fill
-            sizes="100%"
-            className="object-cover brightness-75"
+            className="brightness-75"
           />
         ) : (
-          <Image
+          <ImageElement
             src={image}
             alt={title}
-            fill
-            className="object-cover"
-            sizes="100%"
           />
         )}
       </div>
-      <div className="flex flex-col p-4 gap-2">
-        <h3 className=" font-bold">
+      <div className="flex flex-col gap-2 p-4">
+        <h3 className="font-bold">
           {title.slice(0, 25)}
-          {title.length > 25 && ' ...'}
+          {title.length > 25 && " ..."}
         </h3>
-        <div className="grid grid-cols-[1fr_0.5fr_1fr] gap-2 items-center justify-center content-center">
+        <div className="grid grid-cols-[1fr_0.5fr_1fr] content-center items-center justify-center gap-2">
           {readyInMinutes && <p>⏱️ {readyInMinutes} min </p>}
           {servings && <p>👨‍👩‍👧‍👦 {servings} </p>}
           {pricePerServing && <p>💸 {pricePerServing} $</p>}
-          {(!baseUrlImage && servings) && (
-            <p>{vegetarian ? '🍀 veg' : '🥩 non-veg'} </p>
+          {!baseUrlImage && servings && (
+            <p>{vegetarian ? "🍀 veg" : "🥩 non-veg"} </p>
           )}
-          <p className="col-start-3">{veryPopular && '🌟 popular'} </p>
+          <p className="col-start-3">{veryPopular && "🌟 popular"} </p>
           {extendedIngredients && (
             <p className="col-span-2">
               {extendedIngredients.length} Ingredients

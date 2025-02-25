@@ -6,6 +6,7 @@ import Ingredients from "@/app/_components/Ingredients";
 import RecipeInstructions from "@/app/_components/RecipeInstructions";
 import SimilarRecipes from "@/app/_components/SimilarRecipes";
 import { getRecipeDetails } from "@/app/_servers/foodApi";
+import { ImageElement } from "../_components/ImageElement";
 interface props {
   searchParams: { recipeId: string };
 }
@@ -23,13 +24,10 @@ export default async function page({ searchParams }: props) {
   return (
     <div className="container mx-auto p-12 m-8 border grid grid-cols-[1fr_1fr_1fr] gap-12  ">
       <div className=" overflow-hidden relative rounded-lg border border-natural-green">
-        <Image
+        <ImageElement
           src={image}
-          priority={true}
           alt="title"
-          fill
           className=" object-cover"
-          sizes="100%"
         />
       </div>
       <RecipeDetail detail={otherDetails} />

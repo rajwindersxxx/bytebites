@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import Input from "./Input";
 import { IconButton, SecondaryButton } from "./Buttons";
 import { useFieldArray, useForm } from "react-hook-form";
-import { SITE_URL } from "../_config/siteConfig";
+import { makeARecipe } from "../_actions/action";
+import RecipePreview from "./RecipePreview";
 type Data = {
   ingredient: {
     value: string;
@@ -11,6 +12,7 @@ type Data = {
 };
 export default function GenerateRecipeForm() {
   const [isLoading, setIsLoading] = useState(false);
+  const [recipePreview, setRecipePreview] = useState<string | null>(null);
   const { control, register, handleSubmit, reset } = useForm<Data>();
   const { fields, append, remove } = useFieldArray({
     control,
@@ -19,10 +21,10 @@ export default function GenerateRecipeForm() {
 
   async function onSubmit(data: Data) {
     setIsLoading(true);
-    const ingredients = data.ingredient.map((item) => item.value).join(", ");
-    const res = await fetch(`${SITE_URL}/api/aiRecipe?recipe=${ingredients}`);
-    const output = await res.json();
-    console.log(output);
+    const output = await makeARecipe(data);
+    sessionStorage.setItem("generatedRecipe", JSON.stringify(output));
+    const previewData = 'review' in output ? output.review : null;
+    setRecipePreview(previewData);
     reset();
     setIsLoading(false);
   }
@@ -48,7 +50,11 @@ export default function GenerateRecipeForm() {
           >
             +
           </IconButton>
-          <IconButton type="button" onClick={() => remove(-1)} disabled={isLoading}>
+          <IconButton
+            type="button"
+            onClick={() => remove(-1)}
+            disabled={isLoading}
+          >
             -
           </IconButton>
         </div>
@@ -59,6 +65,7 @@ export default function GenerateRecipeForm() {
           </SecondaryButton>
         </div>
       </form>
+      {recipePreview && <RecipePreview review={recipePreview} />}
     </>
   );
 }

@@ -1,7 +1,7 @@
 export const recipeData = [
   {
     id: 643857,
-    image: 'https://img.spoonacular.com/recipes/643857-556x370.jpg',
+    image: 'https://img.spoonacular.com/recipes/643857-556x370.jpgxx',
     imageType: 'jpg',
     title: 'Frittata',
     readyInMinutes: 45,
