@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image.js";
 import RecipeSummary from "@/app/_components/RecipeSummary";
 import RecipeDetail from "@/app/_components/RecipeDetail";
 import Ingredients from "@/app/_components/Ingredients";

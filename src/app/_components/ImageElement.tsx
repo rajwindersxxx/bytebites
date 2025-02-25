@@ -10,7 +10,7 @@ export function ImageElement({ src , className, alt}: props2) {
   const [imageError, setImageError] = useState(false);
   return (
     <>
-      {!imageError && (
+      {!imageError ? (
         <Image
           fill
           src={src}
@@ -19,7 +19,14 @@ export function ImageElement({ src , className, alt}: props2) {
           className={`object-cover ${className}`}
           onError={() => setImageError(true)}
         />
-      )}
+      ) :  <Image
+      fill
+      src='/missingImage.jpg'
+      alt={alt}
+      sizes="100%"
+      className={`object-cover ${className}`}
+      onError={() => setImageError(true)}
+    />}
     </>
   );
 }

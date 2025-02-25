@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 interface RecipeDetailProps {
   title: string;
   dishTypes: string[];
@@ -29,9 +29,9 @@ export default function RecipeDetail({ detail }: Props) {
     veryPopular,
   } = detail;
   return (
-    <div className="bg-natural-cream flex flex-col gap-4 p-4 col-span-2">
+    <div className="col-span-2 flex flex-col gap-4 bg-natural-cream p-4">
       <h2 className="text-4xl underline">{title}</h2>
-      <div className=" flex flex-col gap-4 text-xl ">
+      <div className="flex flex-col gap-4 text-xl">
         <p>🍽️ {dishTypes} type </p>
         <p>
           ⏱️ Ready In <span className="font-bold">{readyInMinutes}</span>
@@ -41,13 +41,15 @@ export default function RecipeDetail({ detail }: Props) {
           👨‍👩‍👧‍👦 Total <span className="font-bold">{servings}</span> servings
         </p>
         <p>
-          💸 Approximate Cost:{' '}
+          💸 Approximate Cost:{" "}
           <span className="font-bold">{pricePerServing}</span> $ per serving
         </p>
-        <p>{vegetarian ? '🍀 vegetarian' : '🥩 non-vegetarian'} </p>
-        {cuisines.length > 0 && <p>🇨🇻 Cuisines {cuisines.join(', ')} </p>}
-       {winePairing && <p>🍷 Pair with {winePairing?.pairedWines.join(', ')} </p>}
-        <p className="col-start-3">{veryPopular && '🌟 popular'} </p>
+        <p>{vegetarian ? "🍀 vegetarian" : "🥩 non-vegetarian"} </p>
+        {cuisines.length > 0 && <p>🇨🇻 Cuisines {cuisines.join(", ")} </p>}
+        {winePairing && (
+          <p>🍷 Pair with {winePairing?.pairedWines.join(", ")} </p>
+        )}
+        <p className="col-start-3">{veryPopular && "🌟 popular"} </p>
       </div>
     </div>
   );

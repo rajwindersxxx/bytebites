@@ -17,6 +17,9 @@ interface RecipeData {
   veryPopular?: boolean;
   extendedIngredients?: unknown[];
   baseUrlImage?: string;
+  usedIngredientCount?:number;
+  missedIngredientCount?: number;
+  missedIngredients?: {name: string}[]
 }
 
 export default function RecipeCard({ data, baseUrlImage }: props) {
@@ -30,6 +33,7 @@ export default function RecipeCard({ data, baseUrlImage }: props) {
     pricePerServing,
     veryPopular,
     extendedIngredients,
+    missedIngredients,
   } = data;
 
   return (
@@ -57,6 +61,7 @@ export default function RecipeCard({ data, baseUrlImage }: props) {
           {title.length > 25 && " ..."}
         </h3>
         <div className="grid grid-cols-[1fr_0.5fr_1fr] content-center items-center justify-center gap-2">
+          {missedIngredients && <p className="col-span-3"><span className="font-bold">Require</span> {missedIngredients.map(item => item.name).join(', ')} </p>}
           {readyInMinutes && <p>⏱️ {readyInMinutes} min </p>}
           {servings && <p>👨‍👩‍👧‍👦 {servings} </p>}
           {pricePerServing && <p>💸 {pricePerServing} $</p>}

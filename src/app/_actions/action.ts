@@ -3,6 +3,8 @@ import { simulateApiRequest } from "../_helper/helper";
 import { aiOutputToObject, makeAQuestion } from "../_lib/apiFunctions";
 import { AiResponseSample } from "../_data/recipeAiData";
 import { askAi } from "../_servers/googleAiApi";
+import { SearchRecipeByIngredients } from "../_servers/foodApi";
+import { recipeSearchBased } from "../_data/recipeIngdidientBased";
 
 type Data = {
   ingredient: {
@@ -23,4 +25,12 @@ export async function makeARecipe(data: Data) {
   }
   const generatedRecipe = aiOutputToObject(generatedAIData);
   return generatedRecipe;
+}
+
+export async function getSimilarRecipes(ingredients: { name: string }[]) {
+  const ingredient = ingredients.map((item) => item.name.trim()).join(",");
+  // const data = await SearchRecipeByIngredients(ingredient);
+  const data = recipeSearchBased;
+
+  return data;
 }
