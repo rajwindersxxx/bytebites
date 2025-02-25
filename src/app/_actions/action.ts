@@ -48,9 +48,21 @@ export async function getSimilarRecipes(ingredients: { name: string }[]) {
   }
   return data;
 }
-
-export async function getRandomRecipeData() {
-  let data;
+interface Recipe {
+  id: number;
+  image: string;
+  title: string;
+  readyInMinutes: number;
+  servings: number;
+  vegetarian?: boolean;
+  pricePerServing?: number;
+  veryPopular?: boolean;
+  extendedIngredients?: unknown[];
+  baseUrlImage?: string;
+  searchParams: { search: string };
+}
+export async function getRandomRecipeData(): Promise<Recipe[]>  {
+  let data ;
   if (USE_API) {
     const { recipes: recipeArray }: { recipes: [] } =
       await getRandomRecipes(12);
@@ -58,5 +70,5 @@ export async function getRandomRecipeData() {
   } else {
     data = await simulateApiRequest(recipeData, 2000);
   }
-  return data;
+  return data as Recipe[];
 }

@@ -5,6 +5,7 @@ import { IconButton, SecondaryButton } from "./Buttons";
 import { useFieldArray, useForm } from "react-hook-form";
 import { makeARecipe } from "../_actions/action";
 import RecipePreview from "./RecipePreview";
+import Spinner from "./Spinner";
 type Data = {
   ingredient: {
     value: string;
@@ -13,7 +14,11 @@ type Data = {
 export default function GenerateRecipeForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [recipePreview, setRecipePreview] = useState<string | null>(null);
-  const { control, register, handleSubmit, reset } = useForm<Data>();
+  const { control, register, handleSubmit, reset } = useForm<Data>({
+    defaultValues: {
+      ingredient: [{value: ""}, {value: ""}, {value: ""}]
+    }
+  });
   const { fields, append, remove } = useFieldArray({
     control,
     name: "ingredient",
@@ -23,7 +28,7 @@ export default function GenerateRecipeForm() {
     setIsLoading(true);
     const output = await makeARecipe(data);
     sessionStorage.setItem("generatedRecipe", JSON.stringify(output));
-    const previewData = 'review' in output ? output.review : null;
+    const previewData = "review" in output ? output.review : null;
     setRecipePreview(previewData);
     reset();
     setIsLoading(false);
@@ -65,6 +70,7 @@ export default function GenerateRecipeForm() {
           </SecondaryButton>
         </div>
       </form>
+      {isLoading && <Spinner />}
       {recipePreview && <RecipePreview review={recipePreview} />}
     </>
   );

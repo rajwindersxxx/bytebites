@@ -1,3 +1,4 @@
+// spellchecker:ignore
 export const recipeAiData = {
   "title": "Spicy Sweet Egg Toast",
   "type": "Breakfast/Snack",

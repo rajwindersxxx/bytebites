@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
 import RecipeCard from "./RecipeCard";
 import { getRandomRecipeData } from "../_actions/action";
+import { useQuery } from "@tanstack/react-query";
+import Spinner from "./Spinner";
 
 // Define the correct interface for a single recipe
 interface Recipe {
@@ -16,20 +17,18 @@ interface Recipe {
   baseUrlImage?: string;
   searchParams: { search: string };
 }
-
-export default function RandomRecipes() {
-  const [recipeData, setRecipeData] = useState<Recipe[]>([]);
-  useEffect(() => {
-    async function getRecipe() {
-      const data = await getRandomRecipeData() as [];
-      setRecipeData(data);
-    }
-    getRecipe();
-  }, []);
-
+interface props {
+  groupId: number;
+}
+export default function RandomRecipes({groupId}: props) {
+  const { data , isLoading} = useQuery<Recipe[]>({
+    queryKey: [`randomRecipes${groupId}`],
+    queryFn: getRandomRecipeData,
+  });
+  if(isLoading) return <Spinner/>
   return (
     <>
-      {recipeData.map((recipe) => (
+      {data?.map((recipe: Recipe) => (
         <RecipeCard data={recipe} key={recipe.id} />
       ))}
     </>
