@@ -1,5 +1,4 @@
 import { FOOD_URL, SEARCH_RESULTS_COUNT } from "../_config/foodApiConfig";
-
 const apiKey = process.env.FOOD_API_KEY;
 
 export async function getSearchedRecipe(recipeName: string, offset: number) {
@@ -17,7 +16,6 @@ export async function getSearchedRecipe(recipeName: string, offset: number) {
     return null;
   }
 }
-
 export async function getRandomRecipes(count: number) {
   try {
     const res = await fetch(
@@ -33,7 +31,6 @@ export async function getRandomRecipes(count: number) {
     return null;
   }
 }
-
 export async function getRecipeDetails(id: number) {
   try {
     const res = await fetch(
@@ -63,7 +60,7 @@ export async function getSimilarRecipes(id: number) {
     return null;
   }
 }
-export async function SearchRecipeByIngredients(ingredients: string) {
+export async function getRecipeByIngredients(ingredients: string) {
   console.log(ingredients)
   try {
     const res = await fetch(

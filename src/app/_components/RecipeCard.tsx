@@ -1,6 +1,10 @@
 import Link from "next/link";
 import React from "react";
 import { ImageElement } from "./ImageElement";
+import {
+  HiOutlineHeart,
+  HiOutlineThumbUp,
+} from "react-icons/hi";
 
 interface props {
   data: RecipeData;
@@ -17,9 +21,9 @@ interface RecipeData {
   veryPopular?: boolean;
   extendedIngredients?: unknown[];
   baseUrlImage?: string;
-  usedIngredientCount?:number;
+  usedIngredientCount?: number;
   missedIngredientCount?: number;
-  missedIngredients?: {name: string}[]
+  missedIngredients?: { name: string }[];
 }
 
 export default function RecipeCard({ data, baseUrlImage }: props) {
@@ -49,10 +53,7 @@ export default function RecipeCard({ data, baseUrlImage }: props) {
             className="brightness-75"
           />
         ) : (
-          <ImageElement
-            src={image}
-            alt={title}
-          />
+          <ImageElement src={image} alt={title} />
         )}
       </div>
       <div className="flex flex-col gap-2 p-4">
@@ -61,7 +62,12 @@ export default function RecipeCard({ data, baseUrlImage }: props) {
           {title.length > 25 && " ..."}
         </h3>
         <div className="grid grid-cols-[1fr_0.5fr_1fr] content-center items-center justify-center gap-2">
-          {missedIngredients && <p className="col-span-3"><span className="font-bold">Require</span> {missedIngredients.map(item => item.name).join(', ')} </p>}
+          {missedIngredients && (
+            <p className="col-span-3">
+              <span className="font-bold">Require</span>{" "}
+              {missedIngredients.map((item) => item.name).join(", ")}{" "}
+            </p>
+          )}
           {readyInMinutes && <p>⏱️ {readyInMinutes} min </p>}
           {servings && <p>👨‍👩‍👧‍👦 {servings} </p>}
           {pricePerServing && <p>💸 {pricePerServing} $</p>}
@@ -75,8 +81,12 @@ export default function RecipeCard({ data, baseUrlImage }: props) {
             </p>
           )}
           <div className="col-start-3 flex justify-end gap-4">
-            <button>❤️ </button>
-            <button>👍 </button>
+            <button>
+              <HiOutlineThumbUp className="h-6 w-6 stroke-natural-terracotta transition-all hover:scale-110 hover:fill-natural-terracotta" />
+            </button>
+            <button>
+              <HiOutlineHeart className="h-6 w-6 stroke-natural-terracotta transition-all hover:scale-110 hover:fill-natural-terracotta" />
+            </button>
           </div>
         </div>
       </div>

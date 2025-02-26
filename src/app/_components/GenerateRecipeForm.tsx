@@ -16,8 +16,8 @@ export default function GenerateRecipeForm() {
   const [recipePreview, setRecipePreview] = useState<string | null>(null);
   const { control, register, handleSubmit, reset } = useForm<Data>({
     defaultValues: {
-      ingredient: [{value: ""}, {value: ""}, {value: ""}]
-    }
+      ingredient: [{ value: "" }, { value: "" }, { value: "" }],
+    },
   });
   const { fields, append, remove } = useFieldArray({
     control,

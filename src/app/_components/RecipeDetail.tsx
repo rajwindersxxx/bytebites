@@ -1,4 +1,5 @@
 import React from "react";
+import { HiOutlineHeart, HiOutlineThumbUp } from "react-icons/hi";
 interface RecipeDetailProps {
   title: string;
   dishTypes: string[];
@@ -30,7 +31,17 @@ export default function RecipeDetail({ detail }: Props) {
   } = detail;
   return (
     <div className="col-span-2 flex flex-col gap-4 bg-natural-cream p-4">
-      <h2 className="text-4xl underline">{title}</h2>
+      <div className="flex justify-between ">
+        <h2 className="text-4xl underline">{title} </h2>
+        <div className="flex gap-4">
+          <button>
+            <HiOutlineThumbUp className="h-8 w-8 stroke-natural-terracotta transition-all hover:scale-110 hover:fill-natural-terracotta" />
+          </button>
+          <button>
+            <HiOutlineHeart className="h-8 w-8 stroke-natural-terracotta transition-all hover:scale-110 hover:fill-natural-terracotta" />
+          </button>
+        </div>
+      </div>
       <div className="flex flex-col gap-4 text-xl">
         <p>🍽️ {dishTypes} type </p>
         <p>

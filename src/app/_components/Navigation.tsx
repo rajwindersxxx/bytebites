@@ -1,13 +1,16 @@
-import Link from 'next/link';
-import React from 'react';
+import Link from "next/link";
+import React from "react";
+import { auth } from "../_config/Auth";
 
-export default function Navigation() {
+export default async function Navigation() {
+  const session = await auth();
+  console.log(session)
   return (
-    <ul className="flex gap-4 ">
+    <ul className="flex gap-4">
       <li>
         <Link
           href="/"
-          className="hover:scale-110 hover:bg-accent rounded-md py-2 px-4 transition-all block active:bg-primary active:scale-105"
+          className="block rounded-md px-4 py-2 transition-all hover:scale-110 hover:bg-accent active:scale-105 active:bg-primary"
         >
           home
         </Link>
@@ -15,7 +18,7 @@ export default function Navigation() {
       <li>
         <Link
           href="/generateRecipe"
-          className="hover:scale-110 hover:bg-accent rounded-md py-2 px-4 transition-all block active:bg-primary active:scale-105"
+          className="block rounded-md px-4 py-2 transition-all hover:scale-110 hover:bg-accent active:scale-105 active:bg-primary"
         >
           Generate
         </Link>
@@ -23,35 +26,39 @@ export default function Navigation() {
       <li>
         <Link
           href="/explore"
-          className="hover:scale-110 hover:bg-accent rounded-md py-2 px-4 transition-all block active:bg-primary active:scale-105"
+          className="block rounded-md px-4 py-2 transition-all hover:scale-110 hover:bg-accent active:scale-105 active:bg-primary"
         >
           Explore
         </Link>
       </li>
-      <li>
-        <Link
-          href="/planner"
-          className="hover:scale-110 hover:bg-accent rounded-md py-2 px-4 transition-all block active:bg-primary active:scale-105"
-        >
-          Planner
-        </Link>
-      </li>
-      <li>
-        <Link
-          href="/shopping"
-          className="hover:scale-110 hover:bg-accent rounded-md py-2 px-4 transition-all block active:bg-primary active:scale-105"
-        >
-          Shopping
-        </Link>
-      </li>
-      <li>
-        <Link
-          href="/saved"
-          className="hover:scale-110 hover:bg-accent rounded-md py-2 px-4 transition-all block active:bg-primary active:scale-105"
-        >
-          Saved
-        </Link>
-      </li>
+      {session?.user && (
+        <>
+          <li>
+            <Link
+              href="/planner"
+              className="block rounded-md px-4 py-2 transition-all hover:scale-110 hover:bg-accent active:scale-105 active:bg-primary"
+            >
+              Planner
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/shopping"
+              className="block rounded-md px-4 py-2 transition-all hover:scale-110 hover:bg-accent active:scale-105 active:bg-primary"
+            >
+              Shopping
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/saved"
+              className="block rounded-md px-4 py-2 transition-all hover:scale-110 hover:bg-accent active:scale-105 active:bg-primary"
+            >
+              Saved
+            </Link>
+          </li>
+        </>
+      )}
     </ul>
   );
 }

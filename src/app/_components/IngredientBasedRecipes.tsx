@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import RecipeCard from "./RecipeCard";
-import { getSimilarRecipes } from "../_actions/action";
+import { getRecipeByIngredientsData } from "../_actions/action";
 
 interface props {
   extendedIngredients: { name: string }[];
@@ -11,8 +11,8 @@ function IngredientBasedRecipes({ extendedIngredients }: props) {
   >(null);
   useEffect(() => {
     async function getRecipes() {
-      const output = await getSimilarRecipes(extendedIngredients);
-      setSimilarRecipes(output)
+      const output = await getRecipeByIngredientsData(extendedIngredients);
+      setSimilarRecipes(output);
     }
     getRecipes();
   }, [extendedIngredients]);

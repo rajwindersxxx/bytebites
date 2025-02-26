@@ -11,6 +11,14 @@
     border-right-color: theme('colors.natural.sage');
     animation: rotate 1s infinite linear;
   }
+  .miniSpinner{
+    width: 24px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 3px solid theme('colors.natural.beige');
+    border-right-color: theme('colors.natural.sage');
+    animation: rotate 1s infinite linear;
+  }
 
   @keyframes rotate {
     to {

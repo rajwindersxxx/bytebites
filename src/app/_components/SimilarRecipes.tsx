@@ -1,7 +1,7 @@
 import React from "react";
 import RecipeCard from "./RecipeCard";
-import { getSimilarRecipes } from "../_servers/foodApi";
 import { RECIPE_IMAGE_URL } from "../_config/foodApiConfig";
+import { getSimilarRecipesData } from "../_actions/action";
 interface props {
   id: number;
 }
@@ -13,7 +13,7 @@ interface similarRecipe {
   servings: number;
 }
 export default async function SimilarRecipes({ id }: props) {
-  const data: similarRecipe[] = await getSimilarRecipes(id);
+  const data: similarRecipe[] = await getSimilarRecipesData(id);
   return (
     <div>
       <h2 className="text-2xl mb-8"> 📝 Similar Recipes</h2>

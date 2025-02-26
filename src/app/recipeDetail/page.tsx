@@ -4,14 +4,15 @@ import RecipeDetail from "@/app/_components/RecipeDetail";
 import Ingredients from "@/app/_components/Ingredients";
 import RecipeInstructions from "@/app/_components/RecipeInstructions";
 import SimilarRecipes from "@/app/_components/SimilarRecipes";
-import { getRecipeDetails } from "@/app/_servers/foodApi";
 import { ImageElement } from "../_components/ImageElement";
+import {  getRecipeDetailsData } from "../_actions/action";
 interface props {
   searchParams: { recipeId: string };
 }
 export default async function page({ searchParams }: props) {
   const { recipeId } = await searchParams;
-  const data = await getRecipeDetails(Number(recipeId));
+
+  const data = await getRecipeDetailsData(recipeId);
   const {
     id,
     image,

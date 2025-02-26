@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./_components/Header";
 import { QueryProvider } from "./providers";
+import Footer from "./_components/Footer";
 
 // const geistSans = Geist({
 //   variable: '--font-geist-sans',
@@ -27,10 +28,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="text-gray-800">
-      <body className={`bg-natural-cream`}>
+      <body className={`bg-natural-cream grid grid-rows-[auto_1fr_auto] h-screen`}>
         <QueryProvider>
           <Header />
           <main>{children}</main>
+          <Footer/>
         </QueryProvider>
       </body>
     </html>

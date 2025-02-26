@@ -1,7 +1,7 @@
 import GenerateRecipeForm from "../_components/GenerateRecipeForm";
 export default function GenerateRecipePage() {
   return (
-    <div className="flex min-h-[91vh] flex-col items-center justify-center gap-8 py-12 text-center">
+    <div className="flex flex-col items-center justify-center gap-8 py-12 text-center">
       <GenerateRecipeForm />
     </div>
   );

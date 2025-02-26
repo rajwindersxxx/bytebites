@@ -2248,6 +2248,7 @@ export const recipeDetails = [
       "spoonacularSourceUrl": "https://spoonacular.com/english-berry-trifle-642413"
   }
 ]
+
 export const recipeData = [
   {
     id: 643857,

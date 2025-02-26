@@ -1,6 +1,7 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export function useCustomParams() {
+
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -14,7 +15,7 @@ export function useCustomParams() {
     if (path && !pathname.endsWith(path)) {
       newPath = `${pathname}${path}`;
     }
-    
+
     Object.entries(newParams).forEach(([key, value]) => {
       params.set(key, value);
     });
