@@ -1,13 +1,13 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
-import { signInSchema } from "../_lib/zod";
-import { getUser } from "../_servers/supabaseApi";
+import { signInSchema } from "./zod";
+import { getUserDB } from "../_servers/supabaseApi";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
-      name: 'credentials',
+      name: "credentials",
       credentials: {
         email: {},
         password: {},
@@ -16,14 +16,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         try {
           const { email: inputEmail, password: inputPassword } =
             await signInSchema.parseAsync(credentials);
-          const { data, error: getUserError } = await getUser(inputEmail);
+          const { data, error: getUserError } = await getUserDB(inputEmail);
 
           if (getUserError || !data || data.length === 0) {
-            console.error("User not found or error fetching user:", getUserError);
+            console.error(
+              "User not found or error fetching user:",
+              getUserError,
+            );
             return null; // Return null if user not found or error occurred
           }
 
-          const { password: hashedPassword, id, name } = data[0]; // extract id and name.
+          const { password: hashedPassword, id, username } = data[0]; // extract id and name.
 
           return new Promise((resolve) => {
             bcrypt.compare(inputPassword, hashedPassword, (err, result) => {
@@ -34,7 +37,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
               if (result) {
                 // Return user object if passwords match
-                resolve({ id: id, name: name, email: inputEmail }); //Return user object
+                resolve({ id: id, name: username, email: inputEmail }); //Return user object
               } else {
                 resolve(null); // Return null if passwords don't match
               }
@@ -47,4 +50,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user?.id) token.id = user.id;
+      return token;
+    },
+    async session({ session, token }) {
+      if (token?.id) session.user.id = String(token.id);
+      if (token?.sub) session.user.id = token.sub;
+      return session;
+    },
+  },
 });

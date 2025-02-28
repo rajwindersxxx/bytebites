@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from 'next/font/google';
 import "./globals.css";
 import Header from "./_components/Header";
-import { QueryProvider } from "./providers";
+import { QueryProvider } from "./context/providers";
 import Footer from "./_components/Footer";
+import SessionAuthProvider from "./context/SessionAuthProvider";
+import { RecipeDataContext } from "./context/RecipeDataContext";
 
 // const geistSans = Geist({
 //   variable: '--font-geist-sans',
@@ -28,12 +30,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="text-gray-800">
-      <body className={`bg-natural-cream grid grid-rows-[auto_1fr_auto] h-screen`}>
-        <QueryProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer/>
-        </QueryProvider>
+      <body
+        className={`grid h-screen grid-rows-[auto_1fr_auto] bg-natural-cream`}
+      >
+        <SessionAuthProvider>
+          <QueryProvider>
+            <RecipeDataContext>
+              <Header />
+              <main>{children}</main>
+              <Footer />
+            </RecipeDataContext>
+          </QueryProvider>
+        </SessionAuthProvider>
       </body>
     </html>
   );

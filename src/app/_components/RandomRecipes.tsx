@@ -20,12 +20,13 @@ interface Recipe {
 interface props {
   groupId: number;
 }
-export default function RandomRecipes({groupId}: props) {
-  const { data , isLoading} = useQuery<Recipe[]>({
+export default function RandomRecipes({ groupId }: props) {
+  const { data, isLoading } = useQuery<Recipe[]>({
     queryKey: [`randomRecipes${groupId}`],
     queryFn: getRandomRecipeData,
   });
-  if(isLoading) return <Spinner/>
+
+  if (isLoading) return <Spinner />;
   return (
     <>
       {data?.map((recipe: Recipe) => (

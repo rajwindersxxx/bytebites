@@ -14,7 +14,6 @@ export default async function page({ searchParams }: props) {
 
   const data = await getRecipeDetailsData(recipeId);
   const {
-    id,
     image,
     summary,
     extendedIngredients,
@@ -34,7 +33,7 @@ export default async function page({ searchParams }: props) {
       <RecipeSummary summary={summary} />
       <Ingredients extendedIngredients={extendedIngredients} />
       <RecipeInstructions analyzedInstructions={analyzedInstructions} />
-      <SimilarRecipes id={id} />
+      <SimilarRecipes id={otherDetails.id} />
     </div>
   );
 }

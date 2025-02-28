@@ -7,6 +7,7 @@ import RecipeInstructions from "@/app/_components/RecipeInstructions";
 import RecipeSummary from "@/app/_components/RecipeSummary";
 import { useEffect, useState } from "react";
 type recipe = {
+  id: number;
   summary: string;
   title: string;
   dishTypes: string[];

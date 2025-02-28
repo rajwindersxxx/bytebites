@@ -1,3 +1,1 @@
-export { auth as middleware} from "./_config/Auth"
-
-
+export { auth as middleware } from "./_lib/Auth";

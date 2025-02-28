@@ -1,10 +1,8 @@
-import Link from "next/link";
+"use client";
 import React from "react";
 import { ImageElement } from "./ImageElement";
-import {
-  HiOutlineHeart,
-  HiOutlineThumbUp,
-} from "react-icons/hi";
+import RecipeCardButtons from "./RecipeCardButtons";
+import { useRouter } from "next/navigation";
 
 interface props {
   data: RecipeData;
@@ -26,7 +24,7 @@ interface RecipeData {
   missedIngredients?: { name: string }[];
 }
 
-export default function RecipeCard({ data, baseUrlImage }: props) {
+export default function RecipeCard({ data, baseUrlImage,}: props) {
   const {
     id,
     image,
@@ -39,11 +37,11 @@ export default function RecipeCard({ data, baseUrlImage }: props) {
     extendedIngredients,
     missedIngredients,
   } = data;
-
+  const router = useRouter();
   return (
-    <Link
-      href={`/recipeDetail?recipeId=${id}`}
-      className="grid min-w-[28rem] grid-cols-[1fr_1.7fr] overflow-hidden rounded-md bg-natural-beige transition-all hover:scale-105 hover:shadow-md"
+    <div
+      onClick={() => router.push(`/recipeDetail?recipeId=${id}`)}
+      className="grid min-w-[28rem] grid-cols-[1fr_1.7fr] overflow-hidden rounded-md bg-natural-beige transition-all hover:scale-105 hover:shadow-md cursor-pointer"
     >
       <div className="relative h-full">
         {baseUrlImage ? (
@@ -80,16 +78,9 @@ export default function RecipeCard({ data, baseUrlImage }: props) {
               {extendedIngredients.length} Ingredients
             </p>
           )}
-          <div className="col-start-3 flex justify-end gap-4">
-            <button>
-              <HiOutlineThumbUp className="h-6 w-6 stroke-natural-terracotta transition-all hover:scale-110 hover:fill-natural-terracotta" />
-            </button>
-            <button>
-              <HiOutlineHeart className="h-6 w-6 stroke-natural-terracotta transition-all hover:scale-110 hover:fill-natural-terracotta" />
-            </button>
-          </div>
+          <RecipeCardButtons recipeId={id} />
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

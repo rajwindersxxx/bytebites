@@ -21,8 +21,14 @@ import {
   searchRecipe,
   similarRecipe,
 } from "../_data/dataSamples";
-import { createAUser } from "../_servers/supabaseApi";
-import { signIn } from "../_config/Auth";
+import {
+  addRemoveLikedRecipeDB,
+  addRemoveSavedRecipeDB,
+  createAUserDB,
+  getLikedRecipesDB,
+  getSavedRecipeSDB,
+} from "../_servers/supabaseApi";
+import { signIn } from "../_lib/Auth";
 
 interface Recipe {
   id: number;
@@ -125,7 +131,7 @@ export async function signUpUser(formData: {
   const salt = await bcrypt.genSalt(saltRounds);
   const hash = await bcrypt.hash(password, salt);
   const userData = { email: email, password: hash, username: username };
-  const data = await createAUser(userData);
+  const data = await createAUserDB(userData);
   return data;
 }
 export async function loginUser(formData: { email: string; password: string }) {
@@ -141,4 +147,28 @@ export async function loginUser(formData: { email: string; password: string }) {
     }
     return null;
   }
+}
+// database actions
+export async function addRemoveSavedRecipe(
+  recipeId: number,
+  userId: number,
+  remove: boolean | undefined,
+) {
+  if (remove === undefined) throw new Error("Value is not boolean");
+  return await addRemoveSavedRecipeDB(recipeId, userId, remove);
+}
+export async function addRemoveLikedRecipe(
+  recipeId: number,
+  userId: number,
+  remove: boolean | undefined,
+) {
+  if (remove === undefined) throw new Error("Value is not boolean");
+  return await addRemoveLikedRecipeDB(recipeId, userId, remove);
+}
+// get recipe data
+export async function getSavedRecipes(userId: number) {
+  return await getSavedRecipeSDB(userId);
+}
+export async function getLikedRecipes(userId: number) {
+  return await getLikedRecipesDB(userId);
 }

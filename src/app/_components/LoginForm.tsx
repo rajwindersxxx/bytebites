@@ -8,29 +8,34 @@ import { loginUser } from "../_actions/action";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import MiniSpinner from "./MiniSpinner";
+
 type formData = {
   email: string;
   password: string;
 };
 function LoginForm() {
   const router = useRouter();
-  const { mutate: handleSignIn, data, isPending } = useMutation({
-    mutationFn: (formData: formData) => loginUser(formData),
-    onSuccess: () => {
-      router.refresh();
-    },
-    onError: (error: unknown) => {
-      console.error("Login error:", error);
-      reset();
-    },
-  });
-  console.log(data);
   const {
     register,
     reset,
     handleSubmit,
     formState: { errors },
   } = useForm<formData>();
+
+  const {
+    mutate: handleSignIn,
+    data,
+    isPending,
+  } = useMutation({
+    mutationFn: (formData: formData) => loginUser(formData),
+    onSuccess: () => {
+      router.replace("/dashboard");
+    },
+    onError: (error: unknown) => {
+      console.error("Login error:", error);
+      reset();
+    },
+  });
   return (
     <form
       className="mx-auto w-[20rem]"
@@ -70,7 +75,7 @@ function LoginForm() {
       </div>
       <div className="!mt-1">
         <PrimaryButton type="submit" className="w-full">
-         { isPending ? <MiniSpinner/> : 'Log in'}
+          {isPending ? <MiniSpinner /> : "Log in"}
         </PrimaryButton>
       </div>
       {data && "message" in data && (
