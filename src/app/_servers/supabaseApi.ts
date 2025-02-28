@@ -51,7 +51,7 @@ export async function getSavedRecipeSDB(userId: number) {
   if (!userId) return ["no userId provided"];
   const { data: savedRecipes, error } = await supabase
     .from("savedRecipes")
-    .select('*')
+    .select('*, bitebytesRecipes(id , title, image, readyInMinutes,extendedIngredients,servings, summary)')
     .eq("userId", userId);
   if (error) {
     console.error(error);

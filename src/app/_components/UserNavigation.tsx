@@ -1,4 +1,3 @@
-"use client";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import {
@@ -63,7 +62,8 @@ function UserNavigation() {
       <ul>
         <form
           action={async () => {
-            await signOut({ redirectTo: "/" });
+            "use server"
+            await signOut()
           }}
         >
           <button

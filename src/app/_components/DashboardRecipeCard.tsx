@@ -3,11 +3,10 @@ import React from "react";
 import { ImageElement } from "./ImageElement";
 import RecipeCardButtons from "./RecipeCardButtons";
 import { useRouter } from "next/navigation";
-
+import { recipeData, recipeDetails } from "../_data/dataSamples";
 interface props {
   data: RecipeData;
   baseUrlImage?: string;
-  detailsLink?: string;
 }
 interface RecipeData {
   image: string;
@@ -25,7 +24,7 @@ interface RecipeData {
   missedIngredients?: { name: string }[];
 }
 
-export default function RecipeCard({ data, baseUrlImage, detailsLink }: props) {
+export default function DashboardRecipeCard({ data, baseUrlImage,}: props) {
   const {
     id,
     image,
@@ -37,17 +36,12 @@ export default function RecipeCard({ data, baseUrlImage, detailsLink }: props) {
     veryPopular,
     extendedIngredients,
     missedIngredients,
-  } = data;
+  } = recipeDetails[0];
   const router = useRouter();
-  const link = detailsLink ? detailsLink : `/recipeDetail?recipeId=${id}`;
-  function handleRoute() {
-    if (detailsLink) router.replace(link);
-    else router.push(link);
-  }
   return (
     <div
-      onClick={handleRoute}
-      className="grid w-[28rem] shrink-0 cursor-pointer grid-cols-[1fr_1.7fr] overflow-hidden rounded-md bg-natural-beige transition-all hover:scale-105 hover:shadow-md card"
+      onClick={() => router.push(`/recipeDetail?recipeId=${id}`)}
+      className="grid min-w-[20rem] grid-cols-[1fr_1.7fr] overflow-hidden rounded-md bg-natural-beige transition-all hover:scale-105 hover:shadow-md cursor-pointer"
     >
       <div className="relative h-full">
         {baseUrlImage ? (
@@ -60,8 +54,8 @@ export default function RecipeCard({ data, baseUrlImage, detailsLink }: props) {
           <ImageElement src={image} alt={title} />
         )}
       </div>
-      <div className="flex flex-col gap-2 p-4 cardDetails">
-        <h3 className="font-bold title">
+      <div className="flex flex-col gap-2 p-4">
+        <h3 className="font-bold">
           {title.slice(0, 25)}
           {title.length > 25 && " ..."}
         </h3>
