@@ -3,7 +3,6 @@ import React from "react";
 import { ImageElement } from "./ImageElement";
 import RecipeCardButtons from "./RecipeCardButtons";
 import { useRouter } from "next/navigation";
-
 interface props {
   data: RecipeData;
   baseUrlImage?: string;
@@ -44,10 +43,11 @@ export default function RecipeCard({ data, baseUrlImage, detailsLink }: props) {
     if (detailsLink) router.replace(link);
     else router.push(link);
   }
+  const isDragging = false
   return (
     <div
       onClick={handleRoute}
-      className="grid w-[28rem] shrink-0 cursor-pointer grid-cols-[1fr_1.7fr] overflow-hidden rounded-md bg-natural-beige transition-all hover:scale-105 hover:shadow-md card"
+      className={`card grid w-[28rem] shrink-0 cursor-pointer grid-cols-[1fr_1.7fr] overflow-hidden rounded-md bg-natural-beige hover:scale-105 hover:shadow-md relative ${isDragging? '': 'transition-all' }`}
     >
       <div className="relative h-full">
         {baseUrlImage ? (
@@ -60,8 +60,8 @@ export default function RecipeCard({ data, baseUrlImage, detailsLink }: props) {
           <ImageElement src={image} alt={title} />
         )}
       </div>
-      <div className="flex flex-col gap-2 p-4 cardDetails">
-        <h3 className="font-bold title">
+      <div className="cardDetails flex flex-col gap-2 p-4">
+        <h3 className="title font-bold">
           {title.slice(0, 25)}
           {title.length > 25 && " ..."}
         </h3>
