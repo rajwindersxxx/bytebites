@@ -7,7 +7,7 @@ export default function RecipeSummary({summary}: props) {
       <div className="bg-natural-cream  col-span-3">
         <h2 className="text-2xl mb-8"> 📝 Summary</h2>
         <div className="text-xl italic">
-          <div dangerouslySetInnerHTML={{ __html: summary }} />
+          <p dangerouslySetInnerHTML={{ __html: summary }} />
         </div>
       </div>
   );

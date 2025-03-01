@@ -18,8 +18,8 @@ interface props {
 export default function Ingredients({ extendedIngredients }: props) {
   return (
     <div className="col-span-3">
-      <h2 className="text-2xl mb-8">🍳 Ingredients </h2>
-      <div className="bg-natural-cream  grid grid-cols-responsiveGrid2 gap-4 my-4 place-items-center ">
+      <h2 className="text-2xl mb-8 detailHeading">🍳 Ingredients </h2>
+      <div className="bg-natural-cream  grid grid-cols-responsiveGrid2 gap-4 my-4 place-items-center ingredientsList">
         {extendedIngredients.map((ingredient) => (
           <IngredientCard ingredient={ingredient} key={ingredient.id + Math.random()} />
         ))}

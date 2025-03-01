@@ -1,3 +1,6 @@
-export default function Spinner() {
-  return <div className='spinner col-span-3'></div>;
+interface props{
+  className?: string;
+}
+export default function Spinner({className = 'col-span-3'}: props) {
+  return <div className={`spinner ${className}`}></div>;
 }

@@ -20,13 +20,12 @@ interface props {
 export default function IngredientCard({ ingredient }: props) {
   const { name, image, consistency, amount, measures } = ingredient;
   return (
-    <div className="item-center flex w-80 gap-4 rounded-md bg-natural-beige p-4">
-      <div className="relative h-20 w-20 overflow-hidden rounded-full">
+    <div className="item-center flex w-80 gap-4 rounded-md bg-natural-beige p-4 IngredientCard">
+      <div className="relative h-20 w-20 overflow-hidden rounded-full IngredientImage">
         <ImageElement src={`${INGREDIENT_IMAGE_URL}/${image}`} alt={name} />
       </div>
       <div>
         <h4 className="text-xl font-bold capitalize">
-          {" "}
           {name.length > 15 ? `${name.slice(0, 15)}...` : name}{" "}
         </h4>
         <p>

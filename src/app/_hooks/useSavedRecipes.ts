@@ -38,7 +38,7 @@ export function useSavedRecipes(userId: number) {
     enabled: Boolean(userId),
     staleTime: 1000 * 60 * 5,
   });
-  const { mutate: toggleSave } = useMutation({
+  const { mutate: toggleSave , isPending} = useMutation({
     mutationFn: async (recipeId: number) => {
       const isSaved = savedRecipes.includes(recipeId);
       if (userId) {
@@ -55,5 +55,5 @@ export function useSavedRecipes(userId: number) {
     },
     onError: (error) => console.error(error),
   });
-  return { savedRecipes, savedRecipeData, toggleSave, isLoading, error };
+  return { savedRecipes, savedRecipeData, toggleSave, isLoading,isPending, error };
 }
