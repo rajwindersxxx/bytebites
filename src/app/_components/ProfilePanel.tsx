@@ -1,16 +1,22 @@
+"use client";
 import Link from "next/link";
 import React from "react";
-import { auth } from "../_lib/Auth";
 import { HiOutlineLogin } from "react-icons/hi";
+import { useSession } from "next-auth/react";
+import { useShoppingData } from "../context/ShoppingListContext";
 
-export default async function ProfilePanel() {
-  const session = await auth();
-  console.log(session?.user?.name)
+export default function ProfilePanel() {
+  const session = useSession();
+  const {ingredientCart, recipeInCart} = useShoppingData()
   return (
     <div className="flex items-center gap-4 justify-self-end">
-      {session?.user ? (
+      {session?.data ? (
         <>
-          <Link href='/dashboard' className="capitalize">{session?.user?.name}</Link>
+          <Link href="/dashboard" className="capitalize">
+            {session?.data?.user?.name}
+          </Link>
+          <p>{ingredientCart.length} Ingredients  </p>
+          <p>{recipeInCart.length} recipes  </p>
         </>
       ) : (
         <Link href="/login">

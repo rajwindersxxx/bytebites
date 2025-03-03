@@ -25,6 +25,7 @@ import {
   addRemoveLikedRecipeDB,
   addRemoveSavedRecipeDB,
   createAUserDB,
+  getIngredientsFormDB,
   getLikedRecipesDB,
   getSavedRecipeSDB,
 } from "../_servers/supabaseApi";
@@ -171,4 +172,9 @@ export async function getSavedRecipes(userId: number) {
 }
 export async function getLikedRecipes(userId: number) {
   return await getLikedRecipesDB(userId);
+}
+
+export async function getSavedRecipeIngredients(recipeId: number) {
+ 
+  return await getIngredientsFormDB(recipeId);
 }

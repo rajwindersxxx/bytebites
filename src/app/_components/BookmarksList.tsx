@@ -2,8 +2,10 @@
 import { useRecipeData } from "../context/RecipeDataContext";
 import RecipeCard from "./RecipeCard";
 import Spinner from "./Spinner";
-
-function BookmarksList() {
+interface props {
+  detailLink?: string
+}
+function BookmarksList({detailLink}: props) {
   const { savedRecipeData, isLoadingSavedRecipes } = useRecipeData();
   if (isLoadingSavedRecipes) return <Spinner className="col-span-1" />;
   return (
@@ -11,7 +13,7 @@ function BookmarksList() {
       {savedRecipeData.map((item) => (
           <RecipeCard key={item.id}
             data={item}
-            detailsLink={`/dashboard/bookmarks?recipeId=${item.id}`}
+            detailsLink={`${detailLink}/?recipeId=${item.id}`}
           />
       ))}
     </div>

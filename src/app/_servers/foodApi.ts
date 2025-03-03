@@ -41,7 +41,7 @@ export async function getRecipeDetails(id: number) {
       throw new Error(`HTTP error! Status: ${res.status}`);
     }
     const data = await res.json();
-    // this will add recipe to database when usr view
+    // this will add recipe to database when USER VIEW
     await addRecipeToDB(data)
     return data;
   } catch (error) {

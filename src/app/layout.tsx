@@ -6,6 +6,7 @@ import { QueryProvider } from "./context/providers";
 import Footer from "./_components/Footer";
 import SessionAuthProvider from "./context/SessionAuthProvider";
 import { RecipeDataContext } from "./context/RecipeDataContext";
+import { ShoppingContext } from "./context/ShoppingListContext";
 
 // const geistSans = Geist({
 //   variable: '--font-geist-sans',
@@ -36,9 +37,11 @@ export default function RootLayout({
         <SessionAuthProvider>
           <QueryProvider>
             <RecipeDataContext>
-              <Header />
-              <main>{children}</main>
-              <Footer />
+              <ShoppingContext>
+                <Header />
+                <main>{children}</main>
+                <Footer />
+              </ShoppingContext>
             </RecipeDataContext>
           </QueryProvider>
         </SessionAuthProvider>

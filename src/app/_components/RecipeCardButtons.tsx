@@ -6,12 +6,23 @@ import {
 import { useRecipeData } from "../context/RecipeDataContext";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import { useShoppingData } from "../context/ShoppingListContext";
 interface props {
   recipeId: number;
+  recipeData: {
+    id: number;
+    servings: number;
+    extendedIngredients: {
+      id: number;
+      amount: number;
+      measures: { us: { amount: number }; metric: { amount: number } };
+    }[];
+  };
 }
-function RecipeCardButtons({ recipeId }: props) {
+function RecipeCardButtons({ recipeData, recipeId }: props) {
   const { toggleLike, likedRecipes, toggleSave, savedRecipes } =
     useRecipeData();
+  const { addRecipeToCart } = useShoppingData();
   const session = useSession();
   const userid = session.data?.user;
   const [isLiked, setIsLiked] = useState<boolean>(false);
@@ -25,6 +36,7 @@ function RecipeCardButtons({ recipeId }: props) {
       <button
         onClick={(e) => {
           e.stopPropagation();
+          addRecipeToCart(recipeData);
         }}
       >
         <HiOutlineShoppingCart

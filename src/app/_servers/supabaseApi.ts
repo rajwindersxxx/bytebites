@@ -1,6 +1,6 @@
 import { getRecipeDetails } from "./foodApi";
 import { supabase } from "./supabase";
-
+// User MANAGEMENT
 export async function createAUserDB(userData: {
   email: string;
   password: string;
@@ -19,20 +19,7 @@ export async function getUserDB(email: string) {
     .eq("email", email);
   return { data, error };
 }
-// Read database
-export async function addRecipeToDB(recipeObject: unknown) {
-  const { data, error } = await supabase
-    .from("bitebytesRecipes")
-    .insert([recipeObject])
-    .select();
-  if (error) {
-    if (error.code !== "23505") {
-      throw new Error(error.message);
-    }
-  }
-
-  return { data, error };
-}
+// RECIPE MANAGEMENT
 export async function getRecipeFormDB(recipeId: string) {
   const { data, error } = await supabase
     .from("bitebytesRecipes")
@@ -46,12 +33,13 @@ export async function getRecipeFormDB(recipeId: string) {
 
   return { data: recipeData, error };
 }
-// mutate database
 export async function getSavedRecipeSDB(userId: number) {
   if (!userId) return ["no userId provided"];
   const { data: savedRecipes, error } = await supabase
     .from("savedRecipes")
-    .select('*, bitebytesRecipes(id , title, image, readyInMinutes,extendedIngredients,servings, summary,cuisines)')
+    .select(
+      "*, bitebytesRecipes(id , title, image, readyInMinutes,extendedIngredients,servings, summary,cuisines)",
+    )
     .eq("userId", userId);
   if (error) {
     console.error(error);
@@ -59,11 +47,45 @@ export async function getSavedRecipeSDB(userId: number) {
   }
   return savedRecipes;
 }
-export async function getDetailedSavedRecipesDB(userId: number){
+export async function addRecipeToDB(recipeObject: {
+  extendedIngredients: unknown[];
+  id: number;
+}) {
+  // add recipe to database
+  const { data, error: recipeError } = await supabase
+    .from("bitebytesRecipes")
+    .insert([recipeObject])
+    .select();
+  // if row already exists no need duplicate
+  if (data) {
+    const { extendedIngredients } = recipeObject;
+    const IngredientObject = (
+      extendedIngredients as { recipeId: number }[]
+    ).map((item) => {
+      item.recipeId = recipeObject.id;
+      return item;
+    });
+    const { error } = await supabase
+      .from("extendedIngredients")
+      .insert(IngredientObject);
+    if (error) {
+      console.log(error);
+      throw new Error(error.message);
+    }
+  }
+  // do not add Ingredient when recipe already exists
+  if (recipeError && recipeError.code !== "23505") {
+    console.error(recipeError);
+    throw new Error(recipeError?.message);
+  }
+  return { data, error: recipeError };
+}
+
+export async function getDetailedSavedRecipesDB(userId: number) {
   if (!userId) return ["no userId provided"];
   const { data: savedRecipes, error } = await supabase
     .from("savedRecipes")
-    .select('* , bitebytesRecipes(*)')
+    .select("* , bitebytesRecipes(*)")
     .eq("userId", userId);
   if (error) {
     console.error(error);
@@ -71,6 +93,16 @@ export async function getDetailedSavedRecipesDB(userId: number){
   }
   return savedRecipes[0].bitebytesRecipes;
 }
+export async function getIngredientsFormDB(recipeId: number) {
+  console.log(recipeId)
+  const { data, error } = await supabase
+    .from("extendedIngredients")
+    .select()
+    .eq("recipeId", recipeId);
+  if (error) throw new Error(error.message);
+  return data;
+}
+// USER RECIPE MANAGEMENT
 export async function getLikedRecipesDB(userId: number) {
   if (!userId) return ["no userId provided"];
   const { data: likedRecipes, error } = await supabase
@@ -121,7 +153,6 @@ export async function addRemoveLikedRecipeDB(
       .eq("recipeId", recipeId);
   } else {
     query = supabase.from("likedRecipes").insert([{ recipeId, userId }]);
-
   }
   const { data, error } = await query;
   if (error) {

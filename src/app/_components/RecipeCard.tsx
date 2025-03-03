@@ -13,11 +13,15 @@ interface RecipeData {
   title: string;
   readyInMinutes?: number;
   id: number;
-  servings?: number;
+  servings: number;
   vegetarian?: boolean;
   pricePerServing?: number;
   veryPopular?: boolean;
-  extendedIngredients?: unknown[];
+  extendedIngredients: {
+    id: number;
+    amount: number;
+    measures: { us: { amount: number }; metric: { amount: number } };
+  }[];
   baseUrlImage?: string;
   usedIngredientCount?: number;
   missedIngredientCount?: number;
@@ -84,7 +88,7 @@ export default function RecipeCard({ data, baseUrlImage, detailsLink }: props) {
               {extendedIngredients.length} Ingredients
             </p>
           )}
-          <RecipeCardButtons recipeId={id} />
+          <RecipeCardButtons recipeId={id} recipeData={data}/>
         </div>
       </div>
     </div>
