@@ -2,13 +2,10 @@
 import React from "react";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 import { useShoppingData } from "../context/ShoppingListContext";
+import { ExtendedIngredients } from "../types/RecipeTypes";
 
 interface props {
-  ingredient: {
-    id: number;
-    amount: number;
-    measures: { us: { amount: number }; metric: { amount: number } };
-  };
+  ingredient: ExtendedIngredients;
 }
 function IngredientCartButtons({ ingredient }: props) {
   const { addIngredientToCart } = useShoppingData();

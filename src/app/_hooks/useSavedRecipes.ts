@@ -1,27 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { addRemoveSavedRecipe, getSavedRecipes } from "../_actions/action";
 import { useState } from "react";
-type data = {
-  id: number;
-  image: string;
-  title: string;
-  servings: number;
-  readyInMinutes: number;
-  summary: string;
-  extendedIngredients: {
-    id: number;
-    name: string;
-    amount: number;
-    unit: string;
-    image: string;
-    consistency: string;
-    measures: {
-      metric: {
-        unitShort: string;
-      };
-    };
-  }[];
-}[];
+import { RecipeObject } from "../types/RecipeTypes";
+type data = RecipeObject[];
 export function useSavedRecipes(userId: number) {
   const queryClient = useQueryClient();
   const [savedRecipes, setSavedRecipes] = useState<number[]>([]);

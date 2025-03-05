@@ -1,27 +1,19 @@
-import React from 'react';
-import IngredientCard from './IngredientCard';
+import React from "react";
+import IngredientCard from "./IngredientCard";
+import { ExtendedIngredients } from "../types/RecipeTypes";
 interface props {
-  extendedIngredients: {
-    id: number;
-    name: string;
-    amount: number;
-    unit: string;
-    image: string;
-    consistency: string;
-    measures: {
-        metric: {
-            unitShort: string
-        }
-    };
-  }[];
+  extendedIngredients: ExtendedIngredients[];
 }
 export default function Ingredients({ extendedIngredients }: props) {
   return (
     <div className="col-span-3">
-      <h2 className="text-2xl mb-8 detailHeading">🍳 Ingredients </h2>
-      <div className="bg-natural-cream  grid grid-cols-responsiveGrid2 gap-4 my-4 place-items-center ingredientsList">
+      <h2 className="detailHeading mb-8 text-2xl">🍳 Ingredients </h2>
+      <div className="ingredientsList my-4 grid grid-cols-responsiveGrid2 place-items-center gap-4 bg-natural-cream">
         {extendedIngredients.map((ingredient) => (
-          <IngredientCard ingredient={ingredient} key={ingredient.id + Math.random()} />
+          <IngredientCard
+            ingredient={ingredient}
+            key={ingredient.id + Math.random()}
+          />
         ))}
       </div>
     </div>

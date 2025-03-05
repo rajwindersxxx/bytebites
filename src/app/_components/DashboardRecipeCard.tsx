@@ -3,12 +3,13 @@ import React from "react";
 import { ImageElement } from "./ImageElement";
 import RecipeCardButtons from "./RecipeCardButtons";
 import { useRouter } from "next/navigation";
-import { recipeData, recipeDetails } from "../_data/dataSamples";
+import {  recipeDetails } from "../_data/dataSamples";
+import { RecipeObject } from "../types/RecipeTypes";
 interface props {
-  data: RecipeData;
+  data: RecipeObject[];
   baseUrlImage?: string;
 }
-interface RecipeData {
+interface otherData {
   image: string;
   title: string;
   readyInMinutes?: number;
@@ -24,7 +25,7 @@ interface RecipeData {
   missedIngredients?: { name: string }[];
 }
 
-export default function DashboardRecipeCard({ data, baseUrlImage,}: props) {
+export default function DashboardRecipeCard({  baseUrlImage}: props) {
   const {
     id,
     image,

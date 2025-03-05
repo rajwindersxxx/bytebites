@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
-// import { Geist, Geist_Mono } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import "./globals.css";
 import Header from "./_components/Header";
-import { QueryProvider } from "./context/providers";
+import {  QueryProvider } from "./context/providers";
 import Footer from "./_components/Footer";
 import SessionAuthProvider from "./context/SessionAuthProvider";
 import { RecipeDataContext } from "./context/RecipeDataContext";
 import { ShoppingContext } from "./context/ShoppingListContext";
+import { ModalProvider } from "./_components/Modal";
 
-// const geistSans = Geist({
-//   variable: '--font-geist-sans',
-//   subsets: ['latin'],
-// });
+const poppins = Poppins({
+  variable: '--font-Poppins',
+  weight: ['400', '600'],
+  subsets: ['latin'],
+});
 
 // const geistMono = Geist_Mono({
 //   variable: '--font-geist-mono',
@@ -30,17 +32,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="text-gray-800">
+    <html lang="en" className={`text-gray-800 ${poppins.variable}`} >
       <body
-        className={`grid h-screen grid-rows-[auto_1fr_auto] bg-natural-cream`}
+        className={`grid h-screen grid-rows-[auto_1fr_auto] bg-natural-cream font-poppins`}
       >
         <SessionAuthProvider>
           <QueryProvider>
             <RecipeDataContext>
               <ShoppingContext>
-                <Header />
-                <main>{children}</main>
-                <Footer />
+                <ModalProvider>
+                  <Header />
+                  <main>{children}</main>
+                  <Footer />
+                </ModalProvider>
               </ShoppingContext>
             </RecipeDataContext>
           </QueryProvider>

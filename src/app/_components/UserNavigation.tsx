@@ -1,13 +1,12 @@
-import { signOut } from "next-auth/react";
 import Link from "next/link";
 import {
   HiOutlineCalendar,
   HiOutlineHeart,
   HiOutlineHome,
-  HiOutlineLogout,
   HiOutlineShoppingBag,
   HiOutlineUser,
 } from "react-icons/hi";
+import SignOutButton from "./SignOutButton";
 
 function UserNavigation() {
   return (
@@ -60,20 +59,7 @@ function UserNavigation() {
         </li>
       </ul>
       <ul>
-        <form
-          action={async () => {
-            "use server"
-            await signOut()
-          }}
-        >
-          <button
-            type="submit"
-            className="my-2 flex items-center justify-start gap-2 p-2 transition-all hover:bg-natural-beige w-full"
-          >
-            <HiOutlineLogout className="h-5 w-5" />
-            SignOut
-          </button>
-        </form>
+        <SignOutButton />
       </ul>
     </nav>
   );

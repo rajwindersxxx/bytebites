@@ -3,32 +3,19 @@ import React from "react";
 import { ImageElement } from "./ImageElement";
 import RecipeCardButtons from "./RecipeCardButtons";
 import { useRouter } from "next/navigation";
+import { RecipeObject } from "../types/RecipeTypes";
 interface props {
-  data: RecipeData;
+  data: RecipeObject;
   baseUrlImage?: string;
   detailsLink?: string;
+  visibleButtons?: string[];
 }
-interface RecipeData {
-  image: string;
-  title: string;
-  readyInMinutes?: number;
-  id: number;
-  servings: number;
-  vegetarian?: boolean;
-  pricePerServing?: number;
-  veryPopular?: boolean;
-  extendedIngredients: {
-    id: number;
-    amount: number;
-    measures: { us: { amount: number }; metric: { amount: number } };
-  }[];
-  baseUrlImage?: string;
-  usedIngredientCount?: number;
-  missedIngredientCount?: number;
-  missedIngredients?: { name: string }[];
-}
-
-export default function RecipeCard({ data, baseUrlImage, detailsLink }: props) {
+export default function RecipeCard({
+  data,
+  baseUrlImage,
+  detailsLink,
+  visibleButtons = ["cart", "like", "saved", "meal"],
+}: props) {
   const {
     id,
     image,
@@ -47,11 +34,11 @@ export default function RecipeCard({ data, baseUrlImage, detailsLink }: props) {
     if (detailsLink) router.replace(link);
     else router.push(link);
   }
-  const isDragging = false
+  const isDragging = false;
   return (
     <div
       onClick={handleRoute}
-      className={`card grid w-[28rem] shrink-0 cursor-pointer grid-cols-[1fr_1.7fr] overflow-hidden rounded-md bg-natural-beige hover:scale-105 hover:shadow-md relative ${isDragging? '': 'transition-all' }`}
+      className={`card relative grid w-[28rem] shrink-0 cursor-pointer grid-cols-[1fr_1.7fr] overflow-hidden rounded-md bg-natural-beige hover:scale-105 hover:shadow-md ${isDragging ? "" : "transition-all"}`}
     >
       <div className="relative h-full">
         {baseUrlImage ? (
@@ -65,10 +52,16 @@ export default function RecipeCard({ data, baseUrlImage, detailsLink }: props) {
         )}
       </div>
       <div className="cardDetails flex flex-col gap-2 p-4">
-        <h3 className="title font-bold">
+        <a
+          className="title cursor-pointer font-bold transition-all hover:underline active:text-primary"
+          onClick={(e) => {
+            router.push(`/recipeDetail?recipeId?${id}`)
+            e.stopPropagation();
+          }}
+        >
           {title.slice(0, 25)}
           {title.length > 25 && " ..."}
-        </h3>
+        </a>
         <div className="grid grid-cols-[1fr_0.5fr_1fr] content-center items-center justify-center gap-2">
           {missedIngredients && (
             <p className="col-span-3">
@@ -88,7 +81,11 @@ export default function RecipeCard({ data, baseUrlImage, detailsLink }: props) {
               {extendedIngredients.length} Ingredients
             </p>
           )}
-          <RecipeCardButtons recipeId={id} recipeData={data}/>
+          <RecipeCardButtons
+            recipeId={id}
+            recipeData={data}
+            visibleButtons={visibleButtons}
+          />
         </div>
       </div>
     </div>

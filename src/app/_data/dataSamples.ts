@@ -2658,7 +2658,7 @@ export const recipeData = [
     ],
     summary:
       'Frittata requires about <b>45 minutes</b> from start to finish. One serving contains <b>582 calories</b>, <b>32g of protein</b>, and <b>43g of fat</b>. This gluten free recipe serves 2 and costs <b>$2.71 per serving</b>. 2 people have tried and liked this recipe. A mixture of chili flakes, various mushrooms, saki, and a handful of other ingredients are all it takes to make this recipe so delicious. Only a few people really liked this main course. It is brought to you by Foodista. Taking all factors into account, this recipe <b>earns a spoonacular score of 74%</b>, which is good. Similar recipes include <a href="https://spoonacular.com/recipes/frittata-di-zucchine-al-forno-baked-frittata-with-zucchini-1338351">Frittata di zucchine al forno (Baked Frittata with Zucchini)</a>, <a href="https://spoonacular.com/recipes/frittata-di-zucchine-al-forno-baked-frittata-with-zucchini-612039">Frittata di zucchine al forno (Baked Frittata with Zucchini)</a>, and <a href="https://spoonacular.com/recipes/frittata-di-zucchine-al-forno-baked-frittata-with-zucchini-1357871">Frittata di zucchine al forno (Baked Frittata with Zucchini)</a>.',
-    cuisines: [],
+    cuisines: ['test'],
     dishTypes: [
       'lunch',
       'main course',
@@ -2669,7 +2669,7 @@ export const recipeData = [
       'dinner',
     ],
     diets: ['gluten free'],
-    occasions: [],
+    occasions: ['xxx'],
     instructions:
       '<ol><li>In a large mixing bowl add six eggs, soy sauce and water and whisk vigorously to incorporate air. (Hint: a large bowl should result in a shallow mixture that more readily allows the air bubbles to develop. An electric hand mixer can reduce a labor.) Set aside</li><li>In a ten inch non-stick pan add olive oil and heat over a medium flame.</li><li>Add olive oil and sliced shallots, fry until just approaching transparency</li><li>Add mushrooms, bell pepper, and red pepper flakes stirring frequently until all are tender and shallots show very slight caramelization</li><li>Without removing the contents, deglaze pan with the saki, stirring and scraping the bottom vigorously for 1 minute.</li><li>Add diced tomatoes and cook for one more minute</li><li>Giving one last vigorous whisk, add egg mixture to the pan and reduce flame to low. Cover pan with a lid or aluminum foil with the reflective side facing in</li><li>Check pan contents frequently. Using a spatula to lift an edge of the frittata will allow you to check the bottom. Your looking for the top to approach firmness and the bottom to become golden brown. Timing is critical.</li><li>With the top half inch of the frittata still slightly liquid, add shredded cheese, spreading evenly across the surface. Replace cover and cook until cheese melts, approximately 1 minute.</li><li>Toss chives across the surface and lace with fresh ground black and red pepper to taste</li><li>Replace cover and cook for one more minute or until firm on top.</li><li>Turn off flame and allow to set for two - three minutes.</li><li>The frittata can be loosened with a large plastic spatula and slid on to a serving plate or served directly from the frying pan using a plastic pie wedge spatula.</li><li>Serve with a tossed salad and crusty bread.</li></ol>',
     analyzedInstructions: [

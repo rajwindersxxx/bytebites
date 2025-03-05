@@ -1,6 +1,14 @@
+import { MealPlanning } from "../types/FormData";
 import { getRecipeDetails } from "./foodApi";
 import { supabase } from "./supabase";
 // User MANAGEMENT
+export async function getUserDB(email: string) {
+  const { data, error } = await supabase
+    .from("bitebytesUser")
+    .select()
+    .eq("email", email);
+  return { data, error };
+}
 export async function createAUserDB(userData: {
   email: string;
   password: string;
@@ -12,13 +20,35 @@ export async function createAUserDB(userData: {
     .select();
   return { data, error };
 }
-export async function getUserDB(email: string) {
+export async function UpdateUserDB(userData: {
+  name: string;
+  email: string;
+  avatar: string;
+  id: number;
+}) {
   const { data, error } = await supabase
     .from("bitebytesUser")
-    .select()
-    .eq("email", email);
-  return { data, error };
+    .update([userData])
+    .eq("id", userData.id)
+    .select();
+  if (error) {
+    console.error(error);
+    throw new Error("something went wrong");
+  }
+  return data;
 }
+export async function changePassword(password: string, userId: number) {
+  const { data, error } = await supabase
+    .from("bitebytesUser")
+    .update({ password: password })
+    .eq("id", userId);
+  if (error) {
+    console.error(error);
+    throw new Error("something went wrong");
+  }
+  return data;
+}
+
 // RECIPE MANAGEMENT
 export async function getRecipeFormDB(recipeId: string) {
   const { data, error } = await supabase
@@ -94,7 +124,7 @@ export async function getDetailedSavedRecipesDB(userId: number) {
   return savedRecipes[0].bitebytesRecipes;
 }
 export async function getIngredientsFormDB(recipeId: number) {
-  console.log(recipeId)
+  console.log(recipeId);
   const { data, error } = await supabase
     .from("extendedIngredients")
     .select()
@@ -155,6 +185,31 @@ export async function addRemoveLikedRecipeDB(
     query = supabase.from("likedRecipes").insert([{ recipeId, userId }]);
   }
   const { data, error } = await query;
+  if (error) {
+    console.error(error);
+    throw new Error(error.message);
+  }
+  return data;
+}
+//  meal planning
+
+export async function getMealPlanningFromDB(userId: number) {
+  const { data, error } = await supabase
+    .from("mealPlanning")
+    .select("*")
+    .eq("userId", userId);
+  if (error) {
+    console.error(error);
+    throw new Error(error.message);
+  }
+  return data;
+}
+export async function AddMealPlanningToDB(mealObject: MealPlanning) {
+  console.log(mealObject);
+  const { data, error } = await supabase
+    .from("mealPlanning")
+    .insert([mealObject])
+    .select();
   if (error) {
     console.error(error);
     throw new Error(error.message);

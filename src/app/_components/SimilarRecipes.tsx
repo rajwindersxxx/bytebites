@@ -23,6 +23,7 @@ export default async function SimilarRecipes({ id }: props) {
             data={item}
             baseUrlImage={RECIPE_IMAGE_URL}
             key={item.id + item.title}
+            visibleButtons={['like', 'saved', 'cart']}
           />
         ))}
       </div>

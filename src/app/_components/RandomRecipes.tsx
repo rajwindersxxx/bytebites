@@ -30,7 +30,7 @@ export default function RandomRecipes({ groupId }: props) {
   return (
     <>
       {data?.map((recipe: Recipe) => (
-        <RecipeCard data={recipe} key={recipe.id} />
+        <RecipeCard data={recipe} key={recipe.id} visibleButtons={['like', 'saved','cart']}/>
       ))}
     </>
   );

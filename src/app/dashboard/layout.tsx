@@ -1,10 +1,11 @@
 import React from "react";
 import UserNavigation from "../_components/UserNavigation";
+import { auth } from "../_lib/Auth";
 
 interface props {
   children: React.ReactNode;
 }
-function layout({ children }: props) {
+async function layout({ children }: props) {
   return (
     <div className="container m-auto my-4 grid  grid-cols-[auto_1fr] gap-4 border p-4 h-[80vh] overflow-hidden">
       <div className="flex flex-col pr-4 border-r">

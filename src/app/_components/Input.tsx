@@ -7,6 +7,7 @@ interface props {
   disabled?: boolean;
   className?: string;
   name?: string;
+  defaultValue?: string | number;
 }
 export default function Input({
   type = "text",
@@ -16,6 +17,7 @@ export default function Input({
   disabled = false,
   className = 'p-4',
   name,
+  defaultValue,
   ...props
 }: props) {
   return (
@@ -26,6 +28,7 @@ export default function Input({
       onChange={onChange}
       value={value}
       name={name}
+      defaultValue={defaultValue}
       disabled={disabled}
       {...props}
       // required

@@ -22,14 +22,17 @@ import {
   similarRecipe,
 } from "../_data/dataSamples";
 import {
+  AddMealPlanningToDB,
   addRemoveLikedRecipeDB,
   addRemoveSavedRecipeDB,
   createAUserDB,
   getIngredientsFormDB,
   getLikedRecipesDB,
+  getMealPlanningFromDB,
   getSavedRecipeSDB,
 } from "../_servers/supabaseApi";
 import { signIn } from "../_lib/Auth";
+import { MealPlanning } from "../types/FormData";
 
 interface Recipe {
   id: number;
@@ -67,10 +70,10 @@ export async function getRandomRecipeData(): Promise<Recipe[]> {
   }
   return data as Recipe[];
 }
-export async function getRecipeDetailsData(id: string) {
+export async function getRecipeDetailsData(id: number) {
   let data;
   if (USE_API) {
-    data = await getRecipeDetails(Number(id));
+    data = await getRecipeDetails(id);
   } else {
     data = await simulateApiRequest(recipeDetails[0]);
   }
@@ -135,20 +138,30 @@ export async function signUpUser(formData: {
   const data = await createAUserDB(userData);
   return data;
 }
+import { CredentialsSignin } from "next-auth";
+
 export async function loginUser(formData: { email: string; password: string }) {
   try {
-    const res = (await signIn("credentials", formData)) as { error: string };
-    if (res?.error) {
-      return { message: res.error };
+    const res = await signIn("credentials", { ...formData, redirect: false });
+
+    if (!res) {
+      throw new Error("Something went wrong. Please try again.");
     }
-    return res;
+
+    if (res.error) {
+      throw new CredentialsSignin(res.error); // ✅ Properly throwing CredentialsSignin error
+    }
+
+    return res; // ✅ Success
   } catch (error) {
-    if ((error as { type: string }).type === "CredentialsSignin") {
-      return { message: "Invalid email or password" };
+    if (error instanceof CredentialsSignin) {
+      throw new Error("Invalid email or password"); // ✅ Catch specific error
     }
-    return null;
+    throw new Error("Login failed. Please try again later.");
   }
 }
+
+
 // database actions
 export async function addRemoveSavedRecipe(
   recipeId: number,
@@ -175,6 +188,12 @@ export async function getLikedRecipes(userId: number) {
 }
 
 export async function getSavedRecipeIngredients(recipeId: number) {
- 
   return await getIngredientsFormDB(recipeId);
+}
+// meal planning
+export async function getMealPlannings(userId: number) {
+  return await getMealPlanningFromDB(userId);
+}
+export async function addMealPlanning(mealObject: MealPlanning) {
+  return await AddMealPlanningToDB(mealObject);
 }

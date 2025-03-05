@@ -8,12 +8,18 @@ import { loginUser } from "../_actions/action";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import MiniSpinner from "./MiniSpinner";
+import { useState } from "react";
+import { useSession } from "next-auth/react";
 
 type formData = {
   email: string;
   password: string;
 };
 function LoginForm() {
+  const [error, setError] = useState<boolean | string>(false);
+  const {  update } = useSession();
+
+
   const router = useRouter();
   const {
     register,
@@ -24,15 +30,16 @@ function LoginForm() {
 
   const {
     mutate: handleSignIn,
-    data,
     isPending,
   } = useMutation({
     mutationFn: (formData: formData) => loginUser(formData),
-    onSuccess: () => {
+    onSuccess: async () => {
+      await update(); //its update session before redirecting
       router.replace("/dashboard");
     },
-    onError: (error: unknown) => {
+    onError: (error: { message: string }) => {
       console.error("Login error:", error);
+      setError(error.message);
       reset();
     },
   });
@@ -78,9 +85,7 @@ function LoginForm() {
           {isPending ? <MiniSpinner /> : "Log in"}
         </PrimaryButton>
       </div>
-      {data && "message" in data && (
-        <p className="p-4 text-center text-red-500">{data.message}</p>
-      )}
+      {error && <p className="p-4 text-center text-red-500">{error}</p>}
       <div className="!mt-4">
         <Link href="/signUp">
           <SecondaryButton type="button" className="w-full">

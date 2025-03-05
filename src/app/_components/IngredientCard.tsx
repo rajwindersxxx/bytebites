@@ -2,25 +2,17 @@ import React from "react";
 import { INGREDIENT_IMAGE_URL } from "../_config/foodApiConfig";
 import { ImageElement } from "./ImageElement";
 import IngredientCartButtons from "./IngredientCartButtons";
-interface Ingredient {
-  id: number;
-  name: string;
-  image: string;
-  consistency: string;
-  amount: number;
-  unit: string;
-  measures: { us: { amount: number }; metric: { amount: number } };
-}
+import { ExtendedIngredients } from "../types/RecipeTypes";
 
 interface props {
-  ingredient: Ingredient;
+  ingredient: ExtendedIngredients;
 }
 
 export default function IngredientCard({ ingredient }: props) {
   const { name, image, consistency, amount, unit } = ingredient;
   return (
-    <div className="item-center grid grid-cols-[auto_1fr] w-80 gap-4 rounded-md bg-natural-beige p-4 IngredientCard relative">
-      <div className="relative h-20 w-20 overflow-hidden rounded-full IngredientImage">
+    <div className="item-center IngredientCard relative grid w-80 grid-cols-[auto_1fr] gap-4 rounded-md bg-natural-beige p-4">
+      <div className="IngredientImage relative h-20 w-20 overflow-hidden rounded-full">
         <ImageElement src={`${INGREDIENT_IMAGE_URL}/${image}`} alt={name} />
       </div>
       <div className="">
@@ -38,10 +30,9 @@ export default function IngredientCard({ ingredient }: props) {
               {consistency === "SOLID" ? "🧊" : "💧"}{" "}
             </span>
           </p>
-            <IngredientCartButtons ingredient={ingredient}/>
+          <IngredientCartButtons ingredient={ingredient} />
         </div>
       </div>
     </div>
   );
 }
-

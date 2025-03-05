@@ -1,27 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.spinner {
+@layer utilities {
+  .spinner {
     margin: 3.2rem auto 1.6rem;
     width: 60px;
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 8px solid theme('colors.natural.beige');
-    border-right-color: theme('colors.natural.sage');
+    border: 8px solid theme("colors.natural.beige");
+    border-right-color: theme("colors.natural.sage");
     animation: rotate 1s infinite linear;
   }
-  .miniSpinner{
+  .miniSpinner {
     width: 24px;
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 3px solid theme('colors.natural.beige');
-    border-right-color: theme('colors.natural.sage');
+    border: 3px solid theme("colors.natural.beige");
+    border-right-color: theme("colors.natural.sage");
     animation: rotate 1s infinite linear;
   }
-
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
   @keyframes rotate {
     to {
       transform: rotate(1turn);
     }
   }
+  .rdp-root {
+    --rdp-accent-color: indigo !important;
+    --rdp-accent-background-color: #f0f0f0; /* Change the accent background color. */
+  }
+}

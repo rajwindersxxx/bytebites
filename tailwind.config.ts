@@ -20,6 +20,9 @@ export default {
           cream: '#FFF5E1', // Light Cream
         },
       },
+      fontFamily: {
+        poppins: '--font-Poppins'
+      },
       gridTemplateColumns: {
         responsiveGrid: 'repeat(auto-fit , minmax(28rem , 1fr))',
         responsiveGrid2: 'repeat(auto-fit , minmax(20rem , 1fr))',

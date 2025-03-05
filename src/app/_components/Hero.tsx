@@ -2,7 +2,6 @@ import React from 'react';
 import SlidingImages from './SlidingImages ';
 
 export default function Hero() {
-
   return (
     <section className=" container mx-auto py-8 flex items-center justify-center  gap-20">
       <div className='flex flex-col gap-20'>

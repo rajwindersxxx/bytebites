@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import RecipeCard from "./RecipeCard";
 import { getRecipeByIngredientsData } from "../_actions/action";
+import { ExtendedIngredients, RecipeObject } from "../types/RecipeTypes";
 
 interface props {
-  extendedIngredients: { name: string }[];
+  extendedIngredients: ExtendedIngredients[];
 }
 function IngredientBasedRecipes({ extendedIngredients }: props) {
-  const [similarRecipes, setSimilarRecipes] = useState<
-    { id: number; title: string; image: string }[] | null
-  >(null);
+  const [similarRecipes, setSimilarRecipes] = useState<RecipeObject[] | null>(
+    null,
+  );
   useEffect(() => {
     async function getRecipes() {
       const output = await getRecipeByIngredientsData(extendedIngredients);

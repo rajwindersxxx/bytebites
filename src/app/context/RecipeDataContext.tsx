@@ -4,34 +4,14 @@ import React, { useContext } from "react";
 import { createContext } from "react";
 import { useLikedRecipes } from "../_hooks/useLikedRecipes";
 import { useSavedRecipes } from "../_hooks/useSavedRecipes";
+import { RecipeObject } from "../types/RecipeTypes";
 interface props {
   children: React.ReactNode;
 }
-type data = {
-  id: number;
-  image: string;
-  title: string;
-  servings: number;
-  readyInMinutes: number;
-  summary: string;
-  extendedIngredients: {
-    id: number;
-    name: string;
-    amount: number;
-    unit: string;
-    image: string;
-    consistency: string;
-    measures: {
-        metric: {
-            unitShort: string;
-        };
-    };
-}[];
-}[];
 interface RecipeContextType {
   likedRecipes: number[];
   savedRecipes: number[];
-  savedRecipeData: data;
+  savedRecipeData: RecipeObject[];
   isLoadingSavedRecipes: boolean;
   isSavePending: boolean;
   toggleLike: (recipeId: number) => void;
@@ -44,12 +24,25 @@ function RecipeDataContext({ children }: props) {
   const session = useSession();
   const userId = session.data?.user?.id;
   const { likedRecipes, toggleLike } = useLikedRecipes(Number(userId));
-  const { savedRecipes, toggleSave, savedRecipeData, isLoading: isLoadingSavedRecipes, isPending: isSavePending } = useSavedRecipes(Number(userId));
-  // this will mutate data , update values
+  const {
+    savedRecipes,
+    toggleSave,
+    savedRecipeData,
+    isLoading: isLoadingSavedRecipes,
+    isPending: isSavePending,
+  } = useSavedRecipes(Number(userId));
 
   return (
     <recipeDataContext.Provider
-      value={{ likedRecipes, toggleLike, toggleSave, savedRecipes, savedRecipeData ,isLoadingSavedRecipes, isSavePending}}
+      value={{
+        likedRecipes,
+        toggleLike,
+        toggleSave,
+        savedRecipes,
+        savedRecipeData,
+        isLoadingSavedRecipes,
+        isSavePending,
+      }}
     >
       {children}
     </recipeDataContext.Provider>
