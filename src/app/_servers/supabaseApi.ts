@@ -1,4 +1,5 @@
-import { MealPlanning } from "../types/FormData";
+import { BUCKET_URL } from "../_config/supabaseConfig";
+import { MealPlanning, UpdateProfileForm } from "../types/FormData";
 import { getRecipeDetails } from "./foodApi";
 import { supabase } from "./supabase";
 // User MANAGEMENT
@@ -7,6 +8,13 @@ export async function getUserDB(email: string) {
     .from("bitebytesUser")
     .select()
     .eq("email", email);
+  return { data, error };
+}
+export async function getUserByIdDB(userId: number) {
+  const { data, error } = await supabase
+    .from("bitebytesUser")
+    .select()
+    .eq("id", userId).single();
   return { data, error };
 }
 export async function createAUserDB(userData: {
@@ -20,27 +28,43 @@ export async function createAUserDB(userData: {
     .select();
   return { data, error };
 }
-export async function UpdateUserDB(userData: {
-  name: string;
-  email: string;
-  avatar: string;
-  id: number;
-}) {
+export async function UpdateUserDB(userData: UpdateProfileForm) {
+  let inputObject: { username: string; image?: string } = {
+    username: userData.username,
+  };
+  const image = `${BUCKET_URL}/${userData.file[0]?.name}`;
+  if (userData.file) {
+    inputObject = { ...inputObject, image };
+  }
   const { data, error } = await supabase
     .from("bitebytesUser")
-    .update([userData])
+    .update([inputObject])
     .eq("id", userData.id)
     .select();
+  if (userData.file) {
+    const {
+      error,
+    }: { error: { statusCode?: string; message: string } | undefined | null } =
+      await supabase.storage
+        .from("avatarsBiteBytes")
+        .upload(image.split("//")[2], userData.file[0] as File);
+    if (error?.statusCode === "409") {
+      return error?.message;
+    } else {
+      console.log(error);
+      throw new Error("something went wrong");
+    }
+  }
   if (error) {
     console.error(error);
     throw new Error("something went wrong");
   }
   return data;
 }
-export async function changePassword(password: string, userId: number) {
+export async function updatePasswordDB(password: string, userId: number) {
   const { data, error } = await supabase
     .from("bitebytesUser")
-    .update({ password: password })
+    .update([{ password: password }])
     .eq("id", userId);
   if (error) {
     console.error(error);
@@ -60,7 +84,6 @@ export async function getRecipeFormDB(recipeId: string) {
     console.error(error);
     throw new Error(error.message);
   }
-
   return { data: recipeData, error };
 }
 export async function getSavedRecipeSDB(userId: number) {

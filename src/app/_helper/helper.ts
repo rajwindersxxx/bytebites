@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 export function simulateApiRequest(data: unknown) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -8,16 +9,26 @@ export function simulateApiRequest(data: unknown) {
 }
 
 export function setSessionStorage(key: string, data: unknown) {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     return sessionStorage.setItem(key, JSON.stringify(data));
   } else {
     return false;
   }
 }
 export function getSessionStorage(key: string) {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     return sessionStorage.getItem(key);
   } else {
     return false;
   }
+}
+export async function generateHash(password: string) {
+  return await bcrypt.hash(password, 10);
+}
+export async function comparePassword(
+  hashedPassword: string,
+  plainPassword: string,
+) {
+  const match = await bcrypt.compare(plainPassword, hashedPassword);
+  return match;
 }

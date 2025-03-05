@@ -1,8 +1,12 @@
 "use server";
-import { simulateApiRequest } from "../_helper/helper";
+import { CredentialsSignin } from "next-auth";
+import {
+  comparePassword,
+  generateHash,
+  simulateApiRequest,
+} from "../_helper/helper";
 import { aiOutputToObject, makeAQuestion } from "../_lib/apiFunctions";
 import { askAi } from "../_servers/googleAiApi";
-import bcrypt from "bcrypt";
 import {
   getRandomRecipes,
   getRecipeByIngredients,
@@ -30,10 +34,16 @@ import {
   getLikedRecipesDB,
   getMealPlanningFromDB,
   getSavedRecipeSDB,
+  getUserByIdDB,
+  updatePasswordDB,
+  UpdateUserDB,
 } from "../_servers/supabaseApi";
-import { signIn } from "../_lib/Auth";
-import { MealPlanning } from "../types/FormData";
-
+import { auth, signIn } from "../_lib/Auth";
+import {
+  MealPlanning,
+  UpdatePasswordForm,
+  UpdateProfileForm,
+} from "../types/FormData";
 interface Recipe {
   id: number;
   image: string;
@@ -120,8 +130,6 @@ export async function getSimilarRecipesData(id: number) {
   }
   return data;
 }
-
-const saltRounds = 10;
 export async function signUpUser(formData: {
   email: string;
   password: string;
@@ -132,36 +140,41 @@ export async function signUpUser(formData: {
   if (!email || !password || !confirmPassword || !username)
     return "please enter all filed ";
   if (password !== confirmPassword) return { error: "password do not match " };
-  const salt = await bcrypt.genSalt(saltRounds);
-  const hash = await bcrypt.hash(password, salt);
+  const hash = await generateHash(password);
   const userData = { email: email, password: hash, username: username };
   const data = await createAUserDB(userData);
   return data;
 }
-import { CredentialsSignin } from "next-auth";
 
 export async function loginUser(formData: { email: string; password: string }) {
   try {
     const res = await signIn("credentials", { ...formData, redirect: false });
-
-    if (!res) {
-      throw new Error("Something went wrong. Please try again.");
-    }
-
-    if (res.error) {
-      throw new CredentialsSignin(res.error); // ✅ Properly throwing CredentialsSignin error
-    }
-
-    return res; // ✅ Success
+    if (!res) throw new Error("Something went wrong. Please try again.");
+    if (res.error) throw new CredentialsSignin(res.error);
+    const session = await auth()
+    console.log(session)
+    return res;
   } catch (error) {
     if (error instanceof CredentialsSignin) {
-      throw new Error("Invalid email or password"); // ✅ Catch specific error
+      throw new Error("Invalid email or password");
     }
     throw new Error("Login failed. Please try again later.");
   }
 }
-
-
+export async function updateUser(data: UpdateProfileForm) {
+  return await UpdateUserDB(data);
+}
+export async function changePassword(inputData: UpdatePasswordForm, userId: number) {
+  const { data: userData } = await getUserByIdDB(userId);
+  const match = await comparePassword(userData.password, inputData.currentPassword);
+  if (match) {
+    const hash = await generateHash(inputData.newPassword)
+    const data = await updatePasswordDB(hash, userId);
+    return data;
+  } else {
+    throw new Error("Password does not match");
+  }
+}
 // database actions
 export async function addRemoveSavedRecipe(
   recipeId: number,
