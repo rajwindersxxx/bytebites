@@ -5,16 +5,13 @@ import Pagination from "@/app/_components/Pagination";
 import { SEARCH_RESULTS_COUNT } from "@/app/_config/foodApiConfig";
 import { getSearchedRecipeData } from "@/app/_actions/action";
 import { uniqueId } from "lodash";
+import { RecipeObject } from "@/app/types/RecipeTypes";
 interface SearchParams {
   search: string;
   page: number;
 }
 interface RecipeResponse {
-  results: {
-    image: string;
-    title: string;
-    id: number;
-  }[];
+  results: RecipeObject[];
   number: number;
   totalResults: number;
 }
