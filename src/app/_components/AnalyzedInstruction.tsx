@@ -1,6 +1,7 @@
 import React from "react";
 import RecipeInstruction from "./RecipeInstruction";
 import { AnalyzedInstructions } from "../types/RecipeTypes";
+import { uniqueId } from "lodash";
 
 interface props {
   analyzedInstruction: AnalyzedInstructions;
@@ -12,7 +13,7 @@ export default function AnalyzedInstruction({ analyzedInstruction }: props) {
       <h4 className="my-8 text-xl font-bold">{name}</h4>
       <div className="flex flex-col gap-4 rounded-md">
         {steps.map((instruction) => (
-          <RecipeInstruction instruction={instruction} key={Math.random()} />
+          <RecipeInstruction instruction={instruction} key={uniqueId()} />
         ))}
       </div>
     </div>

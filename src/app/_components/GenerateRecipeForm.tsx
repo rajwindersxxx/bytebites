@@ -6,6 +6,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { makeARecipe } from "../_actions/action";
 import RecipePreview from "./RecipePreview";
 import Spinner from "./Spinner";
+import { uniqueId } from "lodash";
 type Data = {
   ingredient: {
     value: string;
@@ -41,13 +42,13 @@ export default function GenerateRecipeForm() {
           {fields.map((field, index) => (
             <Input
               placeHolder={`Enter Ingredient ${index + 1} `}
-              key={field.id}
+              key={uniqueId()}
               {...register(`ingredient.${index}.value`, {
                 required: `ingredient ${index - 1} is required`
               })}
               disabled={isLoading}
             />
-            
+
           ))}
         </div>
         <div className="flex-start flex gap-4 self-center">

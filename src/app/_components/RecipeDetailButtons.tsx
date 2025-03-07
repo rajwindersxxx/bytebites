@@ -6,7 +6,6 @@ interface props {
   recipeId: number;
 }
 function RecipeDetailButtons({ recipeId }: props) {
-  console.log(recipeId)
   const { toggleLike, likedRecipes, toggleSave, savedRecipes } =
     useRecipeData();
   const [isLiked, setIsLiked] = useState<boolean>(false);

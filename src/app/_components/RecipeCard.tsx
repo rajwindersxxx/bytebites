@@ -55,7 +55,7 @@ export default function RecipeCard({
         <a
           className="title cursor-pointer font-bold transition-all hover:underline active:text-primary"
           onClick={(e) => {
-            router.push(`/recipeDetail?recipeId?${id}`)
+            router.push(`/recipeDetail?recipeId=${id}`)
             e.stopPropagation();
           }}
         >

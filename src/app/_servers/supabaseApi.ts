@@ -58,7 +58,7 @@ export async function UpdateUserDB(userData: UpdateProfileForm) {
     if (error?.statusCode === "409") {
       return error?.message;
     } else {
-      console.log(error);
+      console.error(error);
       throw new Error("something went wrong");
     }
   }
@@ -81,7 +81,8 @@ export async function updatePasswordDB(password: string, userId: number) {
 }
 
 // RECIPE MANAGEMENT
-export async function getRecipeFormDB(recipeId: string) {
+export async function getRecipeFormDB(recipeId: number) {
+  console.log('recipe got from database ')
   const { data, error } = await supabase
     .from("bitebytesRecipes")
     .select()
@@ -91,7 +92,7 @@ export async function getRecipeFormDB(recipeId: string) {
     console.error(error);
     throw new Error(error.message);
   }
-  return { data: recipeData, error };
+  return { recipeData, error };
 }
 export async function getSavedRecipeSDB(userId: number) {
   if (!userId) return ["no userId provided"];
@@ -128,7 +129,7 @@ export async function addRecipeToDB(recipeObject: {
       .from("extendedIngredients")
       .insert(IngredientObject);
     if (error) {
-      console.log(error);
+      console.error(error);
       throw new Error(error.message);
     }
   }
@@ -153,7 +154,6 @@ export async function getDetailedSavedRecipesDB(userId: number) {
   return savedRecipes[0].bitebytesRecipes;
 }
 export async function getIngredientsFormDB(recipeId: number) {
-  console.log(recipeId);
   const { data, error } = await supabase
     .from("extendedIngredients")
     .select()
@@ -181,8 +181,8 @@ export async function addRemoveSavedRecipeDB(
   recipeId: number,
   userId: number,
   remove: boolean,
+  recipeObject?: RecipeObject |null,
 ) {
-  // If no recipeId then it means it is AI recipe 
   let query;
   if (remove === true) {
     query = supabase
@@ -191,10 +191,15 @@ export async function addRemoveSavedRecipeDB(
       .eq("userId", userId)
       .eq("recipeId", recipeId);
   } else {
-    if(!recipeId){}
-    const data = await getRecipeDetails(recipeId);
+    let data;
+    // if there is no recipeId , we insert our own object
+    if (!recipeId)
+      data = { ...recipeObject, id: Math.ceil(Math.random() * 100000) };
+    else data = await getRecipeDetails(recipeId);
     await addRecipeToDB(data);
-    query = supabase.from("savedRecipes").insert([{ recipeId, userId }]);
+    query = supabase
+      .from("savedRecipes")
+      .insert([{ recipeId: data.id, userId }]);
   }
   const { data, error } = await query;
   if (error) {
@@ -207,6 +212,7 @@ export async function addRemoveLikedRecipeDB(
   recipeId: number,
   userId: number,
   remove: boolean,
+  recipeObject?: RecipeObject | null,
 ) {
   let query;
   if (remove === true) {
@@ -216,9 +222,15 @@ export async function addRemoveLikedRecipeDB(
       .eq("userId", userId)
       .eq("recipeId", recipeId);
   } else {
-    const data = await getRecipeDetails(recipeId);
+    let data;
+    // if there is no recipeId , we insert our own object
+    if (!recipeId)
+      data = { ...recipeObject, id: Math.ceil(Math.random() * 100000) };
+    else data = await getRecipeDetails(recipeId);
     await addRecipeToDB(data);
-    query = supabase.from("likedRecipes").insert([{ recipeId, userId }]);
+    query = supabase
+      .from("likedRecipes")
+      .insert([{ recipeId: data.id, userId }]);
   }
   const { data, error } = await query;
   if (error) {
@@ -241,7 +253,6 @@ export async function getMealPlanningFromDB(userId: number) {
   return data;
 }
 export async function AddMealPlanningToDB(mealObject: MealPlanning) {
-  console.log(mealObject);
   const { data, error } = await supabase
     .from("mealPlanning")
     .insert([mealObject])
@@ -252,7 +263,11 @@ export async function AddMealPlanningToDB(mealObject: MealPlanning) {
   }
   return data;
 }
-export async function removeMealPlanningFromDB(userId: number,mealType: string,date: Date) {
+export async function removeMealPlanningFromDB(
+  userId: number,
+  mealType: string,
+  date: Date,
+) {
   const { data, error } = await supabase
     .from("mealPlanning")
     .delete()

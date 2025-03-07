@@ -1,3 +1,4 @@
+import { uniqueId } from 'lodash';
 import React from 'react';
 interface props {
   tags: { id: number; name: string }[];
@@ -12,7 +13,7 @@ export default function Tags({ tags, heading, color }: props) {
       )}
       {tags.map((item) => {
         return (
-          <div key={item.id}>
+          <div key={uniqueId()}>
             <p className={`p-2 ${color} text-center rounded-md`}>
               {item.name}
             </p>

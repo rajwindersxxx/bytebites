@@ -3,6 +3,7 @@ import { addRemoveSavedRecipe, getSavedRecipes } from "../_actions/action";
 import { useState } from "react";
 import { RecipeObject } from "../types/RecipeTypes";
 import toast from "react-hot-toast";
+import { getSessionStorage } from "../_helper/clientheper";
 export function useSavedRecipes(userId: number) {
   const queryClient = useQueryClient();
   const [savedRecipes, setSavedRecipes] = useState<number[]>([]);
@@ -23,7 +24,12 @@ export function useSavedRecipes(userId: number) {
     mutationFn: async (recipeId: number) => {
       const isSaved = savedRecipes.includes(recipeId);
       if (userId) {
-        await addRemoveSavedRecipe(recipeId, Number(userId), isSaved);
+        let aiRecipe;
+        if (!recipeId) {
+          aiRecipe = getSessionStorage("generatedRecipe") as RecipeObject;
+          delete aiRecipe.review;
+        }
+        await addRemoveSavedRecipe(recipeId, Number(userId), isSaved, aiRecipe);
       } else {
         throw new Error("You need to Login");
       }

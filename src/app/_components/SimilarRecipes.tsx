@@ -3,6 +3,7 @@ import RecipeCard from "./RecipeCard";
 import { RECIPE_IMAGE_URL } from "../_config/foodApiConfig";
 import { getSimilarRecipesData } from "../_actions/action";
 import { RecipeObject } from "../types/RecipeTypes";
+import { uniqueId } from "lodash";
 interface props {
   id: number;
 }
@@ -17,7 +18,7 @@ export default async function SimilarRecipes({ id }: props) {
           <RecipeCard
             data={item}
             baseUrlImage={RECIPE_IMAGE_URL}
-            key={item.id + item.title}
+            key={uniqueId()}
             visibleButtons={['like', 'saved', 'cart']}
           />
         ))}

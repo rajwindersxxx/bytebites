@@ -64,7 +64,6 @@ export async function getSimilarRecipes(id: number) {
   }
 }
 export async function getRecipeByIngredients(ingredients: string) {
-  console.log(ingredients)
   try {
     const res = await fetch(
       `${FOOD_URL}/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${ingredients}&number=10`,

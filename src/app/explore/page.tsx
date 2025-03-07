@@ -1,13 +1,14 @@
 "use client";
 import { useState } from "react";
 import RandomRecipes from "../_components/RandomRecipes";
+import { uniqueId } from "lodash";
 
 export default function ExplorePage() {
   const [array, setArray] = useState<number[]>([1]);
   return (
     <>
       <div className="mx-auto grid grid-cols-responsiveGrid place-items-center gap-4">
-        {array?.map((item) => <RandomRecipes key={item} groupId={item} />)}
+        {array?.map((item) => <RandomRecipes key={uniqueId()} groupId={item} />)}
       </div>
       <div className="text-center">
         <button

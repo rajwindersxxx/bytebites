@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import RecipeCard from "./RecipeCard";
 import { getRecipeByIngredientsData } from "../_actions/action";
 import { ExtendedIngredients, RecipeObject } from "../types/RecipeTypes";
+import { uniqueId } from "lodash";
 
 interface props {
   extendedIngredients: ExtendedIngredients[];
@@ -22,7 +23,7 @@ function IngredientBasedRecipes({ extendedIngredients }: props) {
       <h2 className="mb-8 text-2xl"> 📝 Similar Recipes </h2>
       <div className="flex flex-col gap-4">
         {similarRecipes?.map((item) => (
-          <RecipeCard data={item} key={item.id + item.title} />
+          <RecipeCard data={item} key={uniqueId()} />
         ))}
       </div>
     </div>

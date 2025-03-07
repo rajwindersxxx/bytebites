@@ -1,3 +1,4 @@
+import { uniqueId } from "lodash";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { Ref } from "react";
@@ -18,7 +19,7 @@ function UserProfileMenu({ ref }: props) {
     >
       <ul className="flex w-full flex-col items-stretch p-2">
         {menuButtons.map((item) => (
-          <li key={item.name}>
+          <li key={uniqueId()}>
             <Link
               href={item.link}
               className="block rounded-sm p-1 transition-all hover:bg-accent"

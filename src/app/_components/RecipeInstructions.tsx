@@ -1,6 +1,7 @@
 import React from "react";
 import AnalyzedInstruction from "./AnalyzedInstruction";
 import { AnalyzedInstructions } from "../types/RecipeTypes";
+import { uniqueId } from "lodash";
 
 interface props {
   analyzedInstructions: AnalyzedInstructions[];
@@ -12,7 +13,7 @@ export default function RecipeInstructions({ analyzedInstructions }: props) {
       {analyzedInstructions.map((analyzedInstruction) => (
         <AnalyzedInstruction
           analyzedInstruction={analyzedInstruction}
-          key={analyzedInstruction.name}
+          key={uniqueId()}
         />
       ))}
     </div>

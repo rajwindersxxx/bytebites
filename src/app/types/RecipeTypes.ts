@@ -83,6 +83,7 @@ export type RecipeObject = {
   originalId: number | null;
   spoonacularScore: number;
   spoonacularSourceUrl: string;
+  review?: string;
 };
 
 

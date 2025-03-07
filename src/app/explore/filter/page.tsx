@@ -4,6 +4,7 @@ import RecipeCard from "@/app/_components/RecipeCard";
 import Pagination from "@/app/_components/Pagination";
 import { SEARCH_RESULTS_COUNT } from "@/app/_config/foodApiConfig";
 import { getSearchedRecipeData } from "@/app/_actions/action";
+import { uniqueId } from "lodash";
 interface SearchParams {
   search: string;
   page: number;
@@ -31,7 +32,7 @@ export default async function FilterPage({
     <Suspense fallback={<Spinner />}>
       <div className="mx-auto grid grid-cols-responsiveGrid place-items-center gap-4">
         {results.map((recipe) => (
-          <RecipeCard data={recipe} key={recipe.id + recipe.title} visibleButtons={['saved']}/>
+          <RecipeCard data={recipe} key={uniqueId()} visibleButtons={['saved']}/>
         ))}
       </div>
       <Pagination totalResults={totalResults} pageSize={number} />

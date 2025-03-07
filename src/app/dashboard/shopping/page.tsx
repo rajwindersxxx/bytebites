@@ -3,6 +3,7 @@ import BookmarksList from "@/app/_components/BookmarksList";
 import IngredientCard from "@/app/_components/IngredientCard";
 import { useSavedIngredients } from "@/app/_hooks/useSavedIngredients";
 import ShoppingListPreview from "@/app/_components/ShoppingListPreview";
+import { uniqueId } from "lodash";
 export default function ShoppingListPage() {
   const { savedIngredients } = useSavedIngredients();
   return (
@@ -17,7 +18,7 @@ export default function ShoppingListPage() {
           {savedIngredients?.map((ingredient) => (
             <IngredientCard
               ingredient={ingredient}
-              key={ingredient.id + Math.random()}
+              key={uniqueId()}
             />
           ))}
         </div>

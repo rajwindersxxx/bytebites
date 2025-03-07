@@ -1,6 +1,7 @@
 import React from "react";
 import IngredientCard from "./IngredientCard";
 import { ExtendedIngredients } from "../types/RecipeTypes";
+import { uniqueId } from "lodash";
 interface props {
   extendedIngredients: ExtendedIngredients[];
 }
@@ -12,7 +13,7 @@ export default function Ingredients({ extendedIngredients }: props) {
         {extendedIngredients.map((ingredient) => (
           <IngredientCard
             ingredient={ingredient}
-            key={ingredient.id + ingredient.amount}
+            key={uniqueId()}
           />
         ))}
       </div>

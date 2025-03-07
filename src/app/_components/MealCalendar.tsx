@@ -19,7 +19,6 @@ function MealCalendar() {
       color,
     };
   });
-  console.log(newData);
   function handleDateClick(info: DateClickArg) {
     console.log(info);
   }

@@ -3,6 +3,7 @@ import { ImageElement } from "./ImageElement";
 import { INGREDIENT_IMAGE_URL } from "../_config/foodApiConfig";
 import { useShoppingData } from "../context/ShoppingListContext";
 import { ExtendedIngredients } from "../types/RecipeTypes";
+import { uniqueId } from "lodash";
 
 interface props {
   ingredientCart: ExtendedIngredients[];
@@ -15,7 +16,7 @@ function ShoppingIngredientsList({ ingredientCart }: props) {
       {ingredientCart.map((ing) => (
         <div
           className="rounded-md bg-natural-beige p-4"
-          key={ing.id + ing.amount}
+          key={uniqueId()}
         >
           <div className="grid w-full grid-cols-[auto_1.1fr_0.5fr_0.5fr] items-center gap-4 rounded border-b border-b-red-500 p-2">
             <div className="relative h-8 w-8 overflow-hidden rounded-full">

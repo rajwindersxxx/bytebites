@@ -8,6 +8,7 @@ import {
   HiOutlineUser,
 } from "react-icons/hi";
 import SignOutButton from "./SignOutButton";
+import { uniqueId } from "lodash";
 
 function UserNavigation() {
   const userNavigation = [
@@ -46,7 +47,7 @@ function UserNavigation() {
     <nav className="flex h-full flex-col justify-between">
       <ul>
         {userNavigation.map((item) => (
-          <li key={item.name}>
+          <li key={uniqueId()}>
             <Link
               href={item.link}
               className="my-2 flex items-center justify-start gap-2 p-2 transition-all hover:bg-natural-beige"

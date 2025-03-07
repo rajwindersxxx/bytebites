@@ -1,8 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { addRemoveLikedRecipe, getLikedRecipes } from "../_actions/action";
-import {  useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { RecipeObject } from "../types/RecipeTypes";
+import { getSessionStorage } from "../_helper/clientheper";
 
 export function useLikedRecipes(userId: number) {
   const queryClient = useQueryClient();
@@ -15,7 +16,7 @@ export function useLikedRecipes(userId: number) {
       const result = await getLikedRecipes(userId);
       const recipesIdList = result.map((item) => item.id);
       setLikedRecipes(recipesIdList);
-      setLikedRecipeData(result)
+      setLikedRecipeData(result);
       return likedRecipes;
     },
     enabled: Boolean(userId),
@@ -25,11 +26,12 @@ export function useLikedRecipes(userId: number) {
     mutationFn: async (recipeId: number) => {
       const isLiked = likedRecipes.includes(recipeId);
       if (userId) {
-         await addRemoveLikedRecipe(
-          recipeId,
-          Number(userId),
-          isLiked,
-        );
+        let aiRecipe;
+        if (!recipeId) {
+          aiRecipe = getSessionStorage("generatedRecipe") as RecipeObject;
+          delete aiRecipe.review;
+        }
+        await addRemoveLikedRecipe(recipeId, Number(userId), isLiked, aiRecipe);
       } else {
         throw new Error("You need to Login");
       }
@@ -44,5 +46,12 @@ export function useLikedRecipes(userId: number) {
     },
     onError: (error) => toast.error(error.message),
   });
-  return {likedRecipesData, likedRecipes, toggleLike, isLoading, isLikePending, error };
+  return {
+    likedRecipesData,
+    likedRecipes,
+    toggleLike,
+    isLoading,
+    isLikePending,
+    error,
+  };
 }

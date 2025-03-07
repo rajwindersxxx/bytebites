@@ -9,22 +9,6 @@ interface props {
   data: RecipeObject[];
   baseUrlImage?: string;
 }
-interface otherData {
-  image: string;
-  title: string;
-  readyInMinutes?: number;
-  id: number;
-  servings?: number;
-  vegetarian?: boolean;
-  pricePerServing?: number;
-  veryPopular?: boolean;
-  extendedIngredients?: unknown[];
-  baseUrlImage?: string;
-  usedIngredientCount?: number;
-  missedIngredientCount?: number;
-  missedIngredients?: { name: string }[];
-}
-
 export default function DashboardRecipeCard({  baseUrlImage}: props) {
   const {
     id,

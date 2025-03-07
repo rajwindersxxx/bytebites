@@ -35,30 +35,18 @@ import {
   getIngredientsFormDB,
   getLikedRecipesDB,
   getMealPlanningFromDB,
+  getRecipeFormDB,
   getSavedRecipeSDB,
   removeMealPlanningFromDB,
   UpdateUserDB,
 } from "../_servers/supabaseApi";
-import { auth, signIn } from "../_lib/Auth";
+import { signIn } from "../_lib/Auth";
 import {
   MealPlanning,
   UpdatePasswordForm,
   UpdateProfileForm,
 } from "../types/FormData";
 import { ExtendedIngredients, RecipeObject } from "../types/RecipeTypes";
-interface Recipe {
-  id: number;
-  image: string;
-  title: string;
-  readyInMinutes: number;
-  servings: number;
-  vegetarian?: boolean;
-  pricePerServing?: number;
-  veryPopular?: boolean;
-  extendedIngredients?: unknown[];
-  baseUrlImage?: string;
-  searchParams: { search: string };
-}
 export async function getSearchedRecipeData(
   recipeName: string,
   offset: number,
@@ -71,7 +59,7 @@ export async function getSearchedRecipeData(
   }
   return data;
 }
-export async function getRandomRecipeData(): Promise<Recipe[]> {
+export async function getRandomRecipeData(): Promise<RecipeObject[]> {
   let data;
   if (USE_API) {
     const { recipes: recipeArray }: { recipes: [] } =
@@ -80,14 +68,24 @@ export async function getRandomRecipeData(): Promise<Recipe[]> {
   } else {
     data = await simulateApiRequest(recipeData);
   }
-  return data as Recipe[];
+  return data as RecipeObject[];
 }
 export async function getRecipeDetailsData(id: number) {
   let data;
   if (USE_API) {
-    data = await getRecipeDetails(id);
+    const { recipeData } = await getRecipeFormDB(id);
+    data = recipeData;
+    if (!data) {
+      data = await getRecipeDetails(id);
+    }
   } else {
-    data = await simulateApiRequest(recipeDetails[0]);
+    const { recipeData } = await getRecipeFormDB(id);
+    data = recipeData;
+    console.log(data);
+    if (!data) {
+      console.log("sample");
+      data = await simulateApiRequest(recipeDetails[0]);
+    }
   }
   return data;
 }
@@ -153,8 +151,6 @@ export async function loginUser(formData: { email: string; password: string }) {
     const res = await signIn("credentials", { ...formData, redirect: false });
     if (!res) throw new Error("Something went wrong. Please try again.");
     if (res.error) throw new CredentialsSignin(res.error);
-    const session = await auth();
-    console.log(session);
     return res;
   } catch (error) {
     if (error instanceof CredentialsSignin) {
@@ -177,17 +173,19 @@ export async function addRemoveSavedRecipe(
   recipeId: number,
   userId: number,
   remove: boolean | undefined,
+  recipeObject?: RecipeObject | null,
 ) {
   if (remove === undefined) throw new Error("Value is not boolean");
-  return await addRemoveSavedRecipeDB(recipeId, userId, remove);
+  return await addRemoveSavedRecipeDB(recipeId, userId, remove, recipeObject);
 }
 export async function addRemoveLikedRecipe(
   recipeId: number,
   userId: number,
   remove: boolean | undefined,
+  recipeObject?: RecipeObject | null,
 ) {
   if (remove === undefined) throw new Error("Value is not boolean");
-  return await addRemoveLikedRecipeDB(recipeId, userId, remove);
+  return await addRemoveLikedRecipeDB(recipeId, userId, remove, recipeObject);
 }
 // get recipe data
 export async function getSavedRecipes(userId: number) {
