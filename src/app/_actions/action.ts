@@ -1,8 +1,8 @@
 "use server";
 import { CredentialsSignin } from "next-auth";
 import {
-  comparePassword,
   generateHash,
+  mergeIngredients,
   simulateApiRequest,
 } from "../_helper/helper";
 import { aiOutputToObject, makeAQuestion } from "../_lib/apiFunctions";
@@ -29,13 +29,14 @@ import {
   AddMealPlanningToDB,
   addRemoveLikedRecipeDB,
   addRemoveSavedRecipeDB,
+  changeUserPasswordDB,
   createAUserDB,
+  createUserShoppingList,
   getIngredientsFormDB,
   getLikedRecipesDB,
   getMealPlanningFromDB,
   getSavedRecipeSDB,
-  getUserByIdDB,
-  updatePasswordDB,
+  removeMealPlanningFromDB,
   UpdateUserDB,
 } from "../_servers/supabaseApi";
 import { auth, signIn } from "../_lib/Auth";
@@ -44,6 +45,7 @@ import {
   UpdatePasswordForm,
   UpdateProfileForm,
 } from "../types/FormData";
+import { ExtendedIngredients, RecipeObject } from "../types/RecipeTypes";
 interface Recipe {
   id: number;
   image: string;
@@ -151,8 +153,8 @@ export async function loginUser(formData: { email: string; password: string }) {
     const res = await signIn("credentials", { ...formData, redirect: false });
     if (!res) throw new Error("Something went wrong. Please try again.");
     if (res.error) throw new CredentialsSignin(res.error);
-    const session = await auth()
-    console.log(session)
+    const session = await auth();
+    console.log(session);
     return res;
   } catch (error) {
     if (error instanceof CredentialsSignin) {
@@ -164,16 +166,11 @@ export async function loginUser(formData: { email: string; password: string }) {
 export async function updateUser(data: UpdateProfileForm) {
   return await UpdateUserDB(data);
 }
-export async function changePassword(inputData: UpdatePasswordForm, userId: number) {
-  const { data: userData } = await getUserByIdDB(userId);
-  const match = await comparePassword(userData.password, inputData.currentPassword);
-  if (match) {
-    const hash = await generateHash(inputData.newPassword)
-    const data = await updatePasswordDB(hash, userId);
-    return data;
-  } else {
-    throw new Error("Password does not match");
-  }
+export async function changePassword(
+  inputData: UpdatePasswordForm,
+  userId: number,
+) {
+  return await changeUserPasswordDB(inputData, userId);
 }
 // database actions
 export async function addRemoveSavedRecipe(
@@ -209,4 +206,22 @@ export async function getMealPlannings(userId: number) {
 }
 export async function addMealPlanning(mealObject: MealPlanning) {
   return await AddMealPlanningToDB(mealObject);
+}
+export async function removeMealPlanning(
+  userId: number,
+  mealType: string,
+  date: Date,
+) {
+  return await removeMealPlanningFromDB(userId, mealType, date);
+}
+export async function makeAShoppingList(
+  recipeData: RecipeObject[],
+  ingredientData: ExtendedIngredients[],
+  userId: number,
+) {
+  const toDoList = mergeIngredients(recipeData, ingredientData).map((item) => {
+    return { ...item, userId };
+  });
+  // !testing
+  return await createUserShoppingList(toDoList);
 }

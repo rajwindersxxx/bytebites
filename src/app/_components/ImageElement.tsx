@@ -16,7 +16,7 @@ export function ImageElement({ src , className, alt}: props2) {
           src={src}
           alt={alt}
           sizes="100%"
-          className={`object-cover ${className}`}
+          className={`object-cover ${className} dark:brightness-75`}
           onError={() => setImageError(true)}
         />
       ) :  <Image

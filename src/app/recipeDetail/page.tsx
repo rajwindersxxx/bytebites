@@ -12,7 +12,7 @@ interface props {
 export default async function page({ searchParams }: props) {
   const { recipeId } = await searchParams;
 
-  const data = await getRecipeDetailsData(recipeId);
+  const data = await getRecipeDetailsData(Number(recipeId));
   const {
     image,
     summary,
@@ -21,7 +21,7 @@ export default async function page({ searchParams }: props) {
     ...otherDetails
   } = data;
   return (
-    <div className="container mx-auto p-12 m-8 border grid grid-cols-[1fr_1fr_1fr] gap-12  ">
+    <div className="container mx-auto p-12 m-8 border dark:border-natural-beige grid grid-cols-[1fr_1fr_1fr] gap-12  ">
       <div className=" overflow-hidden relative rounded-lg border border-natural-green">
         <ImageElement
           src={image}

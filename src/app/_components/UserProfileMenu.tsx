@@ -1,0 +1,43 @@
+import { signOut } from "next-auth/react";
+import Link from "next/link";
+import { Ref } from "react";
+
+interface props {
+  ref?: Ref<HTMLDivElement>;
+}
+function UserProfileMenu({ ref }: props) {
+  const menuButtons = [
+    { name: "Dashboard", link: "/dashboard" },
+    { name: "Bookmarks", link: "/dashboard/bookmarks" },
+    { name: "Shopping List", link: "/dashboard/shopping" },
+  ];
+  return (
+    <div
+      ref={ref}
+      className="absolute -right-0 top-[50px] min-w-36 rounded-md border border-accent bg-natural-beige text-start shadow-md z-40"
+    >
+      <ul className="flex w-full flex-col items-stretch p-2">
+        {menuButtons.map((item) => (
+          <li key={item.name}>
+            <Link
+              href={item.link}
+              className="block rounded-sm p-1 transition-all hover:bg-accent"
+            >
+              {item.name}
+            </Link>
+          </li>
+        ))}
+        <li>
+          <a
+            onClick={() => signOut({ callbackUrl: "/" })}
+            className="block rounded-sm p-1 transition-all hover:bg-accent w-full text-start"
+          >
+            SignOut
+          </a>
+        </li>
+      </ul>
+    </div>
+  );
+}
+
+export default UserProfileMenu;

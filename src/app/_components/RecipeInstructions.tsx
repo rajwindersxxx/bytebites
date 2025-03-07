@@ -1,27 +1,20 @@
-import React from 'react';
-import AnalyzedInstruction from './AnalyzedInstruction';
-interface Instruction {
-  name: string;
-  steps: {
-    number: number;
-    step: string;
-    ingredients: { id: number; name: string }[];
-    equipment: { id: number; name: string; image: string }[];
-  }[];
-}
+import React from "react";
+import AnalyzedInstruction from "./AnalyzedInstruction";
+import { AnalyzedInstructions } from "../types/RecipeTypes";
+
 interface props {
-  analyzedInstructions: Instruction[];
+  analyzedInstructions: AnalyzedInstructions[];
 }
 export default function RecipeInstructions({ analyzedInstructions }: props) {
   return (
     <div className="col-span-2">
-      <h2 className="text-2xl mb-8"> 📝 Instructions</h2>
-        {analyzedInstructions.map((analyzedInstruction) => (
-          <AnalyzedInstruction
-            analyzedInstruction={analyzedInstruction}
-            key={analyzedInstruction.name}
-          />
-        ))}
+      <h2 className="mb-8 text-2xl"> 📝 Instructions</h2>
+      {analyzedInstructions.map((analyzedInstruction) => (
+        <AnalyzedInstruction
+          analyzedInstruction={analyzedInstruction}
+          key={analyzedInstruction.name}
+        />
+      ))}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 export default {
+  darkMode: 'class',// Change from 'media' to 'class'
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -9,19 +10,20 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#E67E22', // Earthy Orange
-        secondary: '#8B4513', // Rustic Brown
-        accent: '#F4A261', // Golden Yellow
+        primary: 'var(--color-primary)', // Earthy Orange
+        secondary: 'var(--color-secondary)', // Rustic Brown
+        accent: 'var(--color-accent)', // Golden Yellow
         natural: {
-          green: '#6A994E', // Olive Green
-          beige: '#F5E1DA', // Warm Beige
-          terracotta: '#D5573B', // Terracotta Red
-          sage: '#B7C59B', // Soft Sage Green
-          cream: '#FFF5E1', // Light Cream
+          green: 'var(--color-green)', // Olive Green
+          beige: 'var(--color-beige)',
+          terracotta: 'var(--color-terracotta)', // Terracotta Red
+          sage: 'var(--color-sage)', // Soft Sage Green
+          cream: 'var(--color-cream)',
         },
       },
       fontFamily: {
-        poppins: '--font-Poppins'
+        poppins: '--font-Poppins',
+        quicksand: '--font-quickSand'
       },
       gridTemplateColumns: {
         responsiveGrid: 'repeat(auto-fit , minmax(28rem , 1fr))',

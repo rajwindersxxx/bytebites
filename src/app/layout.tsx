@@ -1,24 +1,26 @@
 import type { Metadata } from "next";
-import { Poppins } from 'next/font/google';
+import { Poppins , Quicksand} from "next/font/google";
 import "./globals.css";
 import Header from "./_components/Header";
-import {  QueryProvider } from "./context/providers";
+import { QueryProvider } from "./context/providers";
 import Footer from "./_components/Footer";
 import SessionAuthProvider from "./context/SessionAuthProvider";
 import { RecipeDataContext } from "./context/RecipeDataContext";
 import { ShoppingContext } from "./context/ShoppingListContext";
 import { ModalProvider } from "./_components/Modal";
+import { Toaster } from "react-hot-toast";
 
 const poppins = Poppins({
-  variable: '--font-Poppins',
-  weight: ['400', '600'],
-  subsets: ['latin'],
+  variable: "--font-Poppins",
+  weight: ["400", "600"],
+  subsets: ["latin"],
 });
+const quicksand = Quicksand({
+  variable: '--font-quickSand',
+  weight: ["400", "600"],
+  subsets: ['latin']
+})
 
-// const geistMono = Geist_Mono({
-//   variable: '--font-geist-mono',
-//   subsets: ['latin'],
-// });
 
 export const metadata: Metadata = {
   title: "ByteBite",
@@ -32,9 +34,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`text-gray-800 ${poppins.variable}`} >
+    <html lang="en" className={` ${poppins.variable} ${quicksand.variable} dark transition-colors`}>
       <body
-        className={`grid h-screen grid-rows-[auto_1fr_auto] bg-natural-cream font-poppins`}
+        className={`grid h-screen grid-rows-[auto_1fr_auto] bg-natural-cream font-poppins text-gray-800 dark:text-gray-300`}
       >
         <SessionAuthProvider>
           <QueryProvider>
@@ -44,6 +46,13 @@ export default function RootLayout({
                   <Header />
                   <main>{children}</main>
                   <Footer />
+                  <Toaster
+                    toastOptions={{
+                      className:
+                        "!text-primary !dark:text-accent !bg-natural-cream !dark:bg-natural-accent !border-primary !border !dark:border-secondary",
+                      position: "bottom-center",
+                    }}
+                  />
                 </ModalProvider>
               </ShoppingContext>
             </RecipeDataContext>

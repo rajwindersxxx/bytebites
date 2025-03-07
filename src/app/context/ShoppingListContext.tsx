@@ -1,12 +1,15 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { createContext } from "react";
 import lodash from "lodash";
 import { getRecipeDetailsData } from "../_actions/action";
 import { ExtendedIngredients, RecipeObject } from "../types/RecipeTypes";
+import toast from "react-hot-toast";
+import { getLocalStorage, setLocalStorage } from "../_helper/clientheper";
 interface props {
   children: React.ReactNode;
 }
+
 type IngredientCart = ExtendedIngredients & { count: number };
 type RecipeCart = RecipeObject & { count: number };
 interface ShoppingContextType {
@@ -22,6 +25,7 @@ interface ShoppingContextType {
   ) => void;
   removeIngredientFromCart: (ingredientId: number) => void;
   removeRecipeFromCart: (recipeId: number) => void;
+  clearLocalStorageCart: () => void;
 }
 const shoppingContext = createContext<ShoppingContextType | undefined>(
   undefined,
@@ -33,6 +37,24 @@ function ShoppingContext({ children }: props) {
   const [initialRecipeCartState, setInitialRecipeCartState] = useState<
     RecipeCart[]
   >([]);
+  useEffect(() => {
+    const storedRecipeCart = getLocalStorage<RecipeCart[]>("recipeCart");
+    const storedIngredientCart =
+      getLocalStorage<IngredientCart[]>("ingredientCart");
+    const initialCartState = getLocalStorage<RecipeCart[]>("initialCartState");
+    setRecipeInCart(storedRecipeCart || []);
+    setIngredientCart(storedIngredientCart || []);
+    setInitialRecipeCartState(initialCartState || []);
+  }, []);
+  useEffect(() => {
+    if (recipeInCart.length > -1) setLocalStorage("recipeCart", recipeInCart);
+    if (initialRecipeCartState.length > -1)
+      setLocalStorage("initialCartState", initialRecipeCartState);
+  }, [initialRecipeCartState, recipeInCart]);
+  useEffect(() => {
+    if (ingredientCart.length > -1)
+      setLocalStorage("ingredientCart", ingredientCart);
+  }, [ingredientCart]);
   function addIngredientToCart(
     ingredientObject: ExtendedIngredients,
     updateQuantity?: string,
@@ -46,12 +68,18 @@ function ShoppingContext({ children }: props) {
         storedObject.amount += 1;
         storedObject.measures.us.amount += 1;
         storedObject.measures.metric.amount += 1;
+        toast.success(
+          `Added 1 ${storedObject.measures.us.unitShort}. New Total ${storedObject.measures.us.amount} ${storedObject.unit}`,
+        );
       }
       if (updateQuantity === "decrease") {
         if (storedObject.amount <= 1) return;
         storedObject.amount -= 1;
         storedObject.measures.us.amount -= 1;
         storedObject.measures.metric.amount -= 1;
+        toast.success(
+          `Removed 1 ${storedObject.unit}. New Total ${storedObject.measures.us.amount} ${storedObject.unit}`,
+        );
       }
       if (!updateQuantity) {
         storedObject.amount += ingredientObject.amount;
@@ -59,11 +87,17 @@ function ShoppingContext({ children }: props) {
         storedObject.measures.metric.amount +=
           ingredientObject.measures.metric.amount;
         storedObject.count += 1;
+        toast.success(
+          `Added ${ingredientObject.amount} ${storedObject.unit}. New Total ${storedObject.measures.us.amount} ${storedObject.unit}`,
+        );
       }
       setIngredientCart((preValue) =>
         preValue.map((item, i) => (index === i ? storedObject : item)),
       );
     } else {
+      toast.success(
+        `Added ${ingredientObject.amount} ${ingredientObject.unit}.`,
+      );
       setIngredientCart((preValue) => [
         { ...ingredientObject, count: 1 },
         ...preValue,
@@ -75,20 +109,20 @@ function ShoppingContext({ children }: props) {
       (item) => item.id !== ingredientId,
     );
     setIngredientCart(removeObject);
+    toast.success("Ingredient removed for cart");
   }
   function removeRecipeFromCart(recipeId: number) {
     const removeObject = recipeInCart.filter((item) => item.id !== recipeId);
     setRecipeInCart(removeObject);
+    toast.success(`Recipe Removed from Cart`);
   }
   async function addRecipeToCart(
     recipeObject: RecipeObject,
     updateQuantity?: string,
   ) {
-    console.log(recipeObject.extendedIngredients)
-    // *fetch full recipe if ingredient not exits
-    if(!recipeObject.extendedIngredients){
+    if (!recipeObject.extendedIngredients) {
       const recipeData = await getRecipeDetailsData(recipeObject.id);
-      recipeObject = recipeData
+      recipeObject = recipeData;
     }
     const index = recipeInCart.findIndex((item) => item.id === recipeObject.id);
     if (index !== -1) {
@@ -114,7 +148,8 @@ function ShoppingContext({ children }: props) {
       } else {
         ingredientsData = storedObject.extendedIngredients?.map((item, i) => {
           item.amount += initialObject.extendedIngredients[i].amount;
-          item.measures.us.amount += initialObject.extendedIngredients[i].measures.us.amount;
+          item.measures.us.amount +=
+            initialObject.extendedIngredients[i].measures.us.amount;
           item.measures.metric.amount +=
             initialObject.extendedIngredients[i].measures.metric.amount;
           return item;
@@ -136,6 +171,7 @@ function ShoppingContext({ children }: props) {
         { ...recipeObject, count: 1 },
         ...preValue,
       ]);
+      toast.success(`Recipe Added to Cart`);
     }
     if (index === -1) {
       setInitialRecipeCartState((preValue) => [
@@ -143,6 +179,12 @@ function ShoppingContext({ children }: props) {
         ...preValue,
       ]);
     }
+  }
+  function clearLocalStorageCart() {
+    setRecipeInCart([]);
+    setIngredientCart([]);
+    localStorage.removeItem("recipeCart");
+    localStorage.removeItem("ingredientCart");
   }
   return (
     <shoppingContext.Provider
@@ -153,6 +195,7 @@ function ShoppingContext({ children }: props) {
         addIngredientToCart,
         removeIngredientFromCart,
         removeRecipeFromCart,
+        clearLocalStorageCart,
       }}
     >
       {children}

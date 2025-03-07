@@ -10,7 +10,7 @@ function MealPlaningModal({ recipeData }: props) {
   const { image, title, servings, readyInMinutes, vegetarian } = recipeData;
   return (
     <Modal name={`modal${recipeData.id}`}>
-      <div className="grid grid-cols-[0.8fr_2fr] gap-4 border pt-5">
+      <div className="grid grid-cols-[0.8fr_2fr] gap-4 pt-5">
         <div className="flex flex-col gap-4 overflow-hidden first-letter:rounded-md">
           <div className="relative h-40">
             <ImageElement src={image} alt={title} className="rounded-md" />
@@ -25,7 +25,7 @@ function MealPlaningModal({ recipeData }: props) {
           </div>
         </div>
         <div>
-          <CreateMealForm recipeData={recipeData} />
+          <CreateMealForm recipeData={recipeData}/>
         </div>
       </div>
     </Modal>

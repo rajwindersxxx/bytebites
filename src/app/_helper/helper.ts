@@ -1,4 +1,6 @@
 import bcrypt from "bcrypt";
+import { ExtendedIngredients, RecipeObject } from "../types/RecipeTypes";
+import { endOfDay, isWithinInterval, startOfDay } from "date-fns";
 export function simulateApiRequest(data: unknown) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -8,20 +10,7 @@ export function simulateApiRequest(data: unknown) {
   });
 }
 
-export function setSessionStorage(key: string, data: unknown) {
-  if (typeof window !== "undefined") {
-    return sessionStorage.setItem(key, JSON.stringify(data));
-  } else {
-    return false;
-  }
-}
-export function getSessionStorage(key: string) {
-  if (typeof window !== "undefined") {
-    return sessionStorage.getItem(key);
-  } else {
-    return false;
-  }
-}
+
 export async function generateHash(password: string) {
   return await bcrypt.hash(password, 10);
 }
@@ -31,4 +20,37 @@ export async function comparePassword(
 ) {
   const match = await bcrypt.compare(plainPassword, hashedPassword);
   return match;
+}
+export function isDateToday(dateToCheck: string) {
+  const todayStart = startOfDay(new Date());
+  const todayEnd = endOfDay(new Date());
+  return isWithinInterval(dateToCheck, { start: todayStart, end: todayEnd });
+}
+export function mergeIngredients(recipeData: RecipeObject[], ingredientData: ExtendedIngredients[]) {
+  const ingredientMap = new Map();
+  recipeData.forEach((recipe) => {
+    recipe.extendedIngredients.forEach((item) => {
+      const { id, name, amount, unit, image } = item;
+      if (ingredientMap.has(id)) {
+        const existingIngredient = ingredientMap.get(id);
+        existingIngredient.amount += amount;
+      } else {
+        ingredientMap.set(id, { id, name, amount, unit, image });
+      }
+    });
+  });
+
+  // Process customIngredients
+  ingredientData.forEach((item) => {
+    const { id, name, amount, unit, image } = item;
+    if (ingredientMap.has(id)) {
+      const existingIngredient = ingredientMap.get(id);
+      existingIngredient.amount += amount;
+    } else {
+      ingredientMap.set(id, { id, name, amount, unit, image });
+    }
+  });
+
+  // Convert Map values to an array
+  return Array.from(ingredientMap.values());
 }

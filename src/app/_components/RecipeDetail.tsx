@@ -1,7 +1,7 @@
 import React from "react";
 import RecipeDetailButtons from "./RecipeDetailButtons";
 interface RecipeDetailProps {
-  id:  number;
+  id: number;
   title: string;
   dishTypes: string[];
   readyInMinutes: number;
@@ -33,14 +33,14 @@ export default function RecipeDetail({ detail }: Props) {
   } = detail;
   return (
     <div className="col-span-2 flex flex-col gap-4 bg-natural-cream p-4">
-      <div className="flex justify-between ">
+      <div className="flex justify-between">
         <h2 className="text-4xl underline">{title} </h2>
-        <RecipeDetailButtons recipeId={id}/>
+        <RecipeDetailButtons recipeId={id} />
       </div>
       <div className="flex flex-col gap-4 text-xl">
         <p>🍽️ {dishTypes} type </p>
         <p>
-          ⏱️ Ready In <span className="font-bold">{readyInMinutes}</span>
+          ⏱️ Ready In <span className="font-bold">{readyInMinutes}</span>{" "}
           minutes
         </p>
         <p>

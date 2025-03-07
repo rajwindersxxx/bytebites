@@ -6,7 +6,7 @@ export default async function Navigation() {
       <li>
         <Link
           href="/"
-          className="block rounded-md px-4 py-2 transition-all hover:scale-110 hover:bg-accent active:scale-105 active:bg-primary"
+          className="block rounded-md px-4 py-2 transition-all hover:scale-110 hover:bg-accent active:scale-105 active:bg-primary dark:hover:text-gray-900"
         >
           home
         </Link>
@@ -14,7 +14,7 @@ export default async function Navigation() {
       <li>
         <Link
           href="/generateRecipe"
-          className="block rounded-md px-4 py-2 transition-all hover:scale-110 hover:bg-accent active:scale-105 active:bg-primary"
+          className="block rounded-md px-4 py-2 transition-all hover:scale-110 hover:bg-accent active:scale-105 active:bg-primary dark:hover:text-gray-900"
         >
           Generate
         </Link>
@@ -22,12 +22,11 @@ export default async function Navigation() {
       <li>
         <Link
           href="/explore"
-          className="block rounded-md px-4 py-2 transition-all hover:scale-110 hover:bg-accent active:scale-105 active:bg-primary"
+          className="block rounded-md px-4 py-2 transition-all hover:scale-110 hover:bg-accent active:scale-105 active:bg-primary dark:hover:text-gray-900"
         >
           Explore
         </Link>
       </li>
-
     </ul>
   );
 }

@@ -8,9 +8,10 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useShoppingData } from "../context/ShoppingListContext";
 import { GrTableAdd } from "react-icons/gr";
-import {  useModal } from "./Modal";
+import { useModal } from "./Modal";
 import MealPlaningModal from "./MealPlaningModal";
 import { RecipeObject } from "../types/RecipeTypes";
+import toast from "react-hot-toast";
 interface props {
   recipeId: number;
   visibleButtons?: string[];
@@ -19,7 +20,7 @@ interface props {
 function RecipeCardButtons({ recipeData, recipeId, visibleButtons }: props) {
   const { toggleLike, likedRecipes, toggleSave, savedRecipes } =
     useRecipeData();
-  const { addRecipeToCart } = useShoppingData();
+  const { addRecipeToCart, removeRecipeFromCart } = useShoppingData();
   const session = useSession();
   const userid = session.data?.user;
   const [isLiked, setIsLiked] = useState<boolean>(false);
@@ -32,58 +33,58 @@ function RecipeCardButtons({ recipeData, recipeId, visibleButtons }: props) {
     setIsSaved(savedRecipes.includes(recipeId));
     setIsCart(recipeInCart.some((item) => item.id === recipeId));
   }, [likedRecipes, recipeId, recipeInCart, savedRecipes]);
+
+  function handleCart(e: { stopPropagation: () => void }) {
+    e.stopPropagation();
+    // todo: modify later
+    if (!userid) return toast.error("You need to login");
+    if (isCart) removeRecipeFromCart(recipeId);
+    else addRecipeToCart(recipeData);
+  }
+  function handleLike(e: { stopPropagation: () => void }) {
+    e.stopPropagation();
+    toggleLike(recipeId);
+  }
+  function handleSave(e: { stopPropagation: () => void }) {
+    e.stopPropagation();
+    toggleSave(recipeId);
+  }
+  function handleMeal(e: { stopPropagation: () => void }) {
+    openModal(`modal${recipeId}`);
+    e.stopPropagation();
+  }
+
   return (
     <div className="col-start-3 flex justify-end gap-4">
       {visibleButtons?.includes("cart") && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            addRecipeToCart(recipeData);
-          }}
-        >
+        <button onClick={handleCart}>
           <HiOutlineShoppingCart
-            className={`h-6 w-6 stroke-natural-terracotta transition-all hover:scale-110 hover:fill-natural-terracotta ${isCart && "fill-natural-terracotta"}`}
+            className={`iconOutlineStyles ${isCart && "iconFillStyle"}`}
           />
         </button>
       )}
       {visibleButtons?.includes("like") && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            if (!userid) return;
-            toggleLike(recipeId);
-          }}
-        >
+        <button onClick={handleLike}>
           <HiOutlineThumbUp
-            className={`h-6 w-6 stroke-natural-terracotta transition-all hover:scale-110 hover:fill-natural-terracotta ${isLiked && "fill-natural-terracotta"}`}
+            className={`iconOutlineStyles ${isLiked && "iconFillStyle"}`}
           />
         </button>
       )}
       {visibleButtons?.includes("saved") && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            toggleSave(recipeId);
-          }}
-        >
+        <button onClick={handleSave}>
           <HiOutlineHeart
-            className={`h-6 w-6 stroke-natural-terracotta transition-all hover:scale-110 hover:fill-natural-terracotta ${isSaved && "fill-natural-terracotta"}`}
+            className={`iconOutlineStyles ${isSaved && "iconFillStyle"}`}
           />
         </button>
       )}
       {visibleButtons?.includes("meal") && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            openModal(`modal${recipeId}`);
-          }}
-        >
+        <button onClick={handleMeal}>
           <GrTableAdd
-            className={`h-5 w-5 stroke-natural-terracotta transition-all hover:scale-110 hover:stroke-natural-terracotta ${isSaved && "fill-natural-terracotta"}`}
+            className={`h-5 w-5 stroke-natural-terracotta transition-all hover:scale-110 active:scale-125 dark:stroke-accent ${isSaved && "iconFillStyle"}`}
           />
         </button>
       )}
-      <MealPlaningModal recipeData={recipeData}/>
+      <MealPlaningModal recipeData={recipeData} />
     </div>
   );
 }

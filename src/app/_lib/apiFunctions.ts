@@ -56,7 +56,6 @@ export function makeAQuestion(ingredients: string | null) {
         output.push(object);
       });
     return {
-      id: Math.random(),
       title: level1Data[0].split("=")[1],
       dishTypes: level1Data[1].split("=")[1],
       readyInMinutes: level1Data[2].split("=")[1],
@@ -73,7 +72,4 @@ export function makeAQuestion(ingredients: string | null) {
   // debugging
 // const question = makeAQuestion('pizza, butter, milk')
 // const output = aiOutputToObject(question)
-// const output2 = output.analyzedInstructions[0].steps
-// console.log(output2[0].ingredients)
-// console.log(output2[0].equipment)
 // console.log(output)

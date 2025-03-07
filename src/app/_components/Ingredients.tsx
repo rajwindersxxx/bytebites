@@ -12,7 +12,7 @@ export default function Ingredients({ extendedIngredients }: props) {
         {extendedIngredients.map((ingredient) => (
           <IngredientCard
             ingredient={ingredient}
-            key={ingredient.id + Math.random()}
+            key={ingredient.id + ingredient.amount}
           />
         ))}
       </div>

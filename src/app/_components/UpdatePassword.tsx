@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
-import { PrimaryButton, SecondaryButton } from "./Buttons";
+import { PrimaryButton } from "./Buttons";
 import Input from "./Input";
 import { UpdatePasswordForm } from "../types/FormData";
 import { changePassword } from "../_actions/action";
 import { useMutation } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 
 function UpdatePassword() {
   const {
@@ -15,15 +16,17 @@ function UpdatePassword() {
     watch,
   } = useForm<UpdatePasswordForm>();
   const session = useSession();
-  const userId = session.data?.user?.id
+  const userId = session.data?.user?.id;
   const { mutate: handlePasswordChange } = useMutation({
-    mutationFn: (data: UpdatePasswordForm) => changePassword(data, Number(userId)),
+    mutationFn: (data: UpdatePasswordForm) =>
+      changePassword(data, Number(userId)),
     onSuccess: () => {
-      console.log("password updated");
+      toast.success("password change successfully");
       reset();
     },
     onError: (error) => {
-      console.error(error);
+      toast.error(error.message);
+      reset();
     },
   });
   const newPassword = watch("newPassword"); // Watch newPassword to use in validation
@@ -84,9 +87,6 @@ function UpdatePassword() {
       </div>
 
       <div className="col-span-2 flex gap-4 justify-self-end">
-        <SecondaryButton type="button" onClick={() => reset()}>
-          Cancel
-        </SecondaryButton>
         <PrimaryButton type="submit">Update Password</PrimaryButton>
       </div>
     </form>

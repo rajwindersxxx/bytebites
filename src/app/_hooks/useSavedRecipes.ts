@@ -2,11 +2,11 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { addRemoveSavedRecipe, getSavedRecipes } from "../_actions/action";
 import { useState } from "react";
 import { RecipeObject } from "../types/RecipeTypes";
-type data = RecipeObject[];
+import toast from "react-hot-toast";
 export function useSavedRecipes(userId: number) {
   const queryClient = useQueryClient();
   const [savedRecipes, setSavedRecipes] = useState<number[]>([]);
-  const [savedRecipeData, setSavedREcipeData] = useState<data>([]);
+  const [savedRecipeData, setSavedREcipeData] = useState<RecipeObject[]>([]);
   const { isLoading, error } = useQuery({
     queryKey: ["savedRecipes"],
     queryFn: async () => {
@@ -19,22 +19,31 @@ export function useSavedRecipes(userId: number) {
     enabled: Boolean(userId),
     staleTime: 1000 * 60 * 5,
   });
-  const { mutate: toggleSave , isPending} = useMutation({
+  const { mutate: toggleSave, isPending } = useMutation({
     mutationFn: async (recipeId: number) => {
       const isSaved = savedRecipes.includes(recipeId);
       if (userId) {
         await addRemoveSavedRecipe(recipeId, Number(userId), isSaved);
       } else {
-        throw new Error("User ID is undefined");
+        throw new Error("You need to Login");
       }
-      return recipeId;
+      return { isSaved };
     },
-    onSuccess: () => {
+    onSuccess: ({ isSaved }) => {
+      if (isSaved) toast.success("Recipe Bookmarked removed  Successfully");
+      else toast.success("Recipe Bookmarked  Successfully");
       queryClient.invalidateQueries({
         queryKey: ["savedRecipes"],
       });
     },
-    onError: (error) => console.error(error),
+    onError: (error) => toast.error(error.message),
   });
-  return { savedRecipes, savedRecipeData, toggleSave, isLoading,isPending, error };
+  return {
+    savedRecipes,
+    savedRecipeData,
+    toggleSave,
+    isLoading,
+    isPending,
+    error,
+  };
 }

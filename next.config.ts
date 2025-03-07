@@ -12,6 +12,13 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'jmqspgxmomqtfvttimnj.supabase.co',
+        port: '',
+        pathname: '/**',
+        search: '',
+      },
+      {
+        protocol: 'https',
         hostname: 'img.spoonacular.com',
         port: '',
         pathname: '/**',

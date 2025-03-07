@@ -42,9 +42,12 @@ export default function GenerateRecipeForm() {
             <Input
               placeHolder={`Enter Ingredient ${index + 1} `}
               key={field.id}
-              {...register(`ingredient.${index}.value`)}
+              {...register(`ingredient.${index}.value`, {
+                required: `ingredient ${index - 1} is required`
+              })}
               disabled={isLoading}
             />
+            
           ))}
         </div>
         <div className="flex-start flex gap-4 self-center">

@@ -23,7 +23,7 @@ export default function Input({
   return (
     <input
       type={type}
-      className={`rounded-md border border-primary ${className}`}
+      className={`rounded-md border border-primary dark:text-natural-cream dark:bg-gray-300 dark:disabled:bg-gray-400 ${className}`}
       placeholder={placeHolder}
       onChange={onChange}
       value={value}

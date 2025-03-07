@@ -11,8 +11,8 @@ function ShoppingRecipeList({ recipeInCart }: props) {
   return (
     <>
       {recipeInCart.map((item) => (
-        <div className="w-full rounded-md bg-natural-beige p-4" key={item.id}>
-          <div className="flex justify-between border border-b-primary pb-2">
+        <div className=" w-full rounded-md bg-natural-beige p-4" key={item.id + Math.random()}>
+          <div className="flex justify-between border-b border-b-primary pb-2">
             <h1 className="text-xl font-semibold">
               📋 {item.title.slice(0, 25)}...
             </h1>
@@ -32,8 +32,8 @@ function ShoppingRecipeList({ recipeInCart }: props) {
           <div className="flex w-full flex-col gap-1">
             {item.extendedIngredients.map((ing) => (
               <div
-                className="grid grid-cols-[auto_1.1fr_0.5fr_0.5fr] items-center gap-4 rounded border border-b-red-500 p-2"
-                key={ing.id + ing.amount}
+                className="grid grid-cols-[auto_1.1fr_0.5fr_0.5fr] items-center gap-4 rounded border-b border-b-red-500 p-2"
+                key={ing.id + Math.random()}
               >
                 <div className="relative h-8 w-8 overflow-hidden rounded-full">
                   <ImageElement
@@ -58,7 +58,7 @@ function ShoppingRecipeList({ recipeInCart }: props) {
               </div>
             ))}
           </div>
-          <div className="flex justify-between border px-2 pt-4">
+          <div className="flex justify-between px-2 pt-4">
             <div className="flex items-center gap-4">
               <p>{item.vegetarian ? "🍀 veg" : "🥩 non-veg"} </p>
               <p className="">👨‍👩‍👧‍👦 {item.servings}</p>
@@ -71,6 +71,7 @@ function ShoppingRecipeList({ recipeInCart }: props) {
               </button>
             </div>
           </div>
+
         </div>
       ))}
     </>

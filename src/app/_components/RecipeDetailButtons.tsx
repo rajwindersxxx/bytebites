@@ -6,6 +6,7 @@ interface props {
   recipeId: number;
 }
 function RecipeDetailButtons({ recipeId }: props) {
+  console.log(recipeId)
   const { toggleLike, likedRecipes, toggleSave, savedRecipes } =
     useRecipeData();
   const [isLiked, setIsLiked] = useState<boolean>(false);
@@ -22,7 +23,7 @@ function RecipeDetailButtons({ recipeId }: props) {
             e.preventDefault();
             toggleLike(recipeId);
           }}
-          className={`h-8 w-8 stroke-natural-terracotta transition-all hover:scale-110 hover:fill-natural-terracotta ${isLiked && "fill-natural-terracotta"}`}
+          className={`h-8 w-8 stroke-natural-terracotta dark:stroke-accent transition-all hover:scale-110 active:scale-125  ${isLiked && "fill-natural-terracotta dark:fill-accent"}`}
         />
       </button>
       <button
@@ -32,7 +33,7 @@ function RecipeDetailButtons({ recipeId }: props) {
         }}
       >
         <HiOutlineHeart
-          className={`h-8 w-8 stroke-natural-terracotta transition-all hover:scale-110 hover:fill-natural-terracotta ${isSaved && "fill-natural-terracotta"}`}
+          className={`h-8 w-8 stroke-natural-terracotta dark:stroke-accent transition-all hover:scale-110 active:scale-125  ${isSaved && "fill-natural-terracotta dark:fill-accent"}`}
         />
       </button>
     </div>

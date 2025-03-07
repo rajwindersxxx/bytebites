@@ -12,8 +12,10 @@ interface RecipeContextType {
   likedRecipes: number[];
   savedRecipes: number[];
   savedRecipeData: RecipeObject[];
+  likedRecipesData: RecipeObject[];
   isLoadingSavedRecipes: boolean;
   isSavePending: boolean;
+  isLikePending: boolean;
   toggleLike: (recipeId: number) => void;
   toggleSave: (recipeId: number) => void;
 }
@@ -23,7 +25,7 @@ const recipeDataContext = createContext<RecipeContextType | undefined>(
 function RecipeDataContext({ children }: props) {
   const session = useSession();
   const userId = session.data?.user?.id;
-  const { likedRecipes, toggleLike } = useLikedRecipes(Number(userId));
+  const { likedRecipes, likedRecipesData, toggleLike , isLikePending} = useLikedRecipes(Number(userId));
   const {
     savedRecipes,
     toggleSave,
@@ -36,12 +38,14 @@ function RecipeDataContext({ children }: props) {
     <recipeDataContext.Provider
       value={{
         likedRecipes,
+        likedRecipesData,
         toggleLike,
         toggleSave,
         savedRecipes,
         savedRecipeData,
         isLoadingSavedRecipes,
         isSavePending,
+        isLikePending
       }}
     >
       {children}

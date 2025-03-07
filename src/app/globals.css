@@ -1,7 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer utilities {
+  :root {
+    --color-primary: #e67e22;
+    --color-secondary: #8b4513;
+    --color-accent: #f4a261;
+    --color-green: #6a994e;
+    --color-beige: #f5e1da;
+    --color-terracotta: #d5573b;
+    --color-sage: #b7c59b;
+    --color-cream: #fff5e1;
+  }
+  .dark {
+    --color-primary: #cc6618;
+    --color-secondary: #66330c;
+    --color-accent: #d98f4d;
+    --color-green: #55803d;
+    --color-beige: #4a3d38;
+    --color-terracotta: #a8422b;
+    --color-sage: #8a9675;
+    --color-cream: #332d28;
+    --color-beige-dark: #9b8b85;
+  }
+  .iconOutlineStyles {
+    @apply h-6 w-6 stroke-natural-terracotta transition-all hover:scale-110 active:scale-125 dark:stroke-accent;
+  }
+  .iconFillStyle {
+    @apply fill-natural-terracotta dark:fill-accent;
+  }
   .spinner {
     margin: 3.2rem auto 1.6rem;
     width: 60px;

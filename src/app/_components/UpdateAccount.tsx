@@ -1,13 +1,14 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { PrimaryButton, SecondaryButton } from "./Buttons";
+import { PrimaryButton } from "./Buttons";
 import Input from "./Input";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { updateUser } from "../_actions/action";
 import { UpdateProfileForm } from "../types/FormData";
+import toast from "react-hot-toast";
 function UpdateAccount() {
-  const {data , update} = useSession();
+  const { data, update } = useSession();
   const { name, email, id } = data?.user as {
     id: string;
     name: string;
@@ -16,14 +17,13 @@ function UpdateAccount() {
   const { register, handleSubmit, reset } = useForm<UpdateProfileForm>();
   const { mutate: handleUpdate } = useMutation({
     mutationFn: (data: UpdateProfileForm) => updateUser(data),
-    onSuccess:async () => {
-      console.log("data updated");
+    onSuccess: async () => {
       await update();
-      console.log(data)
+      toast.success("Account has been updated ");
       reset();
     },
     onError: (error) => {
-      console.error(error);
+      toast.error(error.message);
     },
   });
   function handleFormSubmit(data: UpdateProfileForm) {
@@ -59,8 +59,8 @@ function UpdateAccount() {
         {...register("file")}
       />
       <div className="col-span-2 flex gap-4 justify-self-end">
-        <SecondaryButton onClick={reset}>Cancel</SecondaryButton>
-        <PrimaryButton>Update account</PrimaryButton>
+
+        <PrimaryButton type="submit">Update account</PrimaryButton>
       </div>
     </form>
   );

@@ -62,7 +62,7 @@ export default function RecipeCard({
           {title.slice(0, 25)}
           {title.length > 25 && " ..."}
         </a>
-        <div className="grid grid-cols-[1fr_0.5fr_1fr] content-center items-center justify-center gap-2">
+        <div className="grid grid-cols-[1fr_0.5fr_1fr] content-center items-center justify-center gap-2 dark:text-gray-300">
           {missedIngredients && (
             <p className="col-span-3">
               <span className="font-bold">Require</span>{" "}

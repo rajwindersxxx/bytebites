@@ -4,59 +4,58 @@ import {
   HiOutlineHeart,
   HiOutlineHome,
   HiOutlineShoppingBag,
+  HiOutlineThumbUp,
   HiOutlineUser,
 } from "react-icons/hi";
 import SignOutButton from "./SignOutButton";
 
 function UserNavigation() {
+  const userNavigation = [
+    {
+      name: "home",
+      link: "/dashboard",
+      icon: <HiOutlineHome className="h-5 w-5" />,
+    },
+    {
+      name: "bookmarked",
+      link: "/dashboard/bookmarks",
+      icon: <HiOutlineHeart className="h-5 w-5" />,
+    },
+    {
+      name: "Make shopping list",
+      link: "/dashboard/shopping",
+      icon: <HiOutlineShoppingBag className="h-5 w-5" />,
+    },
+    {
+      name: "Meal Planning",
+      link: "/dashboard/mealPlanner",
+      icon: <HiOutlineCalendar className="h-5 w-5" />,
+    },
+    {
+      name: "Likes",
+      link: "/dashboard/likes",
+      icon: <HiOutlineThumbUp className="h-5 w-5" />,
+    },
+    {
+      name: "Profile",
+      link: "/dashboard/profile",
+      icon: <HiOutlineUser className="h-5 w-5" />,
+    },
+  ];
   return (
     <nav className="flex h-full flex-col justify-between">
       <ul>
-        <li>
-          <Link
-            href="/dashboard"
-            className="my-2 flex items-center justify-start gap-2 p-2 transition-all hover:bg-natural-beige"
-          >
-            <HiOutlineHome className="h-5 w-5" />
-            <span>Home</span>
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/dashboard/bookmarks"
-            className="my-2 flex items-center justify-start gap-2 p-2 transition-all hover:bg-natural-beige"
-          >
-            <HiOutlineHeart className="h-5 w-5" />
-            <span>bookmarked</span>
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/dashboard/shopping"
-            className="my-2 flex items-center justify-start gap-2 p-2 transition-all hover:bg-natural-beige"
-          >
-            <HiOutlineShoppingBag className="h-5 w-5" />
-            <span>Shopping</span>
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/dashboard/mealPlanner"
-            className="my-2 flex items-center justify-start gap-2 p-2 transition-all hover:bg-natural-beige"
-          >
-            <HiOutlineCalendar className="h-5 w-5" />
-            <span>Meal Planing</span>
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/dashboard/profile"
-            className="my-2 flex items-center justify-start gap-2 p-2 transition-all hover:bg-natural-beige"
-          >
-            <HiOutlineUser className="h-5 w-5" />
-            Profile
-          </Link>
-        </li>
+        {userNavigation.map((item) => (
+          <li key={item.name}>
+            <Link
+              href={item.link}
+              className="my-2 flex items-center justify-start gap-2 p-2 transition-all hover:bg-natural-beige"
+            >
+              {item.icon}
+              <span>{item.name}</span>
+            </Link>
+          </li>
+        ))}
       </ul>
       <ul>
         <SignOutButton />

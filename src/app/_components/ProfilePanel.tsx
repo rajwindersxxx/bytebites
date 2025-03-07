@@ -1,22 +1,39 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import { HiOutlineLogin } from "react-icons/hi";
+import { HiOutlineLogin, HiOutlineMoon, HiOutlineSun } from "react-icons/hi";
 import { useSession } from "next-auth/react";
-import { useShoppingData } from "../context/ShoppingListContext";
+import { ImageElement } from "./ImageElement";
+import { useDarkMode } from "../_hooks/useDarkMode";
+import UserProfileMenu from "./UserProfileMenu";
+import { useToggleMenu } from "../_hooks/useToogleMenu";
 
 export default function ProfilePanel() {
   const session = useSession();
-  const {ingredientCart, recipeInCart} = useShoppingData()
+  const { isMenuOpen, menuRef, buttonRef } = useToggleMenu();
+  const { toggleDarkMode, darkMode } = useDarkMode();
   return (
     <div className="flex items-center gap-4 justify-self-end">
-      {session?.data ? (
+      {session.data?.user ? (
         <>
-          <Link href="/dashboard" className="capitalize">
-            {session?.data?.user?.name}
-          </Link>
-          <p>{ingredientCart.length} Ingredients  </p>
-          <p>{recipeInCart.length} recipes  </p>
+          <button onClick={toggleDarkMode}>
+            {darkMode ? (
+              <HiOutlineMoon className="h-6 w-6" />
+            ) : (
+              <HiOutlineSun className="h-6 w-6" />
+            )}
+          </button>
+          <button ref={buttonRef} className="relative flex gap-4">
+            <div className="relative h-12 w-12 overflow-hidden rounded-full">
+              <ImageElement
+                src={session.data.user?.image || ""}
+                alt={session.data.user?.name || ""}
+              />
+            </div>
+            {isMenuOpen && (
+                <UserProfileMenu  ref={menuRef}/>
+            )}
+          </button>
         </>
       ) : (
         <Link href="/login">

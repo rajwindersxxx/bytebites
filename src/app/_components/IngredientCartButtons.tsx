@@ -12,7 +12,7 @@ function IngredientCartButtons({ ingredient }: props) {
   return (
     <div>
       <button onClick={() => addIngredientToCart(ingredient)}>
-        <HiOutlinePlusCircle className="h-6 w-6 stroke-natural-terracotta transition-all hover:scale-110" />
+        <HiOutlinePlusCircle className="h-6 w-6 stroke-natural-terracotta dark:stroke-accent transition-all hover:scale-110 active:scale-125" />
       </button>
     </div>
   );
