@@ -3,7 +3,11 @@ import RecipeShortDetails from "@/app/_components/RecipeShortDetails";
 function page() {
   return (
     <div className="grid h-full grid-cols-[23.25rem_2fr] gap-4">
-      <BookmarksList detailLink='/dashboard/bookmarks'/>
+
+      <div className="h-[96%]">
+        <h1 className="text-xl text-center p2">Bookmarked recipes</h1>
+        <BookmarksList detailLink='/dashboard/bookmarks'/>
+      </div>
       <RecipeShortDetails />
     </div>
   );

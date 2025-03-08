@@ -12,6 +12,7 @@ import { useModal } from "./Modal";
 import { RecipeObject } from "../types/RecipeTypes";
 import toast from "react-hot-toast";
 import MealPlaningModal from "./MealPlaningModal";
+import ConfirmationModal from "./ConfirmationModal";
 interface props {
   recipeId: number;
   visibleButtons?: string[];
@@ -47,15 +48,20 @@ function RecipeCardButtons({ recipeData, recipeId, visibleButtons }: props) {
   }
   function handleSave(e: { stopPropagation: () => void }) {
     e.stopPropagation();
+    if (isSaved)
+      return openModal(
+        <ConfirmationModal callback={() => toggleSave(recipeId)} />,
+        `confirmDelete`,
+      );
     toggleSave(recipeId);
   }
   function handleMeal(e: { stopPropagation: () => void }) {
+    e.stopPropagation();
     openModal(
       <MealPlaningModal recipeData={recipeData} />,
       `modal${recipeId}`,
       { recipeTitle: recipeData.title },
     );
-    e.stopPropagation();
   }
 
   return (

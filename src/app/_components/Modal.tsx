@@ -52,7 +52,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
               <button className="absolute right-2 top-2" onClick={closeModal}>
                 <MdClose className="h-6 w-6" />
               </button>
-              {modalContent} {/* Render passed content here */}
+              {modalContent} 
             </div>
           </div>,
           document.body,

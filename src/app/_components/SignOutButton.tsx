@@ -1,16 +1,18 @@
 "use client";
 import { HiOutlineLogout } from "react-icons/hi";
 import { signOut, useSession } from "next-auth/react";
+import { useShoppingData } from "../context/ShoppingListContext";
 
 function SignOutButton() {
   const { update } = useSession();
+  const { clearLocalStorageCart } = useShoppingData();
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        signOut({ callbackUrl: '/'});
+        clearLocalStorageCart();
+        signOut({ callbackUrl: "/" });
         update();
-
       }}
     >
       <button
