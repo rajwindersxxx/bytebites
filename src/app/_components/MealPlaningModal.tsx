@@ -1,6 +1,5 @@
 import { RecipeObject } from "../types/RecipeTypes";
 import { ImageElement } from "./ImageElement";
-import { Modal } from "./Modal";
 import "react-day-picker/style.css";
 import CreateMealForm from "./CreateMealForm";
 interface props {
@@ -9,8 +8,7 @@ interface props {
 function MealPlaningModal({ recipeData }: props) {
   const { image, title, servings, readyInMinutes, vegetarian } = recipeData;
   return (
-    <Modal name={`modal${recipeData.id}`}>
-      <div className="grid grid-cols-[0.8fr_2fr] gap-4 pt-5">
+      <div className="grid grid-cols-[0.8fr_2fr] gap-4 pt-5 max-w-[55rem]">
         <div className="flex flex-col gap-4 overflow-hidden first-letter:rounded-md">
           <div className="relative h-40">
             <ImageElement src={image} alt={title} className="rounded-md" />
@@ -28,7 +26,6 @@ function MealPlaningModal({ recipeData }: props) {
           <CreateMealForm recipeData={recipeData}/>
         </div>
       </div>
-    </Modal>
   );
 }
 

@@ -3,6 +3,7 @@ import { ImageElement } from "./ImageElement";
 import { INGREDIENT_IMAGE_URL } from "../_config/foodApiConfig";
 import { useShoppingData } from "../context/ShoppingListContext";
 import { RecipeObject } from "../types/RecipeTypes";
+import { uniqueId } from "lodash";
 interface props {
   recipeInCart: RecipeObject[];
 }
@@ -11,7 +12,7 @@ function ShoppingRecipeList({ recipeInCart }: props) {
   return (
     <>
       {recipeInCart.map((item) => (
-        <div className=" w-full rounded-md bg-natural-beige p-4" key={item.id + Math.random()}>
+        <div className=" w-full rounded-md bg-natural-beige p-4" key={item.id}>
           <div className="flex justify-between border-b border-b-primary pb-2">
             <h1 className="text-xl font-semibold">
               📋 {item.title.slice(0, 25)}...
@@ -33,7 +34,7 @@ function ShoppingRecipeList({ recipeInCart }: props) {
             {item.extendedIngredients.map((ing) => (
               <div
                 className="grid grid-cols-[auto_1.1fr_0.5fr_0.5fr] items-center gap-4 rounded border-b border-b-red-500 p-2"
-                key={ing.id + Math.random()}
+                key={uniqueId()}
               >
                 <div className="relative h-8 w-8 overflow-hidden rounded-full">
                   <ImageElement
@@ -60,7 +61,7 @@ function ShoppingRecipeList({ recipeInCart }: props) {
           </div>
           <div className="flex justify-between px-2 pt-4">
             <div className="flex items-center gap-4">
-              <p>{item.vegetarian ? "🍀 veg" : "🥩 non-veg"} </p>
+             {item.vegetarian !== undefined && <p>{item.vegetarian ? "🍀 veg" : "🥩 non-veg"} </p>}
               <p className="">👨‍👩‍👧‍👦 {item.servings}</p>
               <p className="">⏱️ {item.readyInMinutes}min</p>
             </div>

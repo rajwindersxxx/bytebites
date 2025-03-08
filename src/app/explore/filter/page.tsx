@@ -4,22 +4,16 @@ import RecipeCard from "@/app/_components/RecipeCard";
 import Pagination from "@/app/_components/Pagination";
 import { SEARCH_RESULTS_COUNT } from "@/app/_config/foodApiConfig";
 import { getSearchedRecipeData } from "@/app/_actions/action";
-import { uniqueId } from "lodash";
 import { RecipeObject } from "@/app/types/RecipeTypes";
-interface SearchParams {
-  search: string;
-  page: number;
+interface props {
+  searchParams: Promise<{ search: string; page: number }>;
 }
 interface RecipeResponse {
   results: RecipeObject[];
   number: number;
   totalResults: number;
 }
-export default async function FilterPage({
-  searchParams,
-}: {
-  searchParams: SearchParams;
-}) {
+export default async function FilterPage({ searchParams }: props) {
   const { search, page } = await searchParams;
   const offset = page ? (page - 1) * SEARCH_RESULTS_COUNT : 0;
   const { results, number, totalResults }: RecipeResponse =
@@ -29,7 +23,11 @@ export default async function FilterPage({
     <Suspense fallback={<Spinner />}>
       <div className="mx-auto grid grid-cols-responsiveGrid place-items-center gap-4">
         {results.map((recipe) => (
-          <RecipeCard data={recipe} key={uniqueId()} visibleButtons={['saved']}/>
+          <RecipeCard
+            data={recipe}
+            key={recipe.id}
+            visibleButtons={["saved"]}
+          />
         ))}
       </div>
       <Pagination totalResults={totalResults} pageSize={number} />

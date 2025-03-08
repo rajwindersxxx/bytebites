@@ -5,9 +5,9 @@ import Ingredients from "@/app/_components/Ingredients";
 import RecipeInstructions from "@/app/_components/RecipeInstructions";
 import SimilarRecipes from "@/app/_components/SimilarRecipes";
 import { ImageElement } from "../_components/ImageElement";
-import {  getRecipeDetailsData } from "../_actions/action";
+import { getRecipeDetailsData } from "../_actions/action";
 interface props {
-  searchParams: { recipeId: string };
+  searchParams: Promise<{ recipeId: string }>;
 }
 export default async function page({ searchParams }: props) {
   const { recipeId } = await searchParams;
@@ -21,13 +21,9 @@ export default async function page({ searchParams }: props) {
     ...otherDetails
   } = data;
   return (
-    <div className="container mx-auto p-12 m-8 border dark:border-natural-beige grid grid-cols-[1fr_1fr_1fr] gap-12  ">
-      <div className=" overflow-hidden relative rounded-lg border border-natural-green">
-        <ImageElement
-          src={image}
-          alt="title"
-          className=" object-cover"
-        />
+    <div className="container m-8 mx-auto grid grid-cols-[1fr_1fr_1fr] gap-12 border p-12 dark:border-natural-beige">
+      <div className="relative overflow-hidden rounded-lg border border-natural-green">
+        <ImageElement src={image} alt="title" className="object-cover" />
       </div>
       <RecipeDetail detail={otherDetails} />
       <RecipeSummary summary={summary} />

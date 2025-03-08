@@ -55,7 +55,7 @@ export default function RecipeCard({
         <a
           className="title cursor-pointer font-bold transition-all hover:underline active:text-primary"
           onClick={(e) => {
-            router.push(`/recipeDetail?recipeId=${id}`)
+            router.push(`/recipeDetail?recipeId=${id}`);
             e.stopPropagation();
           }}
         >
@@ -72,7 +72,7 @@ export default function RecipeCard({
           {readyInMinutes && <p>⏱️ {readyInMinutes} min </p>}
           {servings && <p>👨‍👩‍👧‍👦 {servings} </p>}
           {pricePerServing && <p>💸 {pricePerServing} $</p>}
-          {!baseUrlImage && servings && (
+          {vegetarian !== undefined && (
             <p>{vegetarian ? "🍀 veg" : "🥩 non-veg"} </p>
           )}
           <p className="col-start-3">{veryPopular && "🌟 popular"} </p>

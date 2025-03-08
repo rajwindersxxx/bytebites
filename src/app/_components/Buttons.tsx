@@ -6,10 +6,11 @@ interface props {
   onClick?: () => void;
   disabled?: boolean;
 }
-export function PrimaryButton({ children, type, className }: props) {
+export function PrimaryButton({ children, type, className , onClick}: props) {
   return (
     <button
       type={type}
+      onClick={onClick}
       className={`rounded-md bg-accent px-4 py-2 text-secondary transition-all hover:bg-primary disabled:cursor-not-allowed ${className}`}
     >
       {children}

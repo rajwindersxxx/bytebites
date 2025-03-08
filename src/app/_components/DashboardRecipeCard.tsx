@@ -9,6 +9,7 @@ interface props {
   data: RecipeObject[];
   baseUrlImage?: string;
 }
+
 export default function DashboardRecipeCard({  baseUrlImage}: props) {
   const {
     id,
@@ -63,7 +64,7 @@ export default function DashboardRecipeCard({  baseUrlImage}: props) {
               {extendedIngredients.length} Ingredients
             </p>
           )}
-          <RecipeCardButtons recipeId={id} />
+          <RecipeCardButtons recipeId={id} recipeData={recipeDetails[0]} />
         </div>
       </div>
     </div>

@@ -2245,7 +2245,8 @@ export const recipeDetails = [
       ],
       "originalId": null,
       "spoonacularScore": 29.376148223876953,
-      "spoonacularSourceUrl": "https://spoonacular.com/english-berry-trifle-642413"
+      "spoonacularSourceUrl": "https://spoonacular.com/english-berry-trifle-642413",
+      "missedIngredients": [{name: 'test'}]
   }
 ]
 
