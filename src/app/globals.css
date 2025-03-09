@@ -66,4 +66,11 @@
     --rdp-accent-color: indigo !important;
     --rdp-accent-background-color: #f0f0f0; /* Change the accent background color. */
   }
+  .tooltipArrow {
+    clip-path: polygon(51% 50%, 100% 50%, 50% 100%, 0% 50%);
+  }
+}
+:root .fc .fc-daygrid-event {
+  margin-top: 4px !important;
+  z-index: 6 !important;
 }

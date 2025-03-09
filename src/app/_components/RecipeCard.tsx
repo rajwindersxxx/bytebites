@@ -4,6 +4,8 @@ import { ImageElement } from "./ImageElement";
 import RecipeCardButtons from "./RecipeCardButtons";
 import { useRouter } from "next/navigation";
 import { RecipeObject } from "../types/RecipeTypes";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ToolTip";
+import { FloatingDelayGroup } from "@floating-ui/react";
 interface props {
   data: RecipeObject;
   baseUrlImage?: string;
@@ -52,16 +54,27 @@ export default function RecipeCard({
         )}
       </div>
       <div className="cardDetails flex flex-col gap-2 p-4">
-        <a
-          className="title cursor-pointer font-bold transition-all hover:underline active:text-primary"
-          onClick={(e) => {
-            router.push(`/recipeDetail?recipeId=${id}`);
-            e.stopPropagation();
-          }}
-        >
-          {title.slice(0, 25)}
-          {title.length > 25 && " ..."}
-        </a>
+        <FloatingDelayGroup delay={200}>
+          <Tooltip>
+            <TooltipTrigger>
+              <a
+                className="title block w-full cursor-pointer text-start font-bold transition-all hover:underline active:text-primary"
+                onClick={(e) => {
+                  router.push(`/recipeDetail?recipeId=${id}`);
+                  e.stopPropagation();
+                }}
+              >
+                {title.slice(0, 25)}
+                {title.length > 25 && " ..."}
+              </a>
+            </TooltipTrigger>
+            <TooltipContent>
+              <div className="w-52 rounded-md border border-accent bg-natural-beige p-2 text-sm">
+                {title}
+              </div>
+            </TooltipContent>
+          </Tooltip>
+        </FloatingDelayGroup>
         <div className="grid grid-cols-[1fr_0.5fr_1fr] content-center items-center justify-center gap-2 dark:text-gray-300">
           {missedIngredients && (
             <p className="col-span-3">
@@ -86,7 +99,6 @@ export default function RecipeCard({
             recipeData={data}
             visibleButtons={visibleButtons}
           />
-          <div>tooltip</div>
         </div>
       </div>
     </div>

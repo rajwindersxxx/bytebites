@@ -82,7 +82,7 @@ export async function updatePasswordDB(password: string, userId: number) {
 
 // RECIPE MANAGEMENT
 export async function getRecipeFormDB(recipeId: number) {
-  console.log('recipe got from database ')
+  console.log("recipe got from database ");
   const { data, error } = await supabase
     .from("bitebytesRecipes")
     .select()
@@ -181,7 +181,7 @@ export async function addRemoveSavedRecipeDB(
   recipeId: number,
   userId: number,
   remove: boolean,
-  recipeObject?: RecipeObject |null,
+  recipeObject?: RecipeObject | null,
 ) {
   let query;
   if (remove === true) {
@@ -244,7 +244,9 @@ export async function addRemoveLikedRecipeDB(
 export async function getMealPlanningFromDB(userId: number) {
   const { data, error } = await supabase
     .from("mealPlanning")
-    .select("*")
+    .select(
+      "*, bitebytesRecipes(title, image ,readyInMinutes,servings,vegetarian )",
+    )
     .eq("userId", userId);
   if (error) {
     console.error(error);

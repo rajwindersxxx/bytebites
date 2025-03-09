@@ -1,4 +1,5 @@
 "use client";
+import { EventHoveringArg } from "@fullcalendar/core";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
@@ -6,9 +7,16 @@ import useSavedMeals from "../_hooks/useSavedMeals";
 import { EventClickArg } from "@fullcalendar/core/index.js";
 import { useModal } from "./Modal";
 import ConfirmationModal from "./ConfirmationModal";
+
+import { useRef, useState } from "react";
+import RecipeCard from "./RecipeCard";
+import { floatingToolTip } from "../_helper/clientheper";
+import { RecipeObject } from "../types/RecipeTypes";
 function MealCalendar() {
   const { removeMeal, savedMeals } = useSavedMeals();
+  const [selectedData, setSelectedData] = useState<RecipeObject | null>(null);
   const { openModal } = useModal();
+
   const newData = savedMeals.map((item) => {
     let color;
     if (item.mealType === "breakfast") color = "oklch(0.723 0.219 149.579)";
@@ -35,15 +43,28 @@ function MealCalendar() {
       "deleteMeal",
     );
   }
-  function handletooltip(info){
-    
-   console.log(info.el)
+  const tooltip = useRef<HTMLDivElement>(null);
+  const arrowElement = useRef<HTMLDivElement>(null);
+
+  function handleTooltip(info: EventHoveringArg) {
+    const hoverRecipeId = info.event._def.extendedProps.recipeId;
+    const hoverRecipe = savedMeals.filter(
+      (item) => item.recipeId === hoverRecipeId,
+    );
+    setSelectedData(hoverRecipe[0].bitebytesRecipes);
+    const button = info.el;
+    floatingToolTip(button, tooltip.current!, arrowElement.current!, {
+      offset: 10,
+      showDelay: 0,
+      hideDelay: 0,
+    });
   }
+
   return (
-    <div className="relative h-[calc(100vh-250px)] w-[90%] justify-self-center overflow-y-scroll">
-      <div className="absolute right-48 top-1 h-9 w-58  flex gap-4 items-center">
+    <div className="relative h-[calc(100vh-250px)] w-[90%] justify-self-center">
+      <div className="w-58 absolute right-48 top-1 flex h-9 items-center gap-4">
         <div className="flex items-center gap-1">
-          <div className="h-4 w-4 rounded-full bg-green-500 "></div>
+          <div className="h-4 w-4 rounded-full bg-green-500"></div>
           <p>BreakFast</p>
         </div>
         <div className="flex items-center gap-1">
@@ -61,8 +82,19 @@ function MealCalendar() {
         events={newData}
         dateClick={handleDateClick}
         eventClick={handleEventClick}
-        eventMouseEnter={handletooltip}
+        eventMouseEnter={handleTooltip}
       />
+      <div
+        ref={tooltip}
+        id="tooltip"
+        className="pointer-events-none absolute left-0 top-0 z-50 hidden w-[22rem] rounded-md text-sm opacity-0 transition-opacity [&_.cardDetails]:p-2 [&_.card]:w-full [&_.card]:grid-cols-[0.8fr_1.7fr] [&_h3]:text-sm"
+      >
+        {selectedData && <RecipeCard data={selectedData} visibleButtons={[]} />}
+        <div
+          ref={arrowElement}
+          className="absolute z-20 h-4 w-4 rotate-45 bg-natural-beige"
+        ></div>
+      </div>
     </div>
   );
 }
