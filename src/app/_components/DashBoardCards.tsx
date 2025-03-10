@@ -26,7 +26,7 @@ function DashBoardCards() {
       />
       <DashboardCountCard
         heading="weekly meals"
-        count="x"
+        count={0}
         label="meals"
         color="green"
         link="/dashboard/mealPlanner"
@@ -42,7 +42,7 @@ function DashBoardCards() {
       />
       <DashboardCountCard
         heading="AI generated"
-        count="x"
+        count={0}
         label="recipes"
         color="orange"
         link="/generateRecipe"

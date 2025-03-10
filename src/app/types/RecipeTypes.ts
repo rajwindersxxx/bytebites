@@ -89,13 +89,13 @@ export type RecipeObject = {
 };
 
 export type UserShoppingList = {
-   id: number;
+   id?: number;
    name: string;
    unit: string;
    image: string;
    consistency: string;
-   created_at: string;
+   created_at?: string;
    amount: number;
    isPurchased: boolean;
-   userId: number;
+   userId?: number;
 }

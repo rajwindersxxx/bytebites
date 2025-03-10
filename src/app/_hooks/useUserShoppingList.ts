@@ -14,7 +14,7 @@ export function useUserShoppingList() {
   const session = useSession();
   const userId = session.data?.user?.id;
   const QueryClient = useQueryClient();
-  const { data, error, isLoading } = useQuery({
+  const { data , error, isLoading } = useQuery({
     queryFn: () => getUserShoppingList(Number(userId)),
     queryKey: ["userShoppingList"],
     enabled: Boolean(userId),

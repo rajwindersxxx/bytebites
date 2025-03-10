@@ -12,7 +12,12 @@ import { useRef, useState } from "react";
 import RecipeCard from "./RecipeCard";
 import { floatingToolTip } from "../_helper/clientheper";
 import { RecipeObject } from "../types/RecipeTypes";
-function MealCalendar() {
+interface props {
+  initialView?: string;
+  className?: string;
+  height?: number
+}
+function MealCalendar({initialView = "dayGridMonth" , className = 'h-[calc(100vh-250px)] w-[90%]', height}: props) {
   const { removeMeal, savedMeals } = useSavedMeals();
   const [selectedData, setSelectedData] = useState<RecipeObject | null>(null);
   const { openModal } = useModal();
@@ -61,7 +66,7 @@ function MealCalendar() {
   }
 
   return (
-    <div className="relative h-[calc(100vh-250px)] w-[90%] justify-self-center">
+    <div className={`relative ${className} justify-self-center`}>
       <div className="w-58 absolute right-48 top-1 flex h-9 items-center gap-4">
         <div className="flex items-center gap-1">
           <div className="h-4 w-4 rounded-full bg-green-500"></div>
@@ -78,11 +83,12 @@ function MealCalendar() {
       </div>
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
-        initialView="dayGridMonth"
+        initialView={initialView}
         events={newData}
         dateClick={handleDateClick}
         eventClick={handleEventClick}
         eventMouseEnter={handleTooltip}
+        height={height}
       />
       <div
         ref={tooltip}
