@@ -3,6 +3,7 @@ import { CredentialsSignin } from "next-auth";
 import {
   generateHash,
   mergeIngredients,
+  mergeUserShoppingList,
   simulateApiRequest,
 } from "../_helper/helper";
 import { aiOutputToObject, makeAQuestion } from "../_lib/apiFunctions";
@@ -37,7 +38,10 @@ import {
   getMealPlanningFromDB,
   getRecipeFormDB,
   getSavedRecipeSDB,
+  getUserShoppingListDB,
   removeMealPlanningFromDB,
+  removeShoppingListItemDB,
+  updateShoppingItemStatesDB,
   UpdateUserDB,
 } from "../_servers/supabaseApi";
 import { signIn } from "../_lib/Auth";
@@ -46,7 +50,7 @@ import {
   UpdatePasswordForm,
   UpdateProfileForm,
 } from "../types/FormData";
-import { ExtendedIngredients, RecipeObject } from "../types/RecipeTypes";
+import { ExtendedIngredients, RecipeObject, UserShoppingList } from "../types/RecipeTypes";
 export async function getSearchedRecipeData(
   recipeName: string,
   offset: number,
@@ -216,10 +220,39 @@ export async function makeAShoppingList(
   recipeData: RecipeObject[],
   ingredientData: ExtendedIngredients[],
   userId: number,
+  oldIngredientData?: UserShoppingList[] | void ,
 ) {
-  const toDoList = mergeIngredients(recipeData, ingredientData).map((item) => {
+  let shoppingList;
+  shoppingList = mergeIngredients(recipeData, ingredientData).map((item) => {
     return { ...item, userId };
   });
-  // !testing
-  return await createUserShoppingList(toDoList);
+  if (oldIngredientData) {
+    console.log('old ingredient');
+    console.log(oldIngredientData, shoppingList)
+    shoppingList = mergeUserShoppingList(oldIngredientData, shoppingList)
+    console.log('updated list')
+    console.log(shoppingList)
+  }
+  return await createUserShoppingList(shoppingList);
+}
+export async function getUserShoppingList(UserId: number) {
+  return await getUserShoppingListDB(UserId);
+}
+export async function removeShoppingListItem(
+  ingredientId: number,
+  userId: number,
+) {
+  return await removeShoppingListItemDB(ingredientId, userId);
+}
+
+export async function updateShoppingItemStates(
+  IngredientId: number,
+  userId: number,
+  purchasedStatus: boolean,
+) {
+  return await updateShoppingItemStatesDB(
+    IngredientId,
+    userId,
+    purchasedStatus,
+  );
 }

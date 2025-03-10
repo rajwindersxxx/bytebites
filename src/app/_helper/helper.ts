@@ -1,5 +1,9 @@
 import bcrypt from "bcrypt";
-import { ExtendedIngredients, RecipeObject } from "../types/RecipeTypes";
+import {
+  ExtendedIngredients,
+  RecipeObject,
+  UserShoppingList,
+} from "../types/RecipeTypes";
 import { endOfDay, isWithinInterval, startOfDay } from "date-fns";
 export function simulateApiRequest(data: unknown) {
   return new Promise((resolve) => {
@@ -9,7 +13,6 @@ export function simulateApiRequest(data: unknown) {
     }, 0);
   });
 }
-
 
 export async function generateHash(password: string) {
   return await bcrypt.hash(password, 10);
@@ -26,31 +29,61 @@ export function isDateToday(dateToCheck: string) {
   const todayEnd = endOfDay(new Date());
   return isWithinInterval(dateToCheck, { start: todayStart, end: todayEnd });
 }
-export function mergeIngredients(recipeData: RecipeObject[], ingredientData: ExtendedIngredients[]) {
+export function mergeIngredients(
+  recipeData: RecipeObject[],
+  ingredientData: ExtendedIngredients[],
+) {
   const ingredientMap = new Map();
   recipeData.forEach((recipe) => {
     recipe.extendedIngredients.forEach((item) => {
-      const { id, name, amount, unit, image } = item;
+      const { id, name, amount, unit, image, consistency } = item;
       if (ingredientMap.has(id)) {
         const existingIngredient = ingredientMap.get(id);
         existingIngredient.amount += amount;
       } else {
-        ingredientMap.set(id, { id, name, amount, unit, image });
+        ingredientMap.set(id, { id, name, amount, unit, image, consistency });
       }
     });
   });
 
-  // Process customIngredients
   ingredientData.forEach((item) => {
-    const { id, name, amount, unit, image } = item;
+    const { id, name, amount, unit, image, consistency } = item;
     if (ingredientMap.has(id)) {
       const existingIngredient = ingredientMap.get(id);
       existingIngredient.amount += amount;
     } else {
-      ingredientMap.set(id, { id, name, amount, unit, image });
+      ingredientMap.set(id, { id, name, amount, unit, image, consistency });
     }
   });
+  return Array.from(ingredientMap.values());
+}
 
-  // Convert Map values to an array
+export function mergeUserShoppingList(
+  oldArray: UserShoppingList[],
+  newArray: UserShoppingList[],
+) {
+  const ingredientMap = new Map();
+  oldArray.forEach((ingredient) => {
+    if (ingredientMap.has(ingredient.id)) {
+      const existingValue = ingredientMap.get(ingredient.id);
+      existingValue.amount += ingredient.amount;
+    } else {
+      ingredientMap.set(ingredient.id, { ...ingredient });
+    }
+  });
+  newArray.forEach((ingredient) => {
+    if (ingredientMap.has(ingredient.id)) {
+      const existingValue = ingredientMap.get(ingredient.id);
+      existingValue.amount += ingredient.amount;
+      existingValue.created_at = new Date();
+      existingValue.isPurchased = false;
+    } else {
+      ingredientMap.set(ingredient.id, {
+        ...ingredient,
+        created_at: new Date(),
+        isPurchased: false
+      });
+    }
+  });
   return Array.from(ingredientMap.values());
 }

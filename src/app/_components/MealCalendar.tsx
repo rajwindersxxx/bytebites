@@ -48,11 +48,11 @@ function MealCalendar() {
 
   function handleTooltip(info: EventHoveringArg) {
     const hoverRecipeId = info.event._def.extendedProps.recipeId;
+    const button = info.el;
     const hoverRecipe = savedMeals.filter(
       (item) => item.recipeId === hoverRecipeId,
     );
     setSelectedData(hoverRecipe[0].bitebytesRecipes);
-    const button = info.el;
     floatingToolTip(button, tooltip.current!, arrowElement.current!, {
       offset: 10,
       showDelay: 0,

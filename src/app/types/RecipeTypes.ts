@@ -1,5 +1,6 @@
 // recipe details types
 export type ExtendedIngredients =  {
+  isPurchased?: boolean;
   id: number;
   aisle: string;
   image: string;
@@ -44,6 +45,7 @@ export type AnalyzedInstructions = {
   }[];
 };
 export type RecipeObject = {
+  userId?: number;
   missedIngredients?: {name: string}[]
   count?: number;
   id: number;
@@ -86,4 +88,14 @@ export type RecipeObject = {
   review?: string;
 };
 
-
+export type UserShoppingList = {
+   id: number;
+   name: string;
+   unit: string;
+   image: string;
+   consistency: string;
+   created_at: string;
+   amount: number;
+   isPurchased: boolean;
+   userId: number;
+}

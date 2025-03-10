@@ -9363,3 +9363,126 @@ export const recipeData = [
       'https://spoonacular.com/tantalizing-white-onion-tuna-tart-662859',
   },
 ];
+export const userSavedShoppingList = [
+  {
+      "id": 9037,
+      "created_at": "2025-03-09T10:28:56.948714+00:00",
+      "userId": 7,
+      "name": "avocado",
+      "amount": 6,
+      "unit": "",
+      "image": "avocado.jpg",
+      "isPurchased": false,
+      "consistency": "SOLID"
+  },
+  {
+      "id": 10014097,
+      "created_at": "2025-03-09T10:28:56.948714+00:00",
+      "userId": 7,
+      "name": "cabernet",
+      "amount": 4,
+      "unit": "cups",
+      "image": "red-wine.jpg",
+      "isPurchased": false,
+      "consistency": "LIQUID"
+  },
+  {
+      "id": 9132,
+      "created_at": "2025-03-09T10:28:56.948714+00:00",
+      "userId": 7,
+      "name": "champagne grapes",
+      "amount": 4,
+      "unit": "cups",
+      "image": "red-grapes.jpg",
+      "isPurchased": false,
+      "consistency": "SOLID"
+  },
+  {
+      "id": 11294,
+      "created_at": "2025-03-09T10:28:56.948714+00:00",
+      "userId": 7,
+      "name": "maui maid teriyaki",
+      "amount": 2,
+      "unit": "Tablespoon",
+      "image": "sweet-onion.png",
+      "isPurchased": false,
+      "consistency": "SOLID"
+  },
+  {
+      "id": 4053,
+      "created_at": "2025-03-09T10:28:56.948714+00:00",
+      "userId": 7,
+      "name": "olive oil",
+      "amount": 8,
+      "unit": "servings",
+      "image": "olive-oil.jpg",
+      "isPurchased": false,
+      "consistency": "LIQUID"
+  },
+  {
+      "id": 1102047,
+      "created_at": "2025-03-09T10:28:56.948714+00:00",
+      "userId": 7,
+      "name": "salt/pepper",
+      "amount": 8,
+      "unit": "servings",
+      "image": "salt-and-pepper.jpg",
+      "isPurchased": false,
+      "consistency": "SOLID"
+  },
+  {
+      "id": 10015172,
+      "created_at": "2025-03-09T10:28:56.948714+00:00",
+      "userId": 7,
+      "name": "u10 maine diver scallops",
+      "amount": 24,
+      "unit": "",
+      "image": "scallops.jpg",
+      "isPurchased": false,
+      "consistency": "SOLID"
+  },
+  {
+      "id": 1145,
+      "created_at": "2025-03-09T10:28:56.948714+00:00",
+      "userId": 7,
+      "name": "butter",
+      "amount": 2,
+      "unit": "tablespoon",
+      "image": "butter-sliced.jpg",
+      "isPurchased": false,
+      "consistency": "SOLID"
+  },
+  {
+      "id": 9156,
+      "created_at": "2025-03-09T10:28:56.948714+00:00",
+      "userId": 7,
+      "name": "lemon peel",
+      "amount": 4,
+      "unit": "tablespoon",
+      "image": "zest-lemon.jpg",
+      "isPurchased": false,
+      "consistency": "SOLID"
+  },
+  {
+      "id": 9152,
+      "created_at": "2025-03-09T10:28:56.948714+00:00",
+      "userId": 7,
+      "name": "lemon juice",
+      "amount": 0.33333334,
+      "unit": "cup",
+      "image": "lemon-juice.jpg",
+      "isPurchased": false,
+      "consistency": "LIQUID"
+  },
+  {
+      "id": 1123,
+      "created_at": "2025-03-09T10:28:56.948714+00:00",
+      "userId": 7,
+      "name": "eggs",
+      "amount": 4,
+      "unit": "large",
+      "image": "egg.png",
+      "isPurchased": false,
+      "consistency": "SOLID"
+  }
+]

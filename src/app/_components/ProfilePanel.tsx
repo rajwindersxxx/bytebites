@@ -14,15 +14,15 @@ export default function ProfilePanel() {
   const { toggleDarkMode, darkMode } = useDarkMode();
   return (
     <div className="flex items-center gap-4 justify-self-end">
+      <button onClick={toggleDarkMode}>
+        {darkMode ? (
+          <HiOutlineMoon className="h-6 w-6" />
+        ) : (
+          <HiOutlineSun className="h-6 w-6" />
+        )}
+      </button>
       {session.data?.user ? (
         <>
-          <button onClick={toggleDarkMode}>
-            {darkMode ? (
-              <HiOutlineMoon className="h-6 w-6" />
-            ) : (
-              <HiOutlineSun className="h-6 w-6" />
-            )}
-          </button>
           <button ref={buttonRef} className="relative flex gap-4">
             <div className="relative h-12 w-12 overflow-hidden rounded-full">
               <ImageElement
@@ -30,9 +30,7 @@ export default function ProfilePanel() {
                 alt={session.data.user?.name || ""}
               />
             </div>
-            {isMenuOpen && (
-                <UserProfileMenu  ref={menuRef}/>
-            )}
+            {isMenuOpen && <UserProfileMenu ref={menuRef} />}
           </button>
         </>
       ) : (
