@@ -38,9 +38,11 @@ import {
   getMealPlanningFromDB,
   getRecipeFormDB,
   getSavedRecipeSDB,
+  getUpcomingIngredientsDB,
   getUserShoppingListDB,
   removeMealPlanningFromDB,
   removeShoppingListItemDB,
+  removeUpcomingIngredientItemDB,
   updateShoppingItemStatesDB,
   UpdateUserDB,
 } from "../_servers/supabaseApi";
@@ -50,7 +52,11 @@ import {
   UpdatePasswordForm,
   UpdateProfileForm,
 } from "../types/FormData";
-import { ExtendedIngredients, RecipeObject, UserShoppingList } from "../types/RecipeTypes";
+import {
+  ExtendedIngredients,
+  RecipeObject,
+  UserShoppingList,
+} from "../types/RecipeTypes";
 export async function getSearchedRecipeData(
   recipeName: string,
   offset: number,
@@ -220,19 +226,17 @@ export async function makeAShoppingList(
   recipeData: RecipeObject[],
   ingredientData: ExtendedIngredients[],
   userId: number,
-  oldIngredientData?: UserShoppingList[] | void ,
+  oldIngredientData?: UserShoppingList[] | void,
 ) {
+  console.log(recipeData, ingredientData, userId, oldIngredientData)
   let shoppingList;
   shoppingList = mergeIngredients(recipeData, ingredientData).map((item) => {
     return { ...item, userId };
   });
   if (oldIngredientData) {
-    console.log('old ingredient');
-    console.log(oldIngredientData, shoppingList)
-    shoppingList = mergeUserShoppingList(oldIngredientData, shoppingList)
-    console.log('updated list')
-    console.log(shoppingList)
+    shoppingList = mergeUserShoppingList(oldIngredientData, shoppingList);
   }
+  console.log(shoppingList)
   return await createUserShoppingList(shoppingList);
 }
 export async function getUserShoppingList(UserId: number) {
@@ -255,4 +259,13 @@ export async function updateShoppingItemStates(
     userId,
     purchasedStatus,
   );
+}
+export async function getUpcomingIngredients(
+  userId: number,
+  dayCount?: number,
+) {
+  return await getUpcomingIngredientsDB(userId, dayCount);
+}
+export async function removeUpcomingIngredientItem(id: number, userId: number) {
+  return await removeUpcomingIngredientItemDB(id, userId);
 }

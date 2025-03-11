@@ -1,3 +1,4 @@
+import { addDays, formatISO } from "date-fns";
 import { BUCKET_URL } from "../_config/supabaseConfig";
 import { comparePassword, generateHash } from "../_helper/helper";
 import {
@@ -161,6 +162,14 @@ export async function getIngredientsFormDB(recipeId: number) {
   if (error) throw new Error(error.message);
   return data;
 }
+export async function getIngredientsIdsFormDB(recipeId: number) {
+  const { data, error } = await supabase
+    .from("extendedIngredients")
+    .select("uniqueId")
+    .eq("recipeId", recipeId);
+  if (error) throw new Error(error.message);
+  return data;
+}
 // USER RECIPE MANAGEMENT
 export async function getLikedRecipesDB(userId: number) {
   if (!userId) return ["no userId provided"];
@@ -259,6 +268,25 @@ export async function AddMealPlanningToDB(mealObject: MealPlanning) {
     .from("mealPlanning")
     .insert([mealObject])
     .select();
+  if (data) {
+    const recipeId = data[0].recipeId;
+    const ingredientUniqueIds = await getIngredientsIdsFormDB(recipeId);
+    const newObject = ingredientUniqueIds.map((item) => {
+      return {
+        uniqueIngredientId: item.uniqueId,
+        userId: mealObject.userId,
+        recipeId: mealObject.recipeId,
+      };
+    });
+    const { error } = await supabase
+      .from("requiredIngredients")
+      .insert(newObject);
+    if (error) {
+      console.error(error);
+      throw new Error(error.message);
+    }
+  }
+  //
   if (error) {
     console.error(error);
     throw new Error(error.message);
@@ -357,6 +385,40 @@ export async function clearShoppingListDB(userId: number) {
   const { data, error } = await supabase
     .from("userIngredientList")
     .delete()
+    .eq("userId", userId);
+  if (error) {
+    console.error(error);
+    throw new Error(error.message);
+  }
+  return data;
+}
+export async function getUpcomingIngredientsDB(
+  userId: number,
+  dayCount: number = 3,
+) {
+  const today = formatISO(new Date(), { representation: "date" });
+  const nextThreeDays = formatISO(addDays(new Date(), dayCount), {
+    representation: "date",
+  });
+  const { data, error } = await supabase
+    .from("requiredIngredients")
+    .select(
+      "*, bitebytesRecipes(title), extendedIngredients(id, name, amount, consistency, unit, image)",
+    )
+    .eq("userId", userId)
+    .gte("created_at", today)
+    .lte("created_at", nextThreeDays);
+  if (error) {
+    console.error(error);
+    throw new Error(error.message);
+  }
+  return data;
+}
+export async function removeUpcomingIngredientItemDB(id: number, userId: number) {
+  const { data, error } = await supabase
+    .from("requiredIngredients")
+    .delete()
+    .eq("id", id)
     .eq("userId", userId);
   if (error) {
     console.error(error);
