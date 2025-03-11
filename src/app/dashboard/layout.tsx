@@ -1,14 +1,17 @@
 import React from "react";
 import UserNavLinks from "../_components/UserNavLinks";
+import { auth } from "../_lib/Auth";
 
 interface props {
   children: React.ReactNode;
 }
 async function layout({ children }: props) {
+  const session = await auth()
+  if (!session) return <div className="text-4xl absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">You need to login first</div>
   return (
-    <div className="container m-auto my-4 grid  grid-cols-[auto_1fr] gap-4 border dark:border-gray-400 p-4 h-[81vh]">
-      <div className="flex flex-col pr-4 border-r" >
-      <h1 className="text-2xl text-center py-8 px-4">DASHBOARD</h1>
+    <div className="container m-auto my-4 grid h-[81vh] grid-cols-[auto_1fr] gap-4 border p-4 dark:border-gray-400">
+      <div className="flex flex-col border-r pr-4">
+        <h1 className="px-4 py-8 text-center text-2xl">DASHBOARD</h1>
         <UserNavLinks />
       </div>
       <div className="h-full overflow-y-scroll">{children}</div>

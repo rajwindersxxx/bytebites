@@ -22,7 +22,7 @@ function IngredientBasedRecipes({ extendedIngredients }: props) {
       <h2 className="mb-8 text-2xl"> 📝 Similar Recipes </h2>
       <div className="flex flex-col gap-4">
         {similarRecipes?.map((item) => (
-          <RecipeCard data={item} key={item.id} />
+          <RecipeCard data={item} key={item.id} visibleButtons={['saved', 'like']} />
         ))}
       </div>
     </div>

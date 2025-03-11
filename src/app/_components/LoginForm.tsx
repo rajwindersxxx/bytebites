@@ -48,7 +48,7 @@ function LoginForm() {
       className="mx-auto w-[20rem]"
       onSubmit={handleSubmit((data) => handleSignIn(data))}
     >
-      <h3 className="mb-8 text-center text-2xl text-secondary">
+      <h3 className="mb-8 text-center text-2xl text-secondary dark:text-accent">
         Welcome to byteBites
       </h3>
       <div className="space-y-4">
@@ -95,7 +95,7 @@ function LoginForm() {
       </div>
       <div className="my-4 flex items-center gap-4">
         <hr className="w-full border-gray-300" />
-        <p className="text-center text-sm text-gray-800">or</p>
+        <p className="text-center text-sm text-gray-800 dark:text-gray-100">or</p>
         <hr className="w-full border-gray-300" />
       </div>
       <div className="flex justify-center space-x-6">

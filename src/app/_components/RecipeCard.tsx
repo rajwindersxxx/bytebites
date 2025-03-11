@@ -79,7 +79,7 @@ export default function RecipeCard({
           {missedIngredients && (
             <p className="col-span-3">
               <span className="font-bold">Require</span>{" "}
-              {missedIngredients.map((item) => item.name).join(", ")}{" "}
+              {missedIngredients.map((item) => item.name).join(", ").slice(0,50)}
             </p>
           )}
           {readyInMinutes && <p>⏱️ {readyInMinutes} min </p>}
