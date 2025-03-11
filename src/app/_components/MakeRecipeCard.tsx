@@ -1,26 +1,53 @@
-import { SecondaryButton } from "./Buttons"
+"use client";
+import { uniqueId } from "lodash";
+import { SecondaryButton } from "./Buttons";
+import { useForm } from "react-hook-form";
 
 function MakeRecipeCard() {
+  const {handleSubmit, register , reset} =useForm();
+  const tags = [
+    "Tomatoes",
+    "Onion",
+    "Garlic",
+    "Olive Oil",
+    "Salt",
+    "Black Pepper",
+    "Basil",
+    "Chicken Breast",
+    "Rice",
+    "Water",
+    "Lemon",
+    "Honey",
+    "Soy sauce",
+    "Ginger",
+    "Broccoli",
+  ];
+  function handleForm(data){
+  console.log(data)
+  reset();
+  }
   return (
-     <div className="col-span-1 p-4 dark:bg-slate-800 ">
-              <h1 className="text-xl uppercase mb-4">make quick recipe</h1>
-              <div className="flex flex-col justify-between ">
-                <div className="text-center h-36">
-                  <span className="px-1 rounded-md bg-slate-900 inline-block m-1">ingredient</span>
-                  <span className="px-1 rounded-md bg-slate-900 inline-block m-1">ingredient</span>
-                  <span className="px-1 rounded-md bg-slate-900 inline-block m-1">ingredient</span>
-                  <span className="px-1 rounded-md bg-slate-900 inline-block m-1">ingredient name</span>
-                  <span className="px-1 rounded-md bg-slate-900 inline-block m-1">ingredient</span>
-                  <span className="px-1 rounded-md bg-slate-900 inline-block m-1">ingredient</span>
-                  <span className="px-1 rounded-md bg-slate-900 inline-block m-1">ingredient</span>
-                  <span className="px-1 rounded-md bg-slate-900 inline-block m-1">ingredient</span>
-                </div>
-                <div className="text-center">
-                  <SecondaryButton>Make A.I reicpe</SecondaryButton>
-                </div>
-              </div>
-            </div>
-  )
+    <div className="col-span-1 bg-slate-200 p-4 dark:bg-slate-800">
+      <h1 className="mb-4 text-xl uppercase">make quick recipe</h1>
+      <form className="flex flex-col justify-between" onSubmit={handleSubmit(handleForm)}>
+        <div className="peer h-40 text-center overflow-x-auto">
+          {tags.map((item, i) => (
+            <label
+              htmlFor={`ingredient${i}`}
+              className="has-checked m-1 inline-block cursor-pointer rounded-md bg-slate-400 px-1 dark:bg-slate-900 has-[:checked]:dark:bg-slate-600"
+              key={uniqueId()}
+            >
+              {item}
+              <input type="checkbox" id={`ingredient${i}`} value={item} className="hidden" {...register(`ingredient${i}`)}/>
+            </label>
+          ))}
+        </div>
+        <div className="text-center">
+          <SecondaryButton>Make A.I reicpe</SecondaryButton>
+        </div>
+      </form>
+    </div>
+  );
 }
 
-export default MakeRecipeCard
+export default MakeRecipeCard;

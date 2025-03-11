@@ -8,16 +8,14 @@ import { getSessionStorage } from "../_helper/clientheper";
 export function useLikedRecipes(userId: number) {
   const queryClient = useQueryClient();
   const [likedRecipes, setLikedRecipes] = useState<number[]>([]);
-  const [likedRecipesData, setLikedRecipeData] = useState<RecipeObject[]>([]);
 
-  const { isLoading, error } = useQuery({
+  const {data: likedRecipesData, isLoading, error } = useQuery({
     queryKey: ["likedRecipes"],
     queryFn: async () => {
       const result = await getLikedRecipes(userId);
       const recipesIdList = result.map((item) => item.id);
       setLikedRecipes(recipesIdList);
-      setLikedRecipeData(result);
-      return likedRecipes;
+      return result;
     },
     enabled: Boolean(userId),
     staleTime: 1000 * 60 * 5,

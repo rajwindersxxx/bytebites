@@ -11,8 +11,8 @@ interface props {
 interface RecipeContextType {
   likedRecipes: number[];
   savedRecipes: number[];
-  savedRecipeData: RecipeObject[];
-  likedRecipesData: RecipeObject[];
+  savedRecipeData: RecipeObject[] | undefined;
+  likedRecipesData: RecipeObject[] | undefined;
   isLoadingSavedRecipes: boolean;
   isSavePending: boolean;
   isLikePending: boolean;
