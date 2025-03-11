@@ -100,7 +100,7 @@ export async function getSavedRecipeSDB(userId: number) {
   const { data: savedRecipes, error } = await supabase
     .from("savedRecipes")
     .select(
-      "*, bitebytesRecipes(id , title, image, readyInMinutes,extendedIngredients,servings, summary,cuisines)",
+      "*, bitebytesRecipes(id , title, image, readyInMinutes,extendedIngredients,servings, summary,cuisines, created_at)",
     )
     .eq("userId", userId);
   if (error) {
@@ -176,7 +176,7 @@ export async function getLikedRecipesDB(userId: number) {
   const { data: likedRecipes, error } = await supabase
     .from("likedRecipes")
     .select(
-      "* , bitebytesRecipes(id, title , servings ,readyInMinutes,pricePerServing, image)",
+      "* , bitebytesRecipes(id, title , servings ,readyInMinutes,pricePerServing, image, created_at)",
     )
     .eq("userId", userId);
   if (error) {

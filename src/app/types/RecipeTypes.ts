@@ -49,6 +49,7 @@ export type AnalyzedInstructions = {
 export type RecipeObject = {
   userId?: number;
   missedIngredients?: {name: string}[]
+  created_at?: string;
   count?: number;
   id: number;
   image: string;
