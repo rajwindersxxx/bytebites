@@ -61,6 +61,9 @@ function CreateMealForm({ recipeData }: props) {
                 mode="single"
                 selected={field.value ? new Date(field.value) : undefined}
                 onSelect={field.onChange}
+                startMonth={new Date()}
+                disabled={{ before: new Date() }}
+                showOutsideDays
               />
               {fieldState.error && (
                 <p className="text-center text-red-500">
@@ -121,7 +124,7 @@ function CreateMealForm({ recipeData }: props) {
             Cancel
           </SecondaryButton>
           {reservedMeals?.length < 3 && (
-            <PrimaryButton disabled={reservedMeals?.length < 3} type="submit">
+            <PrimaryButton disabled={reservedMeals?.length > 3} type="submit">
               Submit
             </PrimaryButton>
           )}

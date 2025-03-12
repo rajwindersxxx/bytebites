@@ -10,10 +10,13 @@ import {
 } from "react-icons/hi";
 import { useRecipeData } from "../context/RecipeDataContext";
 import { useUserShoppingList } from "../_hooks/useUserShoppingList";
+import useSavedMeals from "../_hooks/useSavedMeals";
+import { filterItemsUntilSaturday } from "../_helper/clientheper";
 
 function DashBoardCards() {
   const { savedRecipeData } = useRecipeData();
-  const {data: cartRecipeData} = useUserShoppingList();
+  const { data: cartRecipeData } = useUserShoppingList();
+  const { savedMeals } = useSavedMeals();
   return (
     <>
       <DashboardCountCard
@@ -26,7 +29,7 @@ function DashBoardCards() {
       />
       <DashboardCountCard
         heading="weekly meals"
-        count={0}
+        count={filterItemsUntilSaturday(savedMeals, 'date').length}
         label="meals"
         color="green"
         link="/dashboard/mealPlanner"

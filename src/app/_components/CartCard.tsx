@@ -16,7 +16,7 @@ function CartCard() {
       <h2 className="pb-4 text-xl uppercase"> Pending Cart Items</h2>
       <ul className="flex max-h-52 flex-col gap-2 overflow-x-auto">
         {filterData && filterData.length < 1 && (
-          <div className="flex min-h-44 items-center justify-center">
+          <div className="flex h-44 justify-center items-center">
            No items in Cart
           </div>
         )}

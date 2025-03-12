@@ -1,5 +1,6 @@
 import { computePosition, offset, Placement } from "@floating-ui/dom";
 import { arrow, flip, shift } from "@floating-ui/react";
+import { endOfDay, endOfWeek, isWithinInterval, startOfDay } from "date-fns";
 
 export function setSessionStorage(key: string, data: unknown): boolean {
   if (typeof window !== "undefined") {
@@ -167,4 +168,24 @@ export function textToEmoji(name: string) {
     default:
       return "undefined";
   }
+}
+export function filterItemsUntilSaturday(items: { [key: string]: any }[], dateKey: string): { [key: string]: any }[] {
+  if (!Array.isArray(items) || typeof dateKey !== 'string') {
+    return []; // Return empty array for invalid input
+  }
+
+  const today = startOfDay(new Date());
+  const endOfWeekSaturday = endOfWeek(new Date(), { weekStartsOn: 1 }); // Monday start, end is sunday.
+  const endOfDaySaturday = endOfDay(endOfWeekSaturday.setDate(endOfWeekSaturday.getDate() - 1)); //sets to saturday
+
+  return items.filter((item) => {
+    if (item && item.hasOwnProperty(dateKey) && item[dateKey]) {
+      const itemDate = new Date(item[dateKey]);
+      return isWithinInterval(itemDate, {
+        start: today,
+        end: endOfDaySaturday,
+      });
+    }
+    return false; // Exclude items with missing or invalid dateKey
+  });
 }

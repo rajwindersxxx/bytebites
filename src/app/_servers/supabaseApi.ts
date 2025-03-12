@@ -278,6 +278,7 @@ export async function getMealPlanningFromDB(userId: number) {
   return data;
 }
 export async function AddMealPlanningToDB(mealObject: MealPlanning) {
+  const mealDate = mealObject.date;
   const { data, error } = await supabase
     .from("mealPlanning")
     .insert([mealObject])
@@ -290,6 +291,7 @@ export async function AddMealPlanningToDB(mealObject: MealPlanning) {
         uniqueIngredientId: item.uniqueId,
         userId: mealObject.userId,
         recipeId: mealObject.recipeId,
+        requiredDate: mealDate,
       };
     });
     const { error } = await supabase
@@ -421,8 +423,8 @@ export async function getUpcomingIngredientsDB(
       "*, bitebytesRecipes(title), extendedIngredients(id, name, amount, consistency, unit, image)",
     )
     .eq("userId", userId)
-    .gte("created_at", today)
-    .lte("created_at", nextThreeDays);
+    .gte("requiredDate", today)
+    .lte("requiredDate", nextThreeDays);
   if (error) {
     console.error(error);
     throw new Error(error.message);
