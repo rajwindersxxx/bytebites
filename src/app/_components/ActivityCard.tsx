@@ -21,15 +21,7 @@ function ActivityCard() {
       3,
     )[0];
   }
-  // if (likedRecipesData) {
-  //   const recentLike = filterAndSortByRecentDates(
-  //     likedRecipesData,
-  //     "created_at",
-  //     3,
-  //   )[0];
-  // }
   if (userShoppingList) {
-    console.log(userShoppingList);
     const pendingItems = userShoppingList.filter(
       (item) => item.isPurchased === false,
     );
@@ -42,12 +34,12 @@ function ActivityCard() {
       "created_at",
       3,
     )[0];
-    console.log(pendingItem, purchasedItem);
   }
 
   return (
     <div className="col-span-1 rounded-md bg-green-300 p-4 dark:bg-green-900">
       <h2 className="pb-4 text-xl uppercase"> Activity</h2>
+      {!(resentMeal && recentSaved && pendingItem && purchasedItem) && <div className="flex h-44 justify-center items-center">No recent Activity</div>}
       <ul className="flex flex-col justify-center gap-4">
         {resentMeal && (
           <ActivityCardListItem image={resentMeal.bitebytesRecipes.image}>

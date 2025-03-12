@@ -21,12 +21,14 @@ function RequiredIngredientCard() {
   return (
     <div className="col-span-1 rounded-md bg-indigo-400 p-4 dark:bg-indigo-900">
       <h2 className="mb-4 text-xl uppercase">Ingredient Required</h2>
-      <div className="flex max-h-52 flex-col gap-2 overflow-y-auto">
-        {data &&
-          data.map((item) => (
+      {data && data.length < 1 && <div className="min-h-44 flex justify-center items-center">No Upcoming meals</div>}
+      {data && data.length > 0 && (
+        <div className="flex min-h-52 flex-col gap-2 overflow-y-auto">
+          {data.map((item) => (
             <IngredientRequiredItem recipeObject={item} key={uniqueId()} />
           ))}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

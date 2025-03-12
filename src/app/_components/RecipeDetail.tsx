@@ -38,7 +38,7 @@ export default function RecipeDetail({ detail }: Props) {
         <RecipeDetailButtons recipeId={id} />
       </div>
       <div className="flex flex-col gap-4 text-xl">
-        <p>🍽️ {dishTypes} type </p>
+        <p>🍽️ {dishTypes} type </p>4
         <p>
           ⏱️ Ready In <span className="font-bold">{readyInMinutes}</span>{" "}
           minutes

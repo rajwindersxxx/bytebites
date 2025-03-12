@@ -5,6 +5,7 @@ import { ImageElement } from "./ImageElement";
 import { UserShoppingList } from "../types/RecipeTypes";
 import { useUserShoppingList } from "../_hooks/useUserShoppingList";
 import { useEffect, useState } from "react";
+import { textToEmoji } from "../_helper/clientheper";
 
 interface props {
   data: UserShoppingList;
@@ -52,7 +53,7 @@ function ShoppingListRow({ data, index }: props) {
       <p>
         {amount} {unit ? unit : name}
       </p>
-      <p>{consistency}</p>
+      <p>{textToEmoji(consistency)}</p>
       <p>{created_at.split("T")[0]}</p>
       <div className="flex justify-end gap-4">
         <Checkbox onChange={handleStatusUpdate} checked={isChecked} />

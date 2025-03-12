@@ -15,9 +15,20 @@ function CartCard() {
     <div className="col-span-1 rounded-md bg-natural-beige p-4">
       <h2 className="pb-4 text-xl uppercase"> Pending Cart Items</h2>
       <ul className="flex max-h-52 flex-col gap-2 overflow-x-auto">
+        {filterData && filterData.length < 1 && (
+          <div className="flex min-h-44 items-center justify-center">
+           No items in Cart
+          </div>
+        )}
+
         {filterData &&
+          filterData.length > 1 &&
           filterData.map((item) => (
-            <PendingCardListItem ingredientObject={item} key={uniqueId()} updateFunction={updateShoppingStatus} />
+            <PendingCardListItem
+              ingredientObject={item}
+              key={uniqueId()}
+              updateFunction={updateShoppingStatus}
+            />
           ))}
       </ul>
     </div>

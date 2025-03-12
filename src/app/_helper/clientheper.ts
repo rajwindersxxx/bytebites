@@ -157,3 +157,14 @@ export function floatingToolTip(
     button.removeEventListener("blur", handleBlur);
   };
 }
+
+export function textToEmoji(name: string) {
+  switch (name) {
+    case "SOLID":
+      return "🧊";
+    case "LIQUID":
+      return "💧";
+    default:
+      return "undefined";
+  }
+}

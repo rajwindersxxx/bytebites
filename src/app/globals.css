@@ -71,6 +71,5 @@
   }
 }
 :root .fc .fc-daygrid-event {
-  margin-top: 4px !important;
-  z-index: 6 !important;
+  @apply mt-[4px] cursor-pointer;
 }

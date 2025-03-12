@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { makeARecipe } from "../_actions/action";
 import { useRouter } from "next/navigation";
+import MiniSpinner from "./MiniSpinner";
 
 function MakeRecipeCard() {
   const router = useRouter();
@@ -32,13 +33,16 @@ function MakeRecipeCard() {
 
   async function handleForm(data: { ingredients: string[] }) {
     setIsLoading(true);
-    const transformedData = data.ingredients.map((item) => {
-      return { value: item };
-    });
-    console.log(transformedData);
-    const output = await makeARecipe({ ingredient: transformedData });
-    sessionStorage.setItem("generatedRecipe", JSON.stringify(output));
-    router.push("/generateRecipe/generatedRecipe");
+    if (data.ingredients.length > 2) {
+      const transformedData = data.ingredients.map((item) => {
+        return { value: item };
+      });
+      const output = await makeARecipe({ ingredient: transformedData });
+      sessionStorage.setItem("generatedRecipe", JSON.stringify(output));
+      router.push("/generateRecipe/generatedRecipe");
+    }else {
+      return null //
+    }
     reset();
     setIsLoading(false);
   }
@@ -62,13 +66,15 @@ function MakeRecipeCard() {
                 id={`ingredient${i}`}
                 value={item}
                 className="hidden"
-                {...register(`ingredients`, { value: [item] })}
+                {...register(`ingredients` ,{required: 'please choose at least 3 ingredients'})}
               />
             </label>
           ))}
         </div>
         <div className="text-center">
-          <SecondaryButton type="submit">Make A.I reicpe</SecondaryButton>
+          <SecondaryButton type="submit" className="w-36">
+            {isLoading ? <MiniSpinner /> : "Make A.I recipe"}
+          </SecondaryButton>
         </div>
       </form>
     </div>

@@ -29,7 +29,12 @@ function UpdatePassword() {
       reset();
     },
   });
-  const newPassword = watch("newPassword"); // Watch newPassword to use in validation
+  const [newPassword, confirmPassword, currentPassword] = watch([
+    "newPassword",
+    "confirmPassword",
+    "currentPassword",
+  ]); // Watch newPassword to use in validation
+  const isDisabled = !(newPassword && confirmPassword && currentPassword);
   return (
     <form
       className="grid grid-cols-[0.3fr_1fr] items-center gap-4 py-8"
@@ -87,7 +92,7 @@ function UpdatePassword() {
       </div>
 
       <div className="col-span-2 flex gap-4 justify-self-end">
-        <PrimaryButton type="submit">Update Password</PrimaryButton>
+        <PrimaryButton type="submit" disabled={isDisabled}>Update Password</PrimaryButton>
       </div>
     </form>
   );

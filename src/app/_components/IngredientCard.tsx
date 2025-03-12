@@ -3,6 +3,7 @@ import { INGREDIENT_IMAGE_URL } from "../_config/foodApiConfig";
 import { ImageElement } from "./ImageElement";
 import IngredientCartButtons from "./IngredientCartButtons";
 import { ExtendedIngredients } from "../types/RecipeTypes";
+import { textToEmoji } from "../_helper/clientheper";
 
 interface props {
   ingredient: ExtendedIngredients;
@@ -26,9 +27,7 @@ export default function IngredientCard({ ingredient }: props) {
         <div className="flex justify-between">
           <p>
             consistency:{" "}
-            <span className="font-bold">
-              {consistency === "SOLID" ? "🧊" : "💧"}{" "}
-            </span>
+            <span className="font-bold">{textToEmoji(consistency)}</span>
           </p>
           <IngredientCartButtons ingredient={ingredient} />
         </div>

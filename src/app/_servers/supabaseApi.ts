@@ -41,7 +41,11 @@ export async function UpdateUserDB(userData: UpdateProfileForm) {
     username: userData.username,
   };
   const image = `${BUCKET_URL}/${userData.file[0]?.name}`;
-  if (userData.file) {
+  if (userData.file.length > 0) {
+    const fileType = userData.file[0].type;
+    if (!fileType.startsWith("image/")) {
+      throw new Error("The uploaded file is not an image.");
+    }
     inputObject = { ...inputObject, image };
   }
   const { data, error } = await supabase
@@ -117,6 +121,7 @@ export async function addRecipeToDB(recipeObject: {
     .from("bitebytesRecipes")
     .insert([recipeObject])
     .select();
+
   // if row already exists no need duplicate
   if (data) {
     const { extendedIngredients } = recipeObject;
@@ -208,11 +213,18 @@ export async function addRemoveSavedRecipeDB(
     await addRecipeToDB(data);
     query = supabase
       .from("savedRecipes")
-      .insert([{ recipeId: data.id, userId }]);
+      .insert([{ recipeId: data.id, userId }])
+      .select()
+      .single();
   }
   const { data, error } = await query;
+
   if (error) {
+    if (error.code === "23503") {
+      return recipeObject;
+    }
     console.error(error);
+
     throw new Error(error.message);
   }
   return data;
@@ -232,7 +244,6 @@ export async function addRemoveLikedRecipeDB(
       .eq("recipeId", recipeId);
   } else {
     let data;
-    // if there is no recipeId , we insert our own object
     if (!recipeId)
       data = { ...recipeObject, id: Math.ceil(Math.random() * 100000) };
     else data = await getRecipeDetails(recipeId);
@@ -243,6 +254,9 @@ export async function addRemoveLikedRecipeDB(
   }
   const { data, error } = await query;
   if (error) {
+    if (error.code === "23503") {
+      return recipeObject;
+    }
     console.error(error);
     throw new Error(error.message);
   }
@@ -415,7 +429,10 @@ export async function getUpcomingIngredientsDB(
   }
   return data;
 }
-export async function removeUpcomingIngredientItemDB(id: number, userId: number) {
+export async function removeUpcomingIngredientItemDB(
+  id: number,
+  userId: number,
+) {
   const { data, error } = await supabase
     .from("requiredIngredients")
     .delete()

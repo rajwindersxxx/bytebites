@@ -14,7 +14,10 @@ function UpdateAccount() {
     name: string;
     email: string;
   };
-  const { register, handleSubmit, reset } = useForm<UpdateProfileForm>();
+  const { register, handleSubmit, reset, watch } = useForm<UpdateProfileForm>();
+  const [username, file] = watch(["username", "file"]);
+  const isDisabled = username === data?.user?.name && (!file || file.length === 0);
+
   const { mutate: handleUpdate } = useMutation({
     mutationFn: (data: UpdateProfileForm) => updateUser(data),
     onSuccess: async () => {
@@ -59,8 +62,9 @@ function UpdateAccount() {
         {...register("file")}
       />
       <div className="col-span-2 flex gap-4 justify-self-end">
-
-        <PrimaryButton type="submit">Update account</PrimaryButton>
+        <PrimaryButton type="submit" disabled={isDisabled}>
+          Update account
+        </PrimaryButton>
       </div>
     </form>
   );
