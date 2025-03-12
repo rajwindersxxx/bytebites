@@ -169,7 +169,7 @@ export function textToEmoji(name: string) {
       return "undefined";
   }
 }
-export function filterItemsUntilSaturday(items: { [key: string]: any }[], dateKey: string): { [key: string]: any }[] {
+export function filterItemsUntilSaturday(items: { [key: string]: unknown }[], dateKey: string): { [key: string]: unknown }[] {
   if (!Array.isArray(items) || typeof dateKey !== 'string') {
     return []; // Return empty array for invalid input
   }
@@ -180,8 +180,9 @@ export function filterItemsUntilSaturday(items: { [key: string]: any }[], dateKe
 
   return items.filter((item) => {
     if (item && item.hasOwnProperty(dateKey) && item[dateKey]) {
-      const itemDate = new Date(item[dateKey]);
-      return isWithinInterval(itemDate, {
+      const itemDateValue = item[dateKey];
+      const itemDate = itemDateValue ? new Date(itemDateValue as string | number | Date) : null;
+      return itemDate !== null && isWithinInterval(itemDate, {
         start: today,
         end: endOfDaySaturday,
       });

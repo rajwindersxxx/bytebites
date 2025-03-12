@@ -11,7 +11,7 @@ function RecipeShortDetails() {
   const recipeId = searchParams.get("recipeId");
   const { savedRecipeData } = useRecipeData();
 
-  const selectedRecipe = savedRecipeData.filter(
+  const selectedRecipe = savedRecipeData?.filter(
     (item) => item.id === Number(recipeId),
   )[0];
   if (!selectedRecipe)

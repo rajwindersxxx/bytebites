@@ -30,10 +30,9 @@ function ShoppingListRow({ data, index }: props) {
   }, [isPurchased]);
   const { updateShoppingStatus, removeUserShoppingItem } =
     useUserShoppingList();
-
   function handleStatusUpdate(e: React.ChangeEvent<HTMLInputElement>): void {
     setIsChecked(e.target.checked);
-    updateShoppingStatus({ ingredientId: id, purchasedStatus: !isChecked });
+      updateShoppingStatus({ ingredientId: id, purchasedStatus: !isChecked });
   }
   function handleDeleteItem() {
     removeUserShoppingItem(id);
@@ -54,7 +53,7 @@ function ShoppingListRow({ data, index }: props) {
         {amount} {unit ? unit : name}
       </p>
       <p>{textToEmoji(consistency)}</p>
-      <p>{created_at.split("T")[0]}</p>
+      <p>{created_at?.split("T")[0]}</p>
       <div className="flex justify-end gap-4">
         <Checkbox onChange={handleStatusUpdate} checked={isChecked} />
         <button onClick={handleDeleteItem}>

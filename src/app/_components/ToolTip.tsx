@@ -101,14 +101,23 @@ export function Tooltip({
   );
 }
 
+interface CustomHTMLProps<T> extends React.HTMLProps<T> {
+  "data-state"?: string;
+}
+
+declare module 'react' {
+  interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+    "data-state"?: string;
+  }
+}
+
 export const TooltipTrigger = React.forwardRef<
   HTMLElement,
-  React.HTMLProps<HTMLElement> & { asChild?: boolean }
+  CustomHTMLProps<HTMLElement> & { asChild?: boolean }
 >(function TooltipTrigger({ children, asChild = false, ...props }, propRef) {
   const state = useTooltipState();
 
-  const childrenRef = (children as any).ref;
-  const ref = useMergeRefs([state.refs.setReference, propRef, childrenRef]);
+  const ref = useMergeRefs([state.refs.setReference, propRef]);
 
   // `asChild` allows the user to pass any element as the anchor
   if (asChild && React.isValidElement(children)) {
@@ -117,7 +126,7 @@ export const TooltipTrigger = React.forwardRef<
       state.getReferenceProps({
         ref,
         ...props,
-        ...children.props,
+        ...(typeof children.props === 'object' ? children.props : {}),
         "data-state": state.open ? "open" : "closed"
       })
     );
