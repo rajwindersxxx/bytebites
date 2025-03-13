@@ -1,14 +1,11 @@
 import React from "react";
 import UserNavLinks from "../_components/UserNavLinks";
 import { auth } from "../_lib/Auth";
-import { Metadata } from "next";
 
 interface props {
   children: React.ReactNode;
 }
-export const metaData: Metadata = {
-  title: 'dashBoard'
-}
+
 async function layout({ children }: props) {
   const session = await auth()
   if (!session) return <div className="text-4xl absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">You need to login first</div>

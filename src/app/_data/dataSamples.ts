@@ -9486,3 +9486,4 @@ export const userSavedShoppingList = [
       "consistency": "SOLID"
   }
 ]
+

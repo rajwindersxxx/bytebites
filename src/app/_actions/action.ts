@@ -7,7 +7,7 @@ import {
   simulateApiRequest,
 } from "../_helper/helper";
 import { aiOutputToObject, makeAQuestion } from "../_lib/apiFunctions";
-import { askAi } from "../_servers/googleAiApi";
+import { askAi, generateAiImage } from "../_servers/googleAiApi";
 import {
   getRandomRecipes,
   getRecipeByIngredients,
@@ -45,6 +45,7 @@ import {
   removeUpcomingIngredientItemDB,
   updateShoppingItemStatesDB,
   UpdateUserDB,
+  uploadAIimage,
 } from "../_servers/supabaseApi";
 import { signIn } from "../_lib/Auth";
 import {
@@ -57,6 +58,7 @@ import {
   RecipeObject,
   UserShoppingList,
 } from "../types/RecipeTypes";
+import { BUCKET_URL_AI } from "../_config/supabaseConfig";
 export async function getSearchedRecipeData(
   recipeName: string,
   offset: number,
@@ -128,8 +130,14 @@ export async function makeARecipe(data: {
   if (errorSplit[1]) {
     return { error: errorSplit[1] }; // Or another appropriate status code
   }
-  const generatedRecipe = aiOutputToObject(generatedAIData);
-  return generatedRecipe;
+  const generatedRecipe = await aiOutputToObject(generatedAIData);
+  const generatedRecipeImage = await generateAiImage(generatedRecipe.title);
+  const imagePath = await uploadAIimage(
+    generatedRecipeImage,
+    generatedRecipe.id,
+  );
+  const recipeData = { ...generatedRecipe, image: `${BUCKET_URL_AI}/${imagePath}`};
+  return recipeData;
 }
 export async function getSimilarRecipesData(id: number) {
   let data;
@@ -228,7 +236,7 @@ export async function makeAShoppingList(
   userId: number,
   oldIngredientData?: UserShoppingList[] | void,
 ) {
-  console.log(recipeData, ingredientData, userId, oldIngredientData)
+  console.log(recipeData, ingredientData, userId, oldIngredientData);
   let shoppingList;
   shoppingList = mergeIngredients(recipeData, ingredientData).map((item) => {
     return { ...item, userId };
@@ -236,7 +244,7 @@ export async function makeAShoppingList(
   if (oldIngredientData) {
     shoppingList = mergeUserShoppingList(oldIngredientData, shoppingList);
   }
-  console.log(shoppingList)
+  console.log(shoppingList);
   return await createUserShoppingList(shoppingList);
 }
 export async function getUserShoppingList(UserId: number) {
