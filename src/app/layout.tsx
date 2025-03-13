@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins , Quicksand} from "next/font/google";
+import { Poppins, Quicksand } from "next/font/google";
 import "./globals.css";
 import Header from "./_components/Header";
 import { QueryProvider } from "./context/providers";
@@ -16,14 +16,16 @@ const poppins = Poppins({
   subsets: ["latin"],
 });
 const quicksand = Quicksand({
-  variable: '--font-quickSand',
+  variable: "--font-quickSand",
   weight: ["400", "600"],
-  subsets: ['latin']
-})
-
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
-  title: "ByteBite",
+  title: {
+    template: "%s | BiteBytes",
+    default: "Welcome | BiteBytes",
+  },
   description:
     "Interactive AI-powered recipe generator and meal planner. Users enter ingredients they have at home, and the system generates a recipe for them using AI. They can also save meals, plan their week, and get shopping lists based on their selections.",
 };
@@ -34,7 +36,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={` ${poppins.variable} ${quicksand.variable} dark transition-colors`}>
+    <html
+      lang="en"
+      className={` ${poppins.variable} ${quicksand.variable} dark transition-colors`}
+    >
       <body
         className={`grid h-screen grid-rows-[auto_1fr_auto] bg-natural-cream font-poppins text-gray-800 dark:text-gray-300`}
       >

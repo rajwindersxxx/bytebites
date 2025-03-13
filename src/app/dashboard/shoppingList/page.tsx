@@ -1,5 +1,8 @@
 import IngredientList from "@/app/_components/IngredientList";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: 'Cart'
+}
 function page() {
   return (
     <div className="h-full">

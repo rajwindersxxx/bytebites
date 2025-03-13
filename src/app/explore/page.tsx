@@ -1,23 +1,16 @@
-"use client";
-import { useState } from "react";
-import RandomRecipes from "../_components/RandomRecipes";
-import { uniqueId } from "lodash";
+import { Metadata } from "next"
+import ExplorePage from "../_components/ExplorePage"
 
-export default function ExplorePage() {
-  const [array, setArray] = useState<number[]>([1]);
+export const metadata: Metadata = {
+  title: 'Explore'
+}
+
+function page() {
   return (
     <>
-      <div className="mx-auto grid grid-cols-responsiveGrid place-items-center gap-4">
-        {array?.map((item) => <RandomRecipes key={uniqueId()} groupId={item} />)}
-      </div>
-      <div className="text-center">
-        <button
-          className="mt-8 text-center text-2xl underline transition-all hover:scale-105 active:text-primary"
-          onClick={() => setArray([...array, array.length + 1])}
-        >
-          Show more
-        </button>
-      </div>
+      <ExplorePage/>
     </>
-  );
+  )
 }
+
+export default page

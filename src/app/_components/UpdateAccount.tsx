@@ -9,11 +9,6 @@ import { UpdateProfileForm } from "../types/FormData";
 import toast from "react-hot-toast";
 function UpdateAccount() {
   const { data, update } = useSession();
-  const { name, email, id } = data?.user as {
-    id: string;
-    name: string;
-    email: string;
-  };
   const { register, handleSubmit, reset, watch } = useForm<UpdateProfileForm>();
   const [username, file] = watch(["username", "file"]);
   const isDisabled = username === data?.user?.name && (!file || file.length === 0);
@@ -29,6 +24,12 @@ function UpdateAccount() {
       toast.error(error.message);
     },
   });
+  if(!data) return null
+  const { name, email, id } = data?.user as {
+    id: string;
+    name: string;
+    email: string;
+  };
   function handleFormSubmit(data: UpdateProfileForm) {
     const formObject = { ...data, id: Number(id) };
     handleUpdate(formObject);

@@ -39,6 +39,7 @@
     border-right-color: theme("colors.natural.sage");
     animation: rotate 1s infinite linear;
   }
+
   .miniSpinner {
     width: 24px;
     aspect-ratio: 1;

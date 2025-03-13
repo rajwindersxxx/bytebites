@@ -1,12 +1,15 @@
 import BookmarksList from "@/app/_components/BookmarksList";
 import RecipeShortDetails from "@/app/_components/RecipeShortDetails";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Bookmarks",
+};
 function page() {
   return (
     <div className="grid h-full grid-cols-[23.25rem_2fr] gap-4">
-
       <div className="h-[96%]">
-        <h1 className="text-xl text-center p2">Bookmarked recipes</h1>
-        <BookmarksList detailLink='/dashboard/bookmarks'/>
+        <h1 className="p2 text-center text-xl">Bookmarked recipes</h1>
+        <BookmarksList detailLink="/dashboard/bookmarks" />
       </div>
       <RecipeShortDetails />
     </div>

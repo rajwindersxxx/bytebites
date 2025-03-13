@@ -1,5 +1,8 @@
 import LikedRecipeList from "@/app/_components/LikedRecipeList"
-
+import { Metadata } from "next"
+export const metadata: Metadata = {
+  title: 'Likes'
+}
 function page() {
   return (
     <div>

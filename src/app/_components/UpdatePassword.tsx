@@ -1,3 +1,4 @@
+'use client';
 import { useForm } from "react-hook-form";
 import { PrimaryButton } from "./Buttons";
 import Input from "./Input";

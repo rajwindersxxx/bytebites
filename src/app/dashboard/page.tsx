@@ -5,8 +5,11 @@ import MakeRecipeCard from "../_components/MakeRecipeCard";
 import MealCalendarCard from "../_components/MealCalanderCard";
 import RequiredIngredientCard from "../_components/RequiredIngredientCard";
 import { auth } from "../_lib/Auth";
-
-async function Page() {
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: 'Dashboard'
+}
+async function page() {
   const session = await auth();
   return (
     <div className="h-[90%]">
@@ -23,4 +26,4 @@ async function Page() {
   );
 }
 
-export default Page;
+export default page;

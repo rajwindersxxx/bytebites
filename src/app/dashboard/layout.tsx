@@ -1,9 +1,13 @@
 import React from "react";
 import UserNavLinks from "../_components/UserNavLinks";
 import { auth } from "../_lib/Auth";
+import { Metadata } from "next";
 
 interface props {
   children: React.ReactNode;
+}
+export const metaData: Metadata = {
+  title: 'dashBoard'
 }
 async function layout({ children }: props) {
   const session = await auth()
