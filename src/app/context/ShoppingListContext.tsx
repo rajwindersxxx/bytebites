@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { createContext } from "react";
 import lodash from "lodash";
-import { getRecipeDetailsData } from "../_actions/action";
+import { getRecipeDetailsData } from "../_actions/recipesActions";
 import { ExtendedIngredients, RecipeObject } from "../types/RecipeTypes";
 import toast from "react-hot-toast";
 import { getLocalStorage, setLocalStorage } from "../_helper/clientheper";
@@ -181,7 +181,7 @@ function ShoppingContext({ children }: props) {
     }
   }
   function clearLocalStorageCart() {
-    console.log('storage clear')
+    console.log("storage clear");
     setRecipeInCart([]);
     setIngredientCart([]);
     localStorage.removeItem("recipeCart");

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SecondaryButton } from "./_components/Buttons";
+import { SecondaryButton } from "./_components/ui/Buttons";
 export default function error() {
   return (
     <div className="flex h-[91vh] flex-col items-center justify-center gap-8 text-center">

@@ -1,5 +1,5 @@
-import BookmarksList from "@/app/_components/BookmarksList";
-import RecipeShortDetails from "@/app/_components/RecipeShortDetails";
+import BookmarksList from "@/app/_components/features/bookmarks/BookmarksList";
+import RecipeShortDetails from "@/app/_components/features/recipe/RecipeShortDetails";
 import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Bookmarks",

@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import { signInSchema } from "./zod";
-import { getUserByIdDB, getUserDB } from "../_servers/supabaseApi";
+import { getUserByIdDB, getUserDB } from "../_servers/supabase/users";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -56,29 +56,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
     async session({ session, token }) {
-      if(token?.id){
-        const {data: updatedUser} = await getUserByIdDB(Number(token.id)); // Fetch fresh user data
-        session.user =  {
+      if (token?.id) {
+        const { data: updatedUser } = await getUserByIdDB(Number(token.id)); // Fetch fresh user data
+        session.user = {
           id: updatedUser.id,
           email: updatedUser.email,
           name: updatedUser.username,
           image: updatedUser.image,
-          emailVerified: updatedUser.emailVerified
+          emailVerified: updatedUser.emailVerified,
         };
       }
       return session;
     },
   },
 });
-// if (token.id) {
-//   const updatedUser = await getUserById(token.id); // Fetch fresh user data
 
-//   if (updatedUser) {
-//     session.user = {
-//       id: updatedUser.id,
-//       email: updatedUser.email,
-//       name: updatedUser.name,
-//       image: updatedUser.image
-//     };
-//   }
-// }

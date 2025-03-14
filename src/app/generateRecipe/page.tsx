@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import GenerateRecipeForm from "../_components/GenerateRecipeForm";
+import GenerateRecipeForm from "../_components/forms/GenerateRecipeForm";
 export const metadata: Metadata = {
   title: 'Make a recipe'
 }

@@ -3,10 +3,10 @@ import {
   addMealPlanning,
   getMealPlannings,
   removeMealPlanning,
-} from "../_actions/action";
+} from "../_actions/mealPlanning";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
-import { useModal } from "../_components/Modal";
+import { useModal } from "../_components/ui/Modal";
 import { MealPlanning } from "../types/FormData";
 
 function useSavedMeals() {

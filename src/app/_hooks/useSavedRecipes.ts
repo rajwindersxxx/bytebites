@@ -1,5 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { addRemoveSavedRecipe, getSavedRecipes } from "../_actions/action";
+import {
+  addRemoveSavedRecipe,
+  getSavedRecipes,
+} from "../_actions/userDataActions";
 import { useState } from "react";
 import { RecipeObject } from "../types/RecipeTypes";
 import toast from "react-hot-toast";

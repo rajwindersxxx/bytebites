@@ -4,7 +4,7 @@ import {
   makeAShoppingList,
   removeShoppingListItem,
   updateShoppingItemStates,
-} from "../_actions/action";
+} from "../_actions/shopping";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
 import { useShoppingData } from "../context/ShoppingListContext";

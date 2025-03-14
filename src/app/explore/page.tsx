@@ -1,16 +1,16 @@
-import { Metadata } from "next"
-import ExplorePage from "../_components/ExplorePage"
+import { Metadata } from "next";
+import ExplorePage from "../_components/layout/ExplorePage";
 
 export const metadata: Metadata = {
-  title: 'Explore'
-}
+  title: "Explore",
+};
 
 function page() {
   return (
-    <>
-      <ExplorePage/>
-    </>
-  )
+    <div>
+      <ExplorePage />
+    </div>
+  );
 }
 
-export default page
+export default page;

@@ -1,5 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { addRemoveLikedRecipe, getLikedRecipes } from "../_actions/action";
+import {
+  addRemoveLikedRecipe,
+  getLikedRecipes,
+} from "../_actions/userDataActions";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { RecipeObject } from "../types/RecipeTypes";
@@ -9,7 +12,11 @@ export function useLikedRecipes(userId: number) {
   const queryClient = useQueryClient();
   const [likedRecipes, setLikedRecipes] = useState<number[]>([]);
 
-  const {data: likedRecipesData, isLoading, error } = useQuery({
+  const {
+    data: likedRecipesData,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["likedRecipes"],
     queryFn: async () => {
       const result = await getLikedRecipes(userId);

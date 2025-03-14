@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { Poppins, Quicksand } from "next/font/google";
 import "./globals.css";
-import Header from "./_components/Header";
 import { QueryProvider } from "./context/providers";
-import Footer from "./_components/Footer";
+import Footer from "./_components/layout/Footer";
 import SessionAuthProvider from "./context/SessionAuthProvider";
 import { RecipeDataContext } from "./context/RecipeDataContext";
 import { ShoppingContext } from "./context/ShoppingListContext";
-import { ModalProvider } from "./_components/Modal";
+import { ModalProvider } from "./_components/ui/Modal";
 import { Toaster } from "react-hot-toast";
+import Header from "./_components/layout/Header";
 
 const poppins = Poppins({
   variable: "--font-Poppins",

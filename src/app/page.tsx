@@ -1,5 +1,5 @@
-import Hero from "@/app/_components/Hero";
 import React from "react";
+import Hero from "./_components/features/website/Hero";
 
 export default function page() {
   return (
@@ -8,3 +8,4 @@ export default function page() {
     </div>
   );
 }
+

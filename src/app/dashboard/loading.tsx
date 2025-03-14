@@ -1,8 +1,8 @@
-import Spinner from "../_components/Spinner";
+import Spinner from "../_components/ui/Spinner";
 
 export default function Loading() {
   return (
-    <div className="h-[90%] flex justify-center items-center m-0">
+    <div className="m-0 flex h-[90%] items-center justify-center">
       <Spinner />
     </div>
   );

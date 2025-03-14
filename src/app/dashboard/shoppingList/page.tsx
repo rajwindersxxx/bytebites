@@ -1,8 +1,8 @@
-import IngredientList from "@/app/_components/IngredientList";
+import IngredientList from "@/app/_components/features/recipe/IngredientList";
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: 'Cart'
-}
+  title: "Cart",
+};
 function page() {
   return (
     <div className="h-full">
@@ -10,7 +10,7 @@ function page() {
         {" "}
         Your Ingredient Shopping List{" "}
       </h2>
-      <div className=" h-[calc(100vh-275px)] min-h-0  flex-col items-start gap-4 overflow-y-auto overflow-x-hidden p-3 ">
+      <div className="h-[calc(100vh-275px)] min-h-0 flex-col items-start gap-4 overflow-y-auto overflow-x-hidden p-3">
         <IngredientList />
       </div>
     </div>

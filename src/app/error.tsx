@@ -1,6 +1,6 @@
 "use client";
 
-import { SecondaryButton } from "./_components/Buttons";
+import { SecondaryButton } from "./_components/ui/Buttons";
 
 interface ErrorProps {
   error: {

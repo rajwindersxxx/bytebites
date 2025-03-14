@@ -1,9 +1,9 @@
 import { Suspense } from "react";
-import Spinner from "@/app/_components/Spinner";
-import RecipeCard from "@/app/_components/RecipeCard";
-import Pagination from "@/app/_components/Pagination";
+import Spinner from "@/app/_components/ui/Spinner";
+import RecipeCard from "@/app/_components/features/recipe/RecipeCard";
+import Pagination from "@/app/_components/ui/Pagination";
 import { SEARCH_RESULTS_COUNT } from "@/app/_config/foodApiConfig";
-import { getSearchedRecipeData } from "@/app/_actions/action";
+import { getSearchedRecipeData } from "@/app/_actions/recipesActions";
 import { RecipeObject } from "@/app/types/RecipeTypes";
 interface props {
   searchParams: Promise<{ search: string; page: number }>;

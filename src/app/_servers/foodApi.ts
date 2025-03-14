@@ -1,5 +1,5 @@
 import { FOOD_URL, SEARCH_RESULTS_COUNT } from "../_config/foodApiConfig";
-import { addRecipeToDB } from "./supabaseApi";
+import { addRecipeToDB } from "./supabase/recipes";
 const apiKey = process.env.FOOD_API_KEY;
 
 export async function getSearchedRecipe(recipeName: string, offset: number) {
@@ -42,7 +42,7 @@ export async function getRecipeDetails(id: number) {
     }
     const data = await res.json();
     // this will add recipe to database when USER VIEW
-    await addRecipeToDB(data)
+    await addRecipeToDB(data);
     return data;
   } catch (error) {
     console.error("Error fetching recipe:", error);
