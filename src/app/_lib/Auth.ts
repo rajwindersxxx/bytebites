@@ -14,38 +14,37 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
       authorize: async (credentials) => {
         try {
+          // valid input using zod schema
           const { email: inputEmail, password: inputPassword } =
             await signInSchema.parseAsync(credentials);
+          // Fetch user data from database
           const { data, error: getUserError } = await getUserDB(inputEmail);
-
           if (getUserError || !data || data.length === 0) {
             console.error(
               "User not found or error fetching user:",
               getUserError,
             );
-            return null; // Return null if user not found or error occurred
+            return null;
           }
-
-          const { password: hashedPassword, id, username } = data[0]; // extract id and name.
-
+          const { password: hashedPassword, id, username } = data[0];
+          //  compare password with hash
           return new Promise((resolve) => {
             bcrypt.compare(inputPassword, hashedPassword, (err, result) => {
               if (err) {
                 console.error("bcrypt compare error:", err);
-                return resolve(null); // Resolve with null on error
+                return resolve(null);
               }
 
               if (result) {
-                // Return user object if passwords match
-                resolve({ id: id, name: username, email: inputEmail }); //Return user object
+                resolve({ id: id, name: username, email: inputEmail });
               } else {
-                resolve(null); // Return null if passwords don't match
+                resolve(null);
               }
             });
           });
         } catch (error) {
           console.error("Authentication error:", error);
-          return null; // Return null if there's a validation or other error
+          return null;
         }
       },
     }),
@@ -57,7 +56,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async session({ session, token }) {
       if (token?.id) {
-        const { data: updatedUser } = await getUserByIdDB(Number(token.id)); // Fetch fresh user data
+        // fetch fresh user data from database 
+        const { data: updatedUser } = await getUserByIdDB(Number(token.id));
         session.user = {
           id: updatedUser.id,
           email: updatedUser.email,
@@ -70,4 +70,3 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
 });
-

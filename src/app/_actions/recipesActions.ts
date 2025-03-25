@@ -58,7 +58,6 @@ export async function getRecipeDetailsData(id: number) {
   } else {
     const { recipeData } = await getRecipeFormDB(id);
     data = recipeData;
-    console.log(data);
     if (!data) {
       console.log("sample");
       data = await simulateApiRequest(recipeDetails[0]);

@@ -18,7 +18,6 @@ export async function makeAShoppingList(
   userId: number,
   oldIngredientData?: UserShoppingList[] | void,
 ) {
-  console.log(recipeData, ingredientData, userId, oldIngredientData);
   let shoppingList;
   shoppingList = mergeIngredients(recipeData, ingredientData).map((item) => {
     return { ...item, userId };
@@ -26,7 +25,6 @@ export async function makeAShoppingList(
   if (oldIngredientData) {
     shoppingList = mergeUserShoppingList(oldIngredientData, shoppingList);
   }
-  console.log(shoppingList);
   return await createUserShoppingList(shoppingList);
 }
 export async function getUserShoppingList(UserId: number) {

@@ -60,6 +60,7 @@ function UserNavLinks() {
           <li key={uniqueId()}>
             <Link
               href={item.link}
+              prefetch={true}
               className={`my-2 flex items-center justify-start gap-2 p-2 transition-all hover:bg-natural-beige ${item.link === pathName && "bg-natural-beige"}`}
             >
               {cloneElement(item.icon, {

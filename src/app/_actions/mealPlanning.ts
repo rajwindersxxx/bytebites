@@ -5,8 +5,6 @@ import {
   removeMealPlanningFromDB,
 } from "../_servers/supabase/mealPlanning";
 import { MealPlanning } from "../types/FormData";
-
-// meal planning
 export async function getMealPlannings(userId: number) {
   return await getMealPlanningFromDB(userId);
 }

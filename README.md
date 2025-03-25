@@ -162,12 +162,12 @@ Interactive AI-powered recipe generator and meal planner. Users enter ingredient
 
 ## missing feature:-
 
-- add drag and drop functionally to meal planning calendar
-- app needs to be responsive and mobile friendly
+- Add drag and drop functionally to meal planning calendar
+- App needs to be responsive and mobile friendly
 - UI/UX need to be a improved
-- give user more options and flexibility to make search easy.
-- add notifications and user feedback
-- add feedback form for bugs.
+- Give user more options and flexibility to make search easy.
+- Add notifications and user feedback
+- Add feedback form for bugs.
 
 ## 🛠 Installation/setup
 
