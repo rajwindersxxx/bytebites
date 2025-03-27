@@ -19,14 +19,6 @@ export default async function Navigation() {
           Generate
         </Link>
       </li>
-      <li>
-        <Link
-          href="/explore"
-          className="block rounded-md px-4 py-2 transition-all hover:scale-110 hover:bg-accent active:scale-105 active:bg-primary dark:hover:text-gray-900"
-        >
-          Explore
-        </Link>
-      </li>
     </ul>
   );
 }

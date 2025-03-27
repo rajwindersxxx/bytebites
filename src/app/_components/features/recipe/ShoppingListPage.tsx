@@ -10,7 +10,7 @@ export default function ShoppingListPage() {
     <div className="grid h-[92%] grid-cols-[23.25rem_15.31rem_1fr] gap-4">
       <div className="h-full">
         <h1 className="p2 text-center text-xl">Bookmarked recipes</h1>
-        <BookmarksList detailLink="/dashboard/shopping" />
+        <BookmarksList detailLink="/shopping" />
       </div>
       <div className="h-full">
         <h2 className="pb-2 text-center text-xl capitalize">

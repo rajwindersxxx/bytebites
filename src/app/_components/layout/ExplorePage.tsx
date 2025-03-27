@@ -2,12 +2,16 @@
 import { useState } from "react";
 import RandomRecipes from "../features/recipe/RandomRecipes";
 import { uniqueId } from "lodash";
+import Input from "../ui/Input";
+import SearchFilters from "../ui/SearchFilters";
 
 export default function ExplorePage() {
   const [array, setArray] = useState<number[]>([1]);
   return (
     <>
-      <div className="mx-auto grid grid-cols-responsiveGrid place-items-center gap-4">
+    <SearchFilters/>
+    <Input placeHolder="Search a recipe" className="p-2 w-full my-4"/>
+      <div className="mx-auto grid grid-cols-responsiveGrid place-items-center gap-2">
         {array?.map((item) => (
           <RandomRecipes key={uniqueId()} groupId={item} />
         ))}

@@ -15,9 +15,8 @@ async function layout({ children }: props) {
       </div>
     );
   return (
-    <div className="container m-auto my-4 grid h-[81vh] grid-cols-[auto_1fr] gap-4 border bg-natural-cream p-4 dark:border-gray-500">
+    <div className=" m-auto my-4 grid h-[81vh] grid-cols-[auto_1fr] gap-4 border bg-natural-cream p-4 dark:border-gray-500">
       <div className="flex flex-col border-r pr-4 dark:border-gray-500">
-        <h1 className="px-4 py-8 text-center text-2xl">DASHBOARD</h1>
         <UserNavLinks />
       </div>
       <div className="h-full overflow-y-scroll">{children}</div>

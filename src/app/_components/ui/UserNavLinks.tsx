@@ -24,44 +24,44 @@ function UserNavLinks() {
     },
     {
       name: "bookmarked",
-      link: "/dashboard/bookmarks",
+      link: "/bookmarks",
       icon: <HiOutlineHeart />,
     },
     {
       name: "Make shopping list",
-      link: "/dashboard/shopping",
+      link: "/shopping",
       icon: <HiOutlineShoppingBag />,
     },
     {
       name: "Cart",
-      link: "/dashboard/shoppingList",
+      link: "/shoppingList",
       icon: <HiOutlineShoppingCart />,
     },
     {
       name: "Meal Planning",
-      link: "/dashboard/mealPlanner",
+      link: "/mealPlanner",
       icon: <HiOutlineCalendar />,
     },
     {
       name: "Likes",
-      link: "/dashboard/likes",
+      link: "/likes",
       icon: <HiOutlineThumbUp />,
     },
     {
       name: "Profile",
-      link: "/dashboard/profile",
+      link: "/profile",
       icon: <HiOutlineUser />,
     },
   ];
   return (
     <UserNavigation>
-      <ul>
+      <ul className="w-42">
         {userNavigation.map((item) => (
           <li key={uniqueId()}>
             <Link
               href={item.link}
               prefetch={true}
-              className={`my-2 flex items-center justify-start gap-2 p-2 transition-all hover:bg-natural-beige ${item.link === pathName && "bg-natural-beige"}`}
+              className={`my-2 flex items-center justify-start gap-2 p-2 transition-all hover:bg-accent ${item.link === pathName && "bg-natural-beige"}`}
             >
               {cloneElement(item.icon, {
                 className: `h-5 w-5 ${item.link === pathName && "fill-gray-800 dark:fill-gray-300"}`,

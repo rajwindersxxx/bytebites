@@ -17,7 +17,7 @@ function SignOutButton() {
     >
       <button
         type="submit"
-        className="my-2 flex w-full items-center justify-start gap-2 p-2 transition-all hover:bg-natural-beige"
+        className="my-2 flex w-full items-center justify-start gap-2 p-2 transition-all hover:bg-accent"
       >
         <HiOutlineLogout className="h-5 w-5" />
         SignOut

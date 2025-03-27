@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { Poppins, Quicksand } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "./context/providers";
-import Footer from "./_components/layout/Footer";
 import SessionAuthProvider from "./context/SessionAuthProvider";
 import { RecipeDataContext } from "./context/RecipeDataContext";
 import { ShoppingContext } from "./context/ShoppingListContext";
 import { ModalProvider } from "./_components/ui/Modal";
 import { Toaster } from "react-hot-toast";
 import Header from "./_components/layout/Header";
+import UserNavLinks from "./_components/ui/UserNavLinks";
+import { GUIStateProvider } from "./context/GUIStateProvider";
 
 const poppins = Poppins({
   variable: "--font-Poppins",
@@ -41,26 +42,28 @@ export default function RootLayout({
       className={` ${poppins.variable} ${quicksand.variable} dark transition-colors`}
     >
       <body
-        className={`grid h-screen grid-rows-[auto_1fr_auto] bg-natural-cream font-poppins text-gray-800 dark:text-gray-300`}
+        className={` bg-natural-cream font-poppins text-gray-800 dark:text-gray-300`}
       >
         <SessionAuthProvider>
           <QueryProvider>
-            <RecipeDataContext>
-              <ShoppingContext>
-                <ModalProvider>
-                  <Header />
-                  <main>{children}</main>
-                  <Footer />
-                  <Toaster
-                    toastOptions={{
-                      className:
-                        "!text-primary !dark:text-accent !bg-natural-cream !dark:bg-natural-accent !border-primary !border !dark:border-secondary",
-                      position: "bottom-center",
-                    }}
-                  />
-                </ModalProvider>
-              </ShoppingContext>
-            </RecipeDataContext>
+            <GUIStateProvider>
+              <RecipeDataContext>
+                <ShoppingContext>
+                  <ModalProvider>
+                    <Header />
+                    <UserNavLinks />
+                    <main className="ml-9">{children}</main>
+                    <Toaster
+                      toastOptions={{
+                        className:
+                          "!text-primary !dark:text-accent !bg-natural-cream !dark:bg-natural-accent !border-primary !border !dark:border-secondary",
+                        position: "bottom-center",
+                      }}
+                    />
+                  </ModalProvider>
+                </ShoppingContext>
+              </RecipeDataContext>
+            </GUIStateProvider>
           </QueryProvider>
         </SessionAuthProvider>
       </body>

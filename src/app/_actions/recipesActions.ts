@@ -1,5 +1,5 @@
 "use server";
-import { USE_API } from "../_config/foodApiConfig";
+import { RANDOM_RECIPE_COUNT, USE_API } from "../_config/foodApiConfig";
 import { BUCKET_URL_AI } from "../_config/supabaseConfig";
 import { AiResponseSample } from "../_data/AiDataSamples";
 import {
@@ -40,7 +40,7 @@ export async function getRandomRecipeData(): Promise<RecipeObject[]> {
   let data;
   if (USE_API) {
     const { recipes: recipeArray }: { recipes: [] } =
-      await getRandomRecipes(12);
+      await getRandomRecipes(RANDOM_RECIPE_COUNT);
     data = recipeArray;
   } else {
     data = await simulateApiRequest(recipeData);
