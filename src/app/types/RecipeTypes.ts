@@ -1,5 +1,5 @@
 // recipe details types
-export type ExtendedIngredients =  {
+export type ExtendedIngredients = {
   isPurchased: boolean;
   uniqueIngredientId?: number;
   userId: number;
@@ -26,7 +26,7 @@ export type ExtendedIngredients =  {
       unitLong: string;
     };
   };
-};;
+};
 export type AnalyzedInstructions = {
   name: string;
   steps: {
@@ -48,7 +48,7 @@ export type AnalyzedInstructions = {
 };
 export type RecipeObject = {
   userId?: number;
-  missedIngredients?: {name: string}[]
+  missedIngredients?: { name: string }[];
   created_at?: string;
   count?: number;
   id: number;
@@ -77,14 +77,14 @@ export type RecipeObject = {
   license: null | string;
   sourceName: string;
   pricePerServing: number;
-  extendedIngredients: ExtendedIngredients[]
+  extendedIngredients: ExtendedIngredients[];
   summary: string;
   cuisines: string[];
   dishTypes: string[];
   diets: string[];
   occasions: string[];
   instructions: string;
-  analyzedInstructions: AnalyzedInstructions[]
+  analyzedInstructions: AnalyzedInstructions[];
   originalId: number | null;
   spoonacularScore: number;
   spoonacularSourceUrl: string;
@@ -92,13 +92,21 @@ export type RecipeObject = {
 };
 
 export type UserShoppingList = {
-   id: number;
-   name: string;
-   unit: string;
-   image: string;
-   consistency: string;
-   created_at?: string;
-   amount: number;
-   isPurchased: boolean;
-   userId?: number;
-}
+  id: number;
+  name: string;
+  unit: string;
+  image: string;
+  consistency: string;
+  created_at?: string;
+  amount: number;
+  isPurchased: boolean;
+  userId?: number;
+};
+export type Category = {
+  [key: string]: string[];
+};
+export type IngredientListTags = {
+  type: string;
+  ingredients: string[];
+};
+export type IngredientListDB = { type: string; ingredient: string };

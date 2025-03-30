@@ -8,9 +8,9 @@ import SearchFilters from "../ui/SearchFilters";
 export default function ExplorePage() {
   const [array, setArray] = useState<number[]>([1]);
   return (
-    <>
+    <div className="p-4 h-[calc(100vh-3rem)] overflow-y-scroll">
+    <Input placeHolder="Search a recipe" className="p-2 w-full"/>
     <SearchFilters/>
-    <Input placeHolder="Search a recipe" className="p-2 w-full my-4"/>
       <div className="mx-auto grid grid-cols-responsiveGrid place-items-center gap-2">
         {array?.map((item) => (
           <RandomRecipes key={uniqueId()} groupId={item} />
@@ -24,6 +24,6 @@ export default function ExplorePage() {
           Show more
         </button>
       </div>
-    </>
+    </div>
   );
 }

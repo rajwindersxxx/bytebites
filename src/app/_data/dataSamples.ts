@@ -1,3 +1,5 @@
+import { Category, IngredientListDB } from "../types/RecipeTypes";
+
 export const similarRecipe = [
   {
     id: 1055614,
@@ -9421,7 +9423,7 @@ export const userSavedShoppingList = [
   },
 ];
 
-export const categories = [
+export const categories: Category[] = [
   { MealType: ["BreakFast", "Lunch", "Dinner", "Snacks", "Dessert"] },
   { Dietary: ["Vegetarian", "non-Vegetarian", "Vegan", "Keto"] },
   {
@@ -9502,7 +9504,7 @@ export const categories = [
   },
 ];
 
-export const ingredientList = [
+export const ingredientList: IngredientListDB[] = [
   { type: "vegetable", ingredient: "carrot" },
   { type: "vegetable", ingredient: "potato" },
   { type: "vegetable", ingredient: "onion" },
