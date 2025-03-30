@@ -1,22 +1,42 @@
 import { Category } from "@/app/types/RecipeTypes";
-import SearchOption from "./SearchOption";
+import SearchOptionsGroup from "./SearchOptionsGroup";
+import { useState } from "react";
 
-interface props {
+interface Props {
   categories: Category[];
   openedCategories: string;
 }
-function SearchOptions({ categories, openedCategories }: props) {
+
+function SearchOptions({ categories, openedCategories }: Props) {
+  const [selectedFilters, setSelectedFilters] = useState<Record<string, string[]>>({});
+  console.log(selectedFilters) //* here is main filters 
+  const handleFilterChange = (category: string, option: string) => {
+    setSelectedFilters((prev) => {
+      const currentOptions = prev[category] || [];
+      if (currentOptions.includes(option)) {
+        return {
+          ...prev,
+          [category]: currentOptions.filter((item) => item !== option),
+        };
+      } else {
+        return {
+          ...prev,
+          [category]: [...currentOptions, option],
+        };
+      }
+    });
+  };
+
   return (
     <>
       {categories.map((item) => (
-        <div
-          className={`rounded-md border border-accent p-1 ${openedCategories === Object.keys(item)[0] ? "" : "invisible absolute -z-[999]"}`}
+        <SearchOptionsGroup
+          item={item}
+          openedCategories={openedCategories}
           key={Object.keys(item)[0]}
-        >
-          {Object.values(item)[0].map((option) => (
-            <SearchOption option={option} groupName={Object.keys(item)[0]} key={option}/>
-          ))}
-        </div>
+          onFilterChange={handleFilterChange}
+          selectedFilters={selectedFilters}
+        />
       ))}
     </>
   );

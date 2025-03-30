@@ -1,30 +1,36 @@
-interface props {
+interface Props {
   option: string;
   groupName: string;
+  isChecked: boolean;
+  onToggle: () => void;
   className?: string;
 }
+
 function SearchOption({
   option,
   groupName,
-  className = `has-[:checked]:bg-natural-beige`,
-}: props) {
-
+  isChecked,
+  onToggle,
+  className = "",
+}: Props) {
   return (
-    <>
-      <label
-        htmlFor={option}
-        className={`m-1 inline-block rounded-full border px-2 py-1 ${className}`}
-      >
-        {option}
-        <input
-          id={option}
-          type="checkbox"
-          name={groupName}
-          value={option}
-          className={`hidden`}
-        />
-      </label>
-    </>
+    <label
+      htmlFor={option}
+      className={`m-1 inline-block rounded-full border px-2 py-1 cursor-pointer ${
+        isChecked ? "bg-natural-beige" : ""
+      } ${className}`}
+    >
+      {option}
+      <input
+        id={option}
+        type="checkbox"
+        name={groupName}
+        value={option}
+        checked={isChecked}
+        onChange={onToggle}
+        className="hidden"
+      />
+    </label>
   );
 }
 
