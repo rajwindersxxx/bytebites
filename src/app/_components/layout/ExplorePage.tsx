@@ -26,11 +26,11 @@ export default function ExplorePage() {
       <div className="mx-auto grid grid-cols-responsiveGrid place-items-center gap-2">
         <RecipeList />
       </div>
-      <div className="text-center">
+      {/* <div className="text-center">
         <button className="mt-8 text-center text-2xl underline transition-all hover:scale-105 active:text-primary">
           Show more
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

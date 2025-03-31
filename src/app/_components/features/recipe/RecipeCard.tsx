@@ -40,7 +40,7 @@ export default function RecipeCard({
   return (
     <div
       onClick={handleRoute}
-      className={`card relative grid  w-full shrink-0 cursor-pointer grid-cols-[1fr_1.7fr] overflow-hidden rounded-md bg-natural-beige  hover:shadow-md ${isDragging ? "" : "transition-all"}`}
+      className={`card relative grid w-full shrink-0 cursor-pointer grid-cols-[1fr_1.7fr] overflow-hidden rounded-md bg-natural-beige hover:shadow-md ${isDragging ? "" : "transition-all"}`}
     >
       <div className="relative h-full">
         {baseUrlImage ? (
@@ -76,15 +76,6 @@ export default function RecipeCard({
           </Tooltip>
         </FloatingDelayGroup>
         <div className="grid grid-cols-[1fr_0.5fr_1fr] content-center items-center justify-center gap-2 dark:text-gray-300">
-          {/* {missedIngredients && (
-            <p className="col-span-3">
-              <span className="font-bold">Require</span>{" "}
-              {missedIngredients
-                .map((item) => item.name)
-                .join(", ")
-                .slice(0, 50)}
-            </p>
-          )} */}
           {readyInMinutes && <p>⏱️ {readyInMinutes} min </p>}
           {servings && <p>👨‍👩‍👧‍👦 {servings} </p>}
           {pricePerServing && <p>💸 {pricePerServing} $</p>}
@@ -92,9 +83,9 @@ export default function RecipeCard({
             <p>{vegetarian ? "🍀 veg" : "🥩 non-veg"} </p>
           )}
           <p className="col-start-3">{veryPopular && "🌟 popular"} </p>
-          {extendedIngredients && (
+          {missedIngredientCount && (
             <p className="col-span-2">
-              {missedIngredientCount}/{extendedIngredients.length} Ingredients missing
+              {missedIngredientCount}/{extendedIngredients.length} Missing
             </p>
           )}
           <RecipeCardButtons

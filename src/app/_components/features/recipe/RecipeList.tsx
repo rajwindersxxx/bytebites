@@ -15,7 +15,7 @@ export default function RecipeList() {
         <RecipeCard
           data={recipe}
           key={recipe.id}
-          visibleButtons={["like", "saved", "cart"]}
+          visibleButtons={["like", "saved"]}
         />
       ))}
     </>
