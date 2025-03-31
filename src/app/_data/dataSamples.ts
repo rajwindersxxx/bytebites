@@ -9331,7 +9331,7 @@ export const categories: Category[] = [
   },
   { diet: ["Vegetarian", "non-Vegetarian", "Vegan", "Keto"] },
   {
-    cuisines: [
+    cuisine: [
       "African",
       "American",
       "British",

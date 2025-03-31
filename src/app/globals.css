@@ -40,14 +40,7 @@
     animation: rotate 1s infinite linear;
   }
 
-  .miniSpinner {
-    width: 24px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    border: 3px solid theme("colors.natural.beige");
-    border-right-color: theme("colors.natural.sage");
-    animation: rotate 1s infinite linear;
-  }
+
   .loadingSpinner {
     width: 48px;
     height: 48px;
@@ -92,4 +85,15 @@
 }
 :root .fc .fc-daygrid-event {
   @apply mt-[4px] cursor-pointer;
+}
+@layer base {
+    .miniSpinner {
+    width: 24px;
+    height: 24px;
+    /* aspect-ratio: 1; */
+    border-radius: 50%;
+    border: 3px solid theme("colors.natural.beige");
+    border-right-color: theme("colors.natural.sage");
+    animation: rotate 1s infinite linear;
+  }
 }

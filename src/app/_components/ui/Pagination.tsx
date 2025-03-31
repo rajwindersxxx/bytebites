@@ -16,7 +16,7 @@ export default function Pagination({ totalResults, pageSize }: props) {
     curPage === totalPages ? totalResults : startResult + pageSize;
 
   return (
-    <div className="m-4 flex h-16 items-center justify-between rounded-md border p-2">
+    <div className="mt-4 flex h-16 items-center justify-between rounded-md border p-2">
       <div className="flex gap-4">
         <p className="text-secondary">
           Showing {startResult} to {endResults} of {totalResults}

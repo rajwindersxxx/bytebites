@@ -6,7 +6,7 @@ import SearchOptions from "./SearchOptions";
 function SearchFilters() {
   const [openedCategories, setOpenedCategories] = useState("");
   return (
-    <div className="py-4">
+    <div className="pb-4 pt-2">
       <SearchCategories
         handleOptions={setOpenedCategories}
         openedCategories={openedCategories}

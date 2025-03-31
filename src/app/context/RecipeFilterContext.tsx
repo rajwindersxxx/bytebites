@@ -8,9 +8,9 @@ import {
 } from "react";
 import { useCategoryFilter } from "../_hooks/useCategoryFilter";
 import { useIngredientFilter } from "../_hooks/useIngredientFilter";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getSearchedRecipeData } from "../_actions/recipesActions";
+import { useQueryClient } from "@tanstack/react-query";
 import { RecipeObject } from "../types/RecipeTypes";
+import useSearchRecipe from "../_hooks/useSearchRecipe";
 interface props {
   children: ReactNode;
 }
@@ -23,6 +23,11 @@ interface ReactFilterContext {
   searchRecipeInput: string;
   recipeData: RecipeObject[];
   isLoadingRecipes: boolean;
+  isRefreshing: boolean;
+  clearFilters: () => void;
+  clearIngredientFilter: () => void;
+  clearSearch: () => void;
+  setOffset: (offset: number) => void
 }
 
 const recipeFilterContext = createContext<ReactFilterContext | undefined>(
@@ -31,28 +36,32 @@ const recipeFilterContext = createContext<ReactFilterContext | undefined>(
 
 function RecipeFilterContext({ children }: props) {
   const queryClient = useQueryClient();
-  const { selectedFilters, handleFilterChange } = useCategoryFilter();
-  const { selectedIngredients, toggleSelection } = useIngredientFilter();
+  const { selectedFilters, handleFilterChange, clearFilters } =
+    useCategoryFilter();
+  const { selectedIngredients, toggleSelection, clearIngredientFilter } =
+    useIngredientFilter();
   const [searchRecipeInput, setSearchRecipeInput] = useState<string>("");
+  const { isRefreshing, isLoadingRecipes, recipeData, setOffset } = useSearchRecipe({
+    searchRecipeInput,
+    selectedIngredients,
+    selectedFilters,
+  });
   useEffect(() => {
     const timer = setTimeout(() => {
-      queryClient.invalidateQueries({ queryKey: ["recipeFilterData"] });
+      queryClient.invalidateQueries({ queryKey: [`recipeFilterData`] });
     }, 500);
-
     return () => clearTimeout(timer);
-  }, [queryClient, searchRecipeInput, selectedFilters, selectedIngredients]);
-  const { data, isLoading: isLoadingRecipes } = useQuery({
-    queryKey: ["recipeFilterData"],
-    staleTime: Infinity,
-    queryFn: () =>
-      getSearchedRecipeData({
-        query: searchRecipeInput,
-        searchObject: selectedIngredients,
-        filterObject: selectedFilters,
-        offSet: 0, //we need to change this
-      }),
-  });
-  const recipeData = data?.results || [];
+  }, [ queryClient, selectedFilters, selectedIngredients]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if(searchRecipeInput.length < 4) return
+      queryClient.invalidateQueries({ queryKey: [`recipeFilterData`] });
+    }, 600);
+    return () => clearTimeout(timer);
+  }, [ queryClient, searchRecipeInput]);
+  function clearSearch() {
+    setSearchRecipeInput("");
+  }
   return (
     <recipeFilterContext.Provider
       value={{
@@ -64,6 +73,11 @@ function RecipeFilterContext({ children }: props) {
         searchRecipeInput,
         recipeData,
         isLoadingRecipes,
+        isRefreshing,
+        clearFilters,
+        clearIngredientFilter,
+        clearSearch,
+        setOffset
       }}
     >
       {children}

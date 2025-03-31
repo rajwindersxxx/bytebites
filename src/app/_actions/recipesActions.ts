@@ -131,7 +131,7 @@ function toQueryString(
 
   // Add includedIngredients
   if (searchObject.size > 0) {
-    queryString += `&includedIngredients=${[...searchObject].join(",")}`;
+    queryString += `&includeIngredients=${[...searchObject].join(",")}`;
   }
 
   // Add filterObject keys

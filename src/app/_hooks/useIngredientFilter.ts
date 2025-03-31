@@ -12,6 +12,9 @@ export function useIngredientFilter() {
       return newSet;
     });
   };
-  return {selectedIngredients, toggleSelection}
+  function clearIngredientFilter() {
+    setSelectedIngredients(new Set([]))
+  }
+  return {selectedIngredients, toggleSelection, clearIngredientFilter}
 }
 

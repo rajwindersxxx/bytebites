@@ -1,6 +1,9 @@
-function MiniSpinner() {
+interface props {
+  className?: string
+}
+function MiniSpinner({className = 'mx-auto'}: props) {
   return (
-    <div className='miniSpinner mx-auto'></div>
+    <div className={`miniSpinner ${className}`}></div>
   )
 }
 

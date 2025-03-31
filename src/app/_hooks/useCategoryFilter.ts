@@ -20,7 +20,10 @@ export function useCategoryFilter() {
       }
     });
   };
-  return {selectedFilters, handleFilterChange}
+  function clearFilters(){
+    setSelectedFilters({})
+  }
+  return {selectedFilters, handleFilterChange, clearFilters}
 }
 
 
