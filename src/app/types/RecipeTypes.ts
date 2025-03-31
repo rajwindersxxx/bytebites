@@ -47,6 +47,7 @@ export type AnalyzedInstructions = {
   }[];
 };
 export type RecipeObject = {
+  missedIngredientCount: number;
   userId?: number;
   missedIngredients?: { name: string }[];
   created_at?: string;
@@ -110,3 +111,9 @@ export type IngredientListTags = {
   ingredients: string[];
 };
 export type IngredientListDB = { type: string; ingredient: string };
+export type SearchData = {
+  query: string;
+  searchObject: Set<string>;
+  filterObject: Record<string, string[]>;
+  offSet: number
+};

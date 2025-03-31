@@ -9,17 +9,20 @@ interface props {
   name?: string;
   defaultValue?: string | number;
 }
-export default function Input({
-  type = "text",
-  placeHolder,
-  onChange,
-  value,
-  disabled = false,
-  className = 'p-4',
-  name,
-  defaultValue,
-  ...props
-}: props) {
+const Input = React.forwardRef<HTMLInputElement, props>(function Input(
+  {
+    type = "text",
+    placeHolder,
+    onChange,
+    value,
+    disabled = false,
+    className = 'p-4',
+    name,
+    defaultValue,
+    ...props
+  }: props,
+  ref
+) {
   return (
     <input
       type={type}
@@ -30,8 +33,11 @@ export default function Input({
       name={name}
       defaultValue={defaultValue}
       disabled={disabled}
+      ref={ref}
       {...props}
       // required
     />
   );
-}
+});
+
+export default Input;

@@ -21,15 +21,18 @@ import {
 } from "../_servers/foodApi";
 import { uploadAIimage } from "../_servers/supabase/bucket";
 import { getRecipeFormDB } from "../_servers/supabase/recipes";
-import { RecipeObject } from "../types/RecipeTypes";
+import { RecipeObject, SearchData } from "../types/RecipeTypes";
 
-export async function getSearchedRecipeData(
-  recipeName: string,
-  offset: number,
-) {
+export async function getSearchedRecipeData({
+  query,
+  searchObject,
+  filterObject,
+  offSet,
+}: SearchData) {
+  const complexQuery = toQueryString(query, searchObject, filterObject);
   let data;
   if (USE_API) {
-    data = await getSearchedRecipe(recipeName, offset);
+    data = await getSearchedRecipe(complexQuery, offSet);
   } else {
     data = await simulateApiRequest(searchRecipe);
   }
@@ -114,4 +117,29 @@ export async function getSimilarRecipesData(id: number) {
     data = similarRecipe;
   }
   return data;
+}
+
+function toQueryString(
+  query: string,
+  searchObject: Set<string>,
+  filterObject: Record<string, string[]>,
+): string {
+  let queryString = "";
+
+  // Add query
+  queryString += `&query=${query}`;
+
+  // Add includedIngredients
+  if (searchObject.size > 0) {
+    queryString += `&includedIngredients=${[...searchObject].join(",")}`;
+  }
+
+  // Add filterObject keys
+  for (const [key, value] of Object.entries(filterObject)) {
+    if (value.length > 0) {
+      queryString += `&${key.toLowerCase()}=${value.join(",")}`;
+    }
+  }
+
+  return queryString;
 }

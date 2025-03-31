@@ -28,7 +28,7 @@ export default function RecipeCard({
     pricePerServing,
     veryPopular,
     extendedIngredients,
-    missedIngredients,
+    missedIngredientCount,
   } = data;
   const router = useRouter();
   const link = detailsLink ? detailsLink : `/recipeDetail?recipeId=${id}`;
@@ -76,7 +76,7 @@ export default function RecipeCard({
           </Tooltip>
         </FloatingDelayGroup>
         <div className="grid grid-cols-[1fr_0.5fr_1fr] content-center items-center justify-center gap-2 dark:text-gray-300">
-          {missedIngredients && (
+          {/* {missedIngredients && (
             <p className="col-span-3">
               <span className="font-bold">Require</span>{" "}
               {missedIngredients
@@ -84,7 +84,7 @@ export default function RecipeCard({
                 .join(", ")
                 .slice(0, 50)}
             </p>
-          )}
+          )} */}
           {readyInMinutes && <p>⏱️ {readyInMinutes} min </p>}
           {servings && <p>👨‍👩‍👧‍👦 {servings} </p>}
           {pricePerServing && <p>💸 {pricePerServing} $</p>}
@@ -94,7 +94,7 @@ export default function RecipeCard({
           <p className="col-start-3">{veryPopular && "🌟 popular"} </p>
           {extendedIngredients && (
             <p className="col-span-2">
-              {extendedIngredients.length} Ingredients
+              {missedIngredientCount}/{extendedIngredients.length} Ingredients missing
             </p>
           )}
           <RecipeCardButtons

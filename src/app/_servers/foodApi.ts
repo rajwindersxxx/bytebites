@@ -1,12 +1,18 @@
 import { FOOD_URL, SEARCH_RESULTS_COUNT } from "../_config/foodApiConfig";
+import { searchRecipe } from "../_data/dataSamples";
+import { simulateApiRequest } from "../_helper/helper";
 import { addRecipeToDB } from "./supabase/recipes";
 const apiKey = process.env.FOOD_API_KEY;
 
-export async function getSearchedRecipe(recipeName: string, offset: number) {
+export async function getSearchedRecipe(
+  complexSearchQuery: string,
+  offset: number,
+) {
+  const url = `${FOOD_URL}/recipes/complexSearch?apiKey=${apiKey}&addRecipeInformation=${"true"}&fillIngredients=${"true"}&number=${SEARCH_RESULTS_COUNT}&offset=${offset}${complexSearchQuery}`;
+  console.log(url)
+  return await simulateApiRequest(searchRecipe);
   try {
-    const res = await fetch(
-      `${FOOD_URL}/recipes/complexSearch?apiKey=${apiKey}&query=${recipeName}&offset=${offset}&&number=${SEARCH_RESULTS_COUNT}`,
-    );
+    const res = await fetch(url);
     if (!res.ok) {
       throw new Error(`HTTP error! Status: ${res.status}`);
     }

@@ -2,18 +2,17 @@ import { HiChevronUp } from "react-icons/hi";
 import SearchOption from "./SearchOption";
 import { IngredientListTags } from "@/app/types/RecipeTypes";
 import { useEffect, useState } from "react";
+import { useRecipeFilter } from "@/app/context/RecipeFilterContext";
 
 interface Props {
   item: IngredientListTags;
-  selectedIngredients: Set<string>;
-  toggleSelection: (ingredient: string) => void;
 }
 
-function IngredientFilterCard({ item  ,selectedIngredients, toggleSelection}: Props) {
+function IngredientFilterCard({ item  }: Props) {
   const { type, ingredients } = item;
   const [displayData, setDisplayData] = useState<string[]>([]);
   const [isCollapseCard, setCollapseCard] = useState(true);
-
+  const {selectedIngredients, toggleSelection} =  useRecipeFilter();
   useEffect(() => {
     if (isCollapseCard) {
       setDisplayData([...ingredients.slice(0, 7)]);
