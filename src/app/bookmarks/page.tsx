@@ -6,9 +6,9 @@ export const metadata: Metadata = {
 };
 function page() {
   return (
-    <div className="grid h-full grid-cols-[23.25rem_2fr] gap-4">
-      <div className="h-full">
-        <h1 className="p2 text-center text-xl">Bookmarked recipes</h1>
+    <div className="grid grid-cols-[23.25rem_2fr] gap-4 px-8 py-4  ml-9">
+      <div className="">
+        <h1 className="p-2 text-center text-2xl">Bookmarked recipes</h1>
         <BookmarksList detailLink="/bookmarks" />
       </div>
       <RecipeShortDetails />

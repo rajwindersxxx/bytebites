@@ -10,7 +10,6 @@ import { loginUser } from "@/app/_actions/userActions";
 import Input from "../ui/Input";
 import { PrimaryButton, SecondaryButton } from "../ui/Buttons";
 import MiniSpinner from "../ui/MiniSpinner";
-import { GoogleIcon } from "../ui/Icons";
 
 type formData = {
   email: string;
@@ -90,7 +89,7 @@ function LoginForm() {
           </SecondaryButton>
         </Link>
       </div>
-      <div className="my-4 flex items-center gap-4">
+      {/* <div className="my-4 flex items-center gap-4">
         <hr className="w-full border-gray-300" />
         <p className="text-center text-sm text-gray-800 dark:text-gray-100">
           or
@@ -101,7 +100,7 @@ function LoginForm() {
         <button type="button" className="border-none outline-none">
           <GoogleIcon />
         </button>
-      </div>
+      </div> */}
     </form>
   );
 }

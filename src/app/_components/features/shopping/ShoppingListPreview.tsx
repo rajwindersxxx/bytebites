@@ -37,20 +37,20 @@ function ShoppingListPreview() {
     );
   }
   return (
-    <div className="h-full">
-      <h2 className="pb-2 text-center text-xl capitalize">Make a list</h2>
+    <div className="">
+      <h2 className="p-2 text-center text-2xl capitalize">Make a list</h2>
       {recipeInCart.length === 0 && ingredientCart.length == 0 && (
-        <div className="mt-2 flex h-full items-center justify-center text-xl">
+        <div className="mt-2 flex  h-[calc(100vh-11.25rem)] items-center justify-center text-xl">
           <h3>start adding recipes</h3>
         </div>
       )}
       {(recipeInCart.length > 0 || ingredientCart.length > 0) && (
         <>
-          <div className="flex h-[calc(100vh-300px)] flex-col gap-4 overflow-y-auto overflow-x-hidden pr-4">
+          <div className="flex  h-[calc(100vh-11.25rem)] flex-col gap-4 overflow-y-auto overflow-x-hidden pr-4">
             <ShoppingRecipeList recipeInCart={recipeInCart} />
             <ShoppingIngredientsList ingredientCart={ingredientCart} />
           </div>
-          <div className="flex h-[50px] items-center justify-between gap-4 px-4 pt-4">
+          <div className="flex h-[50px] items-center justify-between gap-4 pt-4 pr-4">
             <div className="flex gap-4">
               <PrimaryButton className="w-48" onClick={updateExistingList}>
                 Updating Shopping List

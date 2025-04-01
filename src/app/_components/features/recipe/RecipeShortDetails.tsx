@@ -22,16 +22,14 @@ function RecipeShortDetails() {
     );
   return (
     <div className="flex flex-col justify-between">
-      <div className="image max-h-[calc(100vh-250px)] overflow-y-auto [&_.IngredientCard]:w-56 [&_.IngredientCard]:p-2 [&_.IngredientImage]:h-12 [&_.IngredientImage]:w-12 [&_.ingredientsList]:grid-cols-responsiveGrid2Small [&_h2]:mb-4 [&_h2]:text-[18px] [&_h4]:text-sm [&_p]:text-sm">
+      <div className=" flex max-h-[calc(100vh-150px)] gap-4 flex-grow flex-col overflow-y-auto [&_.IngredientCard]:w-56 [&_.IngredientCard]:p-2 [&_.IngredientImage]:h-12 [&_.IngredientImage]:w-12 [&_.ingredientsList]:grid-cols-responsiveGrid2Small [&_h2]:mb-4 [&_h4]:text-sm">
         {selectedRecipe && (
-          <div className="flex justify-between">
-            <h2 className="text-4xl underline">{selectedRecipe.title} </h2>
-          </div>
+            <h2 className="text-4xl pb-3 border-b border-accent">{selectedRecipe.title} </h2>
         )}
         {selectedRecipe?.extendedIngredients && (
-          <Ingredients
-            extendedIngredients={selectedRecipe.extendedIngredients}
-          />
+            <Ingredients
+              extendedIngredients={selectedRecipe.extendedIngredients}
+            />
         )}
         {selectedRecipe?.summary && (
           <RecipeSummary summary={selectedRecipe.summary} />

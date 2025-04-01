@@ -7,22 +7,22 @@ import ShoppingListPreview from "../shopping/ShoppingListPreview";
 export default function ShoppingListPage() {
   const { savedIngredients = [] } = useSavedIngredients();
   return (
-    <div className="grid h-[92%] grid-cols-[23.25rem_15.31rem_1fr] gap-4">
+    <div className="grid h-[92%] px-8 py-4 grid-cols-[23.25rem_15.31rem_1fr] gap-4  ml-9">
       <div className="h-full">
-        <h1 className="p2 text-center text-xl">Bookmarked recipes</h1>
+        <h1 className="p-2 text-center text-2xl">Bookmarked recipes</h1>
         <BookmarksList detailLink="/shopping" />
       </div>
-      <div className="h-full">
-        <h2 className="pb-2 text-center text-xl capitalize">
+      <div className="">
+        <h2 className="p-2 text-center text-2xl">
           Ingredients list
         </h2>
         {savedIngredients?.length === 0 && (
-          <div className="flex h-full items-center justify-center border-r text-xl">
+          <div className="flex h-[calc(100vh-8.125rem)] items-center justify-center border-r text-xl">
             No recipe selected
           </div>
         )}
         {savedIngredients?.length > 0 && (
-          <div className="flex h-[calc(100vh-250px)] flex-col gap-4 overflow-y-auto overflow-x-hidden [&_.IngredientCard]:w-56 [&_.IngredientCard]:p-2 [&_.IngredientImage]:h-12 [&_.IngredientImage]:w-12 [&_h2]:mb-4 [&_h2]:text-[18px] [&_h4]:text-sm [&_p]:text-sm">
+          <div className="flex h-[calc(100vh-8.125rem)] flex-col gap-4 overflow-y-auto overflow-x-hidden [&_.IngredientCard]:w-56 [&_.IngredientCard]:p-2 [&_.IngredientImage]:h-12 [&_.IngredientImage]:w-12 [&_h2]:mb-4 [&_h2]:text-[18px] [&_h4]:text-sm [&_p]:text-sm py-3">
             {savedIngredients?.map((ingredient) => (
               <IngredientCard ingredient={ingredient} key={uniqueId()} />
             ))}

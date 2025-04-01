@@ -12,11 +12,11 @@ export const metadata: Metadata = {
 async function page() {
   const session = await auth();
   return (
-    <div>
+    <div className="px-8 py-4 ml-9">
       <h2 className="p-4 text-center text-2xl capitalize">
         Welcome {session?.user?.name}
       </h2>
-      <div className="grid h-full grid-cols-4 grid-rows-[min-content_auto_min-content] gap-8">
+      <div className="grid h-[calc(100vh-145px)] grid-cols-4 grid-rows-[min-content_auto_min-content] gap-8 place-content-start">
         <DashBoardCards />
         <ActivityCard />
         <RequiredIngredientCard />

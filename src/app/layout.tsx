@@ -10,6 +10,7 @@ import { Toaster } from "react-hot-toast";
 import Header from "./_components/layout/Header";
 import UserNavLinks from "./_components/ui/UserNavLinks";
 import { GUIStateProvider } from "./context/GUIStateProvider";
+import { auth } from "./_lib/Auth";
 
 const poppins = Poppins({
   variable: "--font-Poppins",
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
     "Interactive AI-powered recipe generator and meal planner. Users enter ingredients they have at home, and the system generates a recipe for them using AI. They can also save meals, plan their week, and get shopping lists based on their selections.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -42,7 +43,7 @@ export default function RootLayout({
       className={` ${poppins.variable} ${quicksand.variable} dark transition-colors`}
     >
       <body
-        className={` bg-natural-cream font-poppins text-gray-800 dark:text-gray-300`}
+        className={`bg-natural-cream font-poppins text-gray-800 dark:text-gray-300`}
       >
         <SessionAuthProvider>
           <QueryProvider>
@@ -52,7 +53,9 @@ export default function RootLayout({
                   <ModalProvider>
                     <Header />
                     <UserNavLinks />
-                    <main className="ml-9">{children}</main>
+                    <main className={"h-full"}>
+                      {children}
+                    </main>
                     <Toaster
                       toastOptions={{
                         className:

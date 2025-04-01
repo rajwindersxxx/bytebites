@@ -18,6 +18,9 @@ export default async function page() {
     </div>
   );
 }
+
+
+
 function groupIngredientsByType(ingredientsDB: IngredientListDB[]) {
   return Object.entries(
     ingredientsDB.reduce(

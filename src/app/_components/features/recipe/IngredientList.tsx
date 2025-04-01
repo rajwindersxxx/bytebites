@@ -4,7 +4,6 @@ import ShoppingListRow from "../shopping/ShoppingListRow";
 
 function IngredientList() {
   const { data: ingredientData } = useUserShoppingList();
-  // const PurchasedCount = ingredientData.length - pendingCount;
   return (
     <>
       {ingredientData && ingredientData.length === 0 && (

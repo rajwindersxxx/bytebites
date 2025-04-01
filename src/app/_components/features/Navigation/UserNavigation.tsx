@@ -5,14 +5,14 @@ interface props {
 }
 function UserNavigation({ children }: props) {
   return (
-    <nav className="bg-natural-beige fixed top-12 h-[calc(100%-3rem)] left-0 w-9 overflow-hidden transition-all hover:w-48 hover:shadow-md z-40 ">
-      <div className="w-48 h-full flex justify-between flex-col">
-        {children}
-        <ul>
-          <SignOutButton />
-        </ul>
-      </div>
-    </nav>
+      <nav className="fixed left-0 top-12 z-40 h-[calc(100%-3rem)] w-9 overflow-hidden bg-natural-beige transition-all hover:w-48 hover:shadow-md">
+        <div className="flex h-full w-48 flex-col justify-between">
+          {children}
+          <ul>
+            <SignOutButton />
+          </ul>
+        </div>
+      </nav>
   );
 }
 

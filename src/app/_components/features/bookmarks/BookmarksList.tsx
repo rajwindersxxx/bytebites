@@ -19,7 +19,7 @@ function BookmarksList({ detailLink, visibleButtons }: props) {
     );
   return (
     <>
-      <div className="flex h-[calc(100vh-250px)] min-h-0 flex-col gap-4 overflow-y-auto overflow-x-hidden p-3 text-sm [&_.cardDetails]:p-2 [&_.card]:w-full [&_.card]:grid-cols-[0.8fr_1.7fr] [&_h3]:text-sm">
+      <div className="flex h-[calc(100vh-8.125rem)] min-h-0 flex-col gap-4 overflow-y-auto overflow-x-hidden p-3 text-sm [&_.cardDetails]:p-2 [&_.card]:w-full [&_.card]:grid-cols-[0.8fr_1.7fr] [&_h3]:text-sm">
         {savedRecipeData?.map((item) => (
           <RecipeCard
             key={item.id}
