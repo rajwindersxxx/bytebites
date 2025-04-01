@@ -15,14 +15,14 @@ function IngredientList() {
         <div className="rounded-md bg-natural-beige p-4" role="table">
           <div
             role="rowheader"
-            className="grid w-full grid-cols-[0.3fr_0.4fr_1.4fr_1fr_0.4fr_1fr_0.2fr] items-center gap-4 rounded border-b border-b-accent p-2"
+            className=" w-full grid-cols-[0.3fr_0.4fr_1.4fr_1fr_0.4fr_1fr_0.2fr] items-center gap-4 rounded border-b border-b-accent p-2 hidden sm:grid"
           >
-            <p>Count</p>
+            <p>No.</p>
             <p>Image</p>
             <p>Name</p>
             <p>Amount</p>
             <p>consistency</p>
-            <p>Added date</p>
+            <p className="hidden md:block">Added date</p>
             <div className="flex justify-end gap-4">Actions</div>
           </div>
           <div role="row">

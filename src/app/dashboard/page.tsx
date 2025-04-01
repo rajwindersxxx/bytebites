@@ -16,7 +16,7 @@ async function page() {
       <h2 className="p-4 text-center text-2xl capitalize">
         Welcome {session?.user?.name}
       </h2>
-      <div className="grid h-[calc(100vh-145px)] grid-cols-4 grid-rows-[min-content_auto_min-content] gap-8 place-content-start">
+      <div className="grid h-[calc(100vh-145px)] grid-cols-1  sm:grid-cols-2 lg:grid-cols-4 grid-rows-[min-content_auto_min-content] gap-8 place-content-start">
         <DashBoardCards />
         <ActivityCard />
         <RequiredIngredientCard />

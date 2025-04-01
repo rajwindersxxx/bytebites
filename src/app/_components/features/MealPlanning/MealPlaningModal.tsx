@@ -8,14 +8,14 @@ interface props {
 function MealPlaningModal({ recipeData }: props) {
   const { image, title, servings, readyInMinutes, vegetarian } = recipeData;
   return (
-    <div className="grid max-w-[55rem] grid-cols-[1fr_2.3fr] items-center gap-12 pt-5">
-      <div className="flex flex-col gap-4 overflow-hidden first-letter:rounded-md">
-        <div className="relative h-40">
+    <div className="grid max-w-[55rem]  md:grid-cols-[1fr_2.3fr]  items-center md:gap-12 gap-2 pt-5 ">
+      <div className=" flex-col gap-4 overflow-hidden first-letter:rounded-md  md:flex">
+        <div className="relative h-40 hidden md:block">
           <ImageElement src={image} alt={title} className="rounded-md" />
         </div>
         <div>
-          <h2 className="mb-4 text-xl">{title}</h2>
-          <div className="flex justify-between gap-4">
+          <h2 className="md:mb-4 text-xl">{title}</h2>
+          <div className=" justify-between gap-4  hidden md:flex">
             <p>⏱️ {readyInMinutes} min </p>
             <p>👨‍👩‍👧‍👦 {servings} </p>
             <p>{vegetarian ? "🍀 veg" : "🥩 non-veg"} </p>

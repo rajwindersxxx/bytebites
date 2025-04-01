@@ -37,29 +37,29 @@ function UpdateAccount() {
   }
   return (
     <form
-      className="grid grid-cols-[0.3fr_1fr] items-center gap-4 py-8"
+      className="sm:grid grid-cols-[0.3fr_1fr]  items-center gap-4 py-8"
       onSubmit={handleSubmit((data) => handleFormSubmit(data))}
     >
-      <label>Email Address:</label>
+      <label className="inline-block mb-2 sm:auto">Email Address:</label>
       <Input
         type="text"
-        className="p-2"
+        className="p-2 w-full mb-4 sm:mb-auto"
         placeHolder="Email Address"
         disabled={true}
         defaultValue={email || ""}
       />
-      <label>Full Name:</label>
+      <label className="inline-block mb-2 sm:auto">Full Name:</label>
       <Input
         type="text"
-        className="p-2"
+        className="p-2 w-full mb-4 sm:mb-auto"
         placeHolder="your Full name"
         defaultValue={name || ""}
         {...register("username", { required: true })}
       />
-      <label>Avatar:</label>
+      <label className="inline-block mb-2 sm:auto">Avatar:</label>
       <Input
         type="file"
-        className="p-2"
+        className="p-2 w-full mb-4 sm:mb-auto"
         placeHolder="Email Address"
         {...register("file")}
       />

@@ -1,3 +1,4 @@
+// todo: currently not responsive yet
 "use client";
 import IngredientCard from "@/app/_components/ui/IngredientCard";
 import { useSavedIngredients } from "@/app/_hooks/useSavedIngredients";

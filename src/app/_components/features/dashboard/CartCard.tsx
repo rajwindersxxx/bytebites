@@ -13,7 +13,7 @@ function CartCard() {
   ]);
   const filterData = data?.filter((item) => item.isPurchased === false);
   return (
-    <div className="col-span-1 rounded-md bg-natural-beige p-4">
+    <div className="col-span-1 rounded-md bg-natural-beige p-4 flex-1">
       <h2 className="pb-4 text-xl uppercase"> Pending Cart Items</h2>
       <ul className="flex max-h-52 flex-col gap-2 overflow-x-auto">
         {filterData && filterData.length < 1 && (

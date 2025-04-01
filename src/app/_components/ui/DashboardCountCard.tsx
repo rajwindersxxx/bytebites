@@ -20,7 +20,7 @@ function DashboardCountCard({ heading, count, label, color, icon ,link = '/'}: p
   };
   return (
     <div
-      className={`grid  grid-cols-[0.5fr_1fr] items-center justify-start rounded-md  p-4  ${colorClasses[color]}`}
+      className={`grid  grid-cols-[0.5fr_1fr] items-center justify-start rounded-md  p-4 flex-1 ${colorClasses[color]}`}
     >
       {cloneElement(icon, { className: "m-1 h-12 w-12" })}
       <div className="flex flex-col gap-1">

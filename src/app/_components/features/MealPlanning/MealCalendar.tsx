@@ -19,7 +19,7 @@ interface props {
 }
 function MealCalendar({
   initialView = "dayGridMonth",
-  className = "h-[calc(100vh-90px)] w-[90%]",
+  className = "md:h-[calc(100vh-90px)] w-[90%]",
   height = '100%',
 }: props) {
   const { removeMeal, savedMeals } = useSavedMeals();
@@ -70,8 +70,8 @@ function MealCalendar({
   }
 
   return (
-    <div className={`relative ${className} justify-self-center`}>
-      <div className="w-58 absolute right-48 top-1 flex h-9 items-center gap-4">
+    <div className={`relative ${className} justify-self-center h-[50vh] md:h-auto`}>
+      <div className="w-58 absolute lg:right-48 lg:top-1 top-8 h-9 items-center gap-4 flex ">
         <div className="flex items-center gap-1">
           <div className="h-4 w-4 rounded-full bg-green-500"></div>
           <p>BreakFast</p>

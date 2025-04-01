@@ -10,7 +10,6 @@ import { Toaster } from "react-hot-toast";
 import Header from "./_components/layout/Header";
 import UserNavLinks from "./_components/ui/UserNavLinks";
 import { GUIStateProvider } from "./context/GUIStateProvider";
-import { auth } from "./_lib/Auth";
 
 const poppins = Poppins({
   variable: "--font-Poppins",
@@ -40,7 +39,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={` ${poppins.variable} ${quicksand.variable} dark transition-colors`}
+      className={` ${poppins.variable} ${quicksand.variable} dark text-sm transition-colors sm:text-base`}
     >
       <body
         className={`bg-natural-cream font-poppins text-gray-800 dark:text-gray-300`}
@@ -53,9 +52,7 @@ export default async function RootLayout({
                   <ModalProvider>
                     <Header />
                     <UserNavLinks />
-                    <main className={"h-full"}>
-                      {children}
-                    </main>
+                    <main className={"mt-12"}>{children}</main>
                     <Toaster
                       toastOptions={{
                         className:

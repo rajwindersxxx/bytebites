@@ -55,7 +55,7 @@ function ShoppingListRow({ data, index }: props) {
         {amount} {unit ? unit : name}
       </p>
       <p>{textToEmoji(consistency)}</p>
-      <p>{created_at?.split("T")[0]}</p>
+      <p className="hidden md:block">{created_at?.split("T")[0]}</p>
       <div className="flex justify-end gap-4">
         <Checkbox onChange={handleStatusUpdate} checked={isChecked} />
         <button onClick={handleDeleteItem}>

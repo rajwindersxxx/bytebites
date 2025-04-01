@@ -9,7 +9,7 @@ interface props {
 function IngredientPanel({ ingredientList }: props) {
   const { searchPanelHidden } = useGUIState();
   return (
-    <div className="h-[calc(100vh-3rem)] overflow-y-scroll">
+    <div className="h-[calc(100vh-3rem)] overflow-y-scroll absolute md:relative right-0 bg-natural-cream">
       {searchPanelHidden || (
         <div className={`w-96 border-l-2 border-accent p-4 transition-all`}>
           <h2 className="pb-4 text-center text-2xl">Search by Ingredients </h2>

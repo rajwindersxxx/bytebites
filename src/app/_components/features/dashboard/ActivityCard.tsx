@@ -37,7 +37,7 @@ function ActivityCard() {
   }
 
   return (
-    <div className="col-span-1 rounded-md bg-green-300 p-4 dark:bg-green-900">
+    <div className="col-span-1 rounded-md bg-green-300 p-4 dark:bg-green-900 flex-1">
       <h2 className="pb-4 text-xl uppercase"> Activity</h2>
       {!(resentMeal || recentSaved || pendingItem || purchasedItem) && (
         <div className="flex h-44 items-center justify-center">

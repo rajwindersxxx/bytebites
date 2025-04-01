@@ -2,7 +2,9 @@
 import { createContext, useContext, useState } from "react";
 interface GUIStateContextType {
   searchPanelHidden: boolean;
+  recipeShortDetailHidden: boolean;
   toggleSearchPanel: () => void;
+  toggleRecipeShortDetails: () => void;
 }
 
 const GUIStateContext = createContext<GUIStateContextType | undefined>(
@@ -13,13 +15,23 @@ export const GUIStateProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [searchPanelHidden, setSearchPanelHidden] = useState(true);
-
-  const toggleSearchPanel = () => {
+  // todo : use to handle detail , still working on
+  const [recipeShortDetailHidden, setRecipeDetailHidden] = useState(true);
+  function toggleSearchPanel() {
     setSearchPanelHidden((prev) => !prev);
-  };
-
+  }
+  function toggleRecipeShortDetails() {
+    setRecipeDetailHidden((prev) => !prev);
+  }
   return (
-    <GUIStateContext.Provider value={{ searchPanelHidden, toggleSearchPanel }}>
+    <GUIStateContext.Provider
+      value={{
+        searchPanelHidden,
+        toggleSearchPanel,
+        recipeShortDetailHidden,
+        toggleRecipeShortDetails,
+      }}
+    >
       {children}
     </GUIStateContext.Provider>
   );
