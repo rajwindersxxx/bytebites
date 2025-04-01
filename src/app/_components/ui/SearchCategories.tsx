@@ -1,18 +1,20 @@
 import { Category } from "@/app/types/RecipeTypes";
 import MiniSpinner from "./MiniSpinner";
 import { useRecipeFilter } from "@/app/context/RecipeFilterContext";
+import useSearchRecipe from "@/app/_hooks/useSearchRecipe";
 
 interface props {
   categories: Category[];
   handleOptions: (category: string) => void;
-  openedCategories: string;
+  openedCategories: string; 
 }
 function SearchCategories({
   categories,
   handleOptions,
   openedCategories,
 }: props) {
-  const { isRefreshing, clearFilters, clearSearch } = useRecipeFilter();
+  const { filterParameters, clearFilters, clearSearch } = useRecipeFilter();
+  const { isRefreshing } = useSearchRecipe(filterParameters);
   return (
     <div className="flex items-center justify-between pr-4">
       <div className="flex gap-2 py-4">

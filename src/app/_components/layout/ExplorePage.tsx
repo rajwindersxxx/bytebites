@@ -3,12 +3,10 @@ import Input from "../ui/Input";
 import SearchFilters from "../ui/SearchFilters";
 import RecipeList from "../features/recipe/RecipeList";
 import { useRecipeFilter } from "@/app/context/RecipeFilterContext";
-import { useState } from "react";
 import { SEARCH_RESULTS_COUNT } from "@/app/_config/foodApiConfig";
 
 export default function ExplorePage() {
-  const { setSearchRecipeInput, searchRecipeInput } = useRecipeFilter();
-  const [offsetArray, setOffsetArray] = useState([0]);
+  const { setSearchRecipeInput, searchRecipeInput, offsetArray, setOffsetArray } = useRecipeFilter();
   return (
     <div className="h-[calc(100vh-3rem)] overflow-y-scroll p-4">
       <h2 className="pb-4 text-center text-2xl">Start Exploring Recipes</h2>
@@ -29,7 +27,7 @@ export default function ExplorePage() {
       <div className="text-center">
         <button
           onClick={() =>
-            setOffsetArray((preValue) => {
+            setOffsetArray((preValue: number[]) => {
               const offset =
                 preValue[preValue.length - 1] + SEARCH_RESULTS_COUNT;
               return [...preValue, offset];

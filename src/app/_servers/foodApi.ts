@@ -8,7 +8,6 @@ export async function getSearchedRecipe(
   complexSearchQuery: string,
   offset: number,
 ) {
-  console.log('testing ')
   const url = `${FOOD_URL}/recipes/complexSearch?apiKey=${apiKey}&addRecipeInformation=${"true"}&fillIngredients=${"true"}&number=${SEARCH_RESULTS_COUNT}&offset=${offset}${complexSearchQuery}`;
   console.log(url)
   if(!USE_API) return await simulateApiRequest(searchRecipe);

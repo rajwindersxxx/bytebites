@@ -9,8 +9,6 @@ import {
 import { useCategoryFilter } from "../_hooks/useCategoryFilter";
 import { useIngredientFilter } from "../_hooks/useIngredientFilter";
 import { useQueryClient } from "@tanstack/react-query";
-import { RecipeObject } from "../types/RecipeTypes";
-import useSearchRecipe from "../_hooks/useSearchRecipe";
 interface props {
   children: ReactNode;
 }
@@ -21,13 +19,16 @@ interface ReactFilterContext {
   selectedIngredients: Set<string>;
   setSearchRecipeInput: (arg: string) => void;
   searchRecipeInput: string;
-  recipeData: RecipeObject[];
-  isLoadingRecipes: boolean;
-  isRefreshing: boolean;
   clearFilters: () => void;
   clearIngredientFilter: () => void;
   clearSearch: () => void;
-  setOffset: (offset: number) => void
+  offsetArray: number[];
+  setOffsetArray: React.Dispatch<React.SetStateAction<number[]>>;
+  filterParameters: {
+    searchRecipeInput: string;
+    selectedIngredients: Set<string>;
+    selectedFilters: Record<string, string[]>;
+  };
 }
 
 const recipeFilterContext = createContext<ReactFilterContext | undefined>(
@@ -35,30 +36,39 @@ const recipeFilterContext = createContext<ReactFilterContext | undefined>(
 );
 
 function RecipeFilterContext({ children }: props) {
+  const [offsetArray, setOffsetArray] = useState<number[]>([0]);
+  // filter keys which need to remove when new filter applyied
+  const queryKeysToRemove = offsetArray
+    .filter((item) => item !== 0)
+    .map((item) => `recipeFilterData${item}`);
+    console.log(queryKeysToRemove)
   const queryClient = useQueryClient();
   const { selectedFilters, handleFilterChange, clearFilters } =
     useCategoryFilter();
   const { selectedIngredients, toggleSelection, clearIngredientFilter } =
     useIngredientFilter();
   const [searchRecipeInput, setSearchRecipeInput] = useState<string>("");
-  const { isRefreshing, isLoadingRecipes, recipeData, setOffset } = useSearchRecipe({
+  const filterParameters = {
     searchRecipeInput,
     selectedIngredients,
     selectedFilters,
-  });
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      queryClient.invalidateQueries({ queryKey: [`recipeFilterData`] });
+      queryClient.invalidateQueries({ queryKey: [`recipeFilterData0`] });
+      setOffsetArray([0]);
     }, 500);
     return () => clearTimeout(timer);
-  }, [ queryClient, selectedFilters, selectedIngredients]);
+  }, [queryClient, selectedFilters, selectedIngredients]);
   useEffect(() => {
     const timer = setTimeout(() => {
-      if(searchRecipeInput.length < 4) return
-      queryClient.invalidateQueries({ queryKey: [`recipeFilterData`] });
+      if (searchRecipeInput.length < 4) return;
+      queryClient.invalidateQueries({ queryKey: [`recipeFilterData0`] });
+      setOffsetArray([0]);
     }, 600);
     return () => clearTimeout(timer);
-  }, [ queryClient, searchRecipeInput]);
+  }, [queryClient , searchRecipeInput]);
   function clearSearch() {
     setSearchRecipeInput("");
   }
@@ -71,13 +81,12 @@ function RecipeFilterContext({ children }: props) {
         toggleSelection,
         setSearchRecipeInput,
         searchRecipeInput,
-        recipeData,
-        isLoadingRecipes,
-        isRefreshing,
         clearFilters,
         clearIngredientFilter,
         clearSearch,
-        setOffset
+        filterParameters,
+        offsetArray,
+        setOffsetArray,
       }}
     >
       {children}
