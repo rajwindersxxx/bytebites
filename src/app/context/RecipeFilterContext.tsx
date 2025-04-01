@@ -4,11 +4,9 @@ import {
   useContext,
   ReactNode,
   useState,
-  useEffect,
 } from "react";
 import { useCategoryFilter } from "../_hooks/useCategoryFilter";
 import { useIngredientFilter } from "../_hooks/useIngredientFilter";
-import { useQueryClient } from "@tanstack/react-query";
 interface props {
   children: ReactNode;
 }
@@ -22,8 +20,6 @@ interface ReactFilterContext {
   clearFilters: () => void;
   clearIngredientFilter: () => void;
   clearSearch: () => void;
-  offsetArray: number[];
-  setOffsetArray: React.Dispatch<React.SetStateAction<number[]>>;
   filterParameters: {
     searchRecipeInput: string;
     selectedIngredients: Set<string>;
@@ -36,13 +32,8 @@ const recipeFilterContext = createContext<ReactFilterContext | undefined>(
 );
 
 function RecipeFilterContext({ children }: props) {
-  const [offsetArray, setOffsetArray] = useState<number[]>([0]);
-  // filter keys which need to remove when new filter applyied
-  const queryKeysToRemove = offsetArray
-    .filter((item) => item !== 0)
-    .map((item) => `recipeFilterData${item}`);
-    console.log(queryKeysToRemove)
-  const queryClient = useQueryClient();
+  // filter keys which need to remove when new filter applied
+
   const { selectedFilters, handleFilterChange, clearFilters } =
     useCategoryFilter();
   const { selectedIngredients, toggleSelection, clearIngredientFilter } =
@@ -53,22 +44,7 @@ function RecipeFilterContext({ children }: props) {
     selectedIngredients,
     selectedFilters,
   };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      queryClient.invalidateQueries({ queryKey: [`recipeFilterData0`] });
-      setOffsetArray([0]);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [queryClient, selectedFilters, selectedIngredients]);
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (searchRecipeInput.length < 4) return;
-      queryClient.invalidateQueries({ queryKey: [`recipeFilterData0`] });
-      setOffsetArray([0]);
-    }, 600);
-    return () => clearTimeout(timer);
-  }, [queryClient , searchRecipeInput]);
+  console.log(filterParameters)
   function clearSearch() {
     setSearchRecipeInput("");
   }
@@ -85,8 +61,6 @@ function RecipeFilterContext({ children }: props) {
         clearIngredientFilter,
         clearSearch,
         filterParameters,
-        offsetArray,
-        setOffsetArray,
       }}
     >
       {children}

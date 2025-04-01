@@ -1,6 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import {  useState } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useDebounce } from "@uidotdev/usehooks";
 import { getSearchedRecipeData } from "../_actions/recipesActions";
+import { useMemo } from "react";
 interface props {
   searchRecipeInput: string;
   selectedIngredients: Set<string>;
@@ -11,25 +12,48 @@ function useSearchRecipe({
   selectedIngredients,
   selectedFilters,
 }: props) {
-  const [offset, setOffset] = useState(0);
+  const stableSearchParams = useMemo(
+    () => ({
+      searchRecipeInput,
+      selectedIngredients: [... new Set(selectedIngredients)],
+      selectedFilters,
+    }),
+    [searchRecipeInput, selectedIngredients, selectedFilters],
+  );
+  const debouncedSearchTerm = useDebounce(stableSearchParams, 500);
+  console.log(debouncedSearchTerm);
   const {
     data,
     isLoading: isLoadingRecipes,
     isFetching: isRefreshing,
-  } = useQuery({
-    queryKey: [`recipeFilterData${offset}`],
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["recipeFilterData", debouncedSearchTerm],
     staleTime: Infinity,
-    queryFn: () =>
+    queryFn: ({ pageParam = 0 }) =>
       getSearchedRecipeData({
         query: searchRecipeInput,
         searchObject: selectedIngredients,
         filterObject: selectedFilters,
-        offSet: offset, //we need to change this
+        offSet: pageParam,
       }),
+    getNextPageParam: (lastPage) => {
+      const { offset, totalResults, number } = lastPage;
+      const nextOffset = offset + number;
+      return nextOffset < totalResults ? nextOffset : undefined;
+    },
+    initialPageParam: 0,
   });
-  const recipeData = data?.results || [];
+  const recipeData = data?.pages?.flatMap((page) => page.results) || [];
 
-  return { isRefreshing, isLoadingRecipes, recipeData, setOffset, offset };
+  return {
+    isRefreshing,
+    isLoadingRecipes,
+    recipeData,
+    fetchNextPage,
+    hasNextPage,
+  };
 }
 
 export default useSearchRecipe;

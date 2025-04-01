@@ -3,19 +3,12 @@ import Spinner from "../../ui/Spinner";
 import { RecipeObject } from "../../../types/RecipeTypes";
 import { useRecipeFilter } from "@/app/context/RecipeFilterContext";
 import useSearchRecipe from "@/app/_hooks/useSearchRecipe";
-import { useEffect } from "react";
 
-interface props {
-  offset: number;
-}
+export default function RecipeList() {
 
-export default function RecipeList({ offset }: props) {
   const { filterParameters } = useRecipeFilter();
-  const {recipeData, isLoadingRecipes, setOffset}  =  useSearchRecipe(filterParameters);
+  const { recipeData, isLoadingRecipes } = useSearchRecipe(filterParameters);
 
-  useEffect(() => {
-    setOffset(offset);
-  }, [offset, setOffset]);
   if (isLoadingRecipes) return <Spinner />;
   return (
     <>

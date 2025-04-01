@@ -1,3 +1,4 @@
+import { uniqueId } from "lodash";
 import { Category, IngredientListDB } from "../types/RecipeTypes";
 
 export const similarRecipe = [
@@ -9406,7 +9407,7 @@ export const ingredientList: IngredientListDB[] = [
 export const searchRecipe = {
   "results": [
     {
-      "id": 715415,
+      "id": uniqueId(),
       "image": "https://img.spoonacular.com/recipes/715415-312x231.jpg",
       "imageType": "jpg",
       "title": "Red Lentil Soup with Chicken and Turnips",
@@ -10007,7 +10008,7 @@ export const searchRecipe = {
       "unusedIngredients": []
     },
     {
-      "id": 716406,
+      "id":uniqueId(),
       "image": "https://img.spoonacular.com/recipes/716406-312x231.jpg",
       "imageType": "jpg",
       "title": "Asparagus and Pea Soup: Real Convenience Food",
@@ -10309,7 +10310,7 @@ export const searchRecipe = {
       "unusedIngredients": []
     },
     {
-      "id": 644387,
+      "id": uniqueId(),
       "image": "https://img.spoonacular.com/recipes/644387-312x231.jpg",
       "imageType": "jpg",
       "title": "Garlicky Kale",
@@ -10510,7 +10511,7 @@ export const searchRecipe = {
       "unusedIngredients": []
     },
     {
-      "id": 715446,
+      "id": uniqueId(),
       "image": "https://img.spoonacular.com/recipes/715446-312x231.jpg",
       "imageType": "jpg",
       "title": "Slow Cooker Beef Stew",
@@ -10966,7 +10967,7 @@ export const searchRecipe = {
       "unusedIngredients": []
     },
     {
-      "id": 782601,
+      "id": uniqueId(),
       "image": "https://img.spoonacular.com/recipes/782601-312x231.jpg",
       "imageType": "jpg",
       "title": "Red Kidney Bean Jambalaya",
@@ -11822,7 +11823,7 @@ export const searchRecipe = {
       "unusedIngredients": []
     },
     {
-      "id": 716426,
+      "id":uniqueId(),
       "image": "https://img.spoonacular.com/recipes/716426-312x231.jpg",
       "imageType": "jpg",
       "title": "Cauliflower, Brown Rice, and Vegetable Fried Rice",
@@ -12366,7 +12367,7 @@ export const searchRecipe = {
       "unusedIngredients": []
     },
     {
-      "id": 716004,
+      "id": uniqueId(),
       "image": "https://img.spoonacular.com/recipes/716004-312x231.jpg",
       "imageType": "jpg",
       "title": "Quinoa and Chickpea Salad with Sun-Dried Tomatoes and Dried Cherries",
@@ -12931,7 +12932,7 @@ export const searchRecipe = {
       "unusedIngredients": []
     },
     {
-      "id": 716627,
+      "id": uniqueId(),
       "image": "https://img.spoonacular.com/recipes/716627-312x231.jpg",
       "imageType": "jpg",
       "title": "Easy Homemade Rice and Beans",
@@ -13353,7 +13354,7 @@ export const searchRecipe = {
       "unusedIngredients": []
     },
     {
-      "id": 664147,
+      "id": uniqueId(),
       "image": "https://img.spoonacular.com/recipes/664147-312x231.jpg",
       "imageType": "jpg",
       "title": "Tuscan White Bean Soup with Olive Oil and Rosemary",
@@ -13696,7 +13697,7 @@ export const searchRecipe = {
       "unusedIngredients": []
     },
     {
-      "id": 640941,
+      "id": uniqueId(),
       "image": "https://img.spoonacular.com/recipes/640941-312x231.jpg",
       "imageType": "jpg",
       "title": "Crunchy Brussels Sprouts Side Dish",
@@ -14003,7 +14004,7 @@ export const searchRecipe = {
       "unusedIngredients": []
     },
     {
-      "id": 660306,
+      "id": uniqueId(),
       "image": "https://img.spoonacular.com/recipes/660306-312x231.jpg",
       "imageType": "jpg",
       "title": "Slow Cooker: Pork and Garbanzo Beans",
@@ -14347,7 +14348,7 @@ export const searchRecipe = {
       "unusedIngredients": []
     },
     {
-      "id": 756814,
+      "id": uniqueId(),
       "image": "https://img.spoonacular.com/recipes/756814-312x231.jpg",
       "imageType": "jpg",
       "title": "Powerhouse Almond Matcha Superfood Smoothie",
@@ -14776,7 +14777,7 @@ export const searchRecipe = {
       "unusedIngredients": []
     },
     {
-      "id": 715769,
+      "id": uniqueId(),
       "image": "https://img.spoonacular.com/recipes/715769-312x231.jpg",
       "imageType": "jpg",
       "title": "Broccolini Quinoa Pilaf",
@@ -15105,7 +15106,7 @@ export const searchRecipe = {
       "unusedIngredients": []
     },
     {
-      "id": 642129,
+      "id": uniqueId(),
       "image": "https://img.spoonacular.com/recipes/642129-312x231.jpg",
       "imageType": "jpg",
       "title": "Easy To Make Spring Rolls",
@@ -15765,7 +15766,7 @@ export const searchRecipe = {
       "unusedIngredients": []
     },
     {
-      "id": 642605,
+      "id": uniqueId(),
       "image": "https://img.spoonacular.com/recipes/642605-312x231.jpg",
       "imageType": "jpg",
       "title": "Farro With Mushrooms and Asparagus",
@@ -16194,7 +16195,7 @@ export const searchRecipe = {
       "unusedIngredients": []
     },
     {
-      "id": 636589,
+      "id": uniqueId(),
       "image": "https://img.spoonacular.com/recipes/636589-312x231.jpg",
       "imageType": "jpg",
       "title": "Butternut Squash Frittata",
@@ -16452,7 +16453,7 @@ export const searchRecipe = {
       "unusedIngredients": []
     },
     {
-      "id": 646738,
+      "id": uniqueId(),
       "image": "https://img.spoonacular.com/recipes/646738-312x231.jpg",
       "imageType": "jpg",
       "title": "Herbivoracious' White Bean and Kale Soup",
@@ -16980,7 +16981,7 @@ export const searchRecipe = {
       "unusedIngredients": []
     },
     {
-      "id": 663559,
+      "id": uniqueId(),
       "image": "https://img.spoonacular.com/recipes/663559-312x231.jpg",
       "imageType": "jpg",
       "title": "Tomato and lentil soup",
