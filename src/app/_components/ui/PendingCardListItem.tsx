@@ -1,6 +1,6 @@
 import { INGREDIENT_IMAGE_URL } from "../../_config/foodApiConfig";
 import { UserShoppingList } from "../../types/RecipeTypes";
-import { ImageElement } from "../ui/ImageElement";
+import { ImageElement } from "./ImageElement";
 interface props {
   ingredientObject: UserShoppingList;
   updateFunction: (variables: {

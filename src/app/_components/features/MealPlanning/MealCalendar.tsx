@@ -15,12 +15,12 @@ import { RecipeObject } from "../../../types/RecipeTypes";
 interface props {
   initialView?: string;
   className?: string;
-  height?: number| string;
+  height?: number | string;
 }
 function MealCalendar({
   initialView = "dayGridMonth",
   className = "md:h-[calc(100vh-90px)] w-[90%]",
-  height = '100%',
+  height = "100%",
 }: props) {
   const { removeMeal, savedMeals } = useSavedMeals();
   const [selectedData, setSelectedData] = useState<RecipeObject | null>(null);
@@ -70,8 +70,10 @@ function MealCalendar({
   }
 
   return (
-    <div className={`relative ${className} justify-self-center h-[50vh] md:h-auto`}>
-      <div className="w-58 absolute lg:right-48 lg:top-1 top-8 h-9 items-center gap-4 flex ">
+    <div
+      className={`relative ${className} h-[50vh] justify-self-center md:h-auto`}
+    >
+      <div className="w-58 absolute top-8 flex h-9 items-center gap-4 lg:right-48 lg:top-1">
         <div className="flex items-center gap-1">
           <div className="h-4 w-4 rounded-full bg-green-500"></div>
           <p>BreakFast</p>

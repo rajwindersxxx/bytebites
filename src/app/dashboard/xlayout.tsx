@@ -15,7 +15,7 @@ async function layout({ children }: props) {
       </div>
     );
   return (
-    <div className=" m-auto my-4 grid h-[81vh] grid-cols-[auto_1fr] gap-4 border bg-natural-cream p-4 dark:border-gray-500">
+    <div className="m-auto my-4 grid h-[81vh] grid-cols-[auto_1fr] gap-4 border bg-natural-cream p-4 dark:border-gray-500">
       <div className="flex flex-col border-r pr-4 dark:border-gray-500">
         <UserNavLinks />
       </div>

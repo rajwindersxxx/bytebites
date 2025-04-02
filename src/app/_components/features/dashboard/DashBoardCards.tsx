@@ -11,7 +11,6 @@ import useSavedMeals from "@/app/_hooks/useSavedMeals";
 import DashboardCountCard from "../../ui/DashboardCountCard";
 import { filterItemsUntilSaturday } from "@/app/_helper/clientheper";
 
-
 function DashBoardCards() {
   const { savedRecipeData } = useRecipeData();
   const { data: cartRecipeData } = useUserShoppingList();
@@ -28,7 +27,7 @@ function DashBoardCards() {
       />
       <DashboardCountCard
         heading="weekly meals"
-        count={filterItemsUntilSaturday(savedMeals, 'date').length}
+        count={filterItemsUntilSaturday(savedMeals, "date").length}
         label="meals"
         color="green"
         link="/dashboard/mealPlanner"

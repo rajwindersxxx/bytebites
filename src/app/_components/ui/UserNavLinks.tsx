@@ -33,49 +33,49 @@ function UserNavLinks() {
       name: "Home",
       link: "/",
       icon: <HiOutlineHome />,
-      active: <HiHome/>
+      active: <HiHome />,
     },
     {
       name: "Dashboard",
       link: "/dashboard",
       icon: <HiOutlineClock />,
-      active: <HiClock/>
+      active: <HiClock />,
     },
     {
       name: "bookmarked",
       link: "/bookmarks",
       icon: <HiOutlineHeart />,
-      active: <HiHeart/>
+      active: <HiHeart />,
     },
     {
       name: "Make shopping list",
       link: "/shopping",
       icon: <HiOutlineShoppingBag />,
-      active: <HiShoppingBag/>
+      active: <HiShoppingBag />,
     },
     {
       name: "Cart",
       link: "/shoppingList",
       icon: <HiOutlineShoppingCart />,
-      active: <HiShoppingCart/>
+      active: <HiShoppingCart />,
     },
     {
       name: "Meal Planning",
       link: "/mealPlanner",
       icon: <HiOutlineCalendar />,
-      active: <HiCalendar/>
+      active: <HiCalendar />,
     },
     {
       name: "Likes",
       link: "/likes",
       icon: <HiOutlineThumbUp />,
-      active: <HiThumbUp/>
+      active: <HiThumbUp />,
     },
     {
       name: "Profile",
       link: "/profile",
       icon: <HiOutlineUser />,
-      active: <HiUser/>
+      active: <HiUser />,
     },
   ];
   if (!user) return null;
@@ -89,12 +89,13 @@ function UserNavLinks() {
               prefetch={true}
               className={`my-2 flex items-center justify-start gap-2 p-2 transition-all hover:bg-accent ${item.link === pathName && "bg-natural-beige"}`}
             >
-
-              {item.link === pathName  ?  cloneElement(item.active, {
-                className: `h-5 w-5`,
-              }) : cloneElement(item.icon, {
-                className: `h-5 w-5`,
-              })}
+              {item.link === pathName
+                ? cloneElement(item.active, {
+                    className: `h-5 w-5`,
+                  })
+                : cloneElement(item.icon, {
+                    className: `h-5 w-5`,
+                  })}
               <span>{item.name}</span>
             </Link>
           </li>

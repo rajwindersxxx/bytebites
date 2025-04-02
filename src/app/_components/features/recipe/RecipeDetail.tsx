@@ -32,15 +32,15 @@ export default function RecipeDetail({ detail }: Props) {
     veryPopular,
   } = detail;
   return (
-    <div className="flex flex-col gap-4 bg-natural-cream py-8 lg:p-0 relative">
-      <div className="flex justify-between border-b border-b-accent items-start ">
+    <div className="relative flex flex-col gap-4 bg-natural-cream py-8 lg:p-0">
+      <div className="flex items-start justify-between border-b border-b-accent">
         <div className="flex flex-col gap-4">
           <h2 className="text-4xl">{title} </h2>
           <p className="text-xl">🍽️ {dishTypes.join(", ")} </p>
         </div>
         <RecipeDetailButtons recipeId={id} />
       </div>
-      <div className="grid grid-cols-2 gap-8 text-xl lg:grid-cols-1 py-4">
+      <div className="grid grid-cols-2 gap-8 py-4 text-xl ">
         <p className="w">
           ⏱️ <span className="font-bold">{readyInMinutes}</span> minutes
         </p>
@@ -53,9 +53,13 @@ export default function RecipeDetail({ detail }: Props) {
         <p className="w">
           {vegetarian ? "🍀 vegetarian" : "🥩 non-vegetarian"}{" "}
         </p>
-        {cuisines.length > 0 && <p>🇨🇻 Cuisines {cuisines.join(", ")} </p>}
+        {cuisines.length > 0 && (
+          <p className="col-span-2 ">
+            🇨🇻 Cuisines {cuisines.join(", ")}{" "}
+          </p>
+        )}
         {winePairing && (
-          <p>🍷 Pair with {winePairing?.pairedWines.join(", ")} </p>
+          <p className="col-span-2">🍷 Pair with {winePairing?.pairedWines.join(", ")} </p>
         )}
         <p className="">{veryPopular && "🌟 popular"} </p>
       </div>

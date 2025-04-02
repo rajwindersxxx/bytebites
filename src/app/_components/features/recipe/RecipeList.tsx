@@ -9,7 +9,8 @@ export default function RecipeList() {
   const { recipeData, isLoadingRecipes } = useSearchRecipe(filterParameters);
 
   if (isLoadingRecipes) return <Spinner />;
-  if (recipeData.length < 1) return <p className="text-2xl p-4 h-96]">🍽️ No recipe found  , try AI </p>;
+  if (recipeData.length < 1)
+    return <p className="h-96] p-4 text-2xl">🍽️ No recipe found , try AI </p>;
   return (
     <>
       {recipeData.length > 0 &&

@@ -17,9 +17,7 @@ function IngredientPanel({ ingredientList }: props) {
       <div className="absolute right-0 h-[calc(100vh-7.7rem)] overflow-y-scroll bg-natural-cream md:relative">
         {searchPanelHidden || (
           <div className={`w-96 border-l-2 border-accent p-4 transition-all`}>
-            <h2 className="pb-0 text-center text-2xl">
-              Filter by Ingredients
-            </h2>
+            <h2 className="pb-0 text-center text-2xl">Filter by Ingredients</h2>
 
             {/* <Input placeHolder="add Ingredient" className="w-full p-2" /> */}
             <IngredientFilter ingredientList={ingredientList} />
@@ -38,7 +36,9 @@ function IngredientPanel({ ingredientList }: props) {
               className="w-36"
               disabled={status === "pending"}
             >
-              {status === "pending" ? 'This will take while' : "Make A.I recipe"}
+              {status === "pending"
+                ? "This will take while"
+                : "Make A.I recipe"}
             </SecondaryButton>
           )}
         </div>

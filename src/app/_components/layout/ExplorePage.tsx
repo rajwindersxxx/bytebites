@@ -13,9 +13,11 @@ export default function ExplorePage() {
   const { fetchNextPage, hasNextPage, isRefreshing } =
     useSearchRecipe(filterParameters);
   const session = useSession();
-  const user = session.data?.user
+  const user = session.data?.user;
   return (
-    <div className={`h-[calc(100vh-3rem)] overflow-y-scroll p-4 ${user && 'ml-9'}`}>
+    <div
+      className={`h-[calc(100vh-3rem)] overflow-y-scroll p-4 ${user && "ml-9"}`}
+    >
       <div>
         <h2 className="pb-4 text-center text-2xl">Start Exploring Recipes</h2>
         <Input
@@ -27,7 +29,7 @@ export default function ExplorePage() {
           }}
         />
         <SearchFilters />
-        <div className="mx-auto grid grid-cols-responsiveGrid place-items-center gap-2 relative">
+        <div className="relative mx-auto grid grid-cols-responsiveGrid place-items-center gap-2">
           <RecipeList />
         </div>
         <div className="text-center">

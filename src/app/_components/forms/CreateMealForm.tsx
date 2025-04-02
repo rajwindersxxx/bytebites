@@ -47,7 +47,7 @@ function CreateMealForm({ recipeData }: props) {
   }
   return (
     <form
-      className="grid h-full md:grid-cols-2  md:gap-4"
+      className="grid h-full md:grid-cols-2 md:gap-4"
       onSubmit={handleSubmit(handleFromSubmit)}
     >
       <div>
@@ -74,9 +74,9 @@ function CreateMealForm({ recipeData }: props) {
           )}
         />
       </div>
-      <div className="flex flex-col justify-between gap-4 md:p-4 ">
+      <div className="flex flex-col justify-between gap-4 md:p-4">
         <h3 className="text-center text-2xl capitalize">select one </h3>
-        <div className="flex flex-col  items-center gap-4 md:p-8">
+        <div className="flex flex-col items-center gap-4 md:p-8">
           {reservedMeals?.includes("breakfast") || (
             <RadioButton
               id="mealType1"

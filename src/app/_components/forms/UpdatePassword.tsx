@@ -38,14 +38,14 @@ function UpdatePassword() {
   const isDisabled = !(newPassword && confirmPassword && currentPassword);
   return (
     <form
-      className="sm:grid grid-cols-[0.3fr_1fr] items-center gap-4 py-8"
+      className="grid-cols-[0.3fr_1fr] items-center gap-4 py-8 sm:grid"
       onSubmit={handleSubmit((data) => handlePasswordChange(data))}
     >
-      <label className="inline-block mb-2 sm:auto">Current Password:</label>
+      <label className="sm:auto mb-2 inline-block">Current Password:</label>
       <div className="flex flex-col">
         <Input
           type="password"
-          className="p-2 w-full mb-4 sm:mb-auto"
+          className="mb-4 w-full p-2 sm:mb-auto"
           placeHolder="Enter current password"
           {...register("currentPassword", {
             required: "Current password is required",
@@ -56,11 +56,11 @@ function UpdatePassword() {
         )}
       </div>
 
-      <label className="inline-block mb-2 sm:auto">New Password:</label>
+      <label className="sm:auto mb-2 inline-block">New Password:</label>
       <div className="flex flex-col">
         <Input
           type="password"
-          className="p-2 w-full mb-4 sm:mb-auto"
+          className="mb-4 w-full p-2 sm:mb-auto"
           placeHolder="Enter new password"
           {...register("newPassword", {
             required: "New password is required",
@@ -75,11 +75,11 @@ function UpdatePassword() {
         )}
       </div>
 
-      <label className="inline-block mb-2 sm:auto">Confirm password:</label>
+      <label className="sm:auto mb-2 inline-block">Confirm password:</label>
       <div className="flex flex-col">
         <Input
           type="password"
-          className="p-2 w-full mb-4 sm:mb-auto"
+          className="mb-4 w-full p-2 sm:mb-auto"
           placeHolder="Confirm new password"
           {...register("confirmPassword", {
             required: "Confirm password is required",

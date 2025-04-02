@@ -4,7 +4,6 @@ import Input from "../ui/Input";
 import { PrimaryButton } from "../ui/Buttons";
 import { useCustomParams } from "@/app/_hooks/useCustomParams";
 
-
 export default function SearchRecipeForm() {
   const [search, setSearch] = useState("");
   const { setParams } = useCustomParams();
