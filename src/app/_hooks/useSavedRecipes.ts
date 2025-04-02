@@ -30,7 +30,8 @@ export function useSavedRecipes(userId: number) {
       const isSaved = savedRecipes.includes(recipeId);
       if (userId) {
         let aiRecipe;
-        if (!recipeId) {
+        // note:
+        if (aiRecipe) {
           aiRecipe = getSessionStorage("generatedRecipe") as RecipeObject;
           delete aiRecipe.review;
         }

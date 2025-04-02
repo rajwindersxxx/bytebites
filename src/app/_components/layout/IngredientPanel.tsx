@@ -2,10 +2,11 @@
 // todo: add search ingredient filter later
 import { useGUIState } from "../../context/GUIStateProvider";
 import { IngredientListTags } from "../../types/RecipeTypes";
-import { SecondaryButton } from "../ui/Buttons";
+import { PrimaryButton, SecondaryButton } from "../ui/Buttons";
 import IngredientFilter from "../ui/IngredientFilter";
 import useGenerateRecipe from "@/app/_hooks/useGenerateRecipe";
 import Link from "next/link";
+import MiniSpinner from "../ui/MiniSpinner";
 interface props {
   ingredientList: IngredientListTags[];
 }
@@ -28,7 +29,7 @@ function IngredientPanel({ ingredientList }: props) {
         <div className="p-4 text-center">
           {status === "success" ? (
             <Link href={"/generateRecipe/generatedRecipe"}>
-              <SecondaryButton>View AI recipe</SecondaryButton>
+              <PrimaryButton>View AI recipe</PrimaryButton>
             </Link>
           ) : (
             <SecondaryButton
@@ -37,7 +38,7 @@ function IngredientPanel({ ingredientList }: props) {
               disabled={status === "pending"}
             >
               {status === "pending"
-                ? "This will take while"
+                ? <MiniSpinner/>
                 : "Make A.I recipe"}
             </SecondaryButton>
           )}

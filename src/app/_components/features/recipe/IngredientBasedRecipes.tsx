@@ -18,18 +18,19 @@ function IngredientBasedRecipes({ extendedIngredients }: props) {
     getRecipes();
   }, [extendedIngredients]);
   return (
-    <div>
-      <h2 className="mb-8 text-2xl"> 📝 Similar Recipes </h2>
-      <div className="flex flex-col gap-4">
-        {similarRecipes?.map((item) => (
-          <RecipeCard
-            data={item}
-            key={item.id}
-            visibleButtons={["saved", "like"]}
-          />
-        ))}
-      </div>
-    </div>
+      <div>
+         <h2 className="mb-8 text-2xl"> 📝 Similar Recipes</h2>
+         <div className="mx-auto grid grid-cols-responsiveGrid gap-4">
+           {similarRecipes?.map((item) => (
+             <RecipeCard
+               data={item}
+              //  baseUrlImage={RECIPE_IMAGE_URL}
+               key={item.id}
+               visibleButtons={["like", "saved"]}
+             />
+           ))}
+         </div>
+       </div>
   );
 }
 

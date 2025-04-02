@@ -22,6 +22,9 @@ function useGenerateRecipe() {
     onError: (error) => {
       toast.error(error.message);
     },
+    onSettled: () => {
+      toast.success('Ai recipe take a while... ')
+    }
   });
   return { generateRecipe, status };
 }

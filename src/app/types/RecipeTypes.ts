@@ -90,6 +90,7 @@ export type RecipeObject = {
   spoonacularScore: number;
   spoonacularSourceUrl: string;
   review?: string;
+
 };
 
 export type UserShoppingList = {

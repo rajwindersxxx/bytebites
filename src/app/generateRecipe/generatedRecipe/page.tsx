@@ -33,32 +33,36 @@ export default function Page() {
       setRecipe(recipe);
     }
   }, []);
+  if (!recipe) return null;
+  const {
+    image,
+    summary,
+    extendedIngredients,
+    analyzedInstructions,
+    ...otherDetails
+  } = recipe;
   return (
-    <div className="container m-8 mx-auto grid grid-cols-[1fr_1fr_1fr] gap-12 border p-12">
-      <div className="relative overflow-hidden rounded-lg border border-natural-green">
-        {recipe?.image && (
+    <div className="container mx-auto my-16 overflow-hidden rounded-lg border bg-natural-cream pl-8 dark:border-natural-beige md:p-0">
+      <div className="grid-cols-[30rem_2fr] gap-8 p-8 lg:grid">
+        <div className="relative h-96 overflow-hidden rounded-lg pb-4">
           <ImageElement
-            src={recipe.image}
+            src={image}
             alt="title"
-            className="object-cover"
+            className="object-cover dark:brightness-75"
           />
-        )}
+        </div>
+        <RecipeDetail detail={otherDetails} />
       </div>
-      {recipe && <RecipeDetail detail={recipe} />}
-      {recipe?.summary && <RecipeSummary summary={recipe.summary} />}
-      {recipe?.extendedIngredients && (
-        <Ingredients extendedIngredients={recipe.extendedIngredients} />
-      )}
-      {recipe?.analyzedInstructions && (
-        <RecipeInstructions
-          analyzedInstructions={recipe.analyzedInstructions}
-        />
-      )}
-      {recipe?.extendedIngredients && (
-        <IngredientBasedRecipes
-          extendedIngredients={recipe.extendedIngredients}
-        />
-      )}
+      <div className="flex flex-col gap-8 px-8 pb-8">
+        <Ingredients extendedIngredients={extendedIngredients} />
+        <RecipeSummary summary={summary} />
+        <div className="grid gap-8 lg:grid-cols-[4fr_1fr]">
+          <RecipeInstructions analyzedInstructions={analyzedInstructions} />
+          <IngredientBasedRecipes
+            extendedIngredients={extendedIngredients}
+          />
+        </div>
+      </div>
     </div>
   );
 }

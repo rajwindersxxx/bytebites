@@ -39,6 +39,7 @@ export async function addRemoveSavedRecipeDB(
   remove: boolean,
   recipeObject?: RecipeObject | null,
 ) {
+
   let query;
   if (remove === true) {
     query = supabase
