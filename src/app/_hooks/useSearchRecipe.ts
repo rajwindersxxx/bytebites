@@ -21,7 +21,6 @@ function useSearchRecipe({
     [searchRecipeInput, selectedIngredients, selectedFilters],
   );
   const debouncedSearchTerm = useDebounce(stableSearchParams, 500);
-  console.log(debouncedSearchTerm);
   const {
     data,
     isLoading: isLoadingRecipes,

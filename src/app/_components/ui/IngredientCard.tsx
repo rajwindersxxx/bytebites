@@ -21,7 +21,8 @@ export default function IngredientCard({ ingredient }: props) {
           {name.length > 15 ? `${name.slice(0, 15)}...` : name}{" "}
         </h4>
         <p>
-          Amount: <span className="font-bold">{amount} </span>
+          Amount:{" "}
+          <span className="font-bold">{Math.round(amount * 1000) / 1000} </span>
           {unit}
         </p>
         <div className="flex justify-between">

@@ -8,7 +8,6 @@ import { textToEmoji } from "@/app/_helper/clientheper";
 import Checkbox from "../../ui/Checkbox";
 import { UserShoppingList } from "@/app/types/RecipeTypes";
 
-
 interface props {
   data: UserShoppingList;
   index: number;
@@ -52,7 +51,7 @@ function ShoppingListRow({ data, index }: props) {
       </div>
       <p>{name}</p>
       <p>
-        {amount} {unit ? unit : name}
+        {Math.round(amount * 1000) / 1000} {unit ? unit : name}
       </p>
       <p>{textToEmoji(consistency)}</p>
       <p className="hidden md:block">{created_at?.split("T")[0]}</p>

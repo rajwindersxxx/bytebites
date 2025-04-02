@@ -21,7 +21,7 @@ export default async function page({ searchParams }: props) {
     ...otherDetails
   } = data;
   return (
-    <div className="container m-8 mx-auto grid grid-cols-[1fr_1fr_1fr] gap-12 border bg-natural-cream p-12 dark:border-natural-beige">
+    <div className="container m-8 mt-16 mx-auto grid grid-cols-[1fr_1fr_1fr] gap-12 border bg-natural-cream p-12 dark:border-natural-beige">
       <div className="relative overflow-hidden rounded-lg border border-natural-green">
         <ImageElement src={image} alt="title" className="object-cover" />
       </div>

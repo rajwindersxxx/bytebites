@@ -3,7 +3,12 @@ import { useState } from "react";
 export function useCategoryFilter() {
   const [selectedFilters, setSelectedFilters] = useState<
     Record<string, string[]>
-  >({});
+  >({
+    type: [],
+    diet: [],
+    cuisine: [],
+    excludeIngredients:[]
+  });
   const handleFilterChange = (category: string, option: string) => {
     setSelectedFilters((prev) => {
       const currentOptions = prev[category] || [];
@@ -20,10 +25,8 @@ export function useCategoryFilter() {
       }
     });
   };
-  function clearFilters(){
-    setSelectedFilters({})
+  function clearFilters() {
+    setSelectedFilters({});
   }
-  return {selectedFilters, handleFilterChange, clearFilters}
+  return { selectedFilters, handleFilterChange, clearFilters };
 }
-
-

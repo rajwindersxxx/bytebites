@@ -1,5 +1,56 @@
 import { uniqueId } from "lodash";
 import { Category, IngredientListDB } from "../types/RecipeTypes";
+export const categories: Category[] = [
+  {
+    type: [
+      "BreakFast",
+      "Lunch",
+      "Dinner",
+      "Snacks",
+      "Appetizer",
+      "Main Course",
+      "Side Dish",
+      "Salad",
+      "Soup",
+      "Dessert",
+      "Beverage",
+      "Sauce",
+      "Bread",
+      "Breakfast",
+      "Snack",
+    ],
+  },
+  { diet: ["Vegetarian", "Vegan", "Keto"] },
+  {
+    cuisine: [
+      "African",
+      "American",
+      "British",
+      "Cajun",
+      "Caribbean",
+      "Chinese",
+      "Eastern European",
+      "French",
+      "German",
+      "Greek",
+      "Indian",
+      "Irish",
+      "Italian",
+      "Japanese",
+      "Jewish",
+      "Korean",
+      "Latin American",
+      "Mediterranean",
+      "Mexican",
+      "Middle Eastern",
+      "Nordic",
+      "Southern",
+      "Spanish",
+      "Thai",
+      "Vietnamese",
+    ],
+  },
+];
 
 export const similarRecipe = [
   {
@@ -9310,57 +9361,6 @@ export const userSavedShoppingList = [
   },
 ];
 
-export const categories: Category[] = [
-  {
-    type: [
-      "BreakFast",
-      "Lunch",
-      "Dinner",
-      "Snacks",
-      "Appetizer",
-      "Main Course",
-      "Side Dish",
-      "Salad",
-      "Soup",
-      "Dessert",
-      "Beverage",
-      "Sauce",
-      "Bread",
-      "Breakfast",
-      "Snack",
-    ],
-  },
-  { diet: ["Vegetarian", "non-Vegetarian", "Vegan", "Keto"] },
-  {
-    cuisine: [
-      "African",
-      "American",
-      "British",
-      "Cajun",
-      "Caribbean",
-      "Chinese",
-      "Eastern European",
-      "French",
-      "German",
-      "Greek",
-      "Indian",
-      "Irish",
-      "Italian",
-      "Japanese",
-      "Jewish",
-      "Korean",
-      "Latin American",
-      "Mediterranean",
-      "Mexican",
-      "Middle Eastern",
-      "Nordic",
-      "Southern",
-      "Spanish",
-      "Thai",
-      "Vietnamese",
-    ],
-  },
-];
 
 export const ingredientList: IngredientListDB[] = [
   { type: "vegetable", ingredient: "carrot" },

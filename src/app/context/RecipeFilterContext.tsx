@@ -44,7 +44,6 @@ function RecipeFilterContext({ children }: props) {
     selectedIngredients,
     selectedFilters,
   };
-  console.log(filterParameters)
   function clearSearch() {
     setSearchRecipeInput("");
   }

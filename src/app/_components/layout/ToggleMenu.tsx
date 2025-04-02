@@ -1,9 +1,12 @@
 "use client";
 import { useGUIState } from "@/app/context/GUIStateProvider";
+import { usePathname } from "next/navigation";
 import { HiMenu } from "react-icons/hi";
 
 function ToggleMenu() {
   const { toggleSearchPanel, searchPanelHidden } = useGUIState();
+  const path = usePathname();
+  if (path !== "/") return null;
   return (
     <button onClick={toggleSearchPanel}>
       <HiMenu

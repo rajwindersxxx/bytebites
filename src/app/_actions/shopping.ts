@@ -1,6 +1,8 @@
 "use server";
 import { mergeIngredients, mergeUserShoppingList } from "../_helper/helper";
 import {
+  checkAllItemsDB,
+  clearShoppingListDB,
   createUserShoppingList,
   getUserShoppingListDB,
   removeShoppingListItemDB,
@@ -47,4 +49,11 @@ export async function updateShoppingItemStates(
     userId,
     purchasedStatus,
   );
+}
+
+export async function checkAllItems(userId: number) {
+  return await checkAllItemsDB(userId);
+}
+export async function clearShoppingList(userId: number) {
+  return await clearShoppingListDB(userId);
 }

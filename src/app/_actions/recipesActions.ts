@@ -3,7 +3,6 @@ import { RANDOM_RECIPE_COUNT, USE_API } from "../_config/foodApiConfig";
 import { BUCKET_URL_AI } from "../_config/supabaseConfig";
 import { AiResponseSample } from "../_data/AiDataSamples";
 import {
-  searchRecipe,
   recipeData,
   recipeDetails,
   recipeSearchBased,
@@ -30,12 +29,7 @@ export async function getSearchedRecipeData({
   offSet,
 }: SearchData) {
   const complexQuery = toQueryString(query, searchObject, filterObject);
-  let data;
-  if (USE_API) {
-    data = await getSearchedRecipe(complexQuery, offSet);
-  } else {
-    data = await simulateApiRequest(searchRecipe);
-  }
+  const data = await getSearchedRecipe(complexQuery, offSet);
   return data;
 }
 
@@ -127,17 +121,21 @@ function toQueryString(
   let queryString = "";
 
   // Add query
-  queryString += `&query=${query}`;
+  queryString += `&query=${query.toLowerCase()}`;
 
   // Add includedIngredients
   if (searchObject.size > 0) {
-    queryString += `&includeIngredients=${[...searchObject].join(",")}`;
+    queryString += `&includeIngredients=${[...searchObject]
+      .map((ingredient) => ingredient.toLowerCase())
+      .join(",")}`;
   }
 
   // Add filterObject keys
   for (const [key, value] of Object.entries(filterObject)) {
     if (value.length > 0) {
-      queryString += `&${key.toLowerCase()}=${value.join(",")}`;
+      queryString += `&${key.toLowerCase()}=${value
+        .map((item) => item.toLowerCase())
+        .join(",")}`;
     }
   }
 

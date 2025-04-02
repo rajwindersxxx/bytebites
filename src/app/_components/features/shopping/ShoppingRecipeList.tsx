@@ -47,7 +47,7 @@ function ShoppingRecipeList({ recipeInCart }: props) {
                 <p>
                   {ing.amount} {ing.unit}
                 </p>
-                <div className="flex justify-end gap-4">
+                {/* <div className="flex justify-end gap-4">
                   <button className="flex items-center gap-1">
                     <label htmlFor={`have${ing.id}`}>Have</label>
                     <input
@@ -56,7 +56,7 @@ function ShoppingRecipeList({ recipeInCart }: props) {
                       id={`have${ing.id}`}
                     />
                   </button>
-                </div>
+                </div> */}
               </div>
             ))}
           </div>

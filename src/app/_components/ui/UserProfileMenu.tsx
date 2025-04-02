@@ -10,7 +10,7 @@ interface props {
 function UserProfileMenu({ ref }: props) {
   const { clearLocalStorageCart } = useShoppingData();
   const menuButtons = [
-    { name: "Dashboard", link: "/" },
+    { name: "Dashboard", link: "/dashboard" },
     { name: "Bookmarks", link: "/bookmarks" },
     { name: "Shopping List", link: "/shopping" },
   ];

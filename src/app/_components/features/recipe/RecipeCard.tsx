@@ -33,7 +33,7 @@ export default function RecipeCard({
   const router = useRouter();
   const link = detailsLink ? detailsLink : `/recipeDetail?recipeId=${id}`;
   function handleRoute() {
-    if (detailsLink) router.replace(link);
+    if (detailsLink) router.push(link);
     else router.push(link);
   }
   const isDragging = false;
@@ -83,7 +83,7 @@ export default function RecipeCard({
             <p>{vegetarian ? "🍀 veg" : "🥩 non-veg"} </p>
           )}
           <p className="col-start-3">{veryPopular && "🌟 popular"} </p>
-          {missedIngredientCount && (
+          {missedIngredientCount && extendedIngredients && (
             <p className="col-span-2">
               {missedIngredientCount}/{extendedIngredients.length} Missing
             </p>

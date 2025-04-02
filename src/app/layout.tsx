@@ -10,6 +10,7 @@ import { Toaster } from "react-hot-toast";
 import Header from "./_components/layout/Header";
 import UserNavLinks from "./_components/ui/UserNavLinks";
 import { GUIStateProvider } from "./context/GUIStateProvider";
+import FloatingQuickActions from "./_components/ui/FloatingQuickActions";
 
 const poppins = Poppins({
   variable: "--font-Poppins",
@@ -52,6 +53,7 @@ export default async function RootLayout({
                   <ModalProvider>
                     <Header />
                     <UserNavLinks />
+                    <FloatingQuickActions />
                     <main className={"mt-12"}>{children}</main>
                     <Toaster
                       toastOptions={{

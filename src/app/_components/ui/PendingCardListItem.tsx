@@ -15,9 +15,9 @@ function PendingCardListItem({ ingredientObject, updateFunction }: props) {
       <div className="relative h-7 w-7 overflow-hidden rounded-full">
         <ImageElement src={INGREDIENT_IMAGE_URL + "/" + image} alt="image" />
       </div>
-      <p>{name.length < 12 ? name : `${name.slice(0, 12)}...`}</p>
+      <p>{name.length < 20 ? name : `${name.slice(0, 20)}...`}</p>
       <p>
-        {+amount.toFixed(2)} {unit.slice(0, 8)}
+        {Math.round(amount * 1000) / 1000} {unit.slice(0, 8)}
       </p>
       <button
         className="h-7 w-7 rounded-full transition-colors hover:bg-accent"

@@ -8,12 +8,12 @@ import ShoppingListPreview from "../shopping/ShoppingListPreview";
 export default function ShoppingListPage() {
   const { savedIngredients = [] } = useSavedIngredients();
   return (
-    <div className="grid h-[92%] px-8 py-4 grid-cols-[23.25rem_15.31rem_1fr] gap-4  ml-9">
-      <div className="h-full">
-        <h1 className="p-2 text-center text-2xl">Bookmarked recipes</h1>
+    <div className="grid h-[92%] px-8 py-4 lg:grid-cols-[23.25rem_15.31rem_1fr] md:grid-cols-[23.25rem__1fr] gap-4  ml-9">
+      <div className="h-full md:block hidden">
+        <h1 className="p-2 text-center text-2xl ">Bookmarked recipes</h1>
         <BookmarksList detailLink="/shopping" />
       </div>
-      <div className="">
+      <div className="lg:block hidden">
         <h2 className="p-2 text-center text-2xl">
           Ingredients list
         </h2>

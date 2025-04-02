@@ -1,4 +1,8 @@
-import { FOOD_URL, SEARCH_RESULTS_COUNT, USE_API } from "../_config/foodApiConfig";
+import {
+  FOOD_URL,
+  SEARCH_RESULTS_COUNT,
+  USE_API,
+} from "../_config/foodApiConfig";
 import { searchRecipe } from "../_data/dataSamples";
 import { simulateApiRequest } from "../_helper/helper";
 import { addRecipeToDB } from "./supabase/recipes";
@@ -9,12 +13,9 @@ export async function getSearchedRecipe(
   offset: number,
 ) {
   const url = `${FOOD_URL}/recipes/complexSearch?apiKey=${apiKey}&addRecipeInformation=${"true"}&fillIngredients=${"true"}&number=${SEARCH_RESULTS_COUNT}&offset=${offset}${complexSearchQuery}`;
-  console.log(url)
-  if (!USE_API) {
-    const simulatedData = { ...searchRecipe, offset };
-    simulatedData.results = simulatedData.results.slice(offset, offset + SEARCH_RESULTS_COUNT);
-    return await simulateApiRequest(simulatedData);
-  }
+  console.log(url);
+  if (!USE_API) return await simulateApiRequest(searchRecipe);
+
   try {
     const res = await fetch(url);
     if (!res.ok) {

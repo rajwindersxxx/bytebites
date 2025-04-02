@@ -32,7 +32,7 @@ export default function RecipeDetail({ detail }: Props) {
     veryPopular,
   } = detail;
   return (
-    <div className="col-span-2 flex flex-col gap-4 bg-natural-cream p-4">
+    <div className="col-span-2 flex flex-col gap-4 bg-natural-cream p-4 ">
       <div className="flex justify-between">
         <h2 className="text-4xl underline">{title} </h2>
         <RecipeDetailButtons recipeId={id} />

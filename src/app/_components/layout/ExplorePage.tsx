@@ -27,7 +27,7 @@ export default function ExplorePage() {
           }}
         />
         <SearchFilters />
-        <div className="mx-auto grid grid-cols-responsiveGrid place-items-center gap-2">
+        <div className="mx-auto grid grid-cols-responsiveGrid place-items-center gap-2 relative">
           <RecipeList />
         </div>
         <div className="text-center">
