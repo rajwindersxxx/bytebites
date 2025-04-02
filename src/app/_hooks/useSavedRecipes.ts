@@ -6,7 +6,7 @@ import {
 import { useState } from "react";
 import { RecipeObject } from "../types/RecipeTypes";
 import toast from "react-hot-toast";
-import { getSessionStorage } from "../_helper/clientheper";
+import { getSessionStorage, setLocalStorage } from "../_helper/clientheper";
 export function useSavedRecipes(userId: number) {
   const queryClient = useQueryClient();
   const [savedRecipes, setSavedRecipes] = useState<number[]>([]);
@@ -28,20 +28,18 @@ export function useSavedRecipes(userId: number) {
   const { mutate: toggleSave, isPending } = useMutation({
     mutationFn: async (recipeId: number) => {
       const isSaved = savedRecipes.includes(recipeId);
+      let aiRecipe = null;
       if (userId) {
-        let aiRecipe;
-        // note:
-        if (aiRecipe) {
-          aiRecipe = getSessionStorage("generatedRecipe") as RecipeObject;
-          delete aiRecipe.review;
-        }
+        aiRecipe = getSessionStorage("generatedRecipe") as RecipeObject;
+        delete aiRecipe.review;
         await addRemoveSavedRecipe(recipeId, Number(userId), isSaved, aiRecipe);
       } else {
         throw new Error("You need to Login");
       }
-      return { isSaved };
+      return { isSaved ,aiRecipe};
     },
-    onSuccess: ({ isSaved }) => {
+    onSuccess: ({ isSaved ,aiRecipe}) => {
+      setLocalStorage('generatedRecipe', {...aiRecipe, sourceUrl: 'AI recipe'})
       if (isSaved) toast.success("Recipe Bookmarked removed  Successfully");
       else toast.success("Recipe Bookmarked  Successfully");
       queryClient.invalidateQueries({

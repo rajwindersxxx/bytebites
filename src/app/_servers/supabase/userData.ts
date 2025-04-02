@@ -1,7 +1,7 @@
 import { RecipeObject } from "@/app/types/RecipeTypes";
-import { getRecipeDetails } from "../foodApi";
 import { addRecipeToDB } from "./recipes";
 import { supabase } from "./supabase";
+import { getRecipeDetailsData } from "@/app/_actions/recipesActions";
 
 export async function getSavedRecipeSDB(userId: number) {
   if (!userId) return ["no userId provided"];
@@ -39,7 +39,6 @@ export async function addRemoveSavedRecipeDB(
   remove: boolean,
   recipeObject?: RecipeObject | null,
 ) {
-
   let query;
   if (remove === true) {
     query = supabase
@@ -50,9 +49,8 @@ export async function addRemoveSavedRecipeDB(
   } else {
     let data;
     // if there is no recipeId , we insert our own object
-    if (!recipeId)
-      data = { ...recipeObject, id: Math.ceil(Math.random() * 100000) };
-    else data = await getRecipeDetails(recipeId);
+    if (recipeObject && !recipeObject.sourceUrl) data = recipeObject;
+    else data = await getRecipeDetailsData(recipeId);
     await addRecipeToDB(data);
     query = supabase
       .from("savedRecipes")
@@ -87,9 +85,8 @@ export async function addRemoveLikedRecipeDB(
       .eq("recipeId", recipeId);
   } else {
     let data;
-    if (!recipeId)
-      data = { ...recipeObject, id: Math.ceil(Math.random() * 100000) };
-    else data = await getRecipeDetails(recipeId);
+    if (recipeObject && !recipeObject.sourceUrl) data = recipeObject;
+    else data = await getRecipeDetailsData(recipeId);
     await addRecipeToDB(data);
     query = supabase
       .from("likedRecipes")

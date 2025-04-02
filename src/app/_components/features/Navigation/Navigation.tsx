@@ -11,7 +11,7 @@ export default function Navigation() {
     console.log(data)
   }, [])
   return (
-    <ul className="flex gap-4">
+    <ul className="flex gap-4 justify-self-center">
       <li>
         {generatedRecipe && <Link
           href="/generateRecipe/generatedRecipe"

@@ -6,7 +6,7 @@ import {
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { RecipeObject } from "../types/RecipeTypes";
-import { getSessionStorage } from "../_helper/clientheper";
+import { getSessionStorage, setLocalStorage } from "../_helper/clientheper";
 
 export function useLikedRecipes(userId: number) {
   const queryClient = useQueryClient();
@@ -30,19 +30,18 @@ export function useLikedRecipes(userId: number) {
   const { mutate: toggleLike, isPending: isLikePending } = useMutation({
     mutationFn: async (recipeId: number) => {
       const isLiked = likedRecipes.includes(recipeId);
+      let aiRecipe = null;
       if (userId) {
-        let aiRecipe;
-        if (!recipeId) {
-          aiRecipe = getSessionStorage("generatedRecipe") as RecipeObject;
-          delete aiRecipe.review;
-        }
+        aiRecipe = getSessionStorage("generatedRecipe") as RecipeObject;
+        delete aiRecipe.review;
         await addRemoveLikedRecipe(recipeId, Number(userId), isLiked, aiRecipe);
       } else {
         throw new Error("You need to Login");
       }
-      return { recipeId, isLiked };
+      return { recipeId, isLiked, aiRecipe };
     },
-    onSuccess: ({ isLiked }) => {
+    onSuccess: ({ isLiked, aiRecipe }) => {
+      setLocalStorage('generatedRecipe', {...aiRecipe, sourceUrl: 'AI recipe'})
       if (isLiked) toast.success("Recipe removed Successfully");
       else toast.success("Recipe Liked Successfully");
       queryClient.invalidateQueries({
