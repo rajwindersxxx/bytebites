@@ -18,7 +18,6 @@ interface ReactFilterContext {
   setSearchRecipeInput: (arg: string) => void;
   searchRecipeInput: string;
   clearFilters: () => void;
-  clearIngredientFilter: () => void;
   clearSearch: () => void;
   filterParameters: {
     searchRecipeInput: string;
@@ -46,6 +45,7 @@ function RecipeFilterContext({ children }: props) {
   };
   function clearSearch() {
     setSearchRecipeInput("");
+    clearIngredientFilter()
   }
   return (
     <recipeFilterContext.Provider
@@ -57,7 +57,6 @@ function RecipeFilterContext({ children }: props) {
         setSearchRecipeInput,
         searchRecipeInput,
         clearFilters,
-        clearIngredientFilter,
         clearSearch,
         filterParameters,
       }}
