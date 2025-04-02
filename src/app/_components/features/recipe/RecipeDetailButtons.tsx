@@ -15,7 +15,7 @@ function RecipeDetailButtons({ recipeId }: props) {
     setIsSaved(savedRecipes.includes(recipeId));
   }, [likedRecipes, recipeId, savedRecipes]);
   return (
-    <div className="flex gap-4">
+    <div className="absolute bottom-0 left-1/2 flex -translate-x-1/2 gap-4 sm:relative sm:left-0 sm:-translate-x-0">
       <button>
         <HiOutlineThumbUp
           onClick={(e) => {

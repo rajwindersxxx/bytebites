@@ -8,7 +8,7 @@ interface props {
 }
 export default function RecipeInstructions({ analyzedInstructions }: props) {
   return (
-    <div className="col-span-2">
+    <div className="">
       <h2 className="mb-8 text-2xl"> 📝 Instructions</h2>
       {analyzedInstructions.map((analyzedInstruction) => (
         <AnalyzedInstruction

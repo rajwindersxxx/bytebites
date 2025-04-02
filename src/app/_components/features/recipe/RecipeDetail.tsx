@@ -32,30 +32,32 @@ export default function RecipeDetail({ detail }: Props) {
     veryPopular,
   } = detail;
   return (
-    <div className="col-span-2 flex flex-col gap-4 bg-natural-cream p-4 ">
-      <div className="flex justify-between">
-        <h2 className="text-4xl underline">{title} </h2>
+    <div className="flex flex-col gap-4 bg-natural-cream py-8 lg:p-0 relative">
+      <div className="flex justify-between border-b border-b-accent items-start ">
+        <div className="flex flex-col gap-4">
+          <h2 className="text-4xl">{title} </h2>
+          <p className="text-xl">🍽️ {dishTypes.join(", ")} </p>
+        </div>
         <RecipeDetailButtons recipeId={id} />
       </div>
-      <div className="flex flex-col gap-4 text-xl">
-        <p>🍽️ {dishTypes} type </p>
-        <p>
-          ⏱️ Ready In <span className="font-bold">{readyInMinutes}</span>{" "}
-          minutes
+      <div className="grid grid-cols-2 gap-8 text-xl lg:grid-cols-1 py-4">
+        <p className="w">
+          ⏱️ <span className="font-bold">{readyInMinutes}</span> minutes
         </p>
-        <p>
-          👨‍👩‍👧‍👦 Total <span className="font-bold">{servings}</span> servings
+        <p className="w">
+          👨‍👩‍👧‍👦 <span className="font-bold">{servings}</span> servings
         </p>
-        <p>
-          💸 Approximate Cost:{" "}
-          <span className="font-bold">{pricePerServing}</span> $ per serving
+        <p className="w">
+          💸 <span className="font-bold">{pricePerServing}</span> $ per serving
         </p>
-        <p>{vegetarian ? "🍀 vegetarian" : "🥩 non-vegetarian"} </p>
+        <p className="w">
+          {vegetarian ? "🍀 vegetarian" : "🥩 non-vegetarian"}{" "}
+        </p>
         {cuisines.length > 0 && <p>🇨🇻 Cuisines {cuisines.join(", ")} </p>}
         {winePairing && (
           <p>🍷 Pair with {winePairing?.pairedWines.join(", ")} </p>
         )}
-        <p className="col-start-3">{veryPopular && "🌟 popular"} </p>
+        <p className="">{veryPopular && "🌟 popular"} </p>
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ export default async function SimilarRecipes({ id }: props) {
   return (
     <div>
       <h2 className="mb-8 text-2xl"> 📝 Similar Recipes</h2>
-      <div className="flex flex-col gap-4">
+      <div className="mx-auto grid grid-cols-responsiveGrid gap-4">
         {data.map((item) => (
           <RecipeCard
             data={item}

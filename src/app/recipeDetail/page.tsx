@@ -21,15 +21,25 @@ export default async function page({ searchParams }: props) {
     ...otherDetails
   } = data;
   return (
-    <div className="container m-8 mt-16 mx-auto grid grid-cols-[1fr_1fr_1fr] gap-12 border bg-natural-cream p-12 dark:border-natural-beige">
-      <div className="relative overflow-hidden rounded-lg border border-natural-green">
-        <ImageElement src={image} alt="title" className="object-cover" />
+    <div className="container mx-auto my-16 md:p-0 pl-8 overflow-hidden rounded-lg border bg-natural-cream dark:border-natural-beige">
+      <div className="lg:grid grid-cols-[30rem_2fr] gap-8 p-8">
+        <div className="relative h-96 overflow-hidden rounded-lg pb-4">
+          <ImageElement
+            src={image}
+            alt="title"
+            className="object-cover dark:brightness-75"
+          />
+        </div>
+          <RecipeDetail detail={otherDetails} />
       </div>
-      <RecipeDetail detail={otherDetails} />
-      <RecipeSummary summary={summary} />
-      <Ingredients extendedIngredients={extendedIngredients} />
-      <RecipeInstructions analyzedInstructions={analyzedInstructions} />
-      <SimilarRecipes id={otherDetails.id} />
+      <div className="flex flex-col gap-8 px-8 pb-8">
+        <Ingredients extendedIngredients={extendedIngredients} />
+        <RecipeSummary summary={summary} />
+        <div className="grid gap-8 lg:grid-cols-[auto_1fr]">
+          <RecipeInstructions analyzedInstructions={analyzedInstructions} />
+          <SimilarRecipes id={otherDetails.id} />
+        </div>
+      </div>
     </div>
   );
 }

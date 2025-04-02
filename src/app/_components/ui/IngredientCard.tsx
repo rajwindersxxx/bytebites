@@ -12,9 +12,9 @@ interface props {
 export default function IngredientCard({ ingredient }: props) {
   const { name, image, consistency, amount, unit } = ingredient;
   return (
-    <div className="item-center IngredientCard relative grid w-80 grid-cols-[auto_1fr] gap-4 rounded-md bg-natural-beige p-4">
+    <div className="item-center IngredientCard relative grid w-full grid-cols-[auto_1fr] gap-4 rounded-md bg-natural-beige p-4">
       <div className="IngredientImage relative h-20 w-20 overflow-hidden rounded-full">
-        <ImageElement src={`${INGREDIENT_IMAGE_URL}/${image}`} alt={name} />
+        <ImageElement src={`${INGREDIENT_IMAGE_URL}/${image}`} alt={name}/>
       </div>
       <div className="">
         <h4 className="text-xl font-bold capitalize">
