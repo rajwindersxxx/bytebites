@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 export default function Navigation() {
   const [generatedRecipe, setGeneratedRecipe] = useState<null | RecipeObject>(null);
   useEffect(() => {
-    const data = getSessionStorage<RecipeObject>('generatedRecipe');
+    const data = getSessionStorage('generatedRecipe');
     setGeneratedRecipe(data);
   }, [])
   return (

@@ -38,10 +38,10 @@ function ShoppingContext({ children }: props) {
     RecipeCart[]
   >([]);
   useEffect(() => {
-    const storedRecipeCart = getLocalStorage<RecipeCart[]>("recipeCart");
+    const storedRecipeCart = getLocalStorage("");
     const storedIngredientCart =
-      getLocalStorage<IngredientCart[]>("ingredientCart");
-    const initialCartState = getLocalStorage<RecipeCart[]>("initialCartState");
+      getLocalStorage("ingredientCart");
+    const initialCartState = getLocalStorage("initialCartState");
     setRecipeInCart(storedRecipeCart || []);
     setIngredientCart(storedIngredientCart || []);
     setInitialRecipeCartState(initialCartState || []);

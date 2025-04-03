@@ -34,19 +34,13 @@ export async function getSearchedRecipeData({
 }
 
 export async function getRandomRecipeData(): Promise<RecipeObject[]> {
-  let data;
-  if (USE_API) {
-    const { recipes: recipeArray }: { recipes: [] } =
-      await getRandomRecipes(RANDOM_RECIPE_COUNT);
-    data = recipeArray;
-  } else {
-    data = await simulateApiRequest(recipeData);
-  }
-  return data as RecipeObject[];
+  if (!USE_API) return (await simulateApiRequest(recipeData)) as RecipeObject[];
+  return await getRandomRecipes(RANDOM_RECIPE_COUNT);
 }
 
 export async function getRecipeDetailsData(id: number) {
   let data;
+
   if (USE_API) {
     const { recipeData } = await getRecipeFormDB(id);
     data = recipeData;
@@ -66,23 +60,14 @@ export async function getRecipeDetailsData(id: number) {
 export async function getRecipeByIngredientsData(
   ingredients: { name: string }[],
 ) {
-  let data;
-  if (USE_API) {
-    const ingredient = ingredients.map((item) => item.name.trim()).join(",");
-    data = await getRecipeByIngredients(ingredient);
-  } else {
-    data = await simulateApiRequest(recipeSearchBased);
-  }
-  return data;
+  if (!USE_API) return await simulateApiRequest(recipeSearchBased);
+  const ingredient = ingredients.map((item) => item.name.trim()).join(",");
+  return await getRecipeByIngredients(ingredient);
 }
+
 export async function getSimilarRecipesData(id: number) {
-  let data;
-  if (USE_API) {
-    data = await getSimilarRecipes(id);
-  } else {
-    data = similarRecipe;
-  }
-  return data;
+  if (!USE_API) return similarRecipe;
+  return await getSimilarRecipes(id);
 }
 // todo: Error handling is missing
 export async function makeARecipe(data: {

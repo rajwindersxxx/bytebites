@@ -20,10 +20,11 @@ export async function makeAShoppingList(
   userId: number,
   oldIngredientData?: UserShoppingList[] | void,
 ) {
-  let shoppingList;
-  shoppingList = mergeIngredients(recipeData, ingredientData).map((item) => {
-    return { ...item, userId };
-  });
+  let shoppingList = mergeIngredients(recipeData, ingredientData).map(
+    (item) => {
+      return { ...item, userId };
+    },
+  );
   if (oldIngredientData)
     shoppingList = mergeUserShoppingList(oldIngredientData, shoppingList);
   return await createUserShoppingList(shoppingList);

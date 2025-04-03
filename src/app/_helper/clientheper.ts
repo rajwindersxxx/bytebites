@@ -5,25 +5,15 @@ import { endOfDay, endOfWeek, isWithinInterval, startOfDay } from "date-fns";
 export function setSessionStorage(key: string, data: unknown): boolean {
   if (typeof window !== "undefined") {
     sessionStorage.setItem(key, JSON.stringify(data));
-    return true; // Indicate success
+    return true;
   }
   return false;
 }
 
-export function getSessionStorage<T>(key: string): T | null {
+export function getSessionStorage(key: string) {
   if (typeof window !== "undefined") {
     const storedData = sessionStorage.getItem(key);
-    if (storedData) {
-      try {
-        return JSON.parse(storedData) as T; // Type assertion
-      } catch (error) {
-        console.error(
-          `Error parsing sessionStorage data for key "${key}":`,
-          error,
-        );
-        return null; // Return null on parsing error
-      }
-    }
+    if (storedData) return JSON.parse(storedData);
   }
   return null;
 }
@@ -35,20 +25,10 @@ export function setLocalStorage(key: string, data: unknown) {
   return false;
 }
 
-export function getLocalStorage<T>(key: string): T | null {
+export function getLocalStorage(key: string) {
   if (typeof window !== "undefined") {
-    const storedData = localStorage.getItem(key);
-    if (storedData) {
-      try {
-        return JSON.parse(storedData) as T; // Type assertion
-      } catch (error) {
-        console.error(
-          `Error parsing localStorage data for key "${key}":`,
-          error,
-        );
-        return null; // Return null on parsing error
-      }
-    }
+    const storedData = sessionStorage.getItem(key);
+    if (storedData) return JSON.parse(storedData);
   }
   return null;
 }
@@ -61,6 +41,54 @@ interface FloatingTooltipOptions {
   hideDelay?: number;
 }
 
+export function textToEmoji(name: string) {
+  switch (name) {
+    case "SOLID":
+      return "🧊";
+    case "LIQUID":
+      return "💧";
+    default:
+      return "undefined";
+  }
+}
+/**
+ * This function filter array from today to upcoming sunday
+ * @param items  accepts array of objects  to need filter
+ * @param dateKey column name eg date , created_at etc
+ * @returns return weekly data 
+ */
+export function filterItemsUntilSaturday(
+  items: { [key: string]: unknown }[],
+  dateKey: string,
+): { [key: string]: unknown }[] {
+  if (!Array.isArray(items) || typeof dateKey !== "string") {
+    return []; // Return empty array for invalid input
+  }
+
+  const today = startOfDay(new Date());
+  const endOfWeekSaturday = endOfWeek(new Date(), { weekStartsOn: 1 }); // Monday start, end is sunday.
+  const endOfDaySaturday = endOfDay(
+    endOfWeekSaturday.setDate(endOfWeekSaturday.getDate() - 1),
+  ); //sets to saturday
+
+  return items.filter((item) => {
+    if (item && item.hasOwnProperty(dateKey) && item[dateKey]) {
+      const itemDateValue = item[dateKey];
+      const itemDate = itemDateValue
+        ? new Date(itemDateValue as string | number | Date)
+        : null;
+      return (
+        itemDate !== null &&
+        isWithinInterval(itemDate, {
+          start: today,
+          end: endOfDaySaturday,
+        })
+      );
+    }
+    return false; // Exclude items with missing or invalid dateKey
+  });
+}
+// *This build in function is taken from floatingToolTip docs
 export function floatingToolTip(
   button: HTMLElement,
   tooltip: HTMLElement,
@@ -157,36 +185,4 @@ export function floatingToolTip(
     button.removeEventListener("focus", handleFocus);
     button.removeEventListener("blur", handleBlur);
   };
-}
-
-export function textToEmoji(name: string) {
-  switch (name) {
-    case "SOLID":
-      return "🧊";
-    case "LIQUID":
-      return "💧";
-    default:
-      return "undefined";
-  }
-}
-export function filterItemsUntilSaturday(items: { [key: string]: unknown }[], dateKey: string): { [key: string]: unknown }[] {
-  if (!Array.isArray(items) || typeof dateKey !== 'string') {
-    return []; // Return empty array for invalid input
-  }
-
-  const today = startOfDay(new Date());
-  const endOfWeekSaturday = endOfWeek(new Date(), { weekStartsOn: 1 }); // Monday start, end is sunday.
-  const endOfDaySaturday = endOfDay(endOfWeekSaturday.setDate(endOfWeekSaturday.getDate() - 1)); //sets to saturday
-
-  return items.filter((item) => {
-    if (item && item.hasOwnProperty(dateKey) && item[dateKey]) {
-      const itemDateValue = item[dateKey];
-      const itemDate = itemDateValue ? new Date(itemDateValue as string | number | Date) : null;
-      return itemDate !== null && isWithinInterval(itemDate, {
-        start: today,
-        end: endOfDaySaturday,
-      });
-    }
-    return false; // Exclude items with missing or invalid dateKey
-  });
 }

@@ -21,14 +21,19 @@ export async function comparePassword(
   hashedPassword: string,
   plainPassword: string,
 ) {
-  const match = await bcrypt.compare(plainPassword, hashedPassword);
-  return match;
+  return await bcrypt.compare(plainPassword, hashedPassword);
 }
 export function isDateToday(dateToCheck: string) {
   const todayStart = startOfDay(new Date());
   const todayEnd = endOfDay(new Date());
   return isWithinInterval(dateToCheck, { start: todayStart, end: todayEnd });
 }
+/**
+ * this function merge ingredients  into single array including amount
+ * @param recipeData recipes array must include  extendedIngredients[]
+ * @param ingredientData list of ingredients
+ * @returns  return new Array
+ */
 export function mergeIngredients(
   recipeData: RecipeObject[],
   ingredientData: ExtendedIngredients[],
@@ -57,7 +62,12 @@ export function mergeIngredients(
   });
   return Array.from(ingredientMap.values());
 }
-
+/**
+ * this function merge two arrays together,
+ * @param oldArray old stored array
+ * @param newArray new data need to mirage
+ * @returns array of ingredients
+ */
 export function mergeUserShoppingList(
   oldArray: UserShoppingList[],
   newArray: UserShoppingList[],
@@ -81,7 +91,7 @@ export function mergeUserShoppingList(
       ingredientMap.set(ingredient.id, {
         ...ingredient,
         created_at: new Date(),
-        isPurchased: false
+        isPurchased: false,
       });
     }
   });

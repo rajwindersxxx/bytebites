@@ -27,6 +27,10 @@ export async function createAUserDB(userData: {
     .from("bitebytesUser")
     .insert([userData])
     .select();
+  if (error) {
+    console.error(error);
+    throw new Error("Failed To Create User.");
+  }
   return { data, error };
 }
 export async function UpdateUserDB(userData: UpdateProfileForm) {
