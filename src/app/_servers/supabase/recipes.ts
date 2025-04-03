@@ -1,4 +1,4 @@
-import {  RecipeObject } from "@/app/types/RecipeTypes";
+import { RecipeObject } from "@/app/types/RecipeTypes";
 import { supabase } from "./supabase";
 
 export async function getRecipeFormDB(recipeId: number) {
@@ -6,16 +6,16 @@ export async function getRecipeFormDB(recipeId: number) {
     .from("bitebytesRecipes")
     .select()
     .eq("id", Number(recipeId));
-  const recipeData = data && data[0] ? data[0] : null;
   if (error) {
     console.error(error);
     throw new Error(error.message);
   }
-  return { recipeData, error };
+  return { recipeData: data[0], error };
 }
 
 export async function addRecipeToDB(recipeObject: RecipeObject) {
   delete recipeObject.missedIngredients;
+  const { extendedIngredients } = recipeObject;
   const { data, error: recipeError } = await supabase
     .from("bitebytesRecipes")
     .insert([recipeObject])
@@ -23,12 +23,10 @@ export async function addRecipeToDB(recipeObject: RecipeObject) {
 
   // if row already exists no need duplicate
   if (data) {
-    const { extendedIngredients } = recipeObject;
-    const IngredientObject =
-      extendedIngredients.map((item) => {
-      item.recipeId = recipeObject.id;
-      return item;
-    });
+    const IngredientObject = extendedIngredients.map((item) => ({
+      ...item,
+      recipeId: recipeObject.id,
+    }));
     const { error } = await supabase
       .from("extendedIngredients")
       .insert(IngredientObject);
@@ -37,12 +35,11 @@ export async function addRecipeToDB(recipeObject: RecipeObject) {
       throw new Error(error.message);
     }
   }
-  // do not add Ingredient when recipe already exists
   if (recipeError && recipeError.code !== "23505") {
     console.error(recipeError);
     throw new Error(recipeError?.message);
   }
-  return { data, error: recipeError };
+  return data;
 }
 
 export async function getDetailedSavedRecipesDB(userId: number) {

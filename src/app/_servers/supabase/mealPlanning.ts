@@ -71,7 +71,7 @@ export async function getUpcomingIngredientsDB(
   dayCount: number = 3,
 ) {
   const today = formatISO(new Date(), { representation: "date" });
-  const nextThreeDays = formatISO(addDays(new Date(), dayCount), {
+  const nextUpcomingDays = formatISO(addDays(new Date(), dayCount), {
     representation: "date",
   });
   const { data, error } = await supabase
@@ -81,7 +81,7 @@ export async function getUpcomingIngredientsDB(
     )
     .eq("userId", userId)
     .gte("requiredDate", today)
-    .lte("requiredDate", nextThreeDays);
+    .lte("requiredDate", nextUpcomingDays);
   if (error) {
     console.error(error);
     throw new Error(error.message);

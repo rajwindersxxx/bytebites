@@ -30,8 +30,7 @@ export async function getLikedRecipesDB(userId: number) {
     console.error(error);
     throw new Error(error.message);
   }
-  const recipeData = likedRecipes.map((item) => item.bitebytesRecipes);
-  return recipeData;
+  return likedRecipes.map((item) => item.bitebytesRecipes);
 }
 export async function addRemoveSavedRecipeDB(
   recipeId: number,
@@ -48,7 +47,6 @@ export async function addRemoveSavedRecipeDB(
       .eq("recipeId", recipeId);
   } else {
     let data;
-    // if there is no recipeId , we insert our own object
     if (recipeObject && !recipeObject.sourceUrl) data = recipeObject;
     else data = await getRecipeDetailsData(recipeId);
     await addRecipeToDB(data);
@@ -65,7 +63,6 @@ export async function addRemoveSavedRecipeDB(
       return recipeObject;
     }
     console.error(error);
-
     throw new Error(error.message);
   }
   return data;

@@ -16,7 +16,11 @@ export async function getUserByIdDB(userId: number) {
     .select()
     .eq("id", userId)
     .single();
-  return { data, error };
+    if(error){
+      console.error(error);
+      throw new Error('something went wrong')
+    }
+  return data;
 }
 export async function createAUserDB(userData: {
   email: string;
@@ -31,7 +35,7 @@ export async function createAUserDB(userData: {
     console.error(error);
     throw new Error("Failed To Create User.");
   }
-  return { data, error };
+  return data;
 }
 export async function UpdateUserDB(userData: UpdateProfileForm) {
   let inputObject: { username: string; image?: string } = {
@@ -85,7 +89,7 @@ export async function changeUserPasswordDB(
   inputData: UpdatePasswordForm,
   userId: number,
 ) {
-  const { data: userData } = await getUserByIdDB(userId);
+  const  userData  = await getUserByIdDB(userId);
   const match = await comparePassword(
     userData.password,
     inputData.currentPassword,

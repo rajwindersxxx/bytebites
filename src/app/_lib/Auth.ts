@@ -56,8 +56,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async session({ session, token }) {
       if (token?.id) {
-        // fetch fresh user data from database 
-        const { data: updatedUser } = await getUserByIdDB(Number(token.id));
+        // fetch fresh user data from database
+        const updatedUser = await getUserByIdDB(Number(token.id));
         session.user = {
           id: updatedUser.id,
           email: updatedUser.email,

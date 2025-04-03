@@ -1,10 +1,12 @@
+import { RecipeObject } from "../types/RecipeTypes";
+
 /**
  * Generates a properly formatted question for an AI based on given ingredients.
  *
  * @param {string} ingredients - A comma-separated list of ingredients (e.g., "ingredient1, ingredient2, ...").
  * @returns {string} A structured question to send to the AI.
  */
-export function makeAQuestion(ingredients: string | null) {
+export function makeAQuestion(ingredients: string | null): string {
   return `Make a recipe from ingredients "${ingredients}".
 Format the response as **strict JSON**.
 Only return JSON—no extra text, explanations, or comments.
@@ -145,11 +147,10 @@ OR IF ANY ERROR OR INVALID input
 }
 /**
  * Converts an AI response (in JSON string format) to a JavaScript object.
- *
  * @param {string} aiResponse - The AI response as a JSON string.
  * @returns {object} The parsed JSON object.
  */
-export function aiOutputToObject(aiResponse: string) {
+export function aiOutputToObject(aiResponse: string): RecipeObject | null {
   const jsonMatch = aiResponse.match(/\{[\s\S]*\}/); // Matches JSON without /s flag
   if (jsonMatch) {
     try {
@@ -161,6 +162,7 @@ export function aiOutputToObject(aiResponse: string) {
   } else {
     console.error("No valid JSON found in the string.");
   }
+  return null;
 }
 // debugging
 

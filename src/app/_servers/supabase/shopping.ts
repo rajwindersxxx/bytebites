@@ -1,8 +1,6 @@
 import { RecipeObject } from "@/app/types/RecipeTypes";
 import { supabase } from "./supabase";
-export async function clearShoppingList() {
-  return await clearShoppingList();
-}
+
 export async function createUserShoppingList(inputData: RecipeObject[]) {
   await clearShoppingListDB(inputData[0].userId!);
   const { data, error } = await supabase
