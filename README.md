@@ -187,6 +187,7 @@ npm install
 3.Add .env.local file
 
 ```sh
+
 FOOD_API_KEY=''
 GOOGLE_AI_API_KEY=''
 SUPABASE_URL=''

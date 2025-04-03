@@ -25,7 +25,6 @@ function IngredientListActions() {
       queryClient.invalidateQueries({ queryKey: ["userShoppingList"] });
     },
   });
-  console.log(ingredientData)
   if (ingredientData && ingredientData?.length >= 1)
     return (
       <div className="flex gap-4 justify-end flex-1">

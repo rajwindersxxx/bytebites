@@ -8,7 +8,6 @@ export default function Navigation() {
   useEffect(() => {
     const data = getSessionStorage<RecipeObject>('generatedRecipe');
     setGeneratedRecipe(data);
-    console.log(data)
   }, [])
   return (
     <ul className="flex gap-4 justify-self-center">

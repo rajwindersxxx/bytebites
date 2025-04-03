@@ -27,7 +27,6 @@ export default function GenerateRecipeForm() {
   });
 
   async function onSubmit(data: Data) {
-    console.log(data);
     setIsLoading(true);
     const output = await makeARecipe(data);
     sessionStorage.setItem("generatedRecipe", JSON.stringify(output));

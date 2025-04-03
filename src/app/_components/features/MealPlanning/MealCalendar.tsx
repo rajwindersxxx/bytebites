@@ -2,7 +2,7 @@
 import { EventHoveringArg } from "@fullcalendar/core";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
+import interactionPlugin from "@fullcalendar/interaction";
 import useSavedMeals from "../../../_hooks/useSavedMeals";
 import { EventClickArg } from "@fullcalendar/core/index.js";
 import { useModal } from "../../ui/Modal";
@@ -40,9 +40,7 @@ function MealCalendar({
       color,
     };
   });
-  function handleDateClick(info: DateClickArg) {
-    console.log(info);
-  }
+
   function handleEventClick(info: EventClickArg) {
     const { currentDate, mealType, userId } = info.event._def.extendedProps;
     openModal(
@@ -92,7 +90,6 @@ function MealCalendar({
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView={initialView}
         events={newData}
-        dateClick={handleDateClick}
         eventClick={handleEventClick}
         eventMouseEnter={handleTooltip}
         height={height}

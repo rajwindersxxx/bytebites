@@ -10,6 +10,7 @@ function MealCalendarCard() {
       />
     </div>
   );
+
 }
 
 export default MealCalendarCard;

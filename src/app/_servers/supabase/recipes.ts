@@ -2,7 +2,6 @@ import {  RecipeObject } from "@/app/types/RecipeTypes";
 import { supabase } from "./supabase";
 
 export async function getRecipeFormDB(recipeId: number) {
-  console.log("recipe got from database ");
   const { data, error } = await supabase
     .from("bitebytesRecipes")
     .select()

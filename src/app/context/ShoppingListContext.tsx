@@ -181,7 +181,6 @@ function ShoppingContext({ children }: props) {
     }
   }
   function clearLocalStorageCart() {
-    console.log("storage clear");
     setRecipeInCart([]);
     setIngredientCart([]);
     localStorage.removeItem("recipeCart");

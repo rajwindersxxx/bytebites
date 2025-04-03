@@ -96,7 +96,6 @@ export async function addRemoveLikedRecipeDB(
   const { data, error } = await query;
   if (error) {
     if (error.code === "23503" || error.code === "23505") {
-      console.log(error);
       return recipeObject;
     }
     console.error(error);

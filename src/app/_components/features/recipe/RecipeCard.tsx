@@ -11,7 +11,7 @@ interface props {
   baseUrlImage?: string;
   detailsLink?: string;
   visibleButtons?: string[];
-  totalResults: number;
+  totalResults?: number;
 }
 export default function RecipeCard({
   data,
@@ -42,7 +42,7 @@ export default function RecipeCard({
   return (
     <div
       onClick={handleRoute}
-      className={`card relative grid w-full ${totalResults < 4 && 'md:w-[28rem]'} shrink-0 cursor-pointer grid-cols-[1fr_1.7fr] overflow-hidden rounded-md bg-natural-beige hover:shadow-md ${isDragging ? "" : "transition-all"}`}
+      className={`card relative grid w-full ${totalResults && totalResults < 4 && 'md:w-[28rem]'} shrink-0 cursor-pointer grid-cols-[1fr_1.7fr] overflow-hidden rounded-md bg-natural-beige hover:shadow-md ${isDragging ? "" : "transition-all"}`}
     >
       <div className="relative h-full">
         {baseUrlImage ? (
