@@ -5,5 +5,3 @@ export const INGREDIENT_IMAGE_URL =
   "https://img.spoonacular.com/ingredients_100x100";
 export const RECIPE_IMAGE_URL = "https://img.spoonacular.com/recipes";
 export const USE_API = process.env.USE_API === "true";
-console.log(typeof USE_API);
-//false to use sample data

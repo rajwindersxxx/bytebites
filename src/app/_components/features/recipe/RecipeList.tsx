@@ -10,7 +10,7 @@ export default function RecipeList() {
 
   if (isLoadingRecipes) return <Spinner />;
   if (recipeData.length < 1)
-    return <p className="h-96] p-4 text-2xl">🍽️ No recipe found , try AI </p>;
+    return <p className="h-96 p-4 text-2xl">🍽️ No recipe found , try AI </p>;
   return (
     <>
       {recipeData.length > 0 &&
@@ -19,6 +19,7 @@ export default function RecipeList() {
             data={recipe}
             key={recipe.id}
             visibleButtons={["like", "saved"]}
+            totalResults={recipeData.length}
           />
         ))}
     </>

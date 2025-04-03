@@ -87,6 +87,7 @@ export async function addRemoveLikedRecipeDB(
     let data;
     if (recipeObject && !recipeObject.sourceUrl) data = recipeObject;
     else data = await getRecipeDetailsData(recipeId);
+
     await addRecipeToDB(data);
     query = supabase
       .from("likedRecipes")
@@ -94,7 +95,8 @@ export async function addRemoveLikedRecipeDB(
   }
   const { data, error } = await query;
   if (error) {
-    if (error.code === "23503") {
+    if (error.code === "23503" || error.code === "23505") {
+      console.log(error);
       return recipeObject;
     }
     console.error(error);

@@ -39,7 +39,7 @@ function useSavedMeals() {
       toast.success("meal has been removed ");
     },
   });
-  const { mutate: handleMealPlanning } = useMutation({
+  const { mutate: handleMealPlanning , isPending: isPendingMeal} = useMutation({
     mutationFn: (mealObject: MealPlanning) => addMealPlanning(mealObject),
     onSuccess: () => {
       toast.success("Meal Added Successfully ");
@@ -52,7 +52,7 @@ function useSavedMeals() {
       toast.error(error.message);
     },
   });
-  return { removeMeal, handleMealPlanning, savedMeals, isLoading, error };
+  return { removeMeal, handleMealPlanning, savedMeals, isLoading, error , isPendingMeal};
 }
 
 export default useSavedMeals;

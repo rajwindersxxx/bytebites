@@ -1,3 +1,4 @@
+import {  RecipeObject } from "@/app/types/RecipeTypes";
 import { supabase } from "./supabase";
 
 export async function getRecipeFormDB(recipeId: number) {
@@ -14,10 +15,8 @@ export async function getRecipeFormDB(recipeId: number) {
   return { recipeData, error };
 }
 
-export async function addRecipeToDB(recipeObject: {
-  extendedIngredients: unknown[];
-  id: number;
-}) {
+export async function addRecipeToDB(recipeObject: RecipeObject) {
+  delete recipeObject.missedIngredients;
   const { data, error: recipeError } = await supabase
     .from("bitebytesRecipes")
     .insert([recipeObject])
@@ -26,9 +25,8 @@ export async function addRecipeToDB(recipeObject: {
   // if row already exists no need duplicate
   if (data) {
     const { extendedIngredients } = recipeObject;
-    const IngredientObject = (
-      extendedIngredients as { recipeId: number }[]
-    ).map((item) => {
+    const IngredientObject =
+      extendedIngredients.map((item) => {
       item.recipeId = recipeObject.id;
       return item;
     });

@@ -7,7 +7,7 @@
     height: 1.5rem;
     /* aspect-ratio: 1; */
     border-radius: 50%;
-    border: .1875rem solid theme("colors.natural.beige");
+    border: 0.1875rem solid theme("colors.natural.beige");
     border-right-color: theme("colors.natural.sage");
     animation: rotate 1s infinite linear;
   }
@@ -32,8 +32,37 @@
     --color-cream: #332d28;
     --color-beige-dark: #9b8b85;
   }
+  .spinner {
+    margin: 3.2rem auto 1.6rem;
+    width: 3.75rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 0.5rem solid theme("colors.natural.beige");
+    border-right-color: theme("colors.natural.sage");
+    animation: rotate 1s infinite linear;
+  }
+  .loadingSpinner {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: inline-block;
+    border-top: 0.1875rem solid #fff;
+    border-right: 0.1875rem solid transparent;
+    box-sizing: border-box;
+    animation: rotation 1.6s linear infinite;
+  }
+  .loadingBars {
+    width: 2rem;
+    aspect-ratio: 1;
+    --c: no-repeat linear-gradient(var(--color-accent) 0 0);
+    background:
+      var(--c) 0% 50%,
+      var(--c) 50% 50%,
+      var(--c) 100% 50%;
+    background-size: 20% 100%;
+    animation: l1 1s infinite linear;
+  }
 }
-
 @layer utilities {
   .iconOutlineStyles {
     @apply h-6 w-6 stroke-natural-terracotta transition-all hover:scale-110 active:scale-125 dark:stroke-accent;
@@ -41,27 +70,41 @@
   .iconFillStyle {
     @apply fill-natural-terracotta dark:fill-accent;
   }
-  .spinner {
-    margin: 3.2rem auto 1.6rem;
-    width: 3.75rem;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    border: .5rem solid theme("colors.natural.beige");
-    border-right-color: theme("colors.natural.sage");
-    animation: rotate 1s infinite linear;
-  }
 
-  .loadingSpinner {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    display: inline-block;
-    border-top: .1875rem solid #fff;
-    border-right: .1875rem solid transparent;
-    box-sizing: border-box;
-    animation: rotation 1.6s linear infinite;
-  }
+  /* HTML: <div class="loader"></div> */
 
+  @keyframes l1 {
+    0% {
+      background-size:
+        20% 100%,
+        20% 100%,
+        20% 100%;
+    }
+    33% {
+      background-size:
+        20% 10%,
+        20% 100%,
+        20% 100%;
+    }
+    50% {
+      background-size:
+        20% 100%,
+        20% 10%,
+        20% 100%;
+    }
+    66% {
+      background-size:
+        20% 100%,
+        20% 100%,
+        20% 10%;
+    }
+    100% {
+      background-size:
+        20% 100%,
+        20% 100%,
+        20% 100%;
+    }
+  }
   @keyframes rotation {
     0% {
       transform: rotate(0deg);
@@ -71,11 +114,11 @@
     }
   }
   ::-webkit-scrollbar {
-    width: .1875rem;
+    width: 0.1875rem;
   }
   ::-webkit-scrollbar-thumb {
     background: #888;
-    border-radius: .625rem;
+    border-radius: 0.625rem;
   }
   ::-webkit-scrollbar-thumb:hover {
     background: #555;

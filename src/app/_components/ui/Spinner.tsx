@@ -10,3 +10,6 @@ export function MediumSpinner({ className }: props) {
 export function OverlaySpinner({ className }: props){
   return <div><div className={`spinner ${className}`}></div></div>
 }
+export function BarsSpinner({ className  }: props) {
+  return <div className={`loadingBars ${className}`}></div>;
+}

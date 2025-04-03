@@ -13,22 +13,25 @@ import { RecipeObject } from "../../../types/RecipeTypes";
 import toast from "react-hot-toast";
 import MealPlaningModal from "../MealPlanning/MealPlaningModal";
 import ConfirmationModal from "../../forms/ConfirmationModal";
+import { BarsSpinner } from "../../ui/Spinner";
 interface props {
-  recipeId: number;
   visibleButtons?: string[];
   recipeData: RecipeObject;
 }
-function RecipeCardButtons({ recipeData, recipeId, visibleButtons }: props) {
+function RecipeCardButtons({ recipeData, visibleButtons }: props) {
+  const recipeId = Number(recipeData.id);
   const { toggleLike, likedRecipes, toggleSave, savedRecipes } =
     useRecipeData();
+
   const { addRecipeToCart, removeRecipeFromCart } = useShoppingData();
   const session = useSession();
   const userid = session.data?.user;
-  const [isLiked, setIsLiked] = useState<boolean>(false);
-  const [isSaved, setIsSaved] = useState<boolean>(false);
+  const [isLiked, setIsLiked] = useState<boolean | string>(false);
+  const [isSaved, setIsSaved] = useState<boolean | string>(false);
   const [isCart, setIsCart] = useState<boolean>(false);
   const { openModal } = useModal();
   const { recipeInCart } = useShoppingData();
+
   useEffect(() => {
     setIsLiked(likedRecipes.includes(recipeId));
     setIsSaved(savedRecipes.includes(recipeId));
@@ -44,13 +47,19 @@ function RecipeCardButtons({ recipeData, recipeId, visibleButtons }: props) {
   }
   function handleLike(e: { stopPropagation: () => void }) {
     e.stopPropagation();
+    setIsLiked("pending");
     toggleLike(recipeId);
   }
   function handleSave(e: { stopPropagation: () => void }) {
     e.stopPropagation();
     if (isSaved)
       return openModal(
-        <ConfirmationModal callback={() => toggleSave(recipeId)} />,
+    <ConfirmationModal
+    callback={() => {
+            setIsSaved("pending");
+            toggleSave(recipeId);
+          }}
+        />,
         `confirmDelete`,
       );
     toggleSave(recipeId);
@@ -74,17 +83,25 @@ function RecipeCardButtons({ recipeData, recipeId, visibleButtons }: props) {
         </button>
       )}
       {visibleButtons?.includes("like") && (
-        <button onClick={handleLike}>
-          <HiOutlineThumbUp
-            className={`iconOutlineStyles ${isLiked && "iconFillStyle"}`}
-          />
+        <button onClick={handleLike} disabled={isLiked === "pending"}>
+          {isLiked === "pending" ? (
+            <BarsSpinner className="h-6 w-6" />
+          ) : (
+            <HiOutlineThumbUp
+              className={`iconOutlineStyles ${isLiked && "iconFillStyle"}`}
+            />
+          )}
         </button>
       )}
       {visibleButtons?.includes("saved") && (
-        <button onClick={handleSave}>
-          <HiOutlineHeart
-            className={`iconOutlineStyles ${isSaved && "iconFillStyle"}`}
-          />
+        <button onClick={handleSave} disabled={isSaved === "pending"}>
+          {isSaved === "pending" ? (
+            <BarsSpinner className="h-6 w-6" />
+          ) : (
+            <HiOutlineHeart
+              className={`iconOutlineStyles ${isSaved && "iconFillStyle"}`}
+            />
+          )}
         </button>
       )}
       {visibleButtons?.includes("meal") && (

@@ -1,5 +1,6 @@
 // recipe details types
 export type ExtendedIngredients = {
+  recipeId?: number;
   isPurchased: boolean;
   uniqueIngredientId?: number;
   userId: number;

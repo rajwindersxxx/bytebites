@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import useSavedMeals from "../../_hooks/useSavedMeals";
 import RadioButton from "../ui/RadioButton";
+import MiniSpinner from "../ui/MiniSpinner";
 interface props {
   recipeData: RecipeObject;
 }
@@ -27,7 +28,7 @@ function CreateMealForm({ recipeData }: props) {
   }>();
   const { date: selectedDate } = watch();
 
-  const { savedMeals, handleMealPlanning } = useSavedMeals();
+  const { savedMeals, handleMealPlanning, isPendingMeal } = useSavedMeals();
   const reservedMeals: string[] = reservedMealsData(selectedDate, savedMeals);
 
   function handleFromSubmit(data: { date: string; mealType: string }) {
@@ -124,8 +125,12 @@ function CreateMealForm({ recipeData }: props) {
             Cancel
           </SecondaryButton>
           {reservedMeals?.length < 3 && (
-            <PrimaryButton disabled={reservedMeals?.length > 3} type="submit">
-              Submit
+            <PrimaryButton
+              disabled={reservedMeals?.length > 3 || isPendingMeal}
+              type="submit"
+              className="w-20"
+            >
+              {isPendingMeal ? <MiniSpinner /> : "submit"}
             </PrimaryButton>
           )}
         </div>

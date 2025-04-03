@@ -21,16 +21,17 @@ export function useLikedRecipes(userId: number) {
     queryFn: async () => {
       const result = await getLikedRecipes(userId);
       const recipesIdList = result.map((item) => item.id);
-      setLikedRecipes(recipesIdList);
+      setLikedRecipes(recipesIdList,);
       return result;
     },
     enabled: Boolean(userId),
     staleTime: 1000 * 60 * 5,
   });
-  const { mutate: toggleLike, isPending: isLikePending } = useMutation({
+  const { mutateAsync: toggleLike, isPending: isLikePending } = useMutation({
     mutationFn: async (recipeId: number) => {
       const isLiked = likedRecipes.includes(recipeId);
       let aiRecipe = null;
+
       if (userId) {
         aiRecipe = getSessionStorage("generatedRecipe") as RecipeObject;
         delete aiRecipe?.review;
@@ -47,6 +48,7 @@ export function useLikedRecipes(userId: number) {
       });
       if (isLiked) toast.success("Recipe removed Successfully");
       else toast.success("Recipe Liked Successfully");
+
       queryClient.invalidateQueries({
         queryKey: ["likedRecipes"],
       });
