@@ -33,7 +33,7 @@ export function useLikedRecipes(userId: number) {
       let aiRecipe = null;
       if (userId) {
         aiRecipe = getSessionStorage("generatedRecipe") as RecipeObject;
-        delete aiRecipe.review;
+        delete aiRecipe?.review;
         await addRemoveLikedRecipe(recipeId, Number(userId), isLiked, aiRecipe);
       } else {
         throw new Error("You need to Login");
@@ -41,7 +41,10 @@ export function useLikedRecipes(userId: number) {
       return { recipeId, isLiked, aiRecipe };
     },
     onSuccess: ({ isLiked, aiRecipe }) => {
-      setLocalStorage('generatedRecipe', {...aiRecipe, sourceUrl: 'AI recipe'})
+      setLocalStorage("generatedRecipe", {
+        ...aiRecipe,
+        sourceUrl: "AI recipe",
+      });
       if (isLiked) toast.success("Recipe removed Successfully");
       else toast.success("Recipe Liked Successfully");
       queryClient.invalidateQueries({

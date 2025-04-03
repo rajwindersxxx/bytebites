@@ -31,22 +31,28 @@ export function useSavedRecipes(userId: number) {
       let aiRecipe = null;
       if (userId) {
         aiRecipe = getSessionStorage("generatedRecipe") as RecipeObject;
-        delete aiRecipe.review;
+        delete aiRecipe?.review;
         await addRemoveSavedRecipe(recipeId, Number(userId), isSaved, aiRecipe);
       } else {
         throw new Error("You need to Login");
       }
-      return { isSaved ,aiRecipe};
+      return { isSaved, aiRecipe };
     },
-    onSuccess: ({ isSaved ,aiRecipe}) => {
-      setLocalStorage('generatedRecipe', {...aiRecipe, sourceUrl: 'AI recipe'})
+    onSuccess: ({ isSaved, aiRecipe }) => {
+      setLocalStorage("generatedRecipe", {
+        ...aiRecipe,
+        sourceUrl: "AI recipe",
+      });
       if (isSaved) toast.success("Recipe Bookmarked removed  Successfully");
       else toast.success("Recipe Bookmarked  Successfully");
       queryClient.invalidateQueries({
         queryKey: ["savedRecipes"],
       });
     },
-    onError: (error) => toast.error(error.message),
+    onError: (error) => {
+      console.error(error);
+      toast.error(error.message);
+    },
   });
   return {
     savedRecipes,
