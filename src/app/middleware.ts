@@ -1,3 +1,4 @@
+import { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import requestIp from "request-ip";
 
@@ -34,4 +35,19 @@ export async function GET(req: Request) {
   }
 
   return NextResponse.json({ message: "Request successful!" }, { status: 200 });
+}
+export async function middleware(req: NextRequest) {
+  if (req.method !== "GET" && req.method !== "POST") {
+    return new Response(JSON.stringify({ error: "Method not allowed" }), {
+      status: 405,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  if (!req.headers.get("user-agent") || req.headers.get("user-agent")?.includes("curl")) {
+    return new Response(JSON.stringify({ error: "Unauthorized request" }), {
+      status: 403,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 }

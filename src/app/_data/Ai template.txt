@@ -1,0 +1,25 @@
+make a recipe from ingredients  milk, chili powder, salt, egg , scallions follow by the template given
+
+OUTPUT: singleString,
+() :  description of what i want , and  you can add anything
+[] : this the placeholder you replace , output should not included any [] for eg [text] replace by yourOutput
+summary  : in summary you can add html tags  ,   300 words if possible, should a paragraph, you can bold , italic, underline if needed, write it in natural language
+TEMPLATE GIVEN BELOW --------
+title=[recipeTitle]++++type=[recipeType]++++readyInMinutes=[time in minutes]++++servings=[servings in number]++++ApproximateCost=[cost in number$]$++++vegetarian=[true|false]++++cuisines=[string1,string2, ....]++++ingredients=[ingredient1]-[amount1]-[measuresUnits1]-[SOLID|LIQUID], [ingredient2]-[amount2]-[measureUnits2]-[SOLID|LIQUID],[so on .....]-[so on ...]-[so on ...]-[so on ...]++++Instructions=[stepNumber1]-[step name1]-[stepInstruction1]-[ingredient1,ingredient2, ....]-[equipment1, equipment2, ...]//[stepNumber2]-[step name2]-[stepInstruction2]-[ingredient1,ingredient2]-[equipment1, equipment2, ....]++++summary=[summaryInDetails(steps in short , health benefits, eating time like breakfast, lunch etc  , popularity, extra ingredient advice, some similar recipes , optional wine combinations , an information which give insight of recipe)]
+
+'title=Spicy Scrambled Eggs with Scallions++++type=Breakfast++++readyInMinutes=10++++servings=2++++ApproximateCost=3$++++vegetarian=true++++cuisines=American, Mexican, Fusion++++ingredients=Eggs-4-pieces-SOLID, Milk-2-tablespoons-LIQUID, Chili Powder-1/2-teaspoon-SOLID, Salt-to taste-SOLID, Scallions-3-pieces-SOLID++++Instructions=1-Whisk Eggs-In a medium bowl, whisk together the eggs and milk until well combined. Add chili powder and salt, whisking again to incorporate.-Eggs, Milk, Chili Powder, Salt-Medium Bowl, Whisk//2-Cook Scallions-Heat a non-stick skillet over medium heat with a teaspoon of oil or butter. Add finely chopped white parts of scallions and cook for about 1 minute, until softened.-Scallions (white parts)-Non-stick Skillet, Spatula//3-Scramble Eggs-Pour the egg mixture into the skillet. Cook, stirring occasionally, until the eggs are mostly set but still slightly moist. Add the chopped green parts of the scallions during the last minute of cooking.-Egg mixture, Scallions (green parts)-Non-stick Skillet, Spatula//4-Serve Immediately-Serve hot.-Spicy Scrambled Eggs-Plates++++summary=These Spicy Scrambled Eggs with Scallions offer a quick and vibrant start to the day, blending the creamy texture of scrambled eggs with a gentle kick from chili powder and the fresh, crisp bite of scallions. This simple dish, ready in just ten minutes, makes it an ideal choice for busy mornings or a light, protein-packed lunch. The process begins with whisking eggs, milk, chili powder, and salt together, ensuring a smooth and evenly spiced mixture. The white parts of the scallions are then softened in a skillet, adding a subtle oniony sweetness, before the egg mixture is poured in. The eggs are scrambled until just set, maintaining a moist and tender texture, with the green parts of the scallions added at the end for a fresh, vibrant finish. This dish is not only delicious but also nutritious, providing high-quality protein from the eggs, calcium and vitamin D from the milk, metabolism-boosting capsaicin from the chili powder, and essential vitamins K and C from the scallions. It's a globally popular breakfast item, with this spicy twist offering a unique and flavorful variation. For those seeking to enhance the flavor, consider adding a pinch of cumin, a sprinkle of shredded cheese, or incorporating diced bell peppers or mushrooms. Similar dishes include frittatas, breakfast burritos, and shakshuka. A crisp Sauvignon Blanc or light Rosé pairs well, balancing the spice and richness of the eggs. Remember to avoid overcooking the eggs and to add the scallions in two phases for optimal flavor and texture. This adaptable recipe encourages customization with spices and vegetables, making it a versatile addition to any meal plan. <u>Health Benefits:</u> High protein from eggs, Calcium & D from milk, Capsaicin from chili, Vitamins K & C from scallions. <i>Eating Time:</i> Breakfast, lunch, brunch. <b>Popularity:</b> Global, unique twist. Extra Advice: Add cumin, cheese, peppers, mushrooms.'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
