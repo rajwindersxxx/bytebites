@@ -18,33 +18,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const { email: inputEmail, password: inputPassword } =
             await signInSchema.parseAsync(credentials);
           // Fetch user data from database
-          const { data, error: getUserError } = await getUserDB(inputEmail);
-          if (getUserError || !data || data.length === 0) {
-            console.error(
-              "User not found or error fetching user:",
-              getUserError,
-            );
-            return null;
+          const { data, error } = await getUserDB(inputEmail);
+          if (error || !data || data.length === 0) {
+            console.error("User not found:", error);
+            throw new Error("Invalid credentials"); // Prevent error details from leaking
           }
           const { password: hashedPassword, id, username } = data[0];
           //  compare password with hash
-          return new Promise((resolve) => {
-            bcrypt.compare(inputPassword, hashedPassword, (err, result) => {
-              if (err) {
-                console.error("bcrypt compare error:", err);
-                return resolve(null);
-              }
+          const isValidPassword = await bcrypt.compare(
+            inputPassword,
+            hashedPassword,
+          );
 
-              if (result) {
-                resolve({ id: id, name: username, email: inputEmail });
-              } else {
-                resolve(null);
-              }
-            });
-          });
+          if (!isValidPassword) {
+            throw new Error("Invalid credentials"); // Prevent brute-force attacks
+          }
+          return { id, name: username, email: inputEmail };
         } catch (error) {
           console.error("Authentication error:", error);
-          return null;
+          throw new Error("Invalid login attempt");
         }
       },
     }),
