@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { RecipeObject } from "../../../types/RecipeTypes";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../ui/ToolTip";
 import { FloatingDelayGroup } from "@floating-ui/react";
+import { memo } from "react";
 interface props {
   data: RecipeObject;
   baseUrlImage?: string;
@@ -13,12 +14,12 @@ interface props {
   visibleButtons?: string[];
   totalResults?: number;
 }
-export default function RecipeCard({
+const RecipeCard = memo(function RecipeCard({
   data,
   baseUrlImage,
   detailsLink,
   visibleButtons = ["cart", "like", "saved", "meal"],
-  totalResults
+  totalResults,
 }: props) {
   const {
     id,
@@ -42,7 +43,7 @@ export default function RecipeCard({
   return (
     <div
       onClick={handleRoute}
-      className={`card relative grid w-full ${totalResults && totalResults < 4 && 'md:w-[28rem]'} shrink-0 cursor-pointer grid-cols-[1fr_1.7fr] overflow-hidden rounded-md bg-natural-beige hover:shadow-md ${isDragging ? "" : "transition-all"}`}
+      className={`card relative grid w-full ${totalResults && totalResults < 4 && "md:w-[28rem]"} shrink-0 cursor-pointer grid-cols-[1fr_1.7fr] overflow-hidden rounded-md bg-natural-beige hover:shadow-md ${isDragging ? "" : "transition-all"}`}
     >
       <div className="relative h-full">
         {baseUrlImage ? (
@@ -98,4 +99,6 @@ export default function RecipeCard({
       </div>
     </div>
   );
-}
+});
+
+export default RecipeCard;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { INGREDIENT_IMAGE_URL } from "../../_config/foodApiConfig";
 import { ImageElement } from "./ImageElement";
 import IngredientCartButtons from "./IngredientCartButtons";
@@ -9,7 +9,7 @@ interface props {
   ingredient: ExtendedIngredients;
 }
 
-export default function IngredientCard({ ingredient }: props) {
+const IngredientCard = memo(function IngredientCard({ ingredient }: props) {
   const { name, image, consistency, amount, unit } = ingredient;
   return (
     <div className="item-center IngredientCard relative grid w-full grid-cols-[auto_1fr] gap-4 rounded-md bg-natural-beige p-4">
@@ -35,4 +35,5 @@ export default function IngredientCard({ ingredient }: props) {
       </div>
     </div>
   );
-}
+});
+export default IngredientCard;
