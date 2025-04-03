@@ -1,28 +1,25 @@
 import { useState } from "react";
-
+const initialData = {
+  type: [],
+  diet: [],
+  cuisine: [],
+  excludeIngredients: [],
+};
 export function useCategoryFilter() {
-  const [selectedFilters, setSelectedFilters] = useState<
-    Record<string, string[]>
-  >({
-    type: [],
-    diet: [],
-    cuisine: [],
-    excludeIngredients:[]
-  });
+  const [selectedFilters, setSelectedFilters] =
+    useState<Record<string, string[]>>(initialData);
   const handleFilterChange = (category: string, option: string) => {
     setSelectedFilters((prev) => {
       const currentOptions = prev[category] || [];
-      if (currentOptions.includes(option)) {
+      if (currentOptions.includes(option))
         return {
           ...prev,
           [category]: currentOptions.filter((item) => item !== option),
         };
-      } else {
-        return {
-          ...prev,
-          [category]: [...currentOptions, option],
-        };
-      }
+      return {
+        ...prev,
+        [category]: [...currentOptions, option],
+      };
     });
   };
   function clearFilters() {

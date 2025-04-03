@@ -87,11 +87,12 @@ export async function makeARecipe(data: {
   if (errorSplit[1]) {
     return { error: errorSplit[1] }; // Or another appropriate status code
   }
-  const generatedRecipe = await aiOutputToObject(generatedAIData);
+  const generatedRecipe =  aiOutputToObject(generatedAIData);
+  if(!generatedRecipe?.title ) throw new Error('Failed to generate recipe ')
   const generatedRecipeImage = await generateAiImage(generatedRecipe.title);
   const imagePath = await uploadAIimage(
     generatedRecipeImage,
-    generatedRecipe.id,
+    generatedRecipe.id.toString(),
   );
   const recipeData = {
     ...generatedRecipe,

@@ -1,4 +1,3 @@
-import { RecipeObject } from "../types/RecipeTypes";
 
 /**
  * Generates a properly formatted question for an AI based on given ingredients.
@@ -150,7 +149,7 @@ OR IF ANY ERROR OR INVALID input
  * @param {string} aiResponse - The AI response as a JSON string.
  * @returns {object} The parsed JSON object.
  */
-export function aiOutputToObject(aiResponse: string): RecipeObject | null {
+export function aiOutputToObject(aiResponse: string) {
   const jsonMatch = aiResponse.match(/\{[\s\S]*\}/); // Matches JSON without /s flag
   if (jsonMatch) {
     try {

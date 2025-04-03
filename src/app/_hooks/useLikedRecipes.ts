@@ -20,25 +20,20 @@ export function useLikedRecipes(userId: number) {
     queryKey: ["likedRecipes"],
     queryFn: async () => {
       const result = await getLikedRecipes(userId);
-      const recipesIdList = result.map((item) => item.id);
-      setLikedRecipes(recipesIdList,);
+      setLikedRecipes(result.map((item) => item.id));
       return result;
     },
     enabled: Boolean(userId),
-    staleTime: 1000 * 60 * 5,
+    staleTime: Infinity,
   });
+
   const { mutateAsync: toggleLike, isPending: isLikePending } = useMutation({
     mutationFn: async (recipeId: number) => {
+      if (!userId) throw new Error("You need to Login");
       const isLiked = likedRecipes.includes(recipeId);
-      let aiRecipe = null;
-
-      if (userId) {
-        aiRecipe = getSessionStorage("generatedRecipe") as RecipeObject;
-        delete aiRecipe?.review;
-        await addRemoveLikedRecipe(recipeId, Number(userId), isLiked, aiRecipe);
-      } else {
-        throw new Error("You need to Login");
-      }
+      const aiRecipe = getSessionStorage("generatedRecipe") as RecipeObject;
+      delete aiRecipe?.review;
+      await addRemoveLikedRecipe(recipeId, Number(userId), isLiked, aiRecipe);
       return { recipeId, isLiked, aiRecipe };
     },
     onSuccess: ({ isLiked, aiRecipe }) => {
@@ -48,7 +43,6 @@ export function useLikedRecipes(userId: number) {
       });
       if (isLiked) toast.success("Recipe removed Successfully");
       else toast.success("Recipe Liked Successfully");
-
       queryClient.invalidateQueries({
         queryKey: ["likedRecipes"],
       });
