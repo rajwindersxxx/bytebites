@@ -44,6 +44,7 @@ export async function getRandomRecipeData(): Promise<RecipeObject[]> {
   }
   return data as RecipeObject[];
 }
+
 export async function getRecipeDetailsData(id: number) {
   let data;
   if (USE_API) {
@@ -61,6 +62,7 @@ export async function getRecipeDetailsData(id: number) {
   }
   return data;
 }
+
 export async function getRecipeByIngredientsData(
   ingredients: { name: string }[],
 ) {
@@ -73,6 +75,16 @@ export async function getRecipeByIngredientsData(
   }
   return data;
 }
+export async function getSimilarRecipesData(id: number) {
+  let data;
+  if (USE_API) {
+    data = await getSimilarRecipes(id);
+  } else {
+    data = similarRecipe;
+  }
+  return data;
+}
+// todo: Error handling is missing
 export async function makeARecipe(data: {
   ingredient: {
     value: string;
@@ -102,34 +114,26 @@ export async function makeARecipe(data: {
   };
   return recipeData;
 }
-export async function getSimilarRecipesData(id: number) {
-  let data;
-  if (USE_API) {
-    data = await getSimilarRecipes(id);
-  } else {
-    data = similarRecipe;
-  }
-  return data;
-}
 
+/**
+ *this function convert the incoming filter to
+ * @param query accept value as string
+ * @param searchObject accept ingredients as set eg {string,..}
+ * @param filterObject accepts filterObject e.g {cuisines":[string],diet:[],excludeIngredients:[]}
+ * @returns URL endpoint e.g  &query=''&cuisines=string1,string2&......
+ */
 function toQueryString(
   query: string,
   searchObject: Set<string>,
   filterObject: Record<string, string[]>,
 ): string {
   let queryString = "";
-
-  // Add query
   queryString += `&query=${query.toLowerCase()}`;
-
-  // Add includedIngredients
   if (searchObject.size > 0) {
     queryString += `&includeIngredients=${[...searchObject]
       .map((ingredient) => ingredient.toLowerCase())
       .join(",")}`;
   }
-
-  // Add filterObject keys
   for (const [key, value] of Object.entries(filterObject)) {
     if (value.length > 0) {
       queryString += `&${key.toLowerCase()}=${value
@@ -137,6 +141,5 @@ function toQueryString(
         .join(",")}`;
     }
   }
-
   return queryString;
 }

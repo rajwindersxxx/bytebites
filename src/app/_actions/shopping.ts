@@ -24,14 +24,11 @@ export async function makeAShoppingList(
   shoppingList = mergeIngredients(recipeData, ingredientData).map((item) => {
     return { ...item, userId };
   });
-  if (oldIngredientData) {
+  if (oldIngredientData)
     shoppingList = mergeUserShoppingList(oldIngredientData, shoppingList);
-  }
   return await createUserShoppingList(shoppingList);
 }
-export async function getUserShoppingList(UserId: number) {
-  return await getUserShoppingListDB(UserId);
-}
+
 export async function removeShoppingListItem(
   ingredientId: number,
   userId: number,
@@ -50,7 +47,9 @@ export async function updateShoppingItemStates(
     purchasedStatus,
   );
 }
-
+export async function getUserShoppingList(UserId: number) {
+  return await getUserShoppingListDB(UserId);
+}
 export async function checkAllItems(userId: number) {
   return await checkAllItemsDB(userId);
 }

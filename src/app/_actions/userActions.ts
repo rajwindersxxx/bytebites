@@ -38,9 +38,11 @@ export async function loginUser(formData: { email: string; password: string }) {
     throw new Error("Login failed. Please try again later.");
   }
 }
+
 export async function updateUser(data: UpdateProfileForm) {
   return await UpdateUserDB(data);
 }
+
 export async function changePassword(
   inputData: UpdatePasswordForm,
   userId: number,
