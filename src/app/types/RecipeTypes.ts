@@ -1,5 +1,6 @@
 // recipe details types
 export type ExtendedIngredients = {
+  count: number;
   recipeId?: number;
   isPurchased: boolean;
   uniqueIngredientId?: number;
@@ -52,7 +53,7 @@ export type RecipeObject = {
   userId?: number;
   missedIngredients?: { name: string }[];
   created_at?: string;
-  count?: number;
+  count: number;
   id: number;
   image: string;
   imageType: string;

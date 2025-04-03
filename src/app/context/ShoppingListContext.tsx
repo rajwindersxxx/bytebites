@@ -9,12 +9,12 @@ import { getLocalStorage, setLocalStorage } from "../_helper/clientheper";
 interface props {
   children: React.ReactNode;
 }
-
-type IngredientCart = ExtendedIngredients & { count: number };
-type RecipeCart = RecipeObject & { count: number };
 interface ShoppingContextType {
-  recipeInCart: RecipeCart[];
-  ingredientCart: IngredientCart[];
+  recipeInCart: RecipeObject[];
+  ingredientCart: ExtendedIngredients[];
+  removeIngredientFromCart: (ingredientId: number) => void;
+  removeRecipeFromCart: (recipeId: number) => void;
+  clearLocalStorageCart: () => void;
   addRecipeToCart: (
     recipeObject: RecipeObject,
     updateQuantity?: string,
@@ -23,19 +23,16 @@ interface ShoppingContextType {
     recipeObject: ExtendedIngredients,
     updateQuantity?: string,
   ) => void;
-  removeIngredientFromCart: (ingredientId: number) => void;
-  removeRecipeFromCart: (recipeId: number) => void;
-  clearLocalStorageCart: () => void;
 }
 const shoppingContext = createContext<ShoppingContextType | undefined>(
   undefined,
 );
 
 function ShoppingContext({ children }: props) {
-  const [recipeInCart, setRecipeInCart] = useState<RecipeCart[]>([]);
-  const [ingredientCart, setIngredientCart] = useState<IngredientCart[]>([]);
+  const [recipeInCart, setRecipeInCart] = useState<RecipeObject[]>([]);
+  const [ingredientCart, setIngredientCart] = useState<ExtendedIngredients[]>([]);
   const [initialRecipeCartState, setInitialRecipeCartState] = useState<
-    RecipeCart[]
+  RecipeObject[]
   >([]);
   useEffect(() => {
     const storedRecipeCart = getLocalStorage("");
@@ -55,6 +52,7 @@ function ShoppingContext({ children }: props) {
     if (ingredientCart.length > -1)
       setLocalStorage("ingredientCart", ingredientCart);
   }, [ingredientCart]);
+  
   function addIngredientToCart(
     ingredientObject: ExtendedIngredients,
     updateQuantity?: string,

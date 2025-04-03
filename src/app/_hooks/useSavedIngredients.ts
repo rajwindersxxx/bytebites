@@ -12,7 +12,7 @@ export function useSavedIngredients() {
   } = useQuery({
     queryKey: [`ingredientList${recipeId}`],
     queryFn: () => getSavedRecipeIngredients(Number(recipeId)),
-    staleTime: 1000 * 60 * 5,
+    staleTime: Infinity,
   });
   return { savedIngredients, isLoading, error };
 }

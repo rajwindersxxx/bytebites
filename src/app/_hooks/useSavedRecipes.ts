@@ -23,7 +23,7 @@ export function useSavedRecipes(userId: number) {
       return result.map((item) => item.bitebytesRecipes);
     },
     enabled: Boolean(userId),
-    staleTime: 1000 * 60 * 5,
+    staleTime: Infinity,
   });
   const { mutate: toggleSave, isPending } = useMutation({
     mutationFn: async (recipeId: number) => {
@@ -31,7 +31,6 @@ export function useSavedRecipes(userId: number) {
       let aiRecipe = null;
       if (userId) {
         aiRecipe = getSessionStorage("generatedRecipe") as RecipeObject;
-        delete aiRecipe?.review;
         await addRemoveSavedRecipe(recipeId, Number(userId), isSaved, aiRecipe);
       } else {
         throw new Error("You need to Login");

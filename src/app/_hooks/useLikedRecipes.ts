@@ -32,7 +32,6 @@ export function useLikedRecipes(userId: number) {
       if (!userId) throw new Error("You need to Login");
       const isLiked = likedRecipes.includes(recipeId);
       const aiRecipe = getSessionStorage("generatedRecipe") as RecipeObject;
-      delete aiRecipe?.review;
       await addRemoveLikedRecipe(recipeId, Number(userId), isLiked, aiRecipe);
       return { recipeId, isLiked, aiRecipe };
     },

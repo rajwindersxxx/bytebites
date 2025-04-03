@@ -16,11 +16,8 @@ export function useUserShoppingList() {
   const QueryClient = useQueryClient();
   const { data, error, isLoading } = useQuery({
     queryFn: () => {
-      if (userId) {
-        return getUserShoppingList(Number(userId));
-      } else {
-        throw new Error("userId undefined ");
-      }
+      if (!userId) throw new Error("userId undefined ");
+      return getUserShoppingList(Number(userId));
     },
     queryKey: ["userShoppingList"],
     enabled: Boolean(userId),

@@ -16,7 +16,6 @@ export function useCustomParams() {
     Object.entries(newParams).forEach(([key, value]) => {
       params.set(key, value);
     });
-
     router.push(`${newPath}?${params.toString()}`);
   }
   function getParams(...keys: string[]) {

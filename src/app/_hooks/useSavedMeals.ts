@@ -8,7 +8,11 @@ import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
 import { useModal } from "../_components/ui/Modal";
 import { MealPlanning } from "../types/FormData";
-
+type RemoveMeal = {
+  userId: number;
+  mealType: string;
+  date: Date;
+};
 function useSavedMeals() {
   const session = useSession();
   const userId = session.data?.user?.id;
@@ -22,24 +26,17 @@ function useSavedMeals() {
   } = useQuery({
     queryFn: () => getMealPlannings(Number(userId)),
     queryKey: ["mealPlannings"],
-    staleTime: 1000 * 60 * 5,
+    staleTime: Infinity,
   });
   const { mutate: removeMeal } = useMutation({
-    mutationFn: ({
-      userId,
-      mealType,
-      date,
-    }: {
-      userId: number;
-      mealType: string;
-      date: Date;
-    }) => removeMealPlanning(userId, mealType, date),
+    mutationFn: ({ userId, mealType, date }: RemoveMeal) =>
+      removeMealPlanning(userId, mealType, date),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["mealPlannings"] });
       toast.success("meal has been removed ");
     },
   });
-  const { mutate: handleMealPlanning , isPending: isPendingMeal} = useMutation({
+  const { mutate: handleMealPlanning, isPending: isPendingMeal } = useMutation({
     mutationFn: (mealObject: MealPlanning) => addMealPlanning(mealObject),
     onSuccess: () => {
       toast.success("Meal Added Successfully ");
@@ -52,7 +49,14 @@ function useSavedMeals() {
       toast.error(error.message);
     },
   });
-  return { removeMeal, handleMealPlanning, savedMeals, isLoading, error , isPendingMeal};
+  return {
+    removeMeal,
+    handleMealPlanning,
+    savedMeals,
+    isLoading,
+    error,
+    isPendingMeal,
+  };
 }
 
 export default useSavedMeals;

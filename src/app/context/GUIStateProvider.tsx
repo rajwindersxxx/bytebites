@@ -15,7 +15,6 @@ export const GUIStateProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [searchPanelHidden, setSearchPanelHidden] = useState(true);
-  // todo : use to handle detail , still working on
   const [recipeShortDetailHidden, setRecipeDetailHidden] = useState(true);
   function toggleSearchPanel() {
     setSearchPanelHidden((prev) => !prev);

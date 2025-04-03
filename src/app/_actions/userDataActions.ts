@@ -14,6 +14,7 @@ export async function addRemoveSavedRecipe(
   remove: boolean | undefined,
   recipeObject?: RecipeObject | null,
 ) {
+  delete recipeObject?.review;
   if (remove === undefined) throw new Error("Value is not boolean");
   return await addRemoveSavedRecipeDB(recipeId, userId, remove, recipeObject);
 }
@@ -24,6 +25,7 @@ export async function addRemoveLikedRecipe(
   remove: boolean | undefined,
   recipeObject?: RecipeObject | null,
 ) {
+  delete recipeObject?.review;
   if (remove === undefined) throw new Error("Value is not boolean");
   return await addRemoveLikedRecipeDB(recipeId, userId, remove, recipeObject);
 }
