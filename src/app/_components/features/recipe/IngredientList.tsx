@@ -1,5 +1,6 @@
 "use client";
 import { useUserShoppingList } from "../../../_hooks/useUserShoppingList";
+import IngredientListActions from "../../ui/IngredientListActions";
 import ShoppingListRow from "../shopping/ShoppingListRow";
 
 function IngredientList() {
@@ -12,7 +13,10 @@ function IngredientList() {
         </div>
       )}
       {ingredientData && ingredientData.length > 0 && (
-        <div className="rounded-md bg-natural-beige p-4 h-full grid grid-rows-[auto_1fr_auto]" role="table">
+        <div
+          className="mx-auto grid h-full max-w-[60.75rem] sm:grid-rows-[auto_1fr_auto] grid-rows-[1fr_auto] rounded-md bg-natural-beige p-4"
+          role="table"
+        >
           <div
             role="rowheader"
             className="hidden w-full grid-cols-[0.3fr_0.4fr_1.4fr_1fr_0.4fr_1fr_0.2fr] items-center gap-4 rounded border-b border-b-accent p-2 sm:grid"
@@ -30,9 +34,10 @@ function IngredientList() {
               <ShoppingListRow data={item} index={i} key={item.id} />
             ))}
           </div>
+
           <div
             role="row"
-            className="flex w-full items-center justify-end gap-4 border-t border-t-accent p-2"
+            className="flex w-full items-center gap-4 border-t border-t-accent p-2"
           >
             <p className="rounded-full bg-blue-400 px-2 text-black">
               Total {ingredientData.length} Ingredients
@@ -51,6 +56,7 @@ function IngredientList() {
               }{" "}
               checked
             </p>
+            <IngredientListActions />
           </div>
         </div>
       )}

@@ -88,6 +88,7 @@ function MealCalendar({
         </div>
       </div>
       <FullCalendar
+
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView={initialView}
         events={newData}

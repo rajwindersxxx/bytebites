@@ -1,6 +1,5 @@
 import IngredientList from "@/app/_components/features/recipe/IngredientList";
 import { Metadata } from "next";
-import IngredientListActions from "../_components/ui/IngredientListActions";
 export const metadata: Metadata = {
   title: "Cart",
 };
@@ -11,7 +10,6 @@ function page() {
         Your Ingredient Shopping List
       </h2>
       <IngredientList />
-      <IngredientListActions />
     </div>
   );
 }

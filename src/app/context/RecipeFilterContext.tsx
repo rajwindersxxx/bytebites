@@ -13,12 +13,12 @@ interface props {
 interface ReactFilterContext {
   handleFilterChange: (category: string, option: string) => void;
   toggleSelection: (ing: string) => void;
-  selectedFilters: Record<string, string[]>;
-  selectedIngredients: Set<string>;
   setSearchRecipeInput: (arg: string) => void;
-  searchRecipeInput: string;
   clearFilters: () => void;
   clearSearch: () => void;
+  selectedFilters: Record<string, string[]>;
+  selectedIngredients: Set<string>;
+  searchRecipeInput: string;
   filterParameters: {
     searchRecipeInput: string;
     selectedIngredients: Set<string>;

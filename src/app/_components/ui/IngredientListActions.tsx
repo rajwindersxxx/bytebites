@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { checkAllItems, clearShoppingList } from "@/app/_actions/shopping";
 import MiniSpinner from "./MiniSpinner";
 import { useUserShoppingList } from "@/app/_hooks/useUserShoppingList";
+import { HiCheck, HiOutlineTrash } from "react-icons/hi";
 
 function IngredientListActions() {
   const { data: ingredientData } = useUserShoppingList();
@@ -24,14 +25,15 @@ function IngredientListActions() {
       queryClient.invalidateQueries({ queryKey: ["userShoppingList"] });
     },
   });
-  if (ingredientData && ingredientData?.length > 1)
+  console.log(ingredientData)
+  if (ingredientData && ingredientData?.length >= 1)
     return (
-      <div className="flex justify-end gap-4 px-4 pt-4">
+      <div className="flex gap-4 justify-end flex-1">
         <SecondaryButton onClick={clearList} disabled={pendingClear}>
-          {pendingClear ? <MiniSpinner /> : "Delete all"}
+          {pendingClear ? <MiniSpinner /> : <HiOutlineTrash/>}
         </SecondaryButton>
         <SecondaryButton onClick={checkAllCartItems} disabled={pendingCheck}>
-          {pendingCheck ? <MiniSpinner /> : "check all"}
+          {pendingCheck ? <MiniSpinner /> : <HiCheck/>}
         </SecondaryButton>
       </div>
     );

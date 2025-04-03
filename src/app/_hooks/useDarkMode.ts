@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { setLocalStorage } from "../_helper/clientheper";
 
 export function useDarkMode() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   useEffect(() => {
     if (typeof window !== "undefined") {
       setDarkMode(
