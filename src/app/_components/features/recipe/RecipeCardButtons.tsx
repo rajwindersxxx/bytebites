@@ -54,14 +54,15 @@ function RecipeCardButtons({ recipeData, visibleButtons }: props) {
     e.stopPropagation();
     if (isSaved)
       return openModal(
-    <ConfirmationModal
-    callback={() => {
+        <ConfirmationModal
+          callback={() => {
             setIsSaved("pending");
             toggleSave(recipeId);
           }}
         />,
         `confirmDelete`,
       );
+    setIsSaved("pending");
     toggleSave(recipeId);
   }
   function handleMeal(e: { stopPropagation: () => void }) {

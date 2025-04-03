@@ -23,14 +23,14 @@ function DashBoardCards() {
         label="recipes"
         color="blue"
         icon={<HiOutlineBookmark />}
-        link="/dashboard/bookmarks"
+        link="/bookmarks"
       />
       <DashboardCountCard
         heading="weekly meals"
         count={filterItemsUntilSaturday(savedMeals, "date").length}
         label="meals"
         color="green"
-        link="/dashboard/mealPlanner"
+        link="/mealPlanner"
         icon={<HiOutlineCalendar />}
       />
       <DashboardCountCard
@@ -38,7 +38,7 @@ function DashBoardCards() {
         count={cartRecipeData?.length}
         label="recipes"
         color="yellow"
-        link="/dashboard/shoppingList"
+        link="/shoppingList"
         icon={<HiOutlineShoppingCart />}
       />
       <DashboardCountCard
@@ -46,7 +46,7 @@ function DashBoardCards() {
         count={0}
         label="recipes"
         color="orange"
-        link="/generateRecipe"
+        link="/bookmarks"
         icon={<IoLogoElectron />}
       />
     </>

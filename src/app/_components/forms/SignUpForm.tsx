@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { signUpUser } from "@/app/_actions/userActions";
 import Input from "../ui/Input";
 import { PrimaryButton } from "../ui/Buttons";
-import { GoogleIcon } from "../ui/Icons";
 type formData = {
   username: string;
   email: string;
@@ -37,9 +36,9 @@ function SignUpForm() {
     router.push("/login");
   }
   return (
-    <div className="flex h-full items-center">
+    <div className="flex h-full items-center ">
       <form className="mx-auto w-[20rem]" onSubmit={handleSubmit(handleSignUp)}>
-        <h3 className="mb-8 text-center text-2xl text-secondary">
+        <h3 className="mb-4 text-center text-2xl text-secondary dark:text-accent">
           Welcome to byteBites
         </h3>
         <div className="space-y-4">
@@ -103,7 +102,7 @@ function SignUpForm() {
             sign-up
           </PrimaryButton>
         </div>
-        <div className="my-4 flex items-center gap-4">
+        {/* <div className="my-4 flex items-center gap-4">
           <hr className="w-full border-gray-300" />
           <p className="text-center text-sm text-gray-800">or</p>
           <hr className="w-full border-gray-300" />
@@ -112,7 +111,7 @@ function SignUpForm() {
           <button type="button" className="border-none outline-none">
             <GoogleIcon />
           </button>
-        </div>
+        </div> */}
       </form>
     </div>
   );

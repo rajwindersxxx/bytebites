@@ -26,7 +26,7 @@ function ActivityCard() {
       (item) => item.isPurchased === false,
     );
     const purchasedItems = userShoppingList.filter(
-      (item) => item.isPurchased === true,
+      (item) => item.isPurchased == true,
     );
     pendingItem = filterAndSortByRecentDates(pendingItems, "created_at", 3)[0];
     purchasedItem = filterAndSortByRecentDates(

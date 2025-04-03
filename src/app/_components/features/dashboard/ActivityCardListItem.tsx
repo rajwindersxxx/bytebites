@@ -1,10 +1,13 @@
-import React from "react";
+import { memo } from "react";
 import { ImageElement } from "../../ui/ImageElement";
 interface props {
   children: React.ReactNode;
   image: string;
 }
-function ActivityCardListItem({ children, image }: props) {
+const ActivityCardListItem = memo(function ActivityCardListItem({
+  children,
+  image,
+}: props) {
   return (
     <li className="pl-4text-md relative flex justify-between gap-2 rounded-bl-md border-b border-b-accent pb-2 pl-4 before:absolute before:left-0 before:top-[2px] before:content-['•']">
       {children}
@@ -13,6 +16,6 @@ function ActivityCardListItem({ children, image }: props) {
       </div>
     </li>
   );
-}
+});
 
 export default ActivityCardListItem;
