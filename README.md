@@ -160,10 +160,10 @@ NEXTAUTH_URL=http://localhost:3000
 
 4.Set up your Supabase database:
 
-- Execute `db.sql` on the Supabase database (works well on local or remote DB).
+- Execute `db.sql` on the Supabase database (tested on remote supabase).
 - Use the Supabase key to connect to the database.
 
-  5.Finally, run the project:
+5.Finally, run the project:
 
 ```sh
 npm run dev
