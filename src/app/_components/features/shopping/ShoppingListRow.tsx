@@ -1,6 +1,6 @@
 import { HiOutlineTrash } from "react-icons/hi";
 
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useUserShoppingList } from "@/app/_hooks/useUserShoppingList";
 import { ImageElement } from "../../ui/ImageElement";
 import { INGREDIENT_IMAGE_URL } from "@/app/_config/foodApiConfig";
@@ -13,9 +13,9 @@ interface props {
   index: number;
 }
 
-function ShoppingListRow({ data, index }: props) {
+const ShoppingListRow =  memo(function ShoppingListRow({ data, index }: props) {
   const [isChecked, setIsChecked] = useState<boolean>(false);
-
+  
   const {
     id,
     name,
@@ -63,6 +63,6 @@ function ShoppingListRow({ data, index }: props) {
       </div>
     </div>
   );
-}
+})
 
 export default ShoppingListRow;

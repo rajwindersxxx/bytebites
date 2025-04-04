@@ -13,7 +13,7 @@ import { filterItemsUntilSaturday } from "@/app/_helper/clientheper";
 
 function DashBoardCards() {
   const { savedRecipeData } = useRecipeData();
-  const { data: cartRecipeData } = useUserShoppingList();
+  const { userShoppingList } = useUserShoppingList();
   const { savedMeals } = useSavedMeals();
   return (
     <>
@@ -35,7 +35,7 @@ function DashBoardCards() {
       />
       <DashboardCountCard
         heading="Items in Cart"
-        count={cartRecipeData?.length}
+        count={userShoppingList?.length}
         label="recipes"
         color="yellow"
         link="/shoppingList"

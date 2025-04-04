@@ -9,7 +9,7 @@ import ActivityCardListItem from "./ActivityCardListItem";
 function ActivityCard() {
   const { savedRecipeData } = useRecipeData();
   const { savedMeals } = useSavedMeals();
-  const { data: userShoppingList } = useUserShoppingList();
+  const { userShoppingList } = useUserShoppingList();
   let resentMeal, recentSaved, pendingItem, purchasedItem;
   if (savedMeals) {
     resentMeal = filterAndSortByRecentDates(savedMeals, "created_at", 3)[0];

@@ -4,15 +4,15 @@ import IngredientListActions from "../../ui/IngredientListActions";
 import ShoppingListRow from "../shopping/ShoppingListRow";
 
 function IngredientList() {
-  const { data: ingredientData } = useUserShoppingList();
+  const { userShoppingList} = useUserShoppingList();
   return (
     <div className="h-[calc(100vh-190px)] min-h-0 items-start gap-4 overflow-x-hidden p-3">
-      {ingredientData && ingredientData.length === 0 && (
+      {userShoppingList && userShoppingList.length === 0 && (
         <div className="flex h-full items-center justify-center border-t text-xl">
           No shopping List yet
         </div>
       )}
-      {ingredientData && ingredientData.length > 0 && (
+      {userShoppingList && userShoppingList.length > 0 && (
         <div
           className="mx-auto grid h-full max-w-[60.75rem] sm:grid-rows-[auto_1fr_auto] grid-rows-[1fr_auto] rounded-md bg-natural-beige p-4"
           role="table"
@@ -30,7 +30,7 @@ function IngredientList() {
             <div className="flex justify-end gap-4">Actions</div>
           </div>
           <div role="row" className="overflow-y-auto">
-            {ingredientData.map((item, i) => (
+            {userShoppingList.map((item, i) => (
               <ShoppingListRow data={item} index={i} key={item.id} />
             ))}
           </div>
@@ -40,18 +40,18 @@ function IngredientList() {
             className="flex w-full items-center gap-4 border-t border-t-accent p-2"
           >
             <p className="rounded-full bg-blue-400 px-2 text-black">
-              Total {ingredientData.length} Ingredients
+              Total {userShoppingList.length} Ingredients
             </p>
             <p className="rounded-full bg-red-400 px-2 text-black">
               {
-                ingredientData.filter((item) => item.isPurchased === false)
+                userShoppingList.filter((item) => item.isPurchased === false)
                   .length
               }{" "}
               Pending
             </p>
             <p className="rounded-full bg-green-400 px-2 text-black">
               {
-                ingredientData.filter((item) => item.isPurchased === true)
+                userShoppingList.filter((item) => item.isPurchased === true)
                   .length
               }{" "}
               checked

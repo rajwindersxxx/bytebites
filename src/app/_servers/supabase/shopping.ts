@@ -17,7 +17,7 @@ export async function getUserShoppingListDB(userId: number) {
     .from("userIngredientList")
     .select("*")
     .eq("userId", userId)
-    .order("created_at", { ascending: false });
+    .order("id", { ascending: false });
   if (error) {
     console.error(error);
     throw new Error(error.message);

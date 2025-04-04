@@ -14,7 +14,7 @@ export function useUserShoppingList() {
   const session = useSession();
   const userId = session.data?.user?.id;
   const QueryClient = useQueryClient();
-  const { data, error, isLoading } = useQuery({
+  const { data: userShoppingList, error, isLoading } = useQuery({
     queryFn: () => {
       if (!userId) throw new Error("userId undefined ");
       return getUserShoppingList(Number(userId));
@@ -43,7 +43,7 @@ export function useUserShoppingList() {
     },
   });
   // this is only for one item to cart
-  const { mutate: addIngredientToCart } = useMutation({
+  const { mutate: addIngredientToCart, isPending: addingIngredientToCart } = useMutation({
     mutationFn: ({
       storedList,
       ingredientCart,
@@ -66,7 +66,7 @@ export function useUserShoppingList() {
       clearLocalStorageCart();
     },
   });
-  const { mutate: removeUserShoppingItem } = useMutation({
+  const { mutate: removeUserShoppingItem, isPending: removingUserShoppingItem } = useMutation({
     mutationFn: (ingredientId: number) =>
       removeShoppingListItem(ingredientId, Number(userId)),
     onSuccess: () => {
@@ -78,7 +78,7 @@ export function useUserShoppingList() {
     },
   });
 
-  const { mutate: updateShoppingStatus } = useMutation({
+  const { mutate: updateShoppingStatus, isPending: updatingShoppingStatus  } = useMutation({
     mutationFn: ({
       ingredientId,
       purchasedStatus,
@@ -96,13 +96,16 @@ export function useUserShoppingList() {
     },
   });
   return {
-    data,
+    userShoppingList,
     error,
     isLoading,
     removeUserShoppingItem,
     updateShoppingStatus,
     createShoppingList,
     addIngredientToCart,
+    addingIngredientToCart,
+    removingUserShoppingItem,
+    updatingShoppingStatus,
     isCreating,
   };
 }

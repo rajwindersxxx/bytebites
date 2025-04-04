@@ -87,7 +87,7 @@ export const useTooltipState = () => {
   return context;
 };
 
-export function Tooltip({
+export const Tooltip = (function Tooltip({
   children,
   ...options
 }: { children: React.ReactNode } & TooltipOptions) {
@@ -99,7 +99,7 @@ export function Tooltip({
       {children}
     </TooltipContext.Provider>
   );
-}
+})
 
 interface CustomHTMLProps<T> extends React.HTMLProps<T> {
   "data-state"?: string;

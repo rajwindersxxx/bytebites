@@ -1,10 +1,10 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, memo } from "react";
 import { CheckIcon } from "./Icons";
 interface props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   checked: boolean | undefined;
 }
-function Checkbox({ onChange, checked }: props) {
+const Checkbox = memo(function Checkbox({ onChange, checked }: props) {
   return (
     <div className="inline-flex items-center">
       <label className="relative flex cursor-pointer items-center">
@@ -21,6 +21,6 @@ function Checkbox({ onChange, checked }: props) {
       </label>
     </div>
   );
-}
+})
 
 export default Checkbox;

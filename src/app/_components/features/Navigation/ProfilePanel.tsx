@@ -18,8 +18,8 @@ export default function ProfilePanel() {
   const session = useSession();
   const { isMenuOpen, menuRef, buttonRef } = useToggleMenu();
   const { toggleDarkMode, darkMode } = useDarkMode();
-  const { data } = useUserShoppingList();
-  const pendingItemsCount = data?.filter(
+  const { userShoppingList } = useUserShoppingList();
+  const pendingItemsCount = userShoppingList?.filter(
     (item) => item.isPurchased === false,
   ).length;
   return (

@@ -8,7 +8,7 @@ import { useUserShoppingList } from "@/app/_hooks/useUserShoppingList";
 import { HiCheck, HiOutlineTrash } from "react-icons/hi";
 
 function IngredientListActions() {
-  const { data: ingredientData } = useUserShoppingList();
+  const { userShoppingList } = useUserShoppingList();
 
   const queryClient = useQueryClient();
   const session = useSession();
@@ -25,7 +25,7 @@ function IngredientListActions() {
       queryClient.invalidateQueries({ queryKey: ["userShoppingList"] });
     },
   });
-  if (ingredientData && ingredientData?.length >= 1)
+  if (userShoppingList && userShoppingList?.length >= 1)
     return (
       <div className="flex gap-4 justify-end flex-1">
         <SecondaryButton onClick={clearList} disabled={pendingClear}>

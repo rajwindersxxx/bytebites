@@ -1,35 +1,22 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
 import IngredientRequiredItem from "./IngredientRequiredItem";
-import { getUpcomingIngredients } from "@/app/_servers/supabase/mealPlanning";
-import { useSession } from "next-auth/react";
-import { uniqueId } from "lodash";
-import { ExtendedIngredients, RecipeObject } from "../../../types/RecipeTypes";
+import useRequiredIngredients from "@/app/_hooks/useRequiredIngredients";
 
 function RequiredIngredientCard() {
-  const session = useSession();
-  const userId = session.data?.user?.id;
-  const { data: IngredientData } = useQuery({
-    queryFn: () => getUpcomingIngredients(Number(userId)),
-    queryKey: ["upComingIngredients"],
-    staleTime: Infinity,
-  });
-  let data;
-  if (IngredientData) {
-    data = groupRecipesById(IngredientData, Number(userId));
-  }
+  const {requiredIngredientsList} =  useRequiredIngredients();
+
   return (
     <div className="col-span-1 rounded-md bg-indigo-400 p-4 dark:bg-indigo-900 flex-1">
       <h2 className="mb-4 text-xl uppercase">Ingredient Required</h2>
-      {data && data.length < 1 && (
+      {requiredIngredientsList && requiredIngredientsList.length < 1 && (
         <div className="flex h-44 items-center justify-center">
           No Upcoming meals
         </div>
       )}
-      {data && data.length > 0 && (
+      {requiredIngredientsList && requiredIngredientsList.length > 0 && (
         <div className="flex max-h-52 flex-col gap-2 overflow-y-auto">
-          {data.map((item) => (
-            <IngredientRequiredItem recipeObject={item} key={uniqueId()} />
+          {requiredIngredientsList.map((item, index) => (
+            <IngredientRequiredItem recipeObject={item} key={item.id+index} />
           ))}
         </div>
       )}
@@ -39,46 +26,3 @@ function RequiredIngredientCard() {
 
 export default RequiredIngredientCard;
 
-function groupRecipesById(
-  data: {
-    id: number;
-    recipeId: number;
-    bitebytesRecipes: RecipeObject;
-    extendedIngredients: ExtendedIngredients;
-  }[],
-  userId: number,
-) {
-  return Object.values(
-    data.reduce(
-      (
-        acc: {
-          [key: number]: {
-            recipeId: number;
-            title: string;
-            id: number;
-            extendedIngredients: ExtendedIngredients[];
-          };
-        },
-        item,
-      ) => {
-        const { recipeId, bitebytesRecipes, extendedIngredients, id } = item;
-
-        if (!acc[recipeId]) {
-          acc[recipeId] = {
-            recipeId,
-            id,
-            title: bitebytesRecipes.title,
-            extendedIngredients: [],
-          };
-        }
-        acc[recipeId].extendedIngredients.push({
-          ...extendedIngredients,
-          uniqueIngredientId: id,
-          userId: Number(userId),
-        });
-        return acc;
-      },
-      {},
-    ),
-  );
-}
