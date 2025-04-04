@@ -75,6 +75,8 @@ The dashboard provides a comprehensive overview of user activity and key metrics
 - **Responsive Design:** Works well on most screen sizes.
 - **Scalable and Maintainable:** Focused on scalability and ease of maintenance.
 - **Lazy Loading:** Improves performance by loading images only when needed.
+- **ToolTip** Add tooltip to show full name of recipe
+- **Dark Mode** User can switch light and dark mode
 
 ## 🛠️ Technology Stack & Features
 
@@ -95,6 +97,32 @@ The dashboard provides a comprehensive overview of user activity and key metrics
 - Drag-and-drop functionality for the meal planning calendar.
 - Notifications and user feedback.
 - Feedback form for reporting bugs.
+
+## Screenshots and Demos
+
+### Dashboard | Quick Actins
+
+![Dashboard](./docs//images/dashboard.gif)
+
+### Explore Recipes Feature
+
+![Explore](./docs//images/explore.gif)
+
+### Like Recipes
+
+![Like recipes](./docs//images/like.gif)
+
+### Save Recipes
+
+![Saved recipes](./docs//images/saved.gif)
+
+### Meal Planning (add ,remove meals plannings)
+
+![Meal Planning](./docs//images/mealPlanning.gif)
+
+### Other features (darkMode , tooltip, floatingUI  )
+
+![Meal Planning](./docs//images/otherFeatures.gif)
 
 ## 🛠 Installation/Setup
 
@@ -135,10 +163,11 @@ NEXTAUTH_URL=http://localhost:3000
 - Execute `db.sql` on the Supabase database (works well on local or remote DB).
 - Use the Supabase key to connect to the database.
 
-5.Finally, run the project:
+  5.Finally, run the project:
 
 ```sh
 npm run dev
 ```
 
-Access the project at [http://localhost:3000](http://localhost:3000).
+- Access the project at [http://localhost:3000](http://localhost:3000).
+- Demo Link: [https://bytebitesxxx.vercel.app](https://bytebitesxxx.vercel.app)
