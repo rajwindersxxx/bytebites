@@ -1,11 +1,11 @@
 "use client";
 import { useForm } from "react-hook-form";
-
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { signUpUser } from "@/app/_actions/userActions";
 import Input from "../ui/Input";
 import { PrimaryButton } from "../ui/Buttons";
+import useUserAuth from "@/app/_hooks/useUserAuth";
+import Link from "next/link";
+import MiniSpinner from "../ui/MiniSpinner";
+import { useState } from "react";
 type formData = {
   username: string;
   email: string;
@@ -13,30 +13,29 @@ type formData = {
   confirmPassword: string;
 };
 function SignUpForm() {
-  const router = useRouter();
+
+  const [redirecting, setRedirecting] = useState(false);
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm<formData>();
-  const { mutate: handleSignUpData } = useMutation({
-    mutationFn: (signupData: formData) => signUpUser(signupData),
-    onError: (error: unknown) => {
-      console.error("Signup error:", error);
-      reset();
-      router.replace("/login");
-    },
-    onSuccess: () => {
-      reset();
-    },
-  });
+  const { userSignUp, isSignUpPending } = useUserAuth();
   function handleSignUp(data: formData) {
-    handleSignUpData(data);
-    router.push("/login");
+    setRedirecting(true);
+    userSignUp(data, {
+      onSuccess: () => setRedirecting(false),
+      onError: () => {
+        setRedirecting(false);
+        reset();
+      },
+    });
   }
+
   return (
-    <div className="flex h-full items-center ">
+    <div className="flex h-full items-center">
       <form className="mx-auto w-[20rem]" onSubmit={handleSubmit(handleSignUp)}>
         <h3 className="mb-4 text-center text-2xl text-secondary dark:text-accent">
           Welcome to byteBites
@@ -46,6 +45,7 @@ function SignUpForm() {
             placeHolder="Username"
             type="text"
             className="m-0 w-full p-2"
+            disabled={isSignUpPending}
             {...register("username", { required: "Username is required" })}
           />
           {errors.username && (
@@ -55,6 +55,7 @@ function SignUpForm() {
             placeHolder="Email"
             type="email"
             className="w-full p-2"
+            disabled={isSignUpPending}
             {...register("email", {
               required: "Email is required",
               pattern: {
@@ -69,6 +70,7 @@ function SignUpForm() {
             placeHolder="Password"
             type="password"
             className="w-full p-2"
+            disabled={isSignUpPending}
             {...register("password", {
               required: "Password is required",
               minLength: {
@@ -83,6 +85,7 @@ function SignUpForm() {
             placeHolder="confirm-password"
             type="password"
             className="w-full p-2"
+            disabled={isSignUpPending}
             {...register("confirmPassword", {
               required: "Confirm Password is required",
               validate: (value, formValues) =>
@@ -97,21 +100,23 @@ function SignUpForm() {
             <div className="text-sm"></div>
           </div>
         </div>
+
         <div className="!mt-1">
           <PrimaryButton type="submit" className="w-full">
-            sign-up
+            {redirecting ? <MiniSpinner /> : "sign-up"}
           </PrimaryButton>
+          {/* {error && <p className="p-4 text-center text-red-500">{error}</p>} */}
+
+          <p className="!mt-4 text-center">
+            Already have an account?{" "}
+            <Link
+              href="/login"
+              className="border-accent text-accent transition-all hover:border-b hover:border-b-accent"
+            >
+              Sign In
+            </Link>
+          </p>
         </div>
-        {/* <div className="my-4 flex items-center gap-4">
-          <hr className="w-full border-gray-300" />
-          <p className="text-center text-sm text-gray-800">or</p>
-          <hr className="w-full border-gray-300" />
-        </div>
-        <div className="flex justify-center space-x-6">
-          <button type="button" className="border-none outline-none">
-            <GoogleIcon />
-          </button>
-        </div> */}
       </form>
     </div>
   );

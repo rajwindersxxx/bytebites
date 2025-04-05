@@ -62,6 +62,18 @@
     background-size: 20% 100%;
     animation: l1 1s infinite linear;
   }
+  .classicLoader {
+    width: fit-content;
+    font-family: monospace;
+    height: 2rem;
+    font-size: 24px;
+    clip-path: inset(0 3ch 0 0);
+    animation: l4 1s steps(4) infinite;
+  }
+  .classicLoader:before {
+    content:"Logging In..."
+  }
+  @keyframes l4 {to{clip-path: inset(0 -1ch 0 0)}}
 }
 @layer utilities {
   .iconOutlineStyles {

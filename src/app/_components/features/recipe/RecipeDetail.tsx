@@ -32,7 +32,7 @@ export default function RecipeDetail({ detail }: Props) {
     veryPopular,
   } = detail;
   return (
-    <div className="relative flex flex-col gap-4 bg-natural-cream py-8 lg:p-0">
+    <div className="relative flex flex-col gap-4 bg-natural-cream py-8">
       <div className="flex items-start justify-between border-b border-b-accent">
         <div className="flex flex-col gap-4">
           <h2 className="text-4xl">{title} </h2>

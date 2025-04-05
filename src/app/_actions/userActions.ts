@@ -1,4 +1,4 @@
-// todo: login/signUp needs improvements 
+// todo: login/signUp needs improvements
 "use server";
 import { CredentialsSignin } from "next-auth";
 import { generateHash } from "../_helper/helper";
@@ -26,7 +26,7 @@ export async function signUpUser(formData: SignUpForm) {
 
 export async function loginUser(formData: { email: string; password: string }) {
   try {
-    const res = await signIn("credentials", { ...formData, redirect: false });
+    const res = await signIn("credentials", { ...formData, redirect: false});
     if (!res) throw new Error("Something went wrong. Please try again.");
     if (res.error) throw new CredentialsSignin(res.error);
     return res;

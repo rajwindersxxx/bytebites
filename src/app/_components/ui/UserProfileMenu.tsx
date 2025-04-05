@@ -1,14 +1,12 @@
-import { uniqueId } from "lodash";
-import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { Ref } from "react";
-import { useShoppingData } from "../../context/ShoppingListContext";
+import useUserAuth from "@/app/_hooks/useUserAuth";
 
 interface props {
   ref?: Ref<HTMLDivElement>;
 }
 function UserProfileMenu({ ref }: props) {
-  const { clearLocalStorageCart } = useShoppingData();
+  const { userSignOut } = useUserAuth();
   const menuButtons = [
     { name: "Dashboard", link: "/dashboard" },
     { name: "Bookmarks", link: "/bookmarks" },
@@ -21,7 +19,7 @@ function UserProfileMenu({ ref }: props) {
     >
       <ul className="flex w-full flex-col items-stretch p-2">
         {menuButtons.map((item) => (
-          <li key={uniqueId()}>
+          <li key={item.name}>
             <Link
               href={item.link}
               className="block rounded-sm p-1 transition-all hover:bg-accent"
@@ -32,10 +30,7 @@ function UserProfileMenu({ ref }: props) {
         ))}
         <li>
           <a
-            onClick={() => {
-              clearLocalStorageCart();
-              signOut({ callbackUrl: "/" });
-            }}
+            onClick={() => userSignOut()}
             className="block w-full rounded-sm p-1 text-start transition-all hover:bg-accent"
           >
             SignOut

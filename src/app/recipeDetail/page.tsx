@@ -21,7 +21,7 @@ export default async function page({ searchParams }: props) {
     ...otherDetails
   } = data;
   return (
-    <div className="container mx-auto my-16 overflow-hidden rounded-lg border bg-natural-cream pl-8 dark:border-natural-beige md:p-0">
+    <div className="container mx-auto my-16 overflow-hidden rounded-lg border bg-natural-cream dark:border-natural-beige md:p-0">
       <div className="grid-cols-[30rem_2fr] gap-8 p-8 lg:grid">
         <div className="relative h-96 overflow-hidden rounded-lg pb-4">
           <ImageElement

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 };
 export default function MealPlannerPage() {
   return (
-    <div className="grid  md:grid-cols-[1fr_23.25rem] gap-4 px-8 py-4  ml-9">
+    <div className="grid  md:grid-cols-[1fr_23.25rem] gap-4 px-8 py-4 ">
       <MealCalendar />
       <div className=" ">
         <h2 className="p-2 text-center text-2xl">Recipes List</h2>

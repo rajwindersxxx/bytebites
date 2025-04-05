@@ -1,44 +1,36 @@
 "use client";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useSession } from "next-auth/react";
-import { loginUser } from "@/app/_actions/userActions";
 import Input from "../ui/Input";
-import { PrimaryButton, SecondaryButton } from "../ui/Buttons";
+import { PrimaryButton } from "../ui/Buttons";
 import MiniSpinner from "../ui/MiniSpinner";
+import useUserAuth from "@/app/_hooks/useUserAuth";
+import { SignUpForm } from "@/app/types/FormData";
 
-type formData = {
-  email: string;
-  password: string;
-};
 function LoginForm() {
   const [error, setError] = useState<boolean | string>(false);
-  const { update } = useSession();
+  const [redirecting, setRedirecting] = useState(false);
 
-  const router = useRouter();
   const {
     register,
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm<formData>();
+  } = useForm<SignUpForm>();
+  const { userSignIn, isSignPending } = useUserAuth();
+  function handleSignIn(data: SignUpForm) {
+    setRedirecting(true);
+    userSignIn(data, {
+      onError: (error) => {
+        setError(error.message);
+        setRedirecting(false);
+      },
+      onSuccess: () => setRedirecting(false),
+    });
+    reset();
+  }
 
-  const { mutate: handleSignIn, isPending } = useMutation({
-    mutationFn: (formData: formData) => loginUser(formData),
-    onSuccess: async () => {
-      await update(); //its update session before redirecting
-      router.replace("/dashboard");
-    },
-    onError: (error: { message: string }) => {
-      console.error("Login error:", error);
-      setError(error.message);
-      reset();
-    },
-  });
   return (
     <form
       className="mx-auto w-[20rem]"
@@ -52,7 +44,7 @@ function LoginForm() {
           placeHolder="Email"
           type="email"
           className="w-full p-2"
-          disabled={isPending}
+          disabled={isSignPending}
           {...register("email", {
             required: "Email is required",
             pattern: {
@@ -66,7 +58,7 @@ function LoginForm() {
           placeHolder="Password"
           type="password"
           className="w-full p-2"
-          disabled={isPending}
+          disabled={isSignPending}
           {...register("password", {
             required: "Password is required",
           })}
@@ -78,17 +70,19 @@ function LoginForm() {
       </div>
       <div className="!mt-1">
         <PrimaryButton type="submit" className="w-full">
-          {isPending ? <MiniSpinner /> : "Log in"}
+          {redirecting ? <MiniSpinner /> : "Log in"}
         </PrimaryButton>
       </div>
       {error && <p className="p-4 text-center text-red-500">{error}</p>}
-      <div className="!mt-4">
-        <Link href="/signUp">
-          <SecondaryButton type="button" className="w-full">
-            sign-up
-          </SecondaryButton>
+      <p className="!mt-4 text-center">
+        Don&apos;t have an account?{" "}
+        <Link
+          href="/signUp"
+          className="border-accent text-accent transition-all hover:border-b hover:border-b-accent"
+        >
+          Sign up
         </Link>
-      </div>
+      </p>
     </form>
   );
 }

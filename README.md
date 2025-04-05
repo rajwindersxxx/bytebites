@@ -2,7 +2,7 @@
 
 ## 📌 Overview
 
-ByteBites is an interactive AI-powered recipe generator and meal planner. Users can input ingredients they have at home, and the system generates recipes using AI. Additionally, users can save meals, plan their week, and generate shopping lists based on their selections. The system also recommends ingredients based on upcoming scheduled recipes.
+ByteBites is an interactive AI-powered recipe generator and meal planner. Users can input ingredients they have at home, and the system generates recipes using AI or Api. Additionally, users can save meals, plan their week, and generate shopping lists based on their selections. The system also recommends ingredients based on upcoming scheduled recipes.
 
 ## 🎨 Design & UX
 
@@ -88,7 +88,7 @@ The dashboard provides a comprehensive overview of user activity and key metrics
 - 🔐 **NextAuth.js:** Authentication.
 - ⚛️ **React Query:** Remote state management.
 
-## Missing Features & Future Plans
+## Missing Features & Improvements need
 
 - Google Login (via NextAuth.js).
 - Password reset functionality.
@@ -97,6 +97,7 @@ The dashboard provides a comprehensive overview of user activity and key metrics
 - Drag-and-drop functionality for the meal planning calendar.
 - Notifications and user feedback.
 - Feedback form for reporting bugs.
+- Login /sigUp form need improvements
 
 ## Screenshots and Demos
 
@@ -169,5 +170,6 @@ NEXTAUTH_URL=http://localhost:3000
 npm run dev
 ```
 
-- Access the project at [http://localhost:3000](http://localhost:3000).
-- Demo Link: [https://bytebitesxxx.vercel.app](https://bytebitesxxx.vercel.app)
+6.Access the project at [http://localhost:3000](http://localhost:3000)
+
+### LIVE DEMO Link: [https://bytebitesxxx.vercel.app](https://bytebitesxxx.vercel.app)

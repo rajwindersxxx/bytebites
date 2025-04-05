@@ -5,7 +5,7 @@ export const metadata: Metadata = {
 };
 function page() {
   return (
-    <div className="ml-9 px-8 py-4">
+    <div className="px-8 py-4">
       <h2 className="p-2 text-center text-2xl">
         Your Ingredient Shopping List
       </h2>

@@ -6,11 +6,12 @@ import SessionAuthProvider from "./context/SessionAuthProvider";
 import { RecipeDataContext } from "./context/RecipeDataContext";
 import { ShoppingContext } from "./context/ShoppingListContext";
 import { ModalProvider } from "./_components/ui/Modal";
-import { Toaster } from "react-hot-toast";
 import Header from "./_components/layout/Header";
 import UserNavLinks from "./_components/ui/UserNavLinks";
 import { GUIStateProvider } from "./context/GUIStateProvider";
 import FloatingQuickActions from "./_components/ui/FloatingQuickActions";
+import Main from "./_components/layout/Main";
+import NotificationBox from "./_components/layout/NotificationBox";
 
 const poppins = Poppins({
   variable: "--font-Poppins",
@@ -54,14 +55,8 @@ export default async function RootLayout({
                     <Header />
                     <UserNavLinks />
                     <FloatingQuickActions />
-                    <main className={"mt-12"}>{children}</main>
-                    <Toaster
-                      toastOptions={{
-                        className:
-                          "!text-primary !dark:text-accent !bg-natural-cream !dark:bg-natural-accent !border-primary !border !dark:border-secondary",
-                        position: "bottom-center",
-                      }}
-                    />
+                    <NotificationBox />
+                    <Main>{children}</Main>
                   </ModalProvider>
                 </ShoppingContext>
               </RecipeDataContext>

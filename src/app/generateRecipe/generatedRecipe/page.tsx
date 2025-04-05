@@ -6,6 +6,7 @@ import RecipeDetail from "@/app/_components/features/recipe/RecipeDetail";
 import RecipeInstructions from "@/app/_components/features/recipe/RecipeInstructions";
 import RecipeSummary from "@/app/_components/ui/RecipeSummary";
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 type recipe = {
   id: number;
   summary: string;
@@ -26,6 +27,7 @@ type recipe = {
 };
 export default function Page() {
   const [recipe, setRecipe] = useState<recipe | null>(null);
+  const session =  useSession();
   useEffect(() => {
     const storedRecipe = sessionStorage.getItem("generatedRecipe");
     if (storedRecipe) {
@@ -42,7 +44,7 @@ export default function Page() {
     ...otherDetails
   } = recipe;
   return (
-    <div className="container mx-auto my-16 overflow-hidden rounded-lg border bg-natural-cream pl-8 dark:border-natural-beige md:p-0">
+    <div className={`container mx-auto my-16 overflow-hidden rounded-lg border bg-natural-cream  dark:border-natural-beige md:p-0 ${session.data?.user &&  'pl-8'}`}>
       <div className="grid-cols-[30rem_2fr] gap-8 p-8 lg:grid">
         <div className="relative h-96 overflow-hidden rounded-lg pb-4">
           <ImageElement

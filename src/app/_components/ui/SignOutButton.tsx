@@ -1,20 +1,13 @@
 "use client";
 import { HiOutlineLogout } from "react-icons/hi";
-import { signOut, useSession } from "next-auth/react";
-import { useShoppingData } from "@/app/context/ShoppingListContext";
+import useUserAuth from "@/app/_hooks/useUserAuth";
 
 function SignOutButton() {
-  const { update } = useSession();
-  const { clearLocalStorageCart } = useShoppingData();
+  const { userSignOut } = useUserAuth();
   return (
     <button
-      type="submit"
       className="my-2 flex w-full items-center justify-start gap-2 p-2 transition-all hover:bg-accent"
-      onClick={() => {
-        clearLocalStorageCart();
-        update();
-        signOut({ callbackUrl: "/" });
-      }}
+      onClick={() => userSignOut()}
     >
       <HiOutlineLogout className="h-5 w-5" />
       SignOut

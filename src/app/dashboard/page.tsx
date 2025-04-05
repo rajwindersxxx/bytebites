@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 async function page() {
   const session = await auth();
   return (
-    <div className="px-8 py-4 ml-9">
+    <div className="px-8 py-4">
       <h2 className="p-4 text-center text-2xl capitalize">
         Welcome {session?.user?.name}
       </h2>

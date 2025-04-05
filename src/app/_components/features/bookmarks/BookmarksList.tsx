@@ -13,7 +13,7 @@ function BookmarksList({ detailLink, visibleButtons }: props) {
   if (isLoadingSavedRecipes) return <Spinner className="col-span-1" />;
   if (savedRecipeData?.length === 0)
     return (
-      <div className="flex h-full items-center justify-center border-r p-4 text-xl">
+      <div className="flex h-[calc(100vh-8.125rem)] items-center justify-center p-4 text-xl">
         No bookmarks Yet
       </div>
     );
