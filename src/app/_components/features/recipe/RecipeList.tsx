@@ -6,11 +6,13 @@ import useSearchRecipe from "@/app/_hooks/useSearchRecipe";
 
 export default function RecipeList() {
   const { filterParameters } = useRecipeFilter();
-  const { recipeData, isLoadingRecipes } = useSearchRecipe(filterParameters);
+  const { recipeData, isLoadingRecipes , apiError} = useSearchRecipe(filterParameters);
 
-  if (isLoadingRecipes) return <Spinner />;
+  if (isLoadingRecipes) return <Spinner className="absolute p-4 top-[40%] " />;
   if (recipeData.length < 1)
-    return <p className="h-96 p-4 text-2xl absolute top-1/2">🍽️ No recipe found , try AI </p>;
+    return <p className=" p-4 text-2xl absolute top-1/2">🍽️ No recipe found , try AI </p>;
+  if (apiError)
+    return <p className=" p-4 text-2xl absolute top-1/2">😔 {apiError} </p>;
   return (
     <>
       {recipeData.length > 0 &&

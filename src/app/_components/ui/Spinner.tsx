@@ -1,12 +1,14 @@
 interface props {
   className?: string;
 }
-export default function Spinner({ className = "col-span-3" }: props) {
+export default function Spinner({
+  className = "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
+}: props) {
   return (
     <>
-    <div></div>
-      <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <div className={`spinner ${className}`}></div>
+      {/* <div></div> */}
+      <div className={className}>
+        <div className={`spinner`}></div>
       </div>
     </>
   );

@@ -10,7 +10,7 @@ export function simulateApiRequest(data: unknown) {
     setTimeout(() => {
       resolve(data);
       return data;
-    }, 0);
+    }, 500);
   });
 }
 

@@ -17,6 +17,7 @@ export async function getSearchedRecipe(
 
   try {
     const res = await fetch(url);
+    if (res.status === 402) return { error: "API Limit Reached" };
     if (!res.ok) {
       throw new Error(`HTTP error! Status: ${res.status}`);
     }
@@ -24,7 +25,6 @@ export async function getSearchedRecipe(
     return data;
   } catch (error) {
     console.error("Error fetching recipe:", error);
-    return null;
   }
 }
 export async function getRandomRecipes(count: number) {
@@ -32,6 +32,7 @@ export async function getRandomRecipes(count: number) {
     const res = await fetch(
       `${FOOD_URL}/recipes/random?apiKey=${apiKey}&number=${count}`,
     );
+    if (res.status === 402) return { error: "API Limit Reached" };
     if (!res.ok) {
       throw new Error(`HTTP error! Status: ${res.status}`);
     }
@@ -39,7 +40,6 @@ export async function getRandomRecipes(count: number) {
     return data;
   } catch (error) {
     console.error("Error fetching recipe:", error);
-    return null;
   }
 }
 export async function getRecipeDetails(id: number) {
@@ -47,6 +47,8 @@ export async function getRecipeDetails(id: number) {
     const res = await fetch(
       `${FOOD_URL}/recipes/${id}/information?apiKey=${apiKey}`,
     );
+    if (res.status === 402) return { error: "API Limit Reached" };
+
     if (!res.ok) {
       throw new Error(`HTTP error! Status: ${res.status}`);
     }
@@ -56,7 +58,6 @@ export async function getRecipeDetails(id: number) {
     return data;
   } catch (error) {
     console.error("Error fetching recipe:", error);
-    return null;
   }
 }
 export async function getSimilarRecipes(id: number) {
@@ -64,13 +65,14 @@ export async function getSimilarRecipes(id: number) {
     const res = await fetch(
       `${FOOD_URL}/recipes/${id}/similar?apiKey=${apiKey}`,
     );
+    if (res.status === 402) return { error: "API Limit Reached" };
+
     if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
 
     const data = await res.json();
     return data;
   } catch (error) {
     console.error("Error fetching recipe:", error);
-    return null;
   }
 }
 export async function getRecipeByIngredients(ingredients: string) {
@@ -78,11 +80,12 @@ export async function getRecipeByIngredients(ingredients: string) {
     const res = await fetch(
       `${FOOD_URL}/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${ingredients}&number=10`,
     );
+    if (res.status === 402) return { error: "API Limit Reached" };
+
     if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
     const data = await res.json();
     return data;
   } catch (error) {
     console.error("Error fetching recipe:", error);
-    return null;
   }
 }

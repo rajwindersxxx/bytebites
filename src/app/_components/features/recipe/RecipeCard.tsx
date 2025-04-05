@@ -30,8 +30,8 @@ const RecipeCard = memo(function RecipeCard({
     vegetarian,
     pricePerServing,
     veryPopular,
-    extendedIngredients,
-    missedIngredientCount,
+    // extendedIngredients,
+    // missedIngredientCount,
   } = data;
   const router = useRouter();
   const link = detailsLink ? detailsLink : `/recipeDetail?recipeId=${id}`;
@@ -86,11 +86,11 @@ const RecipeCard = memo(function RecipeCard({
             <p>{vegetarian ? "🍀 veg" : "🥩 non-veg"} </p>
           )}
           <p className="col-start-3">{veryPopular && "🌟 popular"} </p>
-          {missedIngredientCount && extendedIngredients && (
+          {/* {missedIngredientCount && extendedIngredients && (
             <p className="col-span-2">
               {missedIngredientCount}/{extendedIngredients.length} Missing
             </p>
-          )}
+          )} */}
           <RecipeCardButtons
             recipeData={data}
             visibleButtons={visibleButtons}

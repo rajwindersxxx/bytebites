@@ -10,6 +10,8 @@ interface props {
 
 export default async function SimilarRecipes({ id }: props) {
   const data: RecipeObject[] = await getSimilarRecipesData(id);
+  if (data[0].error)
+    return <p className=" p-4 text-2xl absolute top-1/2">😔 {data[0].error} </p>;
   return (
     <div>
       <h2 className="mb-8 text-2xl"> 📝 Similar Recipes</h2>

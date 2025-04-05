@@ -17407,3 +17407,631 @@ export const searchRecipe = {
   "number": 18,
   "totalResults": 5229
 }
+
+export const sampleAIrecipe = {
+  "id": 87654321,
+  "image": "https://jmqspgxmomqtfvttimnj.supabase.co/storage/v1/object/public/generatedimages//87654321.png",
+  "title": "Vegetable & Mozzarella Rice Bowl with Strawberry Orange Garnish",
+  "readyInMinutes": 45,
+  "servings": 4,
+  "pricePerServing": 3.5,
+  "vegetarian": true,
+  "vegan": false,
+  "glutenFree": true,
+  "dairyFree": false,
+  "veryHealthy": true,
+  "veryPopular": false,
+  "sustainable": true,
+  "cookingMinutes": 35,
+  "healthScore": 85,
+  "cuisines": [
+      "Mediterranean",
+      "Fusion"
+  ],
+  "extendedIngredients": [
+      {
+          "id": 1001,
+          "image": "carrot.jpg",
+          "consistency": "SOLID",
+          "name": "Carrot",
+          "amount": 1,
+          "unit": "medium",
+          "measures": {
+              "us": {
+                  "amount": 1,
+                  "unitShort": "med",
+                  "unitLong": "medium"
+              },
+              "metric": {
+                  "amount": 1,
+                  "unitShort": "med",
+                  "unitLong": "medium"
+              }
+          }
+      },
+      {
+          "id": 11352,
+          "image": "potatoes-yukon-gold.png",
+          "consistency": "SOLID",
+          "name": "Potato",
+          "amount": 2,
+          "unit": "medium",
+          "measures": {
+              "us": {
+                  "amount": 2,
+                  "unitShort": "med",
+                  "unitLong": "medium"
+              },
+              "metric": {
+                  "amount": 2,
+                  "unitShort": "med",
+                  "unitLong": "medium"
+              }
+          }
+      },
+      {
+          "id": 11529,
+          "image": "tomato.png",
+          "consistency": "SOLID",
+          "name": "Tomato",
+          "amount": 1,
+          "unit": "large",
+          "measures": {
+              "us": {
+                  "amount": 1,
+                  "unitShort": "lg",
+                  "unitLong": "large"
+              },
+              "metric": {
+                  "amount": 1,
+                  "unitShort": "lg",
+                  "unitLong": "large"
+              }
+          }
+      },
+      {
+          "id": 10211821,
+          "image": "bell-pepper-orange.png",
+          "consistency": "SOLID",
+          "name": "Bell Pepper",
+          "amount": 0.5,
+          "unit": "medium",
+          "measures": {
+              "us": {
+                  "amount": 0.5,
+                  "unitShort": "med",
+                  "unitLong": "medium"
+              },
+              "metric": {
+                  "amount": 0.5,
+                  "unitShort": "med",
+                  "unitLong": "medium"
+              }
+          }
+      },
+      {
+          "id": 11109,
+          "image": "cabbage.jpg",
+          "consistency": "SOLID",
+          "name": "Cabbage",
+          "amount": 0.25,
+          "unit": "head",
+          "measures": {
+              "us": {
+                  "amount": 0.25,
+                  "unitShort": "head",
+                  "unitLong": "head"
+              },
+              "metric": {
+                  "amount": 0.25,
+                  "unitShort": "head",
+                  "unitLong": "head"
+              }
+          }
+      },
+      {
+          "id": 11260,
+          "image": "mushrooms.png",
+          "consistency": "SOLID",
+          "name": "Mushroom",
+          "amount": 100,
+          "unit": "g",
+          "measures": {
+              "us": {
+                  "amount": 3.5,
+                  "unitShort": "oz",
+                  "unitLong": "ounces"
+              },
+              "metric": {
+                  "amount": 100,
+                  "unitShort": "g",
+                  "unitLong": "grams"
+              }
+          }
+      },
+      {
+          "id": 11011,
+          "image": "asparagus.png",
+          "consistency": "SOLID",
+          "name": "Asparagus",
+          "amount": 100,
+          "unit": "g",
+          "measures": {
+              "us": {
+                  "amount": 3.5,
+                  "unitShort": "oz",
+                  "unitLong": "ounces"
+              },
+              "metric": {
+                  "amount": 100,
+                  "unitShort": "g",
+                  "unitLong": "grams"
+              }
+          }
+      },
+      {
+          "id": 11096,
+          "image": "brussels-sprouts.jpg",
+          "consistency": "SOLID",
+          "name": "Brussels Sprouts",
+          "amount": 100,
+          "unit": "g",
+          "measures": {
+              "us": {
+                  "amount": 3.5,
+                  "unitShort": "oz",
+                  "unitLong": "ounces"
+              },
+              "metric": {
+                  "amount": 100,
+                  "unitShort": "g",
+                  "unitLong": "grams"
+              }
+          }
+      },
+      {
+          "id": 11477,
+          "image": "zucchini.jpg",
+          "consistency": "SOLID",
+          "name": "Zucchini",
+          "amount": 0.5,
+          "unit": "medium",
+          "measures": {
+              "us": {
+                  "amount": 0.5,
+                  "unitShort": "med",
+                  "unitLong": "medium"
+              },
+              "metric": {
+                  "amount": 0.5,
+                  "unitShort": "med",
+                  "unitLong": "medium"
+              }
+          }
+      },
+      {
+          "id": 9206,
+          "image": "orange.png",
+          "consistency": "SOLID",
+          "name": "Orange",
+          "amount": 0.5,
+          "unit": "medium",
+          "measures": {
+              "us": {
+                  "amount": 0.5,
+                  "unitShort": "med",
+                  "unitLong": "medium"
+              },
+              "metric": {
+                  "amount": 0.5,
+                  "unitShort": "med",
+                  "unitLong": "medium"
+              }
+          }
+      },
+      {
+          "id": 9316,
+          "image": "strawberries.png",
+          "consistency": "SOLID",
+          "name": "Strawberry",
+          "amount": 6,
+          "unit": "",
+          "measures": {
+              "us": {
+                  "amount": 6,
+                  "unitShort": "",
+                  "unitLong": ""
+              },
+              "metric": {
+                  "amount": 6,
+                  "unitShort": "",
+                  "unitLong": ""
+              }
+          }
+      },
+      {
+          "id": 1001026,
+          "image": "shredded-mozarella.jpg",
+          "consistency": "SOLID",
+          "name": "Mozzarella Cheese",
+          "amount": 100,
+          "unit": "g",
+          "measures": {
+              "us": {
+                  "amount": 3.5,
+                  "unitShort": "oz",
+                  "unitLong": "ounces"
+              },
+              "metric": {
+                  "amount": 100,
+                  "unitShort": "g",
+                  "unitLong": "grams"
+              }
+          }
+      },
+      {
+          "id": 1053,
+          "image": "fluid-cream.png",
+          "consistency": "LIQUID",
+          "name": "Cream",
+          "amount": 0.25,
+          "unit": "cup",
+          "measures": {
+              "us": {
+                  "amount": 0.25,
+                  "unitShort": "cup",
+                  "unitLong": "cups"
+              },
+              "metric": {
+                  "amount": 59.147,
+                  "unitShort": "ml",
+                  "unitLong": "milliliters"
+              }
+          }
+      },
+      {
+          "id": 20444,
+          "image": "rice-white.jpg",
+          "consistency": "SOLID",
+          "name": "White Rice",
+          "amount": 1,
+          "unit": "cup",
+          "measures": {
+              "us": {
+                  "amount": 1,
+                  "unitShort": "cup",
+                  "unitLong": "cup"
+              },
+              "metric": {
+                  "amount": 200,
+                  "unitShort": "g",
+                  "unitLong": "grams"
+              }
+          }
+      },
+      {
+          "id": 2047,
+          "image": "salt.jpg",
+          "consistency": "SOLID",
+          "name": "Salt",
+          "amount": 1,
+          "unit": "teaspoon",
+          "measures": {
+              "us": {
+                  "amount": 1,
+                  "unitShort": "tsp",
+                  "unitLong": "teaspoon"
+              },
+              "metric": {
+                  "amount": 1,
+                  "unitShort": "tsp",
+                  "unitLong": "teaspoon"
+              }
+          }
+      },
+      {
+          "id": 1002030,
+          "image": "pepper.jpg",
+          "consistency": "SOLID",
+          "name": "Black Pepper",
+          "amount": 0.5,
+          "unit": "teaspoon",
+          "measures": {
+              "us": {
+                  "amount": 0.5,
+                  "unitShort": "tsp",
+                  "unitLong": "teaspoons"
+              },
+              "metric": {
+                  "amount": 0.5,
+                  "unitShort": "tsp",
+                  "unitLong": "teaspoons"
+              }
+          }
+      },
+      {
+          "id": 4053,
+          "image": "olive-oil.jpg",
+          "consistency": "LIQUID",
+          "name": "Olive Oil",
+          "amount": 2,
+          "unit": "tablespoons",
+          "measures": {
+              "us": {
+                  "amount": 2,
+                  "unitShort": "Tbsps",
+                  "unitLong": "tablespoons"
+              },
+              "metric": {
+                  "amount": 30,
+                  "unitShort": "ml",
+                  "unitLong": "milliliters"
+              }
+          }
+      },
+      {
+          "id": 4582,
+          "image": "vegetable-oil.jpg",
+          "consistency": "LIQUID",
+          "name": "Vegetable Oil",
+          "amount": 1,
+          "unit": "tablespoon",
+          "measures": {
+              "us": {
+                  "amount": 1,
+                  "unitShort": "Tbsp",
+                  "unitLong": "tablespoon"
+              },
+              "metric": {
+                  "amount": 15,
+                  "unitShort": "ml",
+                  "unitLong": "milliliters"
+              }
+          }
+      }
+  ],
+  "dishTypes": [
+      "lunch",
+      "main course",
+      "side dish"
+  ],
+  "diets": [
+      "pescetarian",
+      "lacto ovo vegetarian",
+      "gluten free"
+  ],
+  "occasions": [
+      "everyday",
+      "family gathering"
+  ],
+  "analyzedInstructions": [
+      {
+          "name": "MADE BY AI",
+          "steps": [
+              {
+                  "number": 1,
+                  "step": "Cook rice according to package instructions. Set aside.",
+                  "ingredients": [
+                      {
+                          "id": 20444,
+                          "name": "rice",
+                          "image": "rice-white.jpg"
+                      }
+                  ],
+                  "equipment": []
+              },
+              {
+                  "number": 2,
+                  "step": "Wash and chop all the vegetables (carrot, potato, tomato, bell pepper, cabbage, mushroom, asparagus, brussels sprouts, zucchini). Cut the orange and strawberries into slices.",
+                  "ingredients": [
+                      {
+                          "id": 11096,
+                          "name": "brussels sprouts",
+                          "image": "brussels-sprouts.jpg"
+                      },
+                      {
+                          "id": 11821,
+                          "name": "bell pepper",
+                          "image": "bell-pepper-orange.png"
+                      },
+                      {
+                          "id": 9316,
+                          "name": "strawberry",
+                          "image": "strawberries.png"
+                      },
+                      {
+                          "id": 11260,
+                          "name": "mushroom",
+                          "image": "mushrooms.png"
+                      },
+                      {
+                          "id": 11477,
+                          "name": "zucchini",
+                          "image": "zucchini.jpg"
+                      },
+                      {
+                          "id": 11109,
+                          "name": "cabbage",
+                          "image": "cabbage.jpg"
+                      },
+                      {
+                          "id": 1001,
+                          "name": "carrot",
+                          "image": "carrot.jpg"
+                      },
+                      {
+                          "id": 11529,
+                          "name": "tomato",
+                          "image": "tomato.png"
+                      },
+                      {
+                          "id": 11352,
+                          "name": "potato",
+                          "image": "potatoes-yukon-gold.png"
+                      },
+                      {
+                          "id": 11011,
+                          "name": "asparagus",
+                          "image": "asparagus.png"
+                      },
+                      {
+                          "id": 9206,
+                          "name": "orange",
+                          "image": "orange.png"
+                      }
+                  ],
+                  "equipment": []
+              },
+              {
+                  "number": 3,
+                  "step": "Heat vegetable oil in a large pan or wok. Add all the chopped vegetables (except for tomato) and stir-fry until tender-crisp, about 10-12 minutes.",
+                  "ingredients": [
+                      {
+                          "id": 11821,
+                          "name": "bell pepper",
+                          "image": "bell-pepper-orange.png"
+                      },
+                      {
+                          "id": 11260,
+                          "name": "mushroom",
+                          "image": "mushrooms.png"
+                      },
+                      {
+                          "id": 11477,
+                          "name": "zucchini",
+                          "image": "zucchini.jpg"
+                      },
+                      {
+                          "id": 11109,
+                          "name": "cabbage",
+                          "image": "cabbage.jpg"
+                      },
+                      {
+                          "id": 1001,
+                          "name": "carrot",
+                          "image": "carrot.jpg"
+                      },
+                      {
+                          "id": 11011,
+                          "name": "asparagus",
+                          "image": "asparagus.png"
+                      },
+                      {
+                          "id": 11352,
+                          "name": "potato",
+                          "image": "potatoes-yukon-gold.png"
+                      },
+                      {
+                          "id": 11096,
+                          "name": "brussels sprouts",
+                          "image": "brussels-sprouts.jpg"
+                      },
+                      {
+                          "id": 4582,
+                          "name": "vegetable oil",
+                          "image": "vegetable-oil.jpg"
+                      },
+                      {
+                          "id": 11529,
+                          "name": "tomato",
+                          "image": "tomato.png"
+                      }
+                  ],
+                  "equipment": [
+                      {
+                          "id": 404645,
+                          "name": "wok",
+                          "image": "wok.png"
+                      },
+                      {
+                          "id": 404645,
+                          "name": "pan",
+                          "image": "pan.png"
+                      }
+                  ]
+              },
+              {
+                  "number": 4,
+                  "step": "Add diced tomato, salt, and black pepper. Cook for another 3-5 minutes.",
+                  "ingredients": [
+                      {
+                          "id": 1002030,
+                          "name": "black pepper",
+                          "image": "pepper.jpg"
+                      },
+                      {
+                          "id": 2047,
+                          "name": "salt",
+                          "image": "salt.jpg"
+                      },
+                      {
+                          "id": 11529,
+                          "name": "tomato",
+                          "image": "tomato.png"
+                      }
+                  ],
+                  "equipment": []
+              },
+              {
+                  "number": 5,
+                  "step": "Stir in cream and mozzarella cheese until the cheese is melted and the sauce is smooth.",
+                  "ingredients": [
+                      {
+                          "id": 1001026,
+                          "name": "mozzarella cheese",
+                          "image": "shredded-mozarella.jpg"
+                      },
+                      {
+                          "id": 1053,
+                          "name": "cream",
+                          "image": "fluid-cream.png"
+                      }
+                  ],
+                  "equipment": []
+              },
+              {
+                  "number": 6,
+                  "step": "In a bowl, combine the cooked rice and the vegetable mixture. Drizzle with olive oil.",
+                  "ingredients": [
+                      {
+                          "id": 4053,
+                          "name": "olive oil",
+                          "image": "olive-oil.jpg"
+                      },
+                      {
+                          "id": 20444,
+                          "name": "rice",
+                          "image": "rice-white.jpg"
+                      }
+                  ],
+                  "equipment": [
+                      {
+                          "id": 404783,
+                          "name": "bowl",
+                          "image": "bowl.jpg"
+                      }
+                  ]
+              },
+              {
+                  "number": 7,
+                  "step": "Garnish with orange and strawberry slices before serving.",
+                  "ingredients": [
+                      {
+                          "id": 9316,
+                          "name": "strawberry",
+                          "image": "strawberries.png"
+                      },
+                      {
+                          "id": 9206,
+                          "name": "orange",
+                          "image": "orange.png"
+                      }
+                  ],
+                  "equipment": []
+              }
+          ]
+      }
+  ],
+  "summary": "This vibrant and flavorful Vegetable & Mozzarella Rice Bowl is packed with nutrients from a variety of vegetables including carrot, potato, tomato, bell pepper, cabbage, mushroom, asparagus, brussels sprouts, and zucchini. The addition of mozzarella cheese and cream creates a creamy and satisfying dish. The strawberry and orange garnish not only adds a touch of sweetness but also provides vitamin C. This dish is best enjoyed during lunchtime or as a light dinner. It is a popular choice for vegetarians and those seeking a healthy and colorful meal. Variations include using brown rice instead of white rice for added fiber, or adding a sprinkle of parmesan cheese for extra flavor. Optional wine pairings include a crisp Sauvignon Blanc or a light-bodied Pinot Grigio.",
+  "review": "This recipe is a delightful and easy way to incorporate a wide range of vegetables into your diet. The creamy mozzarella sauce complements the fresh vegetables perfectly, while the fruit garnish adds a refreshing sweetness."
+}

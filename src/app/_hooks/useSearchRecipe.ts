@@ -12,6 +12,7 @@ function useSearchRecipe({
   selectedIngredients,
   selectedFilters,
 }: props) {
+
   const stableSearchParams = useMemo(
     () => ({
       searchRecipeInput,
@@ -37,6 +38,7 @@ function useSearchRecipe({
         filterObject: selectedFilters,
         offSet: pageParam,
       }),
+
     getNextPageParam: (lastPage) => {
       const { offset, totalResults, number } = lastPage;
       const nextOffset = offset + number;
@@ -44,14 +46,16 @@ function useSearchRecipe({
     },
     initialPageParam: 0,
   });
-  const recipeData = data?.pages?.flatMap((page) => page.results) || [];
 
+  const recipeData= data?.pages?.flatMap((page) => page.results) || ['test'];
+  const apiError = data?.pages[0].error;
   return {
     isRefreshing,
     isLoadingRecipes,
     recipeData,
     fetchNextPage,
     hasNextPage,
+    apiError
   };
 }
 

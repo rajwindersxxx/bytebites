@@ -69,7 +69,7 @@ function RecipeFilterContext({ children }: props) {
 function useRecipeFilter() {
   const context = useContext(recipeFilterContext);
   if (!context) {
-    throw new Error("useAppContext must be used within an AppProvider");
+    throw new Error("useRecipeFilter must be used within an AppProvider");
   }
   return context;
 }

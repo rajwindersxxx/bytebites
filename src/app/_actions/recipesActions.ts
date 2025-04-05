@@ -1,11 +1,11 @@
 "use server";
 import { RANDOM_RECIPE_COUNT, USE_API } from "../_config/foodApiConfig";
 import { BUCKET_URL_AI } from "../_config/supabaseConfig";
-import { AiResponseSample } from "../_data/AiDataSamples";
 import {
   recipeData,
   recipeDetails,
   recipeSearchBased,
+  sampleAIrecipe,
   similarRecipe,
 } from "../_data/dataSamples";
 import { simulateApiRequest } from "../_helper/helper";
@@ -77,18 +77,15 @@ export async function makeARecipe(data: {
 }) {
   const ingredients = data.ingredient.map((item) => item.value).join(", ");
   if (!ingredients) return { error: "Recipe ingredient are required" };
-  let generatedAIData;
-  if (USE_API) {
-    generatedAIData = await askAi(makeAQuestion(ingredients));
-  } else {
-    generatedAIData = (await simulateApiRequest(AiResponseSample)) as string;
-  }
+  if (!USE_API) return await simulateApiRequest(sampleAIrecipe);
+
+  const generatedAIData = await askAi(makeAQuestion(ingredients));
   const errorSplit = generatedAIData.split("__");
   if (errorSplit[1]) {
     return { error: errorSplit[1] }; // Or another appropriate status code
   }
-  const generatedRecipe =  aiOutputToObject(generatedAIData);
-  if(!generatedRecipe?.title ) throw new Error('Failed to generate recipe ')
+  const generatedRecipe = aiOutputToObject(generatedAIData);
+  if (!generatedRecipe?.title) throw new Error("Failed to generate recipe ");
   const generatedRecipeImage = await generateAiImage(generatedRecipe.title);
   const imagePath = await uploadAIimage(
     generatedRecipeImage,

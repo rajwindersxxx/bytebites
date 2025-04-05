@@ -49,6 +49,7 @@ export type AnalyzedInstructions = {
   }[];
 };
 export type RecipeObject = {
+  error?: string;
   missedIngredientCount: number;
   userId?: number;
   missedIngredients?: { name: string }[];

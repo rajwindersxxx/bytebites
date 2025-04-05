@@ -13,7 +13,7 @@ export default function ExplorePage() {
     useSearchRecipe(filterParameters);
   return (
     <div
-      className={`h-[calc(100vh-3rem)] overflow-y-scroll p-4 `}
+      className={`h-[calc(100vh-3rem)] overflow-y-scroll p-4 relative`}
     >
       <div>
         <h2 className="pb-4 text-center text-2xl">Start Exploring Recipes</h2>
@@ -26,7 +26,7 @@ export default function ExplorePage() {
           }}
         />
         <SearchFilters />
-        <div className="relative mx-auto grid grid-cols-responsiveGrid place-items-center gap-2">
+        <div className=" mx-auto grid grid-cols-responsiveGrid place-items-center gap-2">
           <RecipeList />
         </div>
         <div className="text-center">

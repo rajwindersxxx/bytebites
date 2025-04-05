@@ -12,6 +12,7 @@ import { GUIStateProvider } from "./context/GUIStateProvider";
 import FloatingQuickActions from "./_components/ui/FloatingQuickActions";
 import Main from "./_components/layout/Main";
 import NotificationBox from "./_components/layout/NotificationBox";
+import { RecipeFilterContext } from "./context/RecipeFilterContext";
 
 const poppins = Poppins({
   variable: "--font-Poppins",
@@ -52,11 +53,13 @@ export default async function RootLayout({
               <RecipeDataContext>
                 <ShoppingContext>
                   <ModalProvider>
-                    <Header />
-                    <UserNavLinks />
-                    <FloatingQuickActions />
-                    <NotificationBox />
-                    <Main>{children}</Main>
+                    <RecipeFilterContext>
+                      <Header />
+                      <UserNavLinks />
+                      <FloatingQuickActions />
+                      <NotificationBox />
+                      <Main>{children}</Main>
+                    </RecipeFilterContext>
                   </ModalProvider>
                 </ShoppingContext>
               </RecipeDataContext>

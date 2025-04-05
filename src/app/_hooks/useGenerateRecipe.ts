@@ -6,11 +6,11 @@ import toast from "react-hot-toast";
 function useGenerateRecipe() {
   const { selectedIngredients } = useRecipeFilter();
   const ingredientArray = [...new Set(selectedIngredients)];
-
   const { mutate: generateRecipe, status } = useMutation({
     mutationFn: async () => {
       if (ingredientArray.length < 3)
         throw new Error("At Least 3 Ingredient required  ");
+      toast.success('Ai recipe take a while... ')
       return await makeARecipe({
         ingredient: ingredientArray.map((value) => ({ value })),
       });
@@ -22,9 +22,6 @@ function useGenerateRecipe() {
     onError: (error) => {
       toast.error(error.message);
     },
-    onSettled: () => {
-      toast.success('Ai recipe take a while... ')
-    }
   });
   return { generateRecipe, status };
 }
