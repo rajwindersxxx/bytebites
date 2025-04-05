@@ -6,11 +6,16 @@ import { auth } from "../_lib/Auth";
 import { Metadata } from "next";
 import DashBoardCards from "../_components/features/dashboard/DashBoardCards";
 import CartCard from "../_components/features/dashboard/CartCard";
+import { redirect } from "next/navigation";
 export const metadata: Metadata = {
   title: "Dashboard",
 };
 async function page() {
   const session = await auth();
+  if (!session?.user) {
+    redirect("/");
+  }
+
   return (
     <div className="px-8 py-4">
       <h2 className="p-4 text-center text-2xl capitalize">

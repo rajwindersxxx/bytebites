@@ -1,10 +1,16 @@
 import UpdateAccount from "@/app/_components/forms/UpdateAccount";
 import UpdatePassword from "@/app/_components/forms/UpdatePassword";
 import { Metadata } from "next";
+import { auth } from "../_lib/Auth";
+import { redirect } from "next/navigation";
 export const metadata: Metadata = {
   title: "Profile",
 };
-export default function ProfilePage() {
+export default async function ProfilePage() {
+    const session = await auth();
+    if (!session?.user) {
+      redirect("/");
+    }
   return (
     <div className="px-8 py-4">
       <h1 className="border-b p-2 text-center text-2xl">Update your Profile</h1>
