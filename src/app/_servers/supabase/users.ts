@@ -8,7 +8,13 @@ export async function getUserDB(email: string) {
     .from("bitebytesUser")
     .select()
     .eq("email", email);
-  return { data, error };
+
+  if (data && data?.length < 1) throw new Error("User not found");
+  if (error) {
+    console.error(error);
+    throw new Error("unable to fetch user");
+  }
+  return { data: data[0], error };
 }
 export async function getUserByIdDB(userId: number) {
   const { data, error } = await supabase
@@ -16,10 +22,10 @@ export async function getUserByIdDB(userId: number) {
     .select()
     .eq("id", userId)
     .single();
-    if(error){
-      console.error(error);
-      throw new Error('something went wrong')
-    }
+  if (error) {
+    console.error(error);
+    throw new Error("something went wrong");
+  }
   return data;
 }
 export async function createAUserDB(userData: {
@@ -31,11 +37,12 @@ export async function createAUserDB(userData: {
     .from("bitebytesUser")
     .insert([userData])
     .select();
+  if (error?.code === "23505") return {error: "User already Exists"};
   if (error) {
     console.error(error);
     throw new Error("Failed To Create User.");
   }
-  return data;
+  return data[0];
 }
 export async function UpdateUserDB(userData: UpdateProfileForm) {
   let inputObject: { username: string; image?: string } = {
@@ -89,7 +96,7 @@ export async function changeUserPasswordDB(
   inputData: UpdatePasswordForm,
   userId: number,
 ) {
-  const  userData  = await getUserByIdDB(userId);
+  const userData = await getUserByIdDB(userId);
   const match = await comparePassword(
     userData.password,
     inputData.currentPassword,

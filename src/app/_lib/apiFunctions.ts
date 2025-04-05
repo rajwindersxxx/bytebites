@@ -167,4 +167,3 @@ export function aiOutputToObject(aiResponse: string) {
 
 // const question = makeAQuestion('pizza, butter, milk')
 // const output = aiOutputToObject(question)
-// console.log(output)

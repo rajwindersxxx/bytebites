@@ -18,25 +18,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const { email: inputEmail, password: inputPassword } =
             await signInSchema.parseAsync(credentials);
           // Fetch user data from database
-          const { data, error } = await getUserDB(inputEmail);
-          if (error || !data || data.length === 0) {
-            console.error("User not found:", error);
-            throw new Error("Invalid credentials"); // Prevent error details from leaking
-          }
-          const { password: hashedPassword, id, username } = data[0];
+          const { data } = await getUserDB(inputEmail);
+          const { password: hashedPassword, id, username } = data;
           //  compare password with hash
           const isValidPassword = await bcrypt.compare(
             inputPassword,
             hashedPassword,
           );
-
           if (!isValidPassword) {
-            throw new Error("Invalid credentials"); // Prevent brute-force attacks
+            console.error("Password not match");
+            throw new Error("Invalid email or password");
           }
           return { id, name: username, email: inputEmail };
         } catch (error) {
-          console.error("Authentication error:", error);
-          throw new Error("Invalid login attempt");
+          console.error(error);
+          return null;
         }
       },
     }),

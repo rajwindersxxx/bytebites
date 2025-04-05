@@ -47,7 +47,7 @@ function MakeRecipeCard() {
     setIsLoading(false);
   }
   return (
-    <div className="col-span-1 flex-1 bg-slate-200 p-4 dark:bg-slate-800">
+    <div className="col-span-1 flex-1 bg-slate-200 p-4 dark:bg-slate-800 min-h-[248px]">
       <h1 className="mb-4 text-xl uppercase">make quick recipe</h1>
       <form
         className="flex flex-col justify-between"

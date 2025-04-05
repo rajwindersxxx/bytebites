@@ -6,7 +6,7 @@ function RequiredIngredientCard() {
   const {requiredIngredientsList} =  useRequiredIngredients();
 
   return (
-    <div className="col-span-1 rounded-md bg-indigo-400 p-4 dark:bg-indigo-900 flex-1">
+    <div className="col-span-1 rounded-md bg-indigo-400 p-4 dark:bg-indigo-900 flex-1 min-h-[248px]">
       <h2 className="mb-4 text-xl uppercase">Ingredient Required</h2>
       {requiredIngredientsList && requiredIngredientsList.length < 1 && (
         <div className="flex h-44 items-center justify-center">

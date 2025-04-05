@@ -9,7 +9,6 @@ import useUserAuth from "@/app/_hooks/useUserAuth";
 import { SignUpForm } from "@/app/types/FormData";
 
 function LoginForm() {
-  const [error, setError] = useState<boolean | string>(false);
   const [redirecting, setRedirecting] = useState(false);
 
   const {
@@ -18,15 +17,16 @@ function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<SignUpForm>();
-  const { userSignIn, isSignPending } = useUserAuth();
+  const { userSignIn, isSignPending, error } = useUserAuth();
   function handleSignIn(data: SignUpForm) {
     setRedirecting(true);
     userSignIn(data, {
-      onError: (error) => {
-        setError(error.message);
+      onError: () => {
         setRedirecting(false);
       },
-      onSuccess: () => setRedirecting(false),
+      onSuccess: () => {
+        setRedirecting(false);
+      },
     });
     reset();
   }

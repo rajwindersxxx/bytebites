@@ -22,7 +22,7 @@ function SignUpForm() {
     reset,
     formState: { errors },
   } = useForm<formData>();
-  const { userSignUp, isSignUpPending } = useUserAuth();
+  const { userSignUp, isSignUpPending ,error} = useUserAuth();
   function handleSignUp(data: formData) {
     setRedirecting(true);
     userSignUp(data, {
@@ -105,7 +105,7 @@ function SignUpForm() {
           <PrimaryButton type="submit" className="w-full">
             {redirecting ? <MiniSpinner /> : "sign-up"}
           </PrimaryButton>
-          {/* {error && <p className="p-4 text-center text-red-500">{error}</p>} */}
+          {error && <p className="p-4 text-center text-red-500">{error}</p>}
 
           <p className="!mt-4 text-center">
             Already have an account?{" "}

@@ -1,8 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
-import { loginUser, signUpUser } from "../_actions/userActions";
+import { signUpUser } from "../_actions/userActions";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useShoppingData } from "../context/ShoppingListContext";
+import { useState } from "react";
 
 type formData = {
   username: string;
@@ -11,15 +12,20 @@ type formData = {
   confirmPassword: string;
 };
 function useUserAuth() {
+  const [error, setError] = useState<boolean | string>(false);
+
   const { clearLocalStorageCart } = useShoppingData();
   const { update } = useSession();
   const router = useRouter();
 
   const { mutate: userSignIn, isPending: isSignPending } = useMutation({
-    mutationFn: (formData: formData) => loginUser(formData),
-    onSuccess: async () => {
+    mutationFn: (formData: formData) =>
+      signIn("credentials", { ...formData, redirect: false }),
+    onSuccess: async (output) => {
+      if (output?.error) return setError("invalid Email or Password");
       router.replace("/");
       await update(); //its update session after redirecting
+      setError(false);
     },
     onError: (error: { message: string }) => {
       console.error("Login error:", error);
@@ -27,16 +33,18 @@ function useUserAuth() {
   });
 
   const { mutate: userSignUp, isPending: isSignUpPending } = useMutation({
-    mutationFn: async (signupData: formData) => {
-      await signUpUser(signupData);
-      return signupData;
+    mutationFn: async (formData: formData) => {
+      const output = await signUpUser(formData);
+      return { formData, output };
     },
     onError: (error: unknown) => {
       console.error("Signup error:", error);
     },
-    onSuccess: async (formData) => {
+    onSuccess: async ({ formData, output }) => {
+      if (output?.error) return setError(output.error);
       signIn("credentials", { formData, redirect: false });
       router.replace("/");
+      await update();
     },
   });
   const { mutate: userSignOut } = useMutation({
@@ -53,6 +61,7 @@ function useUserAuth() {
     isSignPending,
     userSignOut,
     isSignUpPending,
+    error,
   };
 }
 

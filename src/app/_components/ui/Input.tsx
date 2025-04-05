@@ -34,6 +34,7 @@ const Input = React.forwardRef<HTMLInputElement, props>(function Input(
       defaultValue={defaultValue}
       disabled={disabled}
       ref={ref}
+      autoComplete="true"
       {...props}
       // required
     />
