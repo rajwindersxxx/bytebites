@@ -173,3 +173,11 @@ npm run dev
 6.Access the project at [http://localhost:3000](http://localhost:3000)
 
 ### LIVE DEMO Link: [https://bytebitesxxx.vercel.app](https://bytebitesxxx.vercel.app)
+
+## Important - Non-Commercial Use Only
+
+Please note that this project is intended for personal learning, experimentation, and non-commercial purposes.
+
+While contributions and modifications to the code are welcome, the design and overall concept should not be directly used or replicated for commercial ventures. We encourage you to build upon the ideas and code to create your own unique projects with distinct designs.
+
+Thank you for respecting these guidelines.
