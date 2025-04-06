@@ -3,7 +3,7 @@ import {
   ExtendedIngredients,
   RecipeObject,
   UserShoppingList,
-} from "../types/RecipeTypes";
+} from "../_types/RecipeTypes";
 import { endOfDay, isWithinInterval, startOfDay } from "date-fns";
 export function simulateApiRequest(data: unknown) {
   return new Promise((resolve) => {

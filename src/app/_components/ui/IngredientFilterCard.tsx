@@ -1,18 +1,18 @@
 import { HiChevronUp } from "react-icons/hi";
 import SearchOption from "./SearchOption";
-import { IngredientListTags } from "@/app/types/RecipeTypes";
+import { IngredientListTags } from "@/app/_types/RecipeTypes";
 import { useEffect, useState } from "react";
-import { useRecipeFilter } from "@/app/context/RecipeFilterContext";
+import { useRecipeFilter } from "@/app/_context/RecipeFilterContext";
 
 interface Props {
   item: IngredientListTags;
 }
 
-function IngredientFilterCard({ item  }: Props) {
+function IngredientFilterCard({ item }: Props) {
   const { type, ingredients } = item;
   const [displayData, setDisplayData] = useState<string[]>([]);
   const [isCollapseCard, setCollapseCard] = useState(true);
-  const {selectedIngredients, toggleSelection} =  useRecipeFilter();
+  const { selectedIngredients, toggleSelection } = useRecipeFilter();
   useEffect(() => {
     if (isCollapseCard) {
       setDisplayData([...ingredients.slice(0, 7)]);
@@ -27,7 +27,9 @@ function IngredientFilterCard({ item  }: Props) {
         <div className="mb-1 flex h-8 items-center justify-between border-b border-accent">
           <h2>{type}</h2>
           <button onClick={() => setCollapseCard((prevValue) => !prevValue)}>
-            <HiChevronUp className={`h-6 w-6 transition-transform ${isCollapseCard ? "" : "rotate-180"}`} />
+            <HiChevronUp
+              className={`h-6 w-6 transition-transform ${isCollapseCard ? "" : "rotate-180"}`}
+            />
           </button>
         </div>
 
@@ -46,7 +48,7 @@ function IngredientFilterCard({ item  }: Props) {
         {/* Show "more" button only if collapsed */}
         {isCollapseCard && ingredients.length > 7 && (
           <button
-            className="rounded-full bg-natural-cream p-2 mt-2"
+            className="mt-2 rounded-full bg-natural-cream p-2"
             onClick={() => setCollapseCard(false)}
           >{`${ingredients.length - 7} more`}</button>
         )}

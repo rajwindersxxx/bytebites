@@ -2,7 +2,7 @@
 import Input from "../ui/Input";
 import SearchFilters from "../ui/SearchFilters";
 import RecipeList from "../features/recipe/RecipeList";
-import { useRecipeFilter } from "@/app/context/RecipeFilterContext";
+import { useRecipeFilter } from "@/app/_context/RecipeFilterContext";
 import useSearchRecipe from "@/app/_hooks/useSearchRecipe";
 import MiniSpinner from "../ui/MiniSpinner";
 
@@ -12,9 +12,7 @@ export default function ExplorePage() {
   const { fetchNextPage, hasNextPage, isRefreshing } =
     useSearchRecipe(filterParameters);
   return (
-    <div
-      className={`h-[calc(100vh-3rem)] overflow-y-scroll p-4 relative`}
-    >
+    <div className={`relative h-[calc(100vh-3rem)] overflow-y-scroll p-4`}>
       <div>
         <h2 className="pb-4 text-center text-2xl">Start Exploring Recipes</h2>
         <Input
@@ -26,7 +24,7 @@ export default function ExplorePage() {
           }}
         />
         <SearchFilters />
-        <div className=" mx-auto grid grid-cols-responsiveGrid place-items-center gap-2">
+        <div className="mx-auto grid grid-cols-responsiveGrid place-items-center gap-2">
           <RecipeList />
         </div>
         <div className="text-center">

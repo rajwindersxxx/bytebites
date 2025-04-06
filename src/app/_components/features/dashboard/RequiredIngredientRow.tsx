@@ -1,7 +1,7 @@
 import { memo, useState } from "react";
-import useRequiredIngredients from "../_hooks/useRequiredIngredients";
-import { useUserShoppingList } from "../_hooks/useUserShoppingList";
-import { ExtendedIngredients } from "../types/RecipeTypes";
+import useRequiredIngredients from "../../../_hooks/useRequiredIngredients";
+import { useUserShoppingList } from "../../../_hooks/useUserShoppingList";
+import { ExtendedIngredients } from "../../../_types/RecipeTypes";
 
 interface props {
   item: ExtendedIngredients;

@@ -12,7 +12,7 @@ import {
   RecipeObject,
   ExtendedIngredients,
   UserShoppingList,
-} from "../types/RecipeTypes";
+} from "../_types/RecipeTypes";
 
 export async function makeAShoppingList(
   recipeData: RecipeObject[],

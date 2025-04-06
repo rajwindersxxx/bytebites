@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { signUpUser } from "../_actions/userActions";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useShoppingData } from "../context/ShoppingListContext";
+import { useShoppingData } from "../_context/ShoppingListContext";
 import { useState } from "react";
 
 type formData = {

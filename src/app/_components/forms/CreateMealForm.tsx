@@ -2,7 +2,7 @@ import { DayPicker } from "react-day-picker";
 import { PrimaryButton, SecondaryButton } from "../ui/Buttons";
 import { useModal } from "../ui/Modal";
 import { Controller, useForm } from "react-hook-form";
-import { RecipeObject } from "../../types/RecipeTypes";
+import { RecipeObject } from "../../_types/RecipeTypes";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import useSavedMeals from "../../_hooks/useSavedMeals";

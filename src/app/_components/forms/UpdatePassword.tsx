@@ -2,7 +2,7 @@
 import { useForm } from "react-hook-form";
 import { PrimaryButton } from "../ui/Buttons";
 import Input from "../ui/Input";
-import { UpdatePasswordForm } from "../../types/FormData";
+import { UpdatePasswordForm } from "../../_types/FormData";
 import { changePassword } from "@/app/_actions/userActions";
 import { useMutation } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";

@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import { HiOutlinePlusCircle } from "react-icons/hi";
-import { useShoppingData } from "../../context/ShoppingListContext";
-import { ExtendedIngredients } from "../../types/RecipeTypes";
+import { useShoppingData } from "../../_context/ShoppingListContext";
+import { ExtendedIngredients } from "../../_types/RecipeTypes";
 import { useSession } from "next-auth/react";
 
 interface props {
@@ -14,9 +14,11 @@ function IngredientCartButtons({ ingredient }: props) {
   const { addIngredientToCart } = useShoppingData();
   return (
     <div>
-      {session.data?.user && <button onClick={() => addIngredientToCart(ingredient)}>
-        <HiOutlinePlusCircle className="h-6 w-6 stroke-natural-terracotta transition-all hover:scale-110 active:scale-125 dark:stroke-accent" />
-      </button>}
+      {session.data?.user && (
+        <button onClick={() => addIngredientToCart(ingredient)}>
+          <HiOutlinePlusCircle className="h-6 w-6 stroke-natural-terracotta transition-all hover:scale-110 active:scale-125 dark:stroke-accent" />
+        </button>
+      )}
     </div>
   );
 }

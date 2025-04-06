@@ -1,5 +1,5 @@
-'use server'
-import { MealPlanning } from "@/app/types/FormData";
+"use server";
+import { MealPlanning } from "@/app/_types/FormData";
 import { supabase } from "./supabase";
 import { getIngredientsIdsFormDB } from "./recipes";
 import { addDays, formatISO } from "date-fns";

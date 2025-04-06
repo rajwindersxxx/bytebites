@@ -1,18 +1,23 @@
 import RecipeCard from "./RecipeCard";
 import Spinner from "../../ui/Spinner";
-import { RecipeObject } from "../../../types/RecipeTypes";
-import { useRecipeFilter } from "@/app/context/RecipeFilterContext";
+import { RecipeObject } from "../../../_types/RecipeTypes";
+import { useRecipeFilter } from "@/app/_context/RecipeFilterContext";
 import useSearchRecipe from "@/app/_hooks/useSearchRecipe";
 
 export default function RecipeList() {
   const { filterParameters } = useRecipeFilter();
-  const { recipeData, isLoadingRecipes , apiError} = useSearchRecipe(filterParameters);
+  const { recipeData, isLoadingRecipes, apiError } =
+    useSearchRecipe(filterParameters);
 
-  if (isLoadingRecipes) return <Spinner className="absolute p-4 top-[40%] " />;
+  if (isLoadingRecipes) return <Spinner className="absolute top-[40%] p-4" />;
   if (recipeData.length < 1)
-    return <p className=" p-4 text-2xl absolute top-1/2">🍽️ No recipe found , try AI </p>;
+    return (
+      <p className="absolute top-1/2 p-4 text-2xl">
+        🍽️ No recipe found , try AI{" "}
+      </p>
+    );
   if (apiError)
-    return <p className=" p-4 text-2xl absolute top-1/2">😔 {apiError} </p>;
+    return <p className="absolute top-1/2 p-4 text-2xl">😔 {apiError} </p>;
   return (
     <>
       {recipeData.length > 0 &&

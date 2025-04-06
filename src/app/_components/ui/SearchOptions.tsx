@@ -1,4 +1,4 @@
-import { Category } from "@/app/types/RecipeTypes";
+import { Category } from "@/app/_types/RecipeTypes";
 import SearchOptionsGroup from "./SearchOptionsGroup";
 
 interface Props {
@@ -7,7 +7,6 @@ interface Props {
 }
 
 function SearchOptions({ categories, openedCategories }: Props) {
-
   return (
     <>
       {categories.map((item) => (

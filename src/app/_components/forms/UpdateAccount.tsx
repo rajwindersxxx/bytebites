@@ -5,7 +5,7 @@ import Input from "../ui/Input";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { updateUser } from "@/app/_actions/userActions";
-import { UpdateProfileForm } from "../../types/FormData";
+import { UpdateProfileForm } from "../../_types/FormData";
 import toast from "react-hot-toast";
 function UpdateAccount() {
   const { data, update } = useSession();

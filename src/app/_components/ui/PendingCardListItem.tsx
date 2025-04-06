@@ -1,6 +1,6 @@
 import { useUserShoppingList } from "@/app/_hooks/useUserShoppingList";
 import { INGREDIENT_IMAGE_URL } from "../../_config/foodApiConfig";
-import { UserShoppingList } from "../../types/RecipeTypes";
+import { UserShoppingList } from "../../_types/RecipeTypes";
 import { ImageElement } from "./ImageElement";
 import { useState } from "react";
 interface props {

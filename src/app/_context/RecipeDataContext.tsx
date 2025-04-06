@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import { createContext } from "react";
 import { useLikedRecipes } from "../_hooks/useLikedRecipes";
 import { useSavedRecipes } from "../_hooks/useSavedRecipes";
-import { RecipeObject } from "../types/RecipeTypes";
+import { RecipeObject } from "../_types/RecipeTypes";
 import { useGenerateRecipe } from "../_hooks/useGenerateRecipe";
 interface props {
   children: React.ReactNode;

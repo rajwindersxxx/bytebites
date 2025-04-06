@@ -1,6 +1,6 @@
 "use client";
 
-import { useRecipeData } from "@/app/context/RecipeDataContext";
+import { useRecipeData } from "@/app/_context/RecipeDataContext";
 import Spinner from "../../ui/Spinner";
 import RecipeCard from "../recipe/RecipeCard";
 

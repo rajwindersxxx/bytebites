@@ -10,7 +10,7 @@ import {
   UpdateProfileForm,
   UpdatePasswordForm,
   SignUpForm,
-} from "../types/FormData";
+} from "../_types/FormData";
 
 export async function signUpUser(formData: SignUpForm) {
   const { email, password, confirmPassword, username } = formData;

@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import { Poppins, Quicksand } from "next/font/google";
 import "./globals.css";
-import { QueryProvider } from "./context/providers";
-import SessionAuthProvider from "./context/SessionAuthProvider";
-import { RecipeDataContext } from "./context/RecipeDataContext";
-import { ShoppingContext } from "./context/ShoppingListContext";
+import { QueryProvider } from "./_context/providers";
+import SessionAuthProvider from "./_context/SessionAuthProvider";
+import { RecipeDataContext } from "./_context/RecipeDataContext";
+import { ShoppingContext } from "./_context/ShoppingListContext";
 import { ModalProvider } from "./_components/ui/Modal";
 import Header from "./_components/layout/Header";
 import UserNavLinks from "./_components/ui/UserNavLinks";
-import { GUIStateProvider } from "./context/GUIStateProvider";
+import { GUIStateProvider } from "./_context/GUIStateProvider";
 import FloatingQuickActions from "./_components/ui/FloatingQuickActions";
 import Main from "./_components/layout/Main";
 import NotificationBox from "./_components/layout/NotificationBox";
-import { RecipeFilterContext } from "./context/RecipeFilterContext";
+import { RecipeFilterContext } from "./_context/RecipeFilterContext";
 
 const poppins = Poppins({
   variable: "--font-Poppins",

@@ -1,12 +1,12 @@
 "use client";
 // todo: add search ingredient filter later
-import { useGUIState } from "../../context/GUIStateProvider";
-import { IngredientListTags } from "../../types/RecipeTypes";
+import { useGUIState } from "../../_context/GUIStateProvider";
+import { IngredientListTags } from "../../_types/RecipeTypes";
 import { PrimaryButton, SecondaryButton } from "../ui/Buttons";
 import IngredientFilter from "../ui/IngredientFilter";
 import Link from "next/link";
 import MiniSpinner from "../ui/MiniSpinner";
-import { useRecipeData } from "@/app/context/RecipeDataContext";
+import { useRecipeData } from "@/app/_context/RecipeDataContext";
 interface props {
   ingredientList: IngredientListTags[];
 }

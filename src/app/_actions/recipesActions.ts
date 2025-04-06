@@ -20,7 +20,7 @@ import {
 } from "../_servers/foodApi";
 import { uploadAIimage } from "../_servers/supabase/bucket";
 import { getRecipeFormDB } from "../_servers/supabase/recipes";
-import { RecipeObject, SearchData } from "../types/RecipeTypes";
+import { RecipeObject, SearchData } from "../_types/RecipeTypes";
 
 export async function getSearchedRecipeData({
   query,

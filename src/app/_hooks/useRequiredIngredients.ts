@@ -4,7 +4,7 @@ import {
   removeUpcomingIngredientItem,
 } from "../_servers/supabase/mealPlanning";
 import { useSession } from "next-auth/react";
-import { ExtendedIngredients, RecipeObject } from "../types/RecipeTypes";
+import { ExtendedIngredients, RecipeObject } from "../_types/RecipeTypes";
 
 function useRequiredIngredients() {
   const queryclient = useQueryClient();
@@ -29,7 +29,7 @@ function useRequiredIngredients() {
       queryclient.invalidateQueries({ queryKey: ["upComingIngredients"] });
     },
   });
-  return { removeUpcomingIngredient, requiredIngredientsList , IngredientData };
+  return { removeUpcomingIngredient, requiredIngredientsList, IngredientData };
 }
 
 export default useRequiredIngredients;

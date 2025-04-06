@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { INGREDIENT_IMAGE_URL } from "../../_config/foodApiConfig";
 import { ImageElement } from "./ImageElement";
 import IngredientCartButtons from "./IngredientCartButtons";
-import { ExtendedIngredients } from "../../types/RecipeTypes";
+import { ExtendedIngredients } from "../../_types/RecipeTypes";
 import { textToEmoji } from "../../_helper/clientheper";
 
 interface props {

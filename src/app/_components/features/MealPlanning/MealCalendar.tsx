@@ -11,7 +11,7 @@ import ConfirmationModal from "../../forms/ConfirmationModal";
 import { useRef, useState } from "react";
 import RecipeCard from "../recipe/RecipeCard";
 import { floatingToolTip } from "../../../_helper/clientheper";
-import { RecipeObject } from "../../../types/RecipeTypes";
+import { RecipeObject } from "../../../_types/RecipeTypes";
 interface props {
   initialView?: string;
   className?: string;
@@ -86,7 +86,6 @@ function MealCalendar({
         </div>
       </div>
       <FullCalendar
-
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView={initialView}
         events={newData}

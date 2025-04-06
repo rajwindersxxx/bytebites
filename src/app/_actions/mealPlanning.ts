@@ -4,7 +4,7 @@ import {
   AddMealPlanningToDB,
   removeMealPlanningFromDB,
 } from "../_servers/supabase/mealPlanning";
-import { MealPlanning } from "../types/FormData";
+import { MealPlanning } from "../_types/FormData";
 
 export async function getMealPlannings(userId: number) {
   return await getMealPlanningFromDB(userId);

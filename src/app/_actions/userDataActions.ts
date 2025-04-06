@@ -6,7 +6,7 @@ import {
   getSavedRecipeSDB,
   getLikedRecipesDB,
 } from "../_servers/supabase/userData";
-import { RecipeObject } from "../types/RecipeTypes";
+import { RecipeObject } from "../_types/RecipeTypes";
 
 export async function addRemoveSavedRecipe(
   recipeId: number,

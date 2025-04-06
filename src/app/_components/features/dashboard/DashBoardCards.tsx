@@ -5,7 +5,7 @@ import {
   HiOutlineCalendar,
   HiOutlineShoppingCart,
 } from "react-icons/hi";
-import { useRecipeData } from "@/app/context/RecipeDataContext";
+import { useRecipeData } from "@/app/_context/RecipeDataContext";
 import { useUserShoppingList } from "@/app/_hooks/useUserShoppingList";
 import useSavedMeals from "@/app/_hooks/useSavedMeals";
 import DashboardCountCard from "../../ui/DashboardCountCard";

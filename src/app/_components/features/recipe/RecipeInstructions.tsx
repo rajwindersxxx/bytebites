@@ -1,5 +1,5 @@
 import React from "react";
-import { AnalyzedInstructions } from "../../../types/RecipeTypes";
+import { AnalyzedInstructions } from "../../../_types/RecipeTypes";
 import { uniqueId } from "lodash";
 import AnalyzedInstruction from "./AnalyzedInstruction";
 

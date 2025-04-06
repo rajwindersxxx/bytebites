@@ -7,7 +7,7 @@ import {
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
 import { useModal } from "../_components/ui/Modal";
-import { MealPlanning } from "../types/FormData";
+import { MealPlanning } from "../_types/FormData";
 type RemoveMeal = {
   userId: number;
   mealType: string;

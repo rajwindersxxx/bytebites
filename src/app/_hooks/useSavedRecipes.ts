@@ -4,7 +4,7 @@ import {
   getSavedRecipes,
 } from "../_actions/userDataActions";
 import { useState } from "react";
-import { RecipeObject } from "../types/RecipeTypes";
+import { RecipeObject } from "../_types/RecipeTypes";
 import toast from "react-hot-toast";
 import { getSessionStorage, setLocalStorage } from "../_helper/clientheper";
 export function useSavedRecipes(userId: number) {

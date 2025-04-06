@@ -7,14 +7,18 @@ import {
 } from "../_actions/shopping";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
-import { useShoppingData } from "../context/ShoppingListContext";
-import { ExtendedIngredients, UserShoppingList } from "../types/RecipeTypes";
+import { useShoppingData } from "../_context/ShoppingListContext";
+import { ExtendedIngredients, UserShoppingList } from "../_types/RecipeTypes";
 
 export function useUserShoppingList() {
   const session = useSession();
   const userId = session.data?.user?.id;
   const QueryClient = useQueryClient();
-  const { data: userShoppingList, error, isLoading } = useQuery({
+  const {
+    data: userShoppingList,
+    error,
+    isLoading,
+  } = useQuery({
     queryFn: () => {
       if (!userId) throw new Error("userId undefined ");
       return getUserShoppingList(Number(userId));
@@ -43,30 +47,34 @@ export function useUserShoppingList() {
     },
   });
   // this is only for one item to cart
-  const { mutate: addIngredientToCart, isPending: addingIngredientToCart } = useMutation({
-    mutationFn: ({
-      storedList,
-      ingredientCart,
-    }: {
-      storedList: UserShoppingList[] | void;
-      ingredientCart: ExtendedIngredients[];
-    }) =>
-      makeAShoppingList(
-        recipeInCart, //this is empty in this case
-        ingredientCart,
-        Number(userId),
+  const { mutate: addIngredientToCart, isPending: addingIngredientToCart } =
+    useMutation({
+      mutationFn: ({
         storedList,
-      ),
-    onError: (error) => {
-      toast.error(error.message);
-    },
-    onSuccess: () => {
-      toast.success("Shopping List created successfully");
-      QueryClient.invalidateQueries({ queryKey: ["userShoppingList"] });
-      clearLocalStorageCart();
-    },
-  });
-  const { mutate: removeUserShoppingItem, isPending: removingUserShoppingItem } = useMutation({
+        ingredientCart,
+      }: {
+        storedList: UserShoppingList[] | void;
+        ingredientCart: ExtendedIngredients[];
+      }) =>
+        makeAShoppingList(
+          recipeInCart, //this is empty in this case
+          ingredientCart,
+          Number(userId),
+          storedList,
+        ),
+      onError: (error) => {
+        toast.error(error.message);
+      },
+      onSuccess: () => {
+        toast.success("Shopping List created successfully");
+        QueryClient.invalidateQueries({ queryKey: ["userShoppingList"] });
+        clearLocalStorageCart();
+      },
+    });
+  const {
+    mutate: removeUserShoppingItem,
+    isPending: removingUserShoppingItem,
+  } = useMutation({
     mutationFn: (ingredientId: number) =>
       removeShoppingListItem(ingredientId, Number(userId)),
     onSuccess: () => {
@@ -78,23 +86,24 @@ export function useUserShoppingList() {
     },
   });
 
-  const { mutate: updateShoppingStatus, isPending: updatingShoppingStatus  } = useMutation({
-    mutationFn: ({
-      ingredientId,
-      purchasedStatus,
-    }: {
-      ingredientId: number;
-      purchasedStatus: boolean;
-    }) =>
-      updateShoppingItemStates(ingredientId, Number(userId), purchasedStatus),
-    onSuccess: () => {
-      toast.success("Item status updated ");
-      QueryClient.invalidateQueries({ queryKey: ["userShoppingList"] });
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
+  const { mutate: updateShoppingStatus, isPending: updatingShoppingStatus } =
+    useMutation({
+      mutationFn: ({
+        ingredientId,
+        purchasedStatus,
+      }: {
+        ingredientId: number;
+        purchasedStatus: boolean;
+      }) =>
+        updateShoppingItemStates(ingredientId, Number(userId), purchasedStatus),
+      onSuccess: () => {
+        toast.success("Item status updated ");
+        QueryClient.invalidateQueries({ queryKey: ["userShoppingList"] });
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
   return {
     userShoppingList,
     error,

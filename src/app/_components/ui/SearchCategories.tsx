@@ -1,12 +1,12 @@
-import { Category } from "@/app/types/RecipeTypes";
+import { Category } from "@/app/_types/RecipeTypes";
 import MiniSpinner from "./MiniSpinner";
-import { useRecipeFilter } from "@/app/context/RecipeFilterContext";
+import { useRecipeFilter } from "@/app/_context/RecipeFilterContext";
 import useSearchRecipe from "@/app/_hooks/useSearchRecipe";
 
 interface props {
   categories: Category[];
   handleOptions: (category: string) => void;
-  openedCategories: string; 
+  openedCategories: string;
 }
 function SearchCategories({
   categories,

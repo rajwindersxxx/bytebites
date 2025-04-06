@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { createContext } from "react";
 import lodash from "lodash";
 import { getRecipeDetailsData } from "../_actions/recipesActions";
-import { ExtendedIngredients, RecipeObject } from "../types/RecipeTypes";
+import { ExtendedIngredients, RecipeObject } from "../_types/RecipeTypes";
 import toast from "react-hot-toast";
 import { getLocalStorage, setLocalStorage } from "../_helper/clientheper";
 interface props {
@@ -30,14 +30,15 @@ const shoppingContext = createContext<ShoppingContextType | undefined>(
 
 function ShoppingContext({ children }: props) {
   const [recipeInCart, setRecipeInCart] = useState<RecipeObject[]>([]);
-  const [ingredientCart, setIngredientCart] = useState<ExtendedIngredients[]>([]);
+  const [ingredientCart, setIngredientCart] = useState<ExtendedIngredients[]>(
+    [],
+  );
   const [initialRecipeCartState, setInitialRecipeCartState] = useState<
-  RecipeObject[]
+    RecipeObject[]
   >([]);
   useEffect(() => {
     const storedRecipeCart = getLocalStorage("");
-    const storedIngredientCart =
-      getLocalStorage("ingredientCart");
+    const storedIngredientCart = getLocalStorage("ingredientCart");
     const initialCartState = getLocalStorage("initialCartState");
     setRecipeInCart(storedRecipeCart || []);
     setIngredientCart(storedIngredientCart || []);
@@ -52,7 +53,7 @@ function ShoppingContext({ children }: props) {
     if (ingredientCart.length > -1)
       setLocalStorage("ingredientCart", ingredientCart);
   }, [ingredientCart]);
-  
+
   function addIngredientToCart(
     ingredientObject: ExtendedIngredients,
     updateQuantity?: string,

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import RecipeCard from "./RecipeCard";
 import { getRecipeByIngredientsData } from "@/app/_actions/recipesActions";
-import { ExtendedIngredients, RecipeObject } from "../../../types/RecipeTypes";
+import { ExtendedIngredients, RecipeObject } from "../../../_types/RecipeTypes";
 
 interface props {
   extendedIngredients: ExtendedIngredients[];
@@ -22,7 +22,9 @@ function IngredientBasedRecipes({ extendedIngredients }: props) {
   if (error)
     return (
       <div className="relative">
-        <p className="absolute top-1/2 left-1/2 -translate-x-1/2  p-4 text-xl text-center">😔 {error} </p>
+        <p className="absolute left-1/2 top-1/2 -translate-x-1/2 p-4 text-center text-xl">
+          😔 {error}{" "}
+        </p>
       </div>
     );
   return (

@@ -1,4 +1,4 @@
-import { UpdatePasswordForm, UpdateProfileForm } from "@/app/types/FormData";
+import { UpdatePasswordForm, UpdateProfileForm } from "@/app/_types/FormData";
 import { supabase } from "./supabase";
 import { BUCKET_URL } from "@/app/_config/supabaseConfig";
 import { comparePassword, generateHash } from "@/app/_helper/helper";
@@ -37,7 +37,7 @@ export async function createAUserDB(userData: {
     .from("bitebytesUser")
     .insert([userData])
     .select();
-  if (error?.code === "23505") return {error: "User already Exists"};
+  if (error?.code === "23505") return { error: "User already Exists" };
   if (error) {
     console.error(error);
     throw new Error("Failed To Create User.");

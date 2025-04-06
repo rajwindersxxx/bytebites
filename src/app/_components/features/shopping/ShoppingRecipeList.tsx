@@ -1,8 +1,8 @@
 import { HiMinus, HiOutlinePlusSm, HiOutlineTrash } from "react-icons/hi";
 
 import { uniqueId } from "lodash";
-import { RecipeObject } from "@/app/types/RecipeTypes";
-import { useShoppingData } from "@/app/context/ShoppingListContext";
+import { RecipeObject } from "@/app/_types/RecipeTypes";
+import { useShoppingData } from "@/app/_context/ShoppingListContext";
 import { ImageElement } from "../../ui/ImageElement";
 import { INGREDIENT_IMAGE_URL } from "@/app/_config/foodApiConfig";
 interface props {

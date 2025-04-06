@@ -6,7 +6,7 @@ import Input from "../ui/Input";
 import { PrimaryButton } from "../ui/Buttons";
 import MiniSpinner from "../ui/MiniSpinner";
 import useUserAuth from "@/app/_hooks/useUserAuth";
-import { SignUpForm } from "@/app/types/FormData";
+import { SignUpForm } from "@/app/_types/FormData";
 
 function LoginForm() {
   const [redirecting, setRedirecting] = useState(false);

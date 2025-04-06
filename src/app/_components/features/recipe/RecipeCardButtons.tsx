@@ -3,13 +3,13 @@ import {
   HiOutlineShoppingCart,
   HiOutlineThumbUp,
 } from "react-icons/hi";
-import { useRecipeData } from "../../../context/RecipeDataContext";
+import { useRecipeData } from "../../../_context/RecipeDataContext";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { useShoppingData } from "../../../context/ShoppingListContext";
+import { useShoppingData } from "../../../_context/ShoppingListContext";
 import { GrTableAdd } from "react-icons/gr";
 import { useModal } from "../../ui/Modal";
-import { RecipeObject } from "../../../types/RecipeTypes";
+import { RecipeObject } from "../../../_types/RecipeTypes";
 import toast from "react-hot-toast";
 import MealPlaningModal from "../MealPlanning/MealPlaningModal";
 import ConfirmationModal from "../../forms/ConfirmationModal";

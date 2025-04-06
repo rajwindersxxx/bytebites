@@ -1,7 +1,7 @@
 import React from "react";
 
 import { uniqueId } from "lodash";
-import { AnalyzedInstructions } from "@/app/types/RecipeTypes";
+import { AnalyzedInstructions } from "@/app/_types/RecipeTypes";
 import RecipeInstruction from "./RecipeInstruction";
 
 interface props {

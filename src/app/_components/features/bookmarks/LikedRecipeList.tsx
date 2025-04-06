@@ -1,5 +1,5 @@
 "use client";
-import { useRecipeData } from "../../../context/RecipeDataContext";
+import { useRecipeData } from "../../../_context/RecipeDataContext";
 import RecipeCard from "../recipe/RecipeCard";
 function LikedRecipeList() {
   const { likedRecipesData } = useRecipeData();

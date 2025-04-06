@@ -1,5 +1,5 @@
 "use client";
-import { useGUIState } from "@/app/context/GUIStateProvider";
+import { useGUIState } from "@/app/_context/GUIStateProvider";
 import { usePathname } from "next/navigation";
 import { HiMenu } from "react-icons/hi";
 

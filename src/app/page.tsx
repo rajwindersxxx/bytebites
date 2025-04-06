@@ -1,19 +1,17 @@
 import IngredientPanel from "./_components/layout/IngredientPanel";
 import ExplorePage from "./_components/layout/ExplorePage";
 import { getIngredientListDB } from "./_servers/supabase/recipeFilter";
-import { IngredientListDB } from "./types/RecipeTypes";
+import { IngredientListDB } from "./_types/RecipeTypes";
 export default async function page() {
   const data = await getIngredientListDB();
   const ingredientList = groupIngredientsByType(data);
   return (
     <div className="grid grid-cols-[1fr_auto]">
-        <ExplorePage />
-        <IngredientPanel ingredientList={ingredientList} />
+      <ExplorePage />
+      <IngredientPanel ingredientList={ingredientList} />
     </div>
   );
 }
-
-
 
 function groupIngredientsByType(ingredientsDB: IngredientListDB[]) {
   return Object.entries(

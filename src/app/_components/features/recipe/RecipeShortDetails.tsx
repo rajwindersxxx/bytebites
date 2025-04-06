@@ -1,6 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { useRecipeData } from "../../../context/RecipeDataContext";
+import { useRecipeData } from "../../../_context/RecipeDataContext";
 import RecipeSummary from "../../ui/RecipeSummary";
 import Ingredients from "../../ui/Ingredients";
 import Link from "next/link";

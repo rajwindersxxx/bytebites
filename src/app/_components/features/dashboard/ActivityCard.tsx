@@ -2,7 +2,7 @@
 import { compareDesc, isWithinInterval, parseISO, subDays } from "date-fns";
 import useSavedMeals from "../../../_hooks/useSavedMeals";
 import { useUserShoppingList } from "../../../_hooks/useUserShoppingList";
-import { useRecipeData } from "../../../context/RecipeDataContext";
+import { useRecipeData } from "../../../_context/RecipeDataContext";
 import { INGREDIENT_IMAGE_URL } from "../../../_config/foodApiConfig";
 import ActivityCardListItem from "./ActivityCardListItem";
 
@@ -37,7 +37,7 @@ function ActivityCard() {
   }
 
   return (
-    <div className="col-span-1 rounded-md bg-green-300 p-4 dark:bg-green-900 flex-1 min-h-[248px]">
+    <div className="col-span-1 min-h-[248px] flex-1 rounded-md bg-green-300 p-4 dark:bg-green-900">
       <h2 className="pb-4 text-xl uppercase"> Activity</h2>
       {!(resentMeal || recentSaved || pendingItem || purchasedItem) && (
         <div className="flex h-44 items-center justify-center">

@@ -1,4 +1,4 @@
-import { RecipeObject } from "../../../types/RecipeTypes";
+import { RecipeObject } from "../../../_types/RecipeTypes";
 import { ImageElement } from "../../ui/ImageElement";
 import "react-day-picker/style.css";
 import CreateMealForm from "../../forms/CreateMealForm";

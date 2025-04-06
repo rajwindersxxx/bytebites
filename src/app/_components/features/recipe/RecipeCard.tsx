@@ -3,7 +3,7 @@ import React from "react";
 import { ImageElement } from "../../ui/ImageElement";
 import RecipeCardButtons from "./RecipeCardButtons";
 import { useRouter } from "next/navigation";
-import { RecipeObject } from "../../../types/RecipeTypes";
+import { RecipeObject } from "../../../_types/RecipeTypes";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../ui/ToolTip";
 import { FloatingDelayGroup } from "@floating-ui/react";
 import { memo } from "react";

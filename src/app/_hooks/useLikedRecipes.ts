@@ -5,7 +5,7 @@ import {
 } from "../_actions/userDataActions";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { RecipeObject } from "../types/RecipeTypes";
+import { RecipeObject } from "../_types/RecipeTypes";
 import { getSessionStorage, setLocalStorage } from "../_helper/clientheper";
 
 export function useLikedRecipes(userId: number) {

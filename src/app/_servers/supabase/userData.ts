@@ -1,4 +1,4 @@
-import { RecipeObject } from "@/app/types/RecipeTypes";
+import { RecipeObject } from "@/app/_types/RecipeTypes";
 import { addRecipeToDB } from "./recipes";
 import { supabase } from "./supabase";
 import { getRecipeDetailsData } from "@/app/_actions/recipesActions";

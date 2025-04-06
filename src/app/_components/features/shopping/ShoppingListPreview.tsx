@@ -3,7 +3,7 @@ import ShoppingRecipeList from "./ShoppingRecipeList";
 import { HiOutlineTrash } from "react-icons/hi";
 import { useUserShoppingList } from "@/app/_hooks/useUserShoppingList";
 import { useModal } from "../../ui/Modal";
-import { useShoppingData } from "@/app/context/ShoppingListContext";
+import { useShoppingData } from "@/app/_context/ShoppingListContext";
 import ConfirmationModal from "../../forms/ConfirmationModal";
 import { IconButton, SecondaryButton } from "../../ui/Buttons";
 function ShoppingListPreview() {

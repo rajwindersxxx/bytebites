@@ -1,10 +1,10 @@
 import { HiMinus, HiOutlinePlusSm, HiOutlineTrash } from "react-icons/hi";
 
 import { uniqueId } from "lodash";
-import { useShoppingData } from "@/app/context/ShoppingListContext";
+import { useShoppingData } from "@/app/_context/ShoppingListContext";
 import { ImageElement } from "../../ui/ImageElement";
 import { INGREDIENT_IMAGE_URL } from "@/app/_config/foodApiConfig";
-import { ExtendedIngredients } from "@/app/types/RecipeTypes";
+import { ExtendedIngredients } from "@/app/_types/RecipeTypes";
 
 interface props {
   ingredientCart: ExtendedIngredients[];

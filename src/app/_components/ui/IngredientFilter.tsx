@@ -1,17 +1,13 @@
-import { IngredientListTags } from "@/app/types/RecipeTypes";
+import { IngredientListTags } from "@/app/_types/RecipeTypes";
 import IngredientFilterCard from "./IngredientFilterCard";
 interface props {
   ingredientList: IngredientListTags[];
 }
 function IngredientFilter({ ingredientList }: props) {
-
   return (
     <>
       {ingredientList.map((item) => (
-        <IngredientFilterCard
-          item={item}
-          key={item.type}
-        />
+        <IngredientFilterCard item={item} key={item.type} />
       ))}
     </>
   );

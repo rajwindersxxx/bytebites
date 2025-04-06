@@ -1,11 +1,13 @@
 import { memo } from "react";
-import { ExtendedIngredients } from "../../../types/RecipeTypes";
-import RequiredIngredientRow from "../../RequiredIngredientRow";
+import { ExtendedIngredients } from "../../../_types/RecipeTypes";
+import RequiredIngredientRow from "./RequiredIngredientRow";
 
 interface props {
   recipeObject: { title: string; extendedIngredients: ExtendedIngredients[] };
 }
-const IngredientRequiredItem = memo(function IngredientRequiredItem({ recipeObject }: props) {
+const IngredientRequiredItem = memo(function IngredientRequiredItem({
+  recipeObject,
+}: props) {
   const { title, extendedIngredients } = recipeObject;
   return (
     <div className="rounded-md bg-indigo-200 p-1 dark:bg-indigo-600">
@@ -17,6 +19,6 @@ const IngredientRequiredItem = memo(function IngredientRequiredItem({ recipeObje
       </ul>
     </div>
   );
-})
+});
 
 export default IngredientRequiredItem;

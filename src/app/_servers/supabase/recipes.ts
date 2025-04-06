@@ -1,4 +1,4 @@
-import { RecipeObject } from "@/app/types/RecipeTypes";
+import { RecipeObject } from "@/app/_types/RecipeTypes";
 import { supabase } from "./supabase";
 
 export async function getRecipeFormDB(recipeId: number) {

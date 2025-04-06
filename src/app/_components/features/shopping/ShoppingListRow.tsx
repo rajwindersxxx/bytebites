@@ -6,16 +6,16 @@ import { ImageElement } from "../../ui/ImageElement";
 import { INGREDIENT_IMAGE_URL } from "@/app/_config/foodApiConfig";
 import { textToEmoji } from "@/app/_helper/clientheper";
 import Checkbox from "../../ui/Checkbox";
-import { UserShoppingList } from "@/app/types/RecipeTypes";
+import { UserShoppingList } from "@/app/_types/RecipeTypes";
 
 interface props {
   data: UserShoppingList;
   index: number;
 }
 
-const ShoppingListRow =  memo(function ShoppingListRow({ data, index }: props) {
+const ShoppingListRow = memo(function ShoppingListRow({ data, index }: props) {
   const [isChecked, setIsChecked] = useState<boolean>(false);
-  
+
   const {
     id,
     name,
@@ -63,6 +63,6 @@ const ShoppingListRow =  memo(function ShoppingListRow({ data, index }: props) {
       </div>
     </div>
   );
-})
+});
 
 export default ShoppingListRow;
