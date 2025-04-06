@@ -2,15 +2,18 @@ import { useMutation } from "@tanstack/react-query";
 import { useRecipeFilter } from "../context/RecipeFilterContext";
 import { makeARecipe } from "../_actions/recipesActions";
 import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
+import { getSessionStorage } from "../_helper/clientheper";
 
 function useGenerateRecipe() {
+  const [generatedRecipe, setGeneratedRecipe] = useState();
   const { selectedIngredients } = useRecipeFilter();
   const ingredientArray = [...new Set(selectedIngredients)];
   const { mutate: generateRecipe, status } = useMutation({
     mutationFn: async () => {
       if (ingredientArray.length < 3)
         throw new Error("At Least 3 Ingredient required  ");
-      toast.success('Ai recipe take a while... ')
+      toast.success("Ai recipe take a while... ");
       return await makeARecipe({
         ingredient: ingredientArray.map((value) => ({ value })),
       });
@@ -23,7 +26,12 @@ function useGenerateRecipe() {
       toast.error(error.message);
     },
   });
-  return { generateRecipe, status };
+
+  useEffect(() => {
+    const data = getSessionStorage("generatedRecipe");
+    setGeneratedRecipe(data);
+  }, [status]);
+  return { generateRecipe, status, generatedRecipe };
 }
 
-export default useGenerateRecipe;
+export { useGenerateRecipe };

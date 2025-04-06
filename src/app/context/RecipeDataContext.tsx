@@ -5,7 +5,7 @@ import { createContext } from "react";
 import { useLikedRecipes } from "../_hooks/useLikedRecipes";
 import { useSavedRecipes } from "../_hooks/useSavedRecipes";
 import { RecipeObject } from "../types/RecipeTypes";
-import useGenerateRecipe from "../_hooks/useGenerateRecipe";
+import { useGenerateRecipe } from "../_hooks/useGenerateRecipe";
 interface props {
   children: React.ReactNode;
 }
@@ -18,8 +18,10 @@ interface RecipeContextType {
   isLoadingSavedRecipes: boolean;
   isSavePending: boolean;
   isLikePending: boolean;
+  generatedRecipe: RecipeObject | undefined;
   toggleLike: (recipeId: number) => void;
   toggleSave: (recipeId: number) => void;
+  generateRecipe: () => void;
 }
 const recipeDataContext = createContext<RecipeContextType | undefined>(
   undefined,
@@ -29,7 +31,8 @@ function RecipeDataContext({ children }: props) {
   const userId = session.data?.user?.id;
   const { likedRecipes, likedRecipesData, toggleLike, isLikePending } =
     useLikedRecipes(Number(userId));
-  const { status } = useGenerateRecipe();
+  const { status, generatedRecipe, generateRecipe } = useGenerateRecipe();
+
   const {
     savedRecipes,
     toggleSave,
@@ -37,7 +40,6 @@ function RecipeDataContext({ children }: props) {
     isLoading: isLoadingSavedRecipes,
     isPending: isSavePending,
   } = useSavedRecipes(Number(userId));
-
   return (
     <recipeDataContext.Provider
       value={{
@@ -51,6 +53,8 @@ function RecipeDataContext({ children }: props) {
         isSavePending,
         isLikePending,
         status,
+        generatedRecipe,
+        generateRecipe,
       }}
     >
       {children}
