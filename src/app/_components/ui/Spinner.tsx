@@ -6,7 +6,7 @@ export default function Spinner({
 }: props) {
   return (
     <>
-      {/* <div></div> */}
+      <div></div>
       <div className={className}>
         <div className={`spinner`}></div>
       </div>

@@ -1,14 +1,17 @@
-import React from 'react';
-interface props{
-    summary: string
+import DOMPurify from 'isomorphic-dompurify';
+
+interface props {
+  summary: string;
 }
-export default function RecipeSummary({summary}: props) {
+export default function RecipeSummary({ summary }: props) {
+  const cleanHTML = DOMPurify.sanitize(summary);
+
   return (
-      <div className="bg-natural-cream  col-span-3">
-        <h2 className="text-2xl mb-8"> 📝 Summary</h2>
-        <div className="text-xl italic">
-          <p dangerouslySetInnerHTML={{ __html: summary }} />
-        </div>
+    <div className="col-span-3 bg-natural-cream">
+      <h2 className="mb-8 text-2xl"> 📝 Summary</h2>
+      <div className="text-xl italic">
+        <p dangerouslySetInnerHTML={{ __html: cleanHTML }} />
       </div>
+    </div>
   );
 }

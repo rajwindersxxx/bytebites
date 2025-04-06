@@ -1,5 +1,6 @@
 "use client";
 import { getSessionStorage } from "@/app/_helper/clientheper";
+import { useRecipeData } from "@/app/context/RecipeDataContext";
 import { RecipeObject } from "@/app/types/RecipeTypes";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -7,10 +8,11 @@ export default function Navigation() {
   const [generatedRecipe, setGeneratedRecipe] = useState<null | RecipeObject>(
     null,
   );
+  const { status } = useRecipeData();
   useEffect(() => {
     const data = getSessionStorage("generatedRecipe");
     setGeneratedRecipe(data);
-  }, []);
+  }, [status]);
   return (
     <ul className="flex gap-4 justify-self-center">
       <li>

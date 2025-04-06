@@ -5,12 +5,14 @@ import { createContext } from "react";
 import { useLikedRecipes } from "../_hooks/useLikedRecipes";
 import { useSavedRecipes } from "../_hooks/useSavedRecipes";
 import { RecipeObject } from "../types/RecipeTypes";
+import useGenerateRecipe from "../_hooks/useGenerateRecipe";
 interface props {
   children: React.ReactNode;
 }
 interface RecipeContextType {
   likedRecipes: number[];
   savedRecipes: number[];
+  status: string;
   savedRecipeData: RecipeObject[] | undefined;
   likedRecipesData: RecipeObject[] | undefined;
   isLoadingSavedRecipes: boolean;
@@ -25,7 +27,9 @@ const recipeDataContext = createContext<RecipeContextType | undefined>(
 function RecipeDataContext({ children }: props) {
   const session = useSession();
   const userId = session.data?.user?.id;
-  const { likedRecipes, likedRecipesData, toggleLike , isLikePending} = useLikedRecipes(Number(userId));
+  const { likedRecipes, likedRecipesData, toggleLike, isLikePending } =
+    useLikedRecipes(Number(userId));
+  const { status } = useGenerateRecipe();
   const {
     savedRecipes,
     toggleSave,
@@ -45,7 +49,8 @@ function RecipeDataContext({ children }: props) {
         savedRecipeData,
         isLoadingSavedRecipes,
         isSavePending,
-        isLikePending
+        isLikePending,
+        status,
       }}
     >
       {children}

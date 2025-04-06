@@ -50,19 +50,19 @@ export default async function RootLayout({
         <SessionAuthProvider>
           <QueryProvider>
             <GUIStateProvider>
-              <RecipeDataContext>
-                <ShoppingContext>
-                  <ModalProvider>
-                    <RecipeFilterContext>
+              <RecipeFilterContext>
+                <RecipeDataContext>
+                  <ShoppingContext>
+                    <ModalProvider>
                       <Header />
                       <UserNavLinks />
                       <FloatingQuickActions />
                       <NotificationBox />
                       <Main>{children}</Main>
-                    </RecipeFilterContext>
-                  </ModalProvider>
-                </ShoppingContext>
-              </RecipeDataContext>
+                    </ModalProvider>
+                  </ShoppingContext>
+                </RecipeDataContext>
+              </RecipeFilterContext>
             </GUIStateProvider>
           </QueryProvider>
         </SessionAuthProvider>
