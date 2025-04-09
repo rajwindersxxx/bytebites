@@ -7,8 +7,11 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { RecipeObject } from "../_types/RecipeTypes";
 import { getSessionStorage, setLocalStorage } from "../_helper/clientheper";
+import { useSession } from "next-auth/react";
 
-export function useLikedRecipes(userId: number) {
+export function useLikedRecipes() {
+   const session =  useSession();
+    const userId = session.data?.user?.id
   const queryClient = useQueryClient();
   const [likedRecipes, setLikedRecipes] = useState<number[]>([]);
 
@@ -50,6 +53,7 @@ export function useLikedRecipes(userId: number) {
   return {
     likedRecipesData,
     likedRecipes,
+    setLikedRecipes,
     toggleLike,
     isLoading,
     isLikePending,

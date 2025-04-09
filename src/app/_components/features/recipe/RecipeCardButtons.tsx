@@ -23,8 +23,8 @@ interface props {
 function RecipeCardButtons({ recipeData, visibleButtons }: props) {
   const recipeId = Number(recipeData.id);
   const { likedRecipes, savedRecipes } = useRecipeData();
-  const { toggleSave } = useSavedRecipes(recipeId);
-  const { toggleLike } = useLikedRecipes(recipeId);
+  const { toggleSave } = useSavedRecipes();
+  const { toggleLike } = useLikedRecipes();
 
   const { addRecipeToCart, removeRecipeFromCart } = useShoppingData();
   const session = useSession();

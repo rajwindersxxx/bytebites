@@ -1,5 +1,4 @@
 "use client";
-import { useSession } from "next-auth/react";
 import React, { useContext } from "react";
 import { createContext } from "react";
 import { useLikedRecipes } from "../_hooks/useLikedRecipes";
@@ -21,25 +20,33 @@ interface RecipeContextType {
   generatedRecipe: RecipeObject | undefined;
   toggleLike: (recipeId: number) => void;
   toggleSave: (recipeId: number) => void;
+  clearUserRecipeData: () => void;
   generateRecipe: () => void;
 }
 const recipeDataContext = createContext<RecipeContextType | undefined>(
   undefined,
 );
 function RecipeDataContext({ children }: props) {
-  const session = useSession();
-  const userId = session.data?.user?.id;
-  const { likedRecipes, likedRecipesData, toggleLike, isLikePending } =
-    useLikedRecipes(Number(userId));
+  const {
+    likedRecipes,
+    likedRecipesData,
+    toggleLike,
+    isLikePending,
+    setLikedRecipes,
+  } = useLikedRecipes();
   const { status, generatedRecipe, generateRecipe } = useGenerateRecipe();
-
   const {
     savedRecipes,
+    setSavedRecipes,
     toggleSave,
     savedRecipeData,
     isLoading: isLoadingSavedRecipes,
     isPending: isSavePending,
-  } = useSavedRecipes(Number(userId));
+  } = useSavedRecipes();
+  function clearUserRecipeData() {
+    setLikedRecipes([]);
+    setSavedRecipes([]);
+  }
   return (
     <recipeDataContext.Provider
       value={{
@@ -55,6 +62,7 @@ function RecipeDataContext({ children }: props) {
         status,
         generatedRecipe,
         generateRecipe,
+        clearUserRecipeData,
       }}
     >
       {children}

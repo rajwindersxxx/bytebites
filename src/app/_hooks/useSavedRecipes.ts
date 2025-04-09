@@ -7,7 +7,10 @@ import { useState } from "react";
 import { RecipeObject } from "../_types/RecipeTypes";
 import toast from "react-hot-toast";
 import { getSessionStorage, setLocalStorage } from "../_helper/clientheper";
-export function useSavedRecipes(userId: number) {
+import { useSession } from "next-auth/react";
+export function useSavedRecipes() {
+  const session =  useSession();
+  const userId = session.data?.user?.id
   const queryClient = useQueryClient();
   const [savedRecipes, setSavedRecipes] = useState<number[]>([]);
   const {
@@ -56,6 +59,7 @@ export function useSavedRecipes(userId: number) {
   return {
     savedRecipes,
     savedRecipeData,
+    setSavedRecipes,
     toggleSave,
     isLoading,
     isPending,

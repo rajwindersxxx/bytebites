@@ -4,6 +4,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useShoppingData } from "../_context/ShoppingListContext";
 import { useState } from "react";
+import { useRecipeData } from "../_context/RecipeDataContext";
 
 type formData = {
   username: string;
@@ -13,11 +14,10 @@ type formData = {
 };
 function useUserAuth() {
   const [error, setError] = useState<boolean | string>(false);
-
   const { clearLocalStorageCart } = useShoppingData();
   const { update } = useSession();
   const router = useRouter();
-
+  const { clearUserRecipeData } = useRecipeData();
   const { mutate: userSignIn, isPending: isSignPending } = useMutation({
     mutationFn: (formData: formData) =>
       signIn("credentials", { ...formData, redirect: false }),
@@ -47,9 +47,11 @@ function useUserAuth() {
       await update();
     },
   });
+
   const { mutate: userSignOut } = useMutation({
     mutationFn: () => signOut({ redirect: false }),
     onSuccess: async () => {
+      clearUserRecipeData();
       clearLocalStorageCart();
       router.replace("/");
       await update();
