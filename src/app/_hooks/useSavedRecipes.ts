@@ -17,7 +17,7 @@ export function useSavedRecipes(userId: number) {
   } = useQuery({
     queryKey: ["savedRecipes"],
     queryFn: async () => {
-      const result = await getSavedRecipes(Number(userId));
+      const result = await getSavedRecipes();
       const recipesIdList = result.map((item) => item.recipeId);
       setSavedRecipes(recipesIdList);
       return result.map((item) => item.bitebytesRecipes);
@@ -31,7 +31,7 @@ export function useSavedRecipes(userId: number) {
       let aiRecipe = null;
       if (userId) {
         aiRecipe = getSessionStorage("generatedRecipe") as RecipeObject;
-        await addRemoveSavedRecipe(recipeId, Number(userId), isSaved, aiRecipe);
+        await addRemoveSavedRecipe(recipeId, isSaved, aiRecipe);
       } else {
         throw new Error("You need to Login");
       }

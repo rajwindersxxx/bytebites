@@ -1,8 +1,11 @@
 import { RecipeObject } from "@/app/_types/RecipeTypes";
 import { supabase } from "./supabase";
+import { getUserID } from "@/app/_helper/helper";
 
 export async function createUserShoppingList(inputData: RecipeObject[]) {
-  await clearShoppingListDB(inputData[0].userId!);
+  const userId = await getUserID();
+  if (!userId) throw new Error("Unauthorize user");
+  await clearShoppingListDB();
   const { data, error } = await supabase
     .from("userIngredientList")
     .insert(inputData);
@@ -12,7 +15,9 @@ export async function createUserShoppingList(inputData: RecipeObject[]) {
   }
   return data;
 }
-export async function getUserShoppingListDB(userId: number) {
+export async function getUserShoppingListDB() {
+  const userId = await getUserID();
+  if (!userId) throw new Error("Unauthorize user");
   const { data, error } = await supabase
     .from("userIngredientList")
     .select("*")
@@ -24,10 +29,9 @@ export async function getUserShoppingListDB(userId: number) {
   }
   return data;
 }
-export async function removeShoppingListItemDB(
-  IngredientId: number,
-  userId: number,
-) {
+export async function removeShoppingListItemDB(IngredientId: number) {
+  const userId = await getUserID();
+  if (!userId) throw new Error("Unauthorize user");
   const { data, error } = await supabase
     .from("userIngredientList")
     .delete()
@@ -41,9 +45,10 @@ export async function removeShoppingListItemDB(
 }
 export async function updateShoppingItemStatesDB(
   IngredientId: number,
-  userId: number,
   PurchasedStatus: boolean,
 ) {
+  const userId = await getUserID();
+  if(!userId) throw new Error('Unauthorize user')
   const { data, error } = await supabase
     .from("userIngredientList")
     .update({ isPurchased: PurchasedStatus })
@@ -55,7 +60,9 @@ export async function updateShoppingItemStatesDB(
   }
   return data;
 }
-export async function clearShoppingListDB(userId: number) {
+export async function clearShoppingListDB() {
+  const userId = await getUserID();
+  if(!userId) throw new Error('Unauthorize user')
   const { data, error } = await supabase
     .from("userIngredientList")
     .delete()
@@ -66,7 +73,9 @@ export async function clearShoppingListDB(userId: number) {
   }
   return data;
 }
-export async function checkAllItemsDB(userId: number) {
+export async function checkAllItemsDB() {
+  const userId = await getUserID();
+  if(!userId) throw new Error('Unauthorize user')
   const { data, error } = await supabase
     .from("userIngredientList")
     .update({ isPurchased: true })

@@ -5,6 +5,7 @@ import {
   UserShoppingList,
 } from "../_types/RecipeTypes";
 import { endOfDay, isWithinInterval, startOfDay } from "date-fns";
+import { auth } from "../_lib/Auth";
 export function simulateApiRequest(data: unknown) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -96,4 +97,11 @@ export function mergeUserShoppingList(
     }
   });
   return Array.from(ingredientMap.values());
+}
+
+// check session and return userid
+
+export async function getUserID() {
+  const session = await auth();
+  return session?.user?.id;
 }

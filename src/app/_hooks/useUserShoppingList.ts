@@ -21,7 +21,7 @@ export function useUserShoppingList() {
   } = useQuery({
     queryFn: () => {
       if (!userId) throw new Error("userId undefined ");
-      return getUserShoppingList(Number(userId));
+      return getUserShoppingList();
     },
     queryKey: ["userShoppingList"],
     enabled: Boolean(userId),
@@ -76,7 +76,7 @@ export function useUserShoppingList() {
     isPending: removingUserShoppingItem,
   } = useMutation({
     mutationFn: (ingredientId: number) =>
-      removeShoppingListItem(ingredientId, Number(userId)),
+      removeShoppingListItem(ingredientId),
     onSuccess: () => {
       toast.success("Item is removed form shopping list");
       QueryClient.invalidateQueries({ queryKey: ["userShoppingList"] });
@@ -95,7 +95,7 @@ export function useUserShoppingList() {
         ingredientId: number;
         purchasedStatus: boolean;
       }) =>
-        updateShoppingItemStates(ingredientId, Number(userId), purchasedStatus),
+        updateShoppingItemStates(ingredientId, purchasedStatus),
       onSuccess: () => {
         toast.success("Item status updated ");
         QueryClient.invalidateQueries({ queryKey: ["userShoppingList"] });

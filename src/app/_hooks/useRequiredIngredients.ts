@@ -11,7 +11,7 @@ function useRequiredIngredients() {
   const session = useSession();
   const userId = session.data?.user?.id;
   const { data: IngredientData } = useQuery({
-    queryFn: () => getUpcomingIngredients(Number(userId)),
+    queryFn: () => getUpcomingIngredients(),
     queryKey: ["upComingIngredients"],
     staleTime: Infinity,
   });
@@ -23,7 +23,7 @@ function useRequiredIngredients() {
   const { mutate: removeUpcomingIngredient } = useMutation({
     mutationFn: (id: number) => {
       if (!userId) throw new Error("userId undefined ");
-      return removeUpcomingIngredientItem(id, Number(userId));
+      return removeUpcomingIngredientItem(id);
     },
     onSuccess: () => {
       queryclient.invalidateQueries({ queryKey: ["upComingIngredients"] });

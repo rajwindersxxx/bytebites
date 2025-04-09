@@ -3,8 +3,11 @@ import { MealPlanning } from "@/app/_types/FormData";
 import { supabase } from "./supabase";
 import { getIngredientsIdsFormDB } from "./recipes";
 import { addDays, formatISO } from "date-fns";
+import { getUserID } from "@/app/_helper/helper";
 
-export async function getMealPlanningFromDB(userId: number) {
+export async function getMealPlanningFromDB() {
+  const userId = await getUserID();
+  if(!userId) throw new Error('Unauthorize user')
   const { data, error } = await supabase
     .from("mealPlanning")
     .select(
@@ -18,6 +21,8 @@ export async function getMealPlanningFromDB(userId: number) {
   return data;
 }
 export async function AddMealPlanningToDB(mealObject: MealPlanning) {
+  const userId = await getUserID();
+  if(!userId) throw new Error('Unauthorize user')
   const mealDate = mealObject.date;
   const { data, error } = await supabase
     .from("mealPlanning")
@@ -49,10 +54,11 @@ export async function AddMealPlanningToDB(mealObject: MealPlanning) {
   return data;
 }
 export async function removeMealPlanningFromDB(
-  userId: number,
   mealType: string,
   date: Date,
 ) {
+  const userId = await getUserID();
+  if(!userId) throw new Error('Unauthorize user')
   const { data, error } = await supabase
     .from("mealPlanning")
     .delete()
@@ -67,9 +73,10 @@ export async function removeMealPlanningFromDB(
 }
 
 export async function getUpcomingIngredientsDB(
-  userId: number,
   dayCount: number = 3,
 ) {
+  const userId = await getUserID();
+  if(!userId) throw new Error('Unauthorize user')
   const today = formatISO(new Date(), { representation: "date" });
   const nextUpcomingDays = formatISO(addDays(new Date(), dayCount), {
     representation: "date",
@@ -90,8 +97,9 @@ export async function getUpcomingIngredientsDB(
 }
 export async function removeUpcomingIngredientItemDB(
   id: number,
-  userId: number,
 ) {
+  const userId = await getUserID();
+  if(!userId) throw new Error('Unauthorize user')
   const { data, error } = await supabase
     .from("requiredIngredients")
     .delete()
@@ -104,11 +112,10 @@ export async function removeUpcomingIngredientItemDB(
   return data;
 }
 export async function getUpcomingIngredients(
-  userId: number,
   dayCount?: number,
 ) {
-  return await getUpcomingIngredientsDB(userId, dayCount);
+  return await getUpcomingIngredientsDB(dayCount);
 }
-export async function removeUpcomingIngredientItem(id: number, userId: number) {
-  return await removeUpcomingIngredientItemDB(id, userId);
+export async function removeUpcomingIngredientItem(id: number) {
+  return await removeUpcomingIngredientItemDB(id);
 }

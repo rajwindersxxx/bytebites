@@ -32,28 +32,25 @@ export async function makeAShoppingList(
 
 export async function removeShoppingListItem(
   ingredientId: number,
-  userId: number,
 ) {
-  return await removeShoppingListItemDB(ingredientId, userId);
+  return await removeShoppingListItemDB(ingredientId);
 }
 
 export async function updateShoppingItemStates(
   IngredientId: number,
-  userId: number,
   purchasedStatus: boolean,
 ) {
   return await updateShoppingItemStatesDB(
     IngredientId,
-    userId,
     purchasedStatus,
   );
 }
-export async function getUserShoppingList(UserId: number) {
-  return await getUserShoppingListDB(UserId);
+export async function getUserShoppingList() {
+  return await getUserShoppingListDB();
 }
-export async function checkAllItems(userId: number) {
-  return await checkAllItemsDB(userId);
+export async function checkAllItems() {
+  return await checkAllItemsDB();
 }
-export async function clearShoppingList(userId: number) {
-  return await clearShoppingListDB(userId);
+export async function clearShoppingList() {
+  return await clearShoppingListDB();
 }

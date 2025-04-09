@@ -2,9 +2,11 @@ import { RecipeObject } from "@/app/_types/RecipeTypes";
 import { addRecipeToDB } from "./recipes";
 import { supabase } from "./supabase";
 import { getRecipeDetailsData } from "@/app/_actions/recipesActions";
+import { getUserID } from "@/app/_helper/helper";
 
-export async function getSavedRecipeSDB(userId: number) {
-  if (!userId) return ["no userId provided"];
+export async function getSavedRecipeSDB() {
+  const userId = await getUserID();
+  if(!userId) throw new Error('Unauthorize user')
   const { data: savedRecipes, error } = await supabase
     .from("savedRecipes")
     .select(
@@ -18,8 +20,9 @@ export async function getSavedRecipeSDB(userId: number) {
   return savedRecipes;
 }
 
-export async function getLikedRecipesDB(userId: number) {
-  if (!userId) return ["no userId provided"];
+export async function getLikedRecipesDB() {
+  const userId = await getUserID();
+  if(!userId) throw new Error('Unauthorize user')
   const { data: likedRecipes, error } = await supabase
     .from("likedRecipes")
     .select(
@@ -34,10 +37,11 @@ export async function getLikedRecipesDB(userId: number) {
 }
 export async function addRemoveSavedRecipeDB(
   recipeId: number,
-  userId: number,
   remove: boolean,
   recipeObject?: RecipeObject | null,
 ) {
+  const userId = await getUserID();
+  if (!userId) throw new Error("Unauthorize user");
   let query;
   if (remove === true) {
     query = supabase
@@ -69,10 +73,11 @@ export async function addRemoveSavedRecipeDB(
 }
 export async function addRemoveLikedRecipeDB(
   recipeId: number,
-  userId: number,
   remove: boolean,
   recipeObject?: RecipeObject | null,
 ) {
+  const userId = await getUserID();
+  if(!userId) throw new Error('Unauthorize user')
   let query;
   if (remove === true) {
     query = supabase

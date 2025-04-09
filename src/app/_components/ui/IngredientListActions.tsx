@@ -1,7 +1,6 @@
 "use client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { SecondaryButton } from "./Buttons";
-import { useSession } from "next-auth/react";
 import { checkAllItems, clearShoppingList } from "@/app/_actions/shopping";
 import MiniSpinner from "./MiniSpinner";
 import { useUserShoppingList } from "@/app/_hooks/useUserShoppingList";
@@ -11,16 +10,14 @@ function IngredientListActions() {
   const { userShoppingList } = useUserShoppingList();
 
   const queryClient = useQueryClient();
-  const session = useSession();
-  const userId = session.data?.user?.id;
   const { mutate: clearList, isPending: pendingClear } = useMutation({
-    mutationFn: () => clearShoppingList(Number(userId)),
+    mutationFn: () => clearShoppingList(),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["userShoppingList"] });
     },
   });
   const { mutate: checkAllCartItems, isPending: pendingCheck } = useMutation({
-    mutationFn: () => checkAllItems(Number(userId)),
+    mutationFn: () => checkAllItems(),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["userShoppingList"] });
     },

@@ -5,7 +5,6 @@ import {
   removeMealPlanning,
 } from "../_actions/mealPlanning";
 import toast from "react-hot-toast";
-import { useSession } from "next-auth/react";
 import { useModal } from "../_components/ui/Modal";
 import { MealPlanning } from "../_types/FormData";
 type RemoveMeal = {
@@ -14,8 +13,6 @@ type RemoveMeal = {
   date: Date;
 };
 function useSavedMeals() {
-  const session = useSession();
-  const userId = session.data?.user?.id;
   const queryClient = useQueryClient();
   const { closeModal } = useModal();
 
@@ -24,13 +21,13 @@ function useSavedMeals() {
     isLoading,
     error,
   } = useQuery({
-    queryFn: () => getMealPlannings(Number(userId)),
+    queryFn: () => getMealPlannings(),
     queryKey: ["mealPlannings"],
     staleTime: Infinity,
   });
   const { mutate: removeMeal } = useMutation({
-    mutationFn: ({ userId, mealType, date }: RemoveMeal) =>
-      removeMealPlanning(userId, mealType, date),
+    mutationFn: ({ mealType, date }: RemoveMeal) =>
+      removeMealPlanning( mealType, date),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["mealPlannings"] });
       toast.success("meal has been removed ");

@@ -19,7 +19,7 @@ export function useLikedRecipes(userId: number) {
   } = useQuery({
     queryKey: ["likedRecipes"],
     queryFn: async () => {
-      const result = await getLikedRecipes(userId);
+      const result = await getLikedRecipes();
       setLikedRecipes(result.map((item) => item.id));
       return result;
     },
@@ -32,9 +32,10 @@ export function useLikedRecipes(userId: number) {
       if (!userId) throw new Error("You need to Login");
       const isLiked = likedRecipes.includes(recipeId);
       const aiRecipe = getSessionStorage("generatedRecipe") as RecipeObject;
-      await addRemoveLikedRecipe(recipeId, Number(userId), isLiked, aiRecipe);
+      await addRemoveLikedRecipe(recipeId, isLiked, aiRecipe);
       return { recipeId, isLiked, aiRecipe };
     },
+
     onSuccess: ({ isLiked, aiRecipe }) => {
       setLocalStorage("generatedRecipe", {
         ...aiRecipe,

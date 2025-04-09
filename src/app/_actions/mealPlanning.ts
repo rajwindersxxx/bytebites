@@ -6,8 +6,8 @@ import {
 } from "../_servers/supabase/mealPlanning";
 import { MealPlanning } from "../_types/FormData";
 
-export async function getMealPlannings(userId: number) {
-  return await getMealPlanningFromDB(userId);
+export async function getMealPlannings() {
+  return await getMealPlanningFromDB();
 }
 
 export async function addMealPlanning(mealObject: MealPlanning) {
@@ -15,9 +15,8 @@ export async function addMealPlanning(mealObject: MealPlanning) {
 }
 
 export async function removeMealPlanning(
-  userId: number,
   mealType: string,
   date: Date,
 ) {
-  return await removeMealPlanningFromDB(userId, mealType, date);
+  return await removeMealPlanningFromDB(mealType, date);
 }

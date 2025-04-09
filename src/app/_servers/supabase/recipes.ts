@@ -1,5 +1,6 @@
 import { RecipeObject } from "@/app/_types/RecipeTypes";
 import { supabase } from "./supabase";
+import { getUserID } from "@/app/_helper/helper";
 
 export async function getRecipeFormDB(recipeId: number) {
   const { data, error } = await supabase
@@ -42,8 +43,9 @@ export async function addRecipeToDB(recipeObject: RecipeObject) {
   return data;
 }
 
-export async function getDetailedSavedRecipesDB(userId: number) {
-  if (!userId) return ["no userId provided"];
+export async function getDetailedSavedRecipesDB() {
+  const userId = await getUserID();
+  if(!userId) throw new Error('Unauthorize user')
   const { data: savedRecipes, error } = await supabase
     .from("savedRecipes")
     .select("* , bitebytesRecipes(*)")
