@@ -6,7 +6,7 @@ import { getUserID } from "@/app/_helper/helper";
 
 export async function getSavedRecipeSDB() {
   const userId = await getUserID();
-  if(!userId) throw new Error('Unauthorize user')
+  if (!userId) return [];
   const { data: savedRecipes, error } = await supabase
     .from("savedRecipes")
     .select(
@@ -22,7 +22,7 @@ export async function getSavedRecipeSDB() {
 
 export async function getLikedRecipesDB() {
   const userId = await getUserID();
-  if(!userId) throw new Error('Unauthorize user')
+  if (!userId) return [];
   const { data: likedRecipes, error } = await supabase
     .from("likedRecipes")
     .select(
@@ -41,7 +41,7 @@ export async function addRemoveSavedRecipeDB(
   recipeObject?: RecipeObject | null,
 ) {
   const userId = await getUserID();
-  if (!userId) throw new Error("Unauthorize user");
+  if (!userId) throw new Error("you need to login");
   let query;
   if (remove === true) {
     query = supabase
@@ -77,7 +77,7 @@ export async function addRemoveLikedRecipeDB(
   recipeObject?: RecipeObject | null,
 ) {
   const userId = await getUserID();
-  if(!userId) throw new Error('Unauthorize user')
+  if (!userId) throw new Error("you need to login");
   let query;
   if (remove === true) {
     query = supabase

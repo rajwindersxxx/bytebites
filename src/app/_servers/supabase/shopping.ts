@@ -4,7 +4,7 @@ import { getUserID } from "@/app/_helper/helper";
 
 export async function createUserShoppingList(inputData: RecipeObject[]) {
   const userId = await getUserID();
-  if (!userId) throw new Error("Unauthorize user");
+  if (!userId) throw new Error("your need to login");
   await clearShoppingListDB();
   const { data, error } = await supabase
     .from("userIngredientList")
@@ -17,7 +17,7 @@ export async function createUserShoppingList(inputData: RecipeObject[]) {
 }
 export async function getUserShoppingListDB() {
   const userId = await getUserID();
-  if (!userId) throw new Error("Unauthorize user");
+  if (!userId) throw new Error("your need to login");
   const { data, error } = await supabase
     .from("userIngredientList")
     .select("*")
@@ -31,7 +31,7 @@ export async function getUserShoppingListDB() {
 }
 export async function removeShoppingListItemDB(IngredientId: number) {
   const userId = await getUserID();
-  if (!userId) throw new Error("Unauthorize user");
+  if (!userId) throw new Error("your need to login");
   const { data, error } = await supabase
     .from("userIngredientList")
     .delete()
@@ -48,7 +48,7 @@ export async function updateShoppingItemStatesDB(
   PurchasedStatus: boolean,
 ) {
   const userId = await getUserID();
-  if(!userId) throw new Error('Unauthorize user')
+  if(!userId) throw new Error('your need to login')
   const { data, error } = await supabase
     .from("userIngredientList")
     .update({ isPurchased: PurchasedStatus })
@@ -62,7 +62,7 @@ export async function updateShoppingItemStatesDB(
 }
 export async function clearShoppingListDB() {
   const userId = await getUserID();
-  if(!userId) throw new Error('Unauthorize user')
+  if(!userId) throw new Error('your need to login')
   const { data, error } = await supabase
     .from("userIngredientList")
     .delete()
@@ -75,7 +75,7 @@ export async function clearShoppingListDB() {
 }
 export async function checkAllItemsDB() {
   const userId = await getUserID();
-  if(!userId) throw new Error('Unauthorize user')
+  if(!userId) throw new Error('your need to login')
   const { data, error } = await supabase
     .from("userIngredientList")
     .update({ isPurchased: true })

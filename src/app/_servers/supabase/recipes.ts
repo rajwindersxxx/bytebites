@@ -45,7 +45,7 @@ export async function addRecipeToDB(recipeObject: RecipeObject) {
 
 export async function getDetailedSavedRecipesDB() {
   const userId = await getUserID();
-  if(!userId) throw new Error('Unauthorize user')
+  if(!userId) throw new Error('You need to login')
   const { data: savedRecipes, error } = await supabase
     .from("savedRecipes")
     .select("* , bitebytesRecipes(*)")

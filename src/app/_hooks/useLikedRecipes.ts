@@ -27,15 +27,13 @@ export function useLikedRecipes(userId: number) {
     staleTime: Infinity,
   });
 
-  const { mutateAsync: toggleLike, isPending: isLikePending } = useMutation({
+  const { mutate: toggleLike, isPending: isLikePending } = useMutation({
     mutationFn: async (recipeId: number) => {
-      if (!userId) throw new Error("You need to Login");
       const isLiked = likedRecipes.includes(recipeId);
       const aiRecipe = getSessionStorage("generatedRecipe") as RecipeObject;
       await addRemoveLikedRecipe(recipeId, isLiked, aiRecipe);
       return { recipeId, isLiked, aiRecipe };
     },
-
     onSuccess: ({ isLiked, aiRecipe }) => {
       setLocalStorage("generatedRecipe", {
         ...aiRecipe,

@@ -7,7 +7,7 @@ import { getUserID } from "@/app/_helper/helper";
 
 export async function getMealPlanningFromDB() {
   const userId = await getUserID();
-  if(!userId) throw new Error('Unauthorize user')
+  if(!userId) throw new Error('You need to Login')
   const { data, error } = await supabase
     .from("mealPlanning")
     .select(
@@ -22,7 +22,7 @@ export async function getMealPlanningFromDB() {
 }
 export async function AddMealPlanningToDB(mealObject: MealPlanning) {
   const userId = await getUserID();
-  if(!userId) throw new Error('Unauthorize user')
+  if(!userId) throw new Error('You need to Login')
   const mealDate = mealObject.date;
   const { data, error } = await supabase
     .from("mealPlanning")
@@ -58,7 +58,7 @@ export async function removeMealPlanningFromDB(
   date: Date,
 ) {
   const userId = await getUserID();
-  if(!userId) throw new Error('Unauthorize user')
+  if(!userId) throw new Error('You need to Login')
   const { data, error } = await supabase
     .from("mealPlanning")
     .delete()
@@ -76,7 +76,7 @@ export async function getUpcomingIngredientsDB(
   dayCount: number = 3,
 ) {
   const userId = await getUserID();
-  if(!userId) throw new Error('Unauthorize user')
+  if(!userId) throw new Error('You need to Login')
   const today = formatISO(new Date(), { representation: "date" });
   const nextUpcomingDays = formatISO(addDays(new Date(), dayCount), {
     representation: "date",
@@ -99,7 +99,7 @@ export async function removeUpcomingIngredientItemDB(
   id: number,
 ) {
   const userId = await getUserID();
-  if(!userId) throw new Error('Unauthorize user')
+  if(!userId) throw new Error('You need to Login')
   const { data, error } = await supabase
     .from("requiredIngredients")
     .delete()

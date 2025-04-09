@@ -4,7 +4,7 @@ import { supabase } from "./supabase";
 
 export async function uploadAIimage(buffer: Buffer, imageName: string) {
   const userId = await getUserID();
-  if (!userId) throw new Error("Unauthorize user");
+  if (!userId) throw new Error("You Need to Login");
   const { data, error } = await supabase.storage
     .from("generatedimages")
     .upload(`${imageName}.png`, buffer, {
