@@ -1,7 +1,7 @@
 import { UpdatePasswordForm, UpdateProfileForm } from "@/app/_types/FormData";
 import { supabase } from "./supabase";
 import { BUCKET_URL } from "@/app/_config/supabaseConfig";
-import { comparePassword, generateHash } from "@/app/_helper/helper";
+import { comparePassword, generateHash, getUserID } from "@/app/_helper/helper";
 
 export async function getUserDB(email: string) {
   const { data, error } = await supabase
@@ -16,7 +16,9 @@ export async function getUserDB(email: string) {
   }
   return { data: data[0], error };
 }
-export async function getUserByIdDB(userId: number) {
+export async function getUserByIdDB() {
+  const userId = await getUserID();
+  if(!userId) throw new Error('You need to Login')
   const { data, error } = await supabase
     .from("bitebytesUser")
     .select()
@@ -45,6 +47,8 @@ export async function createAUserDB(userData: {
   return data[0];
 }
 export async function UpdateUserDB(userData: UpdateProfileForm) {
+  const userId = await getUserID();
+  if(!userId) throw new Error('You need to Login')
   let inputObject: { username: string; image?: string } = {
     username: userData.username,
   };
@@ -81,7 +85,9 @@ export async function UpdateUserDB(userData: UpdateProfileForm) {
   }
   return data;
 }
-export async function updatePasswordDB(password: string, userId: number) {
+export async function updatePasswordDB(password: string) {
+  const userId = await getUserID();
+  if(!userId) throw new Error('You need to Login')
   const { data, error } = await supabase
     .from("bitebytesUser")
     .update([{ password: password }])
@@ -94,16 +100,15 @@ export async function updatePasswordDB(password: string, userId: number) {
 }
 export async function changeUserPasswordDB(
   inputData: UpdatePasswordForm,
-  userId: number,
 ) {
-  const userData = await getUserByIdDB(userId);
+  const userData = await getUserByIdDB();
   const match = await comparePassword(
     userData.password,
     inputData.currentPassword,
   );
   if (match) {
     const hash = await generateHash(inputData.newPassword);
-    const data = await updatePasswordDB(hash, userId);
+    const data = await updatePasswordDB(hash);
     return data;
   } else {
     throw new Error("Password does not match");

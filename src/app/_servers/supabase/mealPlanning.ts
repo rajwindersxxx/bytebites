@@ -7,7 +7,7 @@ import { getUserID } from "@/app/_helper/helper";
 
 export async function getMealPlanningFromDB() {
   const userId = await getUserID();
-  if(!userId) throw new Error('You need to Login')
+  if (!userId) throw new Error("You need to Login");
   const { data, error } = await supabase
     .from("mealPlanning")
     .select(
@@ -22,11 +22,11 @@ export async function getMealPlanningFromDB() {
 }
 export async function AddMealPlanningToDB(mealObject: MealPlanning) {
   const userId = await getUserID();
-  if(!userId) throw new Error('You need to Login')
+  if (!userId) throw new Error("You need to Login");
   const mealDate = mealObject.date;
   const { data, error } = await supabase
     .from("mealPlanning")
-    .insert([mealObject])
+    .insert([{ ...mealObject, userId }])
     .select();
   if (data) {
     const recipeId = data[0].recipeId;
@@ -34,7 +34,7 @@ export async function AddMealPlanningToDB(mealObject: MealPlanning) {
     const newObject = ingredientUniqueIds.map((item) => {
       return {
         uniqueIngredientId: item.uniqueId,
-        userId: mealObject.userId,
+        userId: userId,
         recipeId: mealObject.recipeId,
         requiredDate: mealDate,
       };
@@ -53,12 +53,9 @@ export async function AddMealPlanningToDB(mealObject: MealPlanning) {
   }
   return data;
 }
-export async function removeMealPlanningFromDB(
-  mealType: string,
-  date: Date,
-) {
+export async function removeMealPlanningFromDB(mealType: string, date: Date) {
   const userId = await getUserID();
-  if(!userId) throw new Error('You need to Login')
+  if (!userId) throw new Error("You need to Login");
   const { data, error } = await supabase
     .from("mealPlanning")
     .delete()
@@ -72,11 +69,9 @@ export async function removeMealPlanningFromDB(
   return data;
 }
 
-export async function getUpcomingIngredientsDB(
-  dayCount: number = 3,
-) {
+export async function getUpcomingIngredientsDB(dayCount: number = 3) {
   const userId = await getUserID();
-  if(!userId) throw new Error('You need to Login')
+  if (!userId) throw new Error("You need to Login");
   const today = formatISO(new Date(), { representation: "date" });
   const nextUpcomingDays = formatISO(addDays(new Date(), dayCount), {
     representation: "date",
@@ -95,11 +90,9 @@ export async function getUpcomingIngredientsDB(
   }
   return data;
 }
-export async function removeUpcomingIngredientItemDB(
-  id: number,
-) {
+export async function removeUpcomingIngredientItemDB(id: number) {
   const userId = await getUserID();
-  if(!userId) throw new Error('You need to Login')
+  if (!userId) throw new Error("You need to Login");
   const { data, error } = await supabase
     .from("requiredIngredients")
     .delete()
@@ -111,9 +104,7 @@ export async function removeUpcomingIngredientItemDB(
   }
   return data;
 }
-export async function getUpcomingIngredients(
-  dayCount?: number,
-) {
+export async function getUpcomingIngredients(dayCount?: number) {
   return await getUpcomingIngredientsDB(dayCount);
 }
 export async function removeUpcomingIngredientItem(id: number) {

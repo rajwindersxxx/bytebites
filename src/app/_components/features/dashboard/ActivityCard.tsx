@@ -57,14 +57,14 @@ function ActivityCard() {
         )}
         {purchasedItem && (
           <ActivityCardListItem
-            image={INGREDIENT_IMAGE_URL + "/" + purchasedItem.image}
+            image={`${INGREDIENT_IMAGE_URL}/${purchasedItem.image}`}
           >
             Purchased {purchasedItem.name}
           </ActivityCardListItem>
         )}
         {pendingItem && (
           <ActivityCardListItem
-            image={INGREDIENT_IMAGE_URL + "/" + pendingItem.image}
+            image={`${INGREDIENT_IMAGE_URL}/${pendingItem.image}`}
           >
             {pendingItem.name} added to cart
           </ActivityCardListItem>

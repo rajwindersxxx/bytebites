@@ -44,7 +44,7 @@ const ShoppingListRow = memo(function ShoppingListRow({ data, index }: props) {
       <div>
         <div className="relative h-8 w-8 overflow-hidden rounded-full">
           <ImageElement
-            src={INGREDIENT_IMAGE_URL + "/" + image}
+            src={`${INGREDIENT_IMAGE_URL}/${image}`}
             alt={`ing.name`}
           />
         </div>

@@ -23,7 +23,7 @@ function PendingCardListItem({ ingredientObject }: props) {
   return (
     <li className="grid grid-cols-[auto_1fr_0.6fr_auto] items-center gap-2 rounded-full bg-natural-cream p-1">
       <div className="relative h-7 w-7 overflow-hidden rounded-full">
-        <ImageElement src={INGREDIENT_IMAGE_URL + "/" + image} alt="image" />
+        <ImageElement src={`${INGREDIENT_IMAGE_URL}/${image}`} alt="image" />
       </div>
       <p>{name.length < 20 ? name : `${name.slice(0, 20)}...`}</p>
       <p>

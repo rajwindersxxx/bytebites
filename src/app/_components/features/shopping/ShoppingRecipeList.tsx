@@ -39,7 +39,7 @@ function ShoppingRecipeList({ recipeInCart }: props) {
               >
                 <div className="relative h-8 w-8 overflow-hidden rounded-full">
                   <ImageElement
-                    src={INGREDIENT_IMAGE_URL + "/" + ing.image}
+                    src={`${INGREDIENT_IMAGE_URL}/${ing.image}`}
                     alt={ing.name}
                   />
                 </div>

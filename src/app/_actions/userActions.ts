@@ -28,7 +28,6 @@ export async function updateUser(data: UpdateProfileForm) {
 
 export async function changePassword(
   inputData: UpdatePasswordForm,
-  userId: number,
 ) {
-  return await changeUserPasswordDB(inputData, userId);
+  return await changeUserPasswordDB(inputData);
 }

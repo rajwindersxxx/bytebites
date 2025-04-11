@@ -5,7 +5,6 @@ import Input from "../ui/Input";
 import { UpdatePasswordForm } from "../../_types/FormData";
 import { changePassword } from "@/app/_actions/userActions";
 import { useMutation } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 
 function UpdatePassword() {
@@ -16,11 +15,8 @@ function UpdatePassword() {
     reset,
     watch,
   } = useForm<UpdatePasswordForm>();
-  const session = useSession();
-  const userId = session.data?.user?.id;
   const { mutate: handlePasswordChange } = useMutation({
-    mutationFn: (data: UpdatePasswordForm) =>
-      changePassword(data, Number(userId)),
+    mutationFn: (data: UpdatePasswordForm) => changePassword(data),
     onSuccess: () => {
       toast.success("password change successfully");
       reset();

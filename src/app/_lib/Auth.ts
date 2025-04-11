@@ -2,8 +2,7 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import { signInSchema } from "./zod";
-import { getUserByIdDB, getUserDB } from "../_servers/supabase/users";
-
+import { getUserDB } from "../_servers/supabase/users";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
@@ -25,10 +24,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             inputPassword,
             hashedPassword,
           );
-          if (!isValidPassword) {
-            console.error("Password not match");
-            throw new Error("Invalid email or password");
-          }
+          if (!isValidPassword) throw new Error("Invalid email or password");
+
           return { id, name: username, email: inputEmail };
         } catch (error) {
           console.error(error);
@@ -43,17 +40,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
     async session({ session, token }) {
-      if (token?.id) {
-        // fetch fresh user data from database
-        const updatedUser = await getUserByIdDB(Number(token.id));
-        session.user = {
-          id: updatedUser.id,
-          email: updatedUser.email,
-          name: updatedUser.username,
-          image: updatedUser.image,
-          emailVerified: updatedUser.emailVerified,
-        };
-      }
+      session.user = {
+        id: token.id as string,
+        email: token.email as string,
+        emailVerified: token.emailVerified as Date | null,
+      };
       return session;
     },
   },

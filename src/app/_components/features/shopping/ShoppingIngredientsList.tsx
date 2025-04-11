@@ -19,7 +19,7 @@ function ShoppingIngredientsList({ ingredientCart }: props) {
           <div className="grid w-full grid-cols-[auto_1.1fr_0.5fr_0.5fr] items-center gap-4 rounded border-b border-b-red-500 p-2">
             <div className="relative h-8 w-8 overflow-hidden rounded-full">
               <ImageElement
-                src={INGREDIENT_IMAGE_URL + "/" + ing.image}
+                src={`${INGREDIENT_IMAGE_URL}/${ing.image}`}
                 alt={ing.name}
               />
             </div>

@@ -8,7 +8,6 @@ import toast from "react-hot-toast";
 import { useModal } from "../_components/ui/Modal";
 import { MealPlanning } from "../_types/FormData";
 type RemoveMeal = {
-  userId: number;
   mealType: string;
   date: Date;
 };

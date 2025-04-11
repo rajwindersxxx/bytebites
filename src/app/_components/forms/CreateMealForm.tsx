@@ -38,7 +38,6 @@ function CreateMealForm({ recipeData }: props) {
       recipeId: id,
       date: new Date(data.date).toLocaleDateString("en-CA"),
       title,
-      userId: Number(session.data?.user?.id),
     };
     handleMealPlanning(MealData, {
       onSuccess: () => {

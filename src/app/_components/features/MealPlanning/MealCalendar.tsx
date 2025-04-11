@@ -42,10 +42,10 @@ function MealCalendar({
   });
 
   function handleEventClick(info: EventClickArg) {
-    const { currentDate, mealType, userId } = info.event._def.extendedProps;
+    const { currentDate, mealType } = info.event._def.extendedProps;
     openModal(
       <ConfirmationModal
-        callback={() => removeMeal({ userId, mealType, date: currentDate })}
+        callback={() => removeMeal({  mealType, date: currentDate })}
       />,
       "deleteMeal",
     );
