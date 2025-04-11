@@ -16,7 +16,7 @@ export async function getUserDB(email: string) {
   }
   return { data: data[0], error };
 }
-export async function getUserByIdDB() {
+export async function getUserDataDB() {
   const userId = await getUserID();
   if(!userId) throw new Error('You need to Login')
   const { data, error } = await supabase
@@ -101,7 +101,7 @@ export async function updatePasswordDB(password: string) {
 export async function changeUserPasswordDB(
   inputData: UpdatePasswordForm,
 ) {
-  const userData = await getUserByIdDB();
+  const userData = await getUserDataDB();
   const match = await comparePassword(
     userData.password,
     inputData.currentPassword,

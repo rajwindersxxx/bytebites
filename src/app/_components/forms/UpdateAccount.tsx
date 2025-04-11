@@ -7,15 +7,17 @@ import { useMutation } from "@tanstack/react-query";
 import { updateUser } from "@/app/_actions/userActions";
 import { UpdateProfileForm } from "../../_types/FormData";
 import toast from "react-hot-toast";
+import useUserData from "@/app/_hooks/useUserData";
 function UpdateAccount() {
   const { data, update } = useSession();
+  const { userData } = useUserData();
   const { register, handleSubmit, reset, watch } = useForm<UpdateProfileForm>();
   const [username, file] = watch(["username", "file"]);
   const isDisabled =
     username === data?.user?.name && (!file || file.length === 0);
 
   const { mutate: handleUpdate } = useMutation({
-    mutationFn: (data: UpdateProfileForm) => updateUser(data),
+    mutationFn: (userData: UpdateProfileForm) => updateUser(userData),
     onSuccess: async () => {
       await update();
       toast.success("Account has been updated ");
@@ -26,7 +28,7 @@ function UpdateAccount() {
     },
   });
   if (!data) return null;
-  const { name, email, id } = data?.user as {
+  const { id } = data?.user as {
     id: string;
     name: string;
     email: string;
@@ -46,14 +48,14 @@ function UpdateAccount() {
         className="mb-4 w-full p-2 sm:mb-auto"
         placeHolder="Email Address"
         disabled={true}
-        defaultValue={email || ""}
+        defaultValue={userData?.email}
       />
       <label className="sm:auto mb-2 inline-block">Full Name:</label>
       <Input
         type="text"
         className="mb-4 w-full p-2 sm:mb-auto"
         placeHolder="your Full name"
-        defaultValue={name || ""}
+        defaultValue={userData?.username}
         {...register("username", { required: true })}
       />
       <label className="sm:auto mb-2 inline-block">Avatar:</label>

@@ -5,6 +5,7 @@ import {
   createAUserDB,
   UpdateUserDB,
   changeUserPasswordDB,
+  getUserDataDB,
 } from "../_servers/supabase/users";
 import {
   UpdateProfileForm,
@@ -26,8 +27,9 @@ export async function updateUser(data: UpdateProfileForm) {
   return await UpdateUserDB(data);
 }
 
-export async function changePassword(
-  inputData: UpdatePasswordForm,
-) {
+export async function changePassword(inputData: UpdatePasswordForm) {
   return await changeUserPasswordDB(inputData);
+}
+export async function getUserData() {
+  return await getUserDataDB();
 }
