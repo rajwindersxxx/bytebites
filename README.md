@@ -174,6 +174,8 @@ npm run dev
 
 ### LIVE DEMO Link: [https://bytebitesxxx.vercel.app](https://bytebitesxxx.vercel.app)
 
+As a self-taught developer, this is my first project with Next.js. I would appreciate your feedback on my project. Thank you!"
+
 ## Important - Non-Commercial Use Only
 
 Please note that this project is intended for personal learning, experimentation, and non-commercial purposes.
