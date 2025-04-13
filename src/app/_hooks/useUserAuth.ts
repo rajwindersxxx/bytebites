@@ -42,9 +42,7 @@ function useUserAuth() {
     },
     onSuccess: async ({ formData, output }) => {
       if (output?.error) return setError(output.error);
-      signIn("credentials", { formData, redirect: false });
-      router.replace("/");
-      await update();
+      userSignIn(formData);
     },
   });
 

@@ -9,8 +9,8 @@ import toast from "react-hot-toast";
 import { getSessionStorage, setLocalStorage } from "../_helper/clientheper";
 import { useSession } from "next-auth/react";
 export function useSavedRecipes() {
-  const session =  useSession();
-  const userId = session.data?.user?.id
+  const session = useSession();
+  const userId = session.data?.user?.id;
   const queryClient = useQueryClient();
   const [savedRecipes, setSavedRecipes] = useState<number[]>([]);
   const {
@@ -31,13 +31,8 @@ export function useSavedRecipes() {
   const { mutate: toggleSave, isPending } = useMutation({
     mutationFn: async (recipeId: number) => {
       const isSaved = savedRecipes.includes(recipeId);
-      let aiRecipe = null;
-      if (userId) {
-        aiRecipe = getSessionStorage("generatedRecipe") as RecipeObject;
-        await addRemoveSavedRecipe(recipeId, isSaved, aiRecipe);
-      } else {
-        throw new Error("You need to Login");
-      }
+      const aiRecipe = getSessionStorage("generatedRecipe") as RecipeObject;
+      await addRemoveSavedRecipe(recipeId, isSaved, aiRecipe);
       return { isSaved, aiRecipe };
     },
     onSuccess: ({ isSaved, aiRecipe }) => {
@@ -51,10 +46,7 @@ export function useSavedRecipes() {
         queryKey: ["savedRecipes"],
       });
     },
-    onError: (error) => {
-      console.error(error);
-      toast.error(error.message);
-    },
+    onError: (error) => toast.error(error.message),
   });
   return {
     savedRecipes,

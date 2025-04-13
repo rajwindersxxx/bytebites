@@ -1,3 +1,4 @@
+// todo: need to refactor code
 import {
   HiOutlineHeart,
   HiOutlineShoppingCart,
@@ -47,7 +48,7 @@ function RecipeCardButtons({ recipeData, visibleButtons }: props) {
   }
   function handleLike(e: { stopPropagation: () => void }) {
     e.stopPropagation();
-    if(userid) setIsSaved("pending");
+    if(userid) setIsLiked("pending");
     toggleLike(recipeId);
   }
   function handleSave(e: { stopPropagation: () => void }) {
@@ -73,7 +74,6 @@ function RecipeCardButtons({ recipeData, visibleButtons }: props) {
       { recipeTitle: recipeData.title },
     );
   }
-
   return (
     <div className="col-start-3 flex justify-end gap-4">
       {visibleButtons?.includes("cart") && (
