@@ -47,7 +47,7 @@ function RecipeCardButtons({ recipeData, visibleButtons }: props) {
   }
   function handleLike(e: { stopPropagation: () => void }) {
     e.stopPropagation();
-    setIsLiked("pending");
+    if(userid) setIsSaved("pending");
     toggleLike(recipeId);
   }
   function handleSave(e: { stopPropagation: () => void }) {
@@ -56,14 +56,14 @@ function RecipeCardButtons({ recipeData, visibleButtons }: props) {
       return openModal(
         <ConfirmationModal
           callback={() => {
-            setIsSaved("pending");
+            if(userid) setIsSaved("pending");
             toggleSave(recipeId);
           }}
         />,
         `confirmDelete`,
       );
-    setIsSaved("pending");
-    toggleSave(recipeId);
+      if(userid) setIsSaved("pending");
+      toggleSave(recipeId);
   }
   function handleMeal(e: { stopPropagation: () => void }) {
     e.stopPropagation();
