@@ -14,17 +14,14 @@ import toast from "react-hot-toast";
 import MealPlaningModal from "../MealPlanning/MealPlaningModal";
 import ConfirmationModal from "../../forms/ConfirmationModal";
 import { BarsSpinner } from "../../ui/Spinner";
-import { useSavedRecipes } from "@/app/_hooks/useSavedRecipes";
-import { useLikedRecipes } from "@/app/_hooks/useLikedRecipes";
 interface props {
   visibleButtons?: string[];
   recipeData: RecipeObject;
 }
 function RecipeCardButtons({ recipeData, visibleButtons }: props) {
   const recipeId = Number(recipeData.id);
-  const { likedRecipes, savedRecipes } = useRecipeData();
-  const { toggleSave } = useSavedRecipes();
-  const { toggleLike } = useLikedRecipes();
+  const { likedRecipes, savedRecipes, toggleSave ,toggleLike } = useRecipeData();
+
 
   const { addRecipeToCart, removeRecipeFromCart } = useShoppingData();
   const session = useSession();
@@ -51,9 +48,7 @@ function RecipeCardButtons({ recipeData, visibleButtons }: props) {
   function handleLike(e: { stopPropagation: () => void }) {
     e.stopPropagation();
     setIsLiked("pending");
-    toggleLike(recipeId, {
-      onError: () => setIsLiked(false)
-    });
+    toggleLike(recipeId);
   }
   function handleSave(e: { stopPropagation: () => void }) {
     e.stopPropagation();
@@ -62,17 +57,13 @@ function RecipeCardButtons({ recipeData, visibleButtons }: props) {
         <ConfirmationModal
           callback={() => {
             setIsSaved("pending");
-            toggleSave(recipeId, {
-              onError: () => setIsSaved(false),
-            });
+            toggleSave(recipeId);
           }}
         />,
         `confirmDelete`,
       );
     setIsSaved("pending");
-    toggleSave(recipeId, {
-      onError: () => setIsSaved(false),
-    });
+    toggleSave(recipeId);
   }
   function handleMeal(e: { stopPropagation: () => void }) {
     e.stopPropagation();
