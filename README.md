@@ -90,7 +90,7 @@ The dashboard provides a comprehensive overview of user activity and key metrics
 
 ## Missing Features & Improvements need
 
-- Google Login (via NextAuth.js).
+<!-- - Google Login (via NextAuth.js). -->
 - Password reset functionality.
 - "Delete Account" button.
 - Animations for smoother user experience.

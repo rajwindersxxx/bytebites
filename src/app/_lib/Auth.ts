@@ -1,10 +1,13 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import Google from "next-auth/providers/google";
+
 import bcrypt from "bcrypt";
 import { signInSchema } from "./zod";
-import { getUserDB } from "../_servers/supabase/users";
+import { createAUserDB, getUserDB } from "../_servers/supabase/users";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
+    Google,
     Credentials({
       name: "credentials",
       credentials: {
@@ -35,8 +38,40 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
+    async signIn({ user, account, profile }) {
+      if (account?.provider === "credentials") return true;
+      if (account?.provider === "google") {
+        try {
+          const { data } = await getUserDB(profile?.email || "");
+          if (!data) {
+            const newUser = {
+              email: profile?.email || "",
+              username: profile?.name || "",
+              image: profile?.picture || "",
+              password: "NOT DEFINED",
+            };
+            const { id, error } = await createAUserDB(newUser);
+            user.id = id;
+            if (error) {
+              console.error("Error creating Google user:", data.error);
+              return false;
+            }
+            console.log("New user created successfully.");
+          } else {
+            user.id = data.id;
+          }
+          return true;
+        } catch (error) {
+          console.error("Error during Google sign-in:", error);
+          return false;
+        }
+      }
+      return false;
+    },
     async jwt({ token, user }) {
-      if (user?.id) token.id = user.id;
+      if (user?.id) {
+        token.id = user.id;
+      }
       return token;
     },
     async session({ session, token }) {

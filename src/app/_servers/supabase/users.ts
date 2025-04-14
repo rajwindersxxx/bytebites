@@ -9,7 +9,6 @@ export async function getUserDB(email: string) {
     .select()
     .eq("email", email);
 
-  if (data && data?.length < 1) throw new Error("User not found");
   if (error) {
     console.error(error);
     throw new Error("unable to fetch user");
@@ -34,6 +33,7 @@ export async function createAUserDB(userData: {
   email: string;
   password: string;
   username: string;
+  image?: string
 }) {
   const { data, error } = await supabase
     .from("bitebytesUser")
@@ -44,6 +44,7 @@ export async function createAUserDB(userData: {
     console.error(error);
     throw new Error("Failed To Create User.");
   }
+  console.log(data[0])
   return data[0];
 }
 export async function UpdateUserDB(userData: UpdateProfileForm) {

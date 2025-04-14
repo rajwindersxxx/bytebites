@@ -1,5 +1,4 @@
 "use client";
-import { uniqueId } from "lodash";
 import Link from "next/link";
 import {
   HiCalendar,
@@ -83,7 +82,7 @@ function UserNavLinks() {
     <UserNavigation>
       <ul className="w-42">
         {userNavigation.map((item) => (
-          <li key={uniqueId()}>
+          <li key={item.name}>
             <Link
               href={item.link}
               prefetch={true}

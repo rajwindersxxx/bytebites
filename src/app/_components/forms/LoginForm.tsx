@@ -7,6 +7,8 @@ import { PrimaryButton } from "../ui/Buttons";
 import MiniSpinner from "../ui/MiniSpinner";
 import useUserAuth from "@/app/_hooks/useUserAuth";
 import { SignUpForm } from "@/app/_types/FormData";
+import { GoogleIcon } from "../ui/Icons";
+import { signIn } from "next-auth/react";
 
 function LoginForm() {
   const [redirecting, setRedirecting] = useState(false);
@@ -26,7 +28,6 @@ function LoginForm() {
       },
       onSuccess: () => {
         setRedirecting(false);
-        
       },
     });
     reset();
@@ -84,6 +85,24 @@ function LoginForm() {
           Sign up
         </Link>
       </p>
+      <div className="my-4 flex items-center gap-4">
+        <hr className="w-full border-gray-300" />
+        <p className="text-center text-sm text-gray-800 dark:text-gray-100">
+          or
+        </p>
+        <hr className="w-full border-gray-300" />
+      </div>
+      <div className="flex justify-center space-x-6">
+        <button
+          type="button"
+          className="cursor-pointer border-none outline-none"
+          onClick={() => signIn("google", {
+            callbackUrl: '/'
+          })}
+        >
+          <GoogleIcon />
+        </button>
+      </div>
     </form>
   );
 }
