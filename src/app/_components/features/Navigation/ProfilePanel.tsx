@@ -27,12 +27,12 @@ export default function ProfilePanel() {
   ).length;
   return (
     <div className="flex items-center gap-4 justify-self-end">
-      <Link href={"/shoppingList"} className="relative">
+      <div  className="relative">
         <IoDiamond className="h-5 w-5" />
         <span className="absolute -bottom-2 -right-2 flex min-h-4 min-w-4 items-center justify-center rounded-full bg-natural-cream text-xs">
           {userData?.userPoints}
         </span>
-      </Link>
+      </div>
       <button onClick={toggleDarkMode}>
         {darkMode ? (
           <HiOutlineMoon className="h-5 w-5" />

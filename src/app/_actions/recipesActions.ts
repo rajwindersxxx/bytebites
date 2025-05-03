@@ -21,6 +21,7 @@ import {
 } from "../_servers/foodApi";
 import { uploadAIimage } from "../_servers/supabase/bucket";
 import { getRecipeFormDB } from "../_servers/supabase/recipes";
+import { getUserDataDB, updateUserPointsDB } from "../_servers/supabase/users";
 import { RecipeObject, SearchData } from "../_types/RecipeTypes";
 
 export async function getSearchedRecipeData({
@@ -77,10 +78,18 @@ export async function makeARecipe(data: {
   }[];
 }) {
   const session = await auth();
-  if(!session?.user) throw new Error('You need to login')
+  if (!session?.user) throw new Error("You need to login");
+  const { userPoints } = await getUserDataDB(["userPoints"]);
+  console.log(userPoints);
+  if (Number(userPoints) <= 0)
+    throw new Error("You don't have enough points ");
+
   const ingredients = data.ingredient.map((item) => item.value).join(", ");
-  if (!ingredients) return { error: "Recipe ingredient are required" };
-  if (!USE_API) return await simulateApiRequest(sampleAIrecipe);
+  if (!ingredients) throw new Error("Recipe ingredient are required");
+  if (!USE_API) {
+    updateUserPointsDB(-1);
+    return await simulateApiRequest(sampleAIrecipe);
+  }
 
   const generatedAIData = await askAi(makeAQuestion(ingredients));
   const errorSplit = generatedAIData.split("__");
@@ -98,6 +107,8 @@ export async function makeARecipe(data: {
     ...generatedRecipe,
     image: `${BUCKET_URL_AI}/${imagePath}`,
   };
+  // decrement one point
+
   return recipeData;
 }
 

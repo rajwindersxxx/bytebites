@@ -1,4 +1,8 @@
-import { UpdatePasswordForm, UpdateProfileForm, UserData } from "@/app/_types/FormData";
+import {
+  UpdatePasswordForm,
+  UpdateProfileForm,
+  UserData,
+} from "@/app/_types/FormData";
 import { supabase } from "./supabase";
 import { BUCKET_URL } from "@/app/_config/supabaseConfig";
 import { comparePassword, generateHash, getUserID } from "@/app/_helper/helper";
@@ -15,7 +19,9 @@ export async function getUserDB(email: string) {
   }
   return { data: data[0], error };
 }
-export async function getUserDataDB(requiredFields: string[]): Promise<UserData> {
+export async function getUserDataDB(
+  requiredFields: string[],
+): Promise<UserData> {
   const userId = await getUserID();
   if (!userId) throw new Error("You need to Login");
   const { data, error } = await supabase
@@ -27,7 +33,7 @@ export async function getUserDataDB(requiredFields: string[]): Promise<UserData>
     console.error(error);
     throw new Error("something went wrong");
   }
-  if (!data || typeof data !== 'object' || Array.isArray(data)) {
+  if (!data || typeof data !== "object" || Array.isArray(data)) {
     throw new Error("Invalid user data received from the database");
   }
   return data as UserData;
@@ -54,42 +60,65 @@ export async function createAUserDB(userData: {
 export async function UpdateUserDB(userData: UpdateProfileForm) {
   const userId = await getUserID();
   if (!userId) throw new Error("You need to Login");
-  let inputObject: { username: string; image?: string } = {
-    username: userData.username,
-  };
-  const image = `${BUCKET_URL}/${userData.file[0]?.name}`;
-  if (userData.file.length > 0) {
-    const fileType = userData.file[0].type;
+
+  const inputObject: Partial<UpdateProfileForm> = {};
+
+  // Add fields to update only if they exist
+  if (typeof userData.userPoints === 'number') {
+    inputObject.userPoints = userData.userPoints;
+  }
+
+  if (userData.username) {
+    inputObject.username = userData.username;
+  }
+
+  if (userData.file && userData.file?.length > 0) {
+    const file = userData.file[0];
+    const fileType = file.type;
+
     if (!fileType.startsWith("image/")) {
       throw new Error("The uploaded file is not an image.");
     }
-    inputObject = { ...inputObject, image };
+
+    const imagePath = `${BUCKET_URL}/${file.name}`;
+    inputObject.image = imagePath;
   }
+
+  console.log("Updating user with:", inputObject);
+
   const { data, error } = await supabase
     .from("bitebytesUser")
-    .update([inputObject])
-    .eq("id", userData.id)
+    .update(inputObject)
+    .eq("id", userId)  // FIXED: now using correct ID
     .select();
-  if (userData.file) {
-    const {
-      error,
-    }: { error: { statusCode?: string; message: string } | undefined | null } =
-      await supabase.storage
-        .from("avatarsBiteBytes")
-        .upload(image.split("//")[2], userData.file[0] as File);
-    if (error?.statusCode === "409") {
-      return error?.message;
-    } else {
-      console.error(error);
-      throw new Error("something went wrong");
+
+  if (error) {
+    console.error("Database update error:", error);
+    throw new Error("Failed to update user.");
+  }
+
+  // Optional: upload the image after successful DB update
+  if (userData.file && userData.file?.length > 0) {
+    const file = userData.file[0];
+    const imagePath = `${BUCKET_URL}/${file.name}`.split("//")[1];
+
+    const uploadRes = await supabase.storage
+      .from("avatarsBiteBytes")
+      .upload(imagePath, file);
+
+    if (uploadRes.error) {
+      if (uploadRes.error.message.includes("Duplicate")) {
+        return uploadRes.error.message;
+      } else {
+        console.error("File upload error:", uploadRes.error);
+        throw new Error("Failed to upload image.");
+      }
     }
   }
-  if (error) {
-    console.error(error);
-    throw new Error("something went wrong");
-  }
+
   return data;
 }
+
 export async function updatePasswordDB(password: string) {
   const userId = await getUserID();
   if (!userId) throw new Error("You need to Login");
@@ -117,7 +146,11 @@ export async function changeUserPasswordDB(inputData: UpdatePasswordForm) {
     throw new Error("Password does not match");
   }
 }
-
-export async function updateUserPoints() {
-
+// *temporary solution
+export async function updateUserPointsDB(num: number) {
+  const { userPoints } = await getUserDataDB(["userPoints"]);
+  const newPoints = Number(userPoints) + num;
+  await UpdateUserDB({
+    userPoints: newPoints,
+  });
 }

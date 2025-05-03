@@ -7,6 +7,7 @@ import IngredientFilter from "../ui/IngredientFilter";
 import Link from "next/link";
 import MiniSpinner from "../ui/MiniSpinner";
 import { useRecipeData } from "@/app/_context/RecipeDataContext";
+import { IoDiamondOutline } from "react-icons/io5";
 interface props {
   ingredientList: IngredientListTags[];
 }
@@ -36,10 +37,10 @@ function IngredientPanel({ ingredientList }: props) {
           ) : (
             <SecondaryButton
               onClick={generateRecipe}
-              className="w-36"
+              className="w-48 "
               disabled={status === "pending"}
             >
-              {status === "pending" ? <MiniSpinner /> : "Make A.I recipe"}
+              {status === "pending" ? <MiniSpinner /> : <span className="flex  items-center justify-center gap-1">Make A.I recipe <IoDiamondOutline/></span>}
             </SecondaryButton>
           )}
         </div>
