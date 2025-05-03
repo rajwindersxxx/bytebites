@@ -31,5 +31,11 @@ export async function changePassword(inputData: UpdatePasswordForm) {
   return await changeUserPasswordDB(inputData);
 }
 export async function getUserData() {
-  return await getUserDataDB();
+  return await getUserDataDB([
+    "id",
+    "email",
+    "username",
+    "image",
+    "userPoints",
+  ]);
 }

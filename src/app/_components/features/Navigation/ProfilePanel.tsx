@@ -13,17 +13,26 @@ import { useDarkMode } from "../../../_hooks/useDarkMode";
 import UserProfileMenu from "../../ui/UserProfileMenu";
 import { useToggleMenu } from "../../../_hooks/useToogleMenu";
 import { useUserShoppingList } from "@/app/_hooks/useUserShoppingList";
+import { IoDiamond } from "react-icons/io5";
+import useUserData from "@/app/_hooks/useUserData";
 
 export default function ProfilePanel() {
   const session = useSession();
   const { isMenuOpen, menuRef, buttonRef } = useToggleMenu();
   const { toggleDarkMode, darkMode } = useDarkMode();
   const { userShoppingList } = useUserShoppingList();
+  const {userData} =  useUserData();
   const pendingItemsCount = userShoppingList?.filter(
     (item) => item.isPurchased === false,
   ).length;
   return (
     <div className="flex items-center gap-4 justify-self-end">
+      <Link href={"/shoppingList"} className="relative">
+        <IoDiamond className="h-5 w-5" />
+        <span className="absolute -bottom-2 -right-2 flex min-h-4 min-w-4 items-center justify-center rounded-full bg-natural-cream text-xs">
+          {userData?.userPoints}
+        </span>
+      </Link>
       <button onClick={toggleDarkMode}>
         {darkMode ? (
           <HiOutlineMoon className="h-5 w-5" />

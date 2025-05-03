@@ -10,6 +10,7 @@ import {
 } from "../_data/dataSamples";
 import { simulateApiRequest } from "../_helper/helper";
 import { makeAQuestion, aiOutputToObject } from "../_lib/apiFunctions";
+import { auth } from "../_lib/Auth";
 import { askAi, generateAiImage } from "../_servers/AIapi";
 import {
   getSearchedRecipe,
@@ -75,6 +76,8 @@ export async function makeARecipe(data: {
     value: string;
   }[];
 }) {
+  const session = await auth();
+  if(!session?.user) throw new Error('You need to login')
   const ingredients = data.ingredient.map((item) => item.value).join(", ");
   if (!ingredients) return { error: "Recipe ingredient are required" };
   if (!USE_API) return await simulateApiRequest(sampleAIrecipe);

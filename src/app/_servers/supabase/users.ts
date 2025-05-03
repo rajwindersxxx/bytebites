@@ -1,4 +1,4 @@
-import { UpdatePasswordForm, UpdateProfileForm } from "@/app/_types/FormData";
+import { UpdatePasswordForm, UpdateProfileForm, UserData } from "@/app/_types/FormData";
 import { supabase } from "./supabase";
 import { BUCKET_URL } from "@/app/_config/supabaseConfig";
 import { comparePassword, generateHash, getUserID } from "@/app/_helper/helper";
@@ -15,25 +15,29 @@ export async function getUserDB(email: string) {
   }
   return { data: data[0], error };
 }
-export async function getUserDataDB() {
+export async function getUserDataDB(requiredFields: string[]): Promise<UserData> {
   const userId = await getUserID();
-  if(!userId) throw new Error('You need to Login')
+  if (!userId) throw new Error("You need to Login");
   const { data, error } = await supabase
     .from("bitebytesUser")
-    .select()
+    .select(`${requiredFields.join(", ")}`)
     .eq("id", userId)
     .single();
   if (error) {
     console.error(error);
     throw new Error("something went wrong");
   }
-  return data;
+  if (!data || typeof data !== 'object' || Array.isArray(data)) {
+    throw new Error("Invalid user data received from the database");
+  }
+  return data as UserData;
 }
+
 export async function createAUserDB(userData: {
   email: string;
   password: string;
   username: string;
-  image?: string
+  image?: string;
 }) {
   const { data, error } = await supabase
     .from("bitebytesUser")
@@ -44,12 +48,12 @@ export async function createAUserDB(userData: {
     console.error(error);
     throw new Error("Failed To Create User.");
   }
-  console.log(data[0])
+  console.log(data[0]);
   return data[0];
 }
 export async function UpdateUserDB(userData: UpdateProfileForm) {
   const userId = await getUserID();
-  if(!userId) throw new Error('You need to Login')
+  if (!userId) throw new Error("You need to Login");
   let inputObject: { username: string; image?: string } = {
     username: userData.username,
   };
@@ -88,7 +92,7 @@ export async function UpdateUserDB(userData: UpdateProfileForm) {
 }
 export async function updatePasswordDB(password: string) {
   const userId = await getUserID();
-  if(!userId) throw new Error('You need to Login')
+  if (!userId) throw new Error("You need to Login");
   const { data, error } = await supabase
     .from("bitebytesUser")
     .update([{ password: password }])
@@ -99,10 +103,8 @@ export async function updatePasswordDB(password: string) {
   }
   return data;
 }
-export async function changeUserPasswordDB(
-  inputData: UpdatePasswordForm,
-) {
-  const userData = await getUserDataDB();
+export async function changeUserPasswordDB(inputData: UpdatePasswordForm) {
+  const userData = await getUserDataDB(["password"]);
   const match = await comparePassword(
     userData.password,
     inputData.currentPassword,
@@ -114,4 +116,8 @@ export async function changeUserPasswordDB(
   } else {
     throw new Error("Password does not match");
   }
+}
+
+export async function updateUserPoints() {
+
 }

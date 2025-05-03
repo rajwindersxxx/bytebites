@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-export const useToggleMenu = () => {
+export function useToggleMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);

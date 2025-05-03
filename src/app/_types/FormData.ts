@@ -25,3 +25,12 @@ export type SignUpForm = {
   confirmPassword: string;
   username: string;
 }
+export type UserData = {
+  id: number,
+  email: string,
+  username: string,
+  image: string
+  password: string,
+  confirmPassword: string,
+  userPoints: string
+}

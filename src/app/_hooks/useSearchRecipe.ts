@@ -1,7 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useDebounce } from "@uidotdev/usehooks";
 import { getSearchedRecipeData } from "../_actions/recipesActions";
-import { useMemo } from "react";
+import useDebounce from "./useDebounce";
 interface props {
   searchRecipeInput: string;
   selectedIngredients: Set<string>;
@@ -12,16 +11,14 @@ function useSearchRecipe({
   selectedIngredients,
   selectedFilters,
 }: props) {
-
-  const stableSearchParams = useMemo(
-    () => ({
+  const debouncedSearchTerm = useDebounce(
+    {
       searchRecipeInput,
-      selectedIngredients: [... new Set(selectedIngredients)],
+      selectedIngredients: [...new Set(selectedIngredients)],
       selectedFilters,
-    }),
-    [searchRecipeInput, selectedIngredients, selectedFilters],
+    },
+    600,
   );
-  const debouncedSearchTerm = useDebounce(stableSearchParams, 600);
   const {
     data,
     isLoading: isLoadingRecipes,
@@ -47,7 +44,7 @@ function useSearchRecipe({
     initialPageParam: 0,
   });
 
-  const recipeData= data?.pages?.flatMap((page) => page.results) || ['test'];
+  const recipeData = data?.pages?.flatMap((page) => page.results) || ["test"];
   const apiError = data?.pages[0].error;
   return {
     isRefreshing,
@@ -55,7 +52,7 @@ function useSearchRecipe({
     recipeData,
     fetchNextPage,
     hasNextPage,
-    apiError
+    apiError,
   };
 }
 
