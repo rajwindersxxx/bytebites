@@ -23,7 +23,7 @@ export async function getUserDataDB(
   requiredFields: string[],
 ): Promise<UserData> {
   const userId = await getUserID();
-  if (!userId) throw new Error("You need to Login");
+  if (!userId) throw new Error('You need to login')
   const { data, error } = await supabase
     .from("bitebytesUser")
     .select(`${requiredFields.join(", ")}`)
