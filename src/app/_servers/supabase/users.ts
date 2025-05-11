@@ -1,8 +1,4 @@
-import {
-  UpdatePasswordForm,
-  UpdateProfileForm,
-  UserData,
-} from "@/app/_types/FormData";
+import { UpdatePasswordForm, UpdateProfileForm } from "@/app/_types/FormData";
 import { supabase } from "./supabase";
 import { BUCKET_URL } from "@/app/_config/supabaseConfig";
 import { comparePassword, generateHash, getUserID } from "@/app/_helper/helper";
@@ -19,11 +15,9 @@ export async function getUserDB(email: string) {
   }
   return { data: data[0], error };
 }
-export async function getUserDataDB(
-  requiredFields: string[],
-): Promise<UserData> {
+export async function getUserDataDB(requiredFields: string[]) {
   const userId = await getUserID();
-  if (!userId) throw new Error('You need to login')
+  if (!userId) throw new Error("You need to login");
   const { data, error } = await supabase
     .from("bitebytesUser")
     .select(`${requiredFields.join(", ")}`)
@@ -36,7 +30,7 @@ export async function getUserDataDB(
   if (!data || typeof data !== "object" || Array.isArray(data)) {
     throw new Error("Invalid user data received from the database");
   }
-  return data as UserData;
+  return data;
 }
 
 export async function createAUserDB(userData: {
@@ -54,7 +48,6 @@ export async function createAUserDB(userData: {
     console.error(error);
     throw new Error("Failed To Create User.");
   }
-  console.log(data[0]);
   return data[0];
 }
 export async function UpdateUserDB(userData: UpdateProfileForm) {
@@ -64,7 +57,7 @@ export async function UpdateUserDB(userData: UpdateProfileForm) {
   const inputObject: Partial<UpdateProfileForm> = {};
 
   // Add fields to update only if they exist
-  if (typeof userData.userPoints === 'number') {
+  if (typeof userData.userPoints === "number") {
     inputObject.userPoints = userData.userPoints;
   }
 
@@ -89,7 +82,7 @@ export async function UpdateUserDB(userData: UpdateProfileForm) {
   const { data, error } = await supabase
     .from("bitebytesUser")
     .update(inputObject)
-    .eq("id", userId)  // FIXED: now using correct ID
+    .eq("id", userId) // FIXED: now using correct ID
     .select();
 
   if (error) {
@@ -133,7 +126,7 @@ export async function updatePasswordDB(password: string) {
   return data;
 }
 export async function changeUserPasswordDB(inputData: UpdatePasswordForm) {
-  const userData = await getUserDataDB(["password"]);
+  const userData = (await getUserDataDB(["password"])) as { password: string };
   const match = await comparePassword(
     userData.password,
     inputData.currentPassword,
@@ -147,10 +140,34 @@ export async function changeUserPasswordDB(inputData: UpdatePasswordForm) {
   }
 }
 // *temporary solution
-export async function updateUserPointsDB(num: number) {
-  const { userPoints } = await getUserDataDB(["userPoints"]);
-  const newPoints = Number(userPoints) + num;
-  await UpdateUserDB({
-    userPoints: newPoints,
-  });
+export async function updateUserPointsDB(pointsToAdd: number, email: string | null) {
+  if (!email || typeof pointsToAdd !== "number") {
+    throw new Error("Missing or invalid email or points.");
+  }
+  // Fetch current user points
+  const { data: user, error: fetchError } = await supabase
+    .from("bitebytesUser")
+    .select("userPoints")
+    .eq("email", email)
+    .single();
+
+  if (fetchError) {
+    throw new Error(`Failed to fetch user: ${fetchError.message}`);
+  }
+
+  const currentPoints = Number(user?.userPoints || 0);
+  const newPoints = currentPoints + pointsToAdd;
+
+  // Update the user's points
+  const { data: updatedUser, error: updateError } = await supabase
+    .from("bitebytesUser")
+    .update({ userPoints: newPoints })
+    .eq("email", email)
+    .select();
+
+  if (updateError) {
+    throw new Error(`Failed to update points: ${updateError.message}`);
+  }
+
+  return updatedUser;
 }

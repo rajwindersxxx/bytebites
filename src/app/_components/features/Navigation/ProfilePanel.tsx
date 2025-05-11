@@ -29,8 +29,10 @@ export default function ProfilePanel() {
     (item) => item.isPurchased === false,
   ).length;
   function handleClick() {
+    const userPoints =
+      userData && "userPoints" in userData ? Number(userData.userPoints) : 0;
     openModal(
-      <UserPointsModal totalPoints={Number(userData?.userPoints)} />,
+      <UserPointsModal totalPoints={userPoints} />,
       "userPoints",
     );
   }

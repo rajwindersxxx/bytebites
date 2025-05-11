@@ -81,13 +81,12 @@ export async function makeARecipe(data: {
   if (!session?.user) throw new Error("You need to login");
   const { userPoints } = await getUserDataDB(["userPoints"]);
   console.log(userPoints);
-  if (Number(userPoints) <= 0)
-    throw new Error("You don't have enough points ");
+  if (Number(userPoints) <= 0) throw new Error("You don't have enough points ");
 
   const ingredients = data.ingredient.map((item) => item.value).join(", ");
   if (!ingredients) throw new Error("Recipe ingredient are required");
-  if (!USE_API) {
-    updateUserPointsDB(-1);
+  if (!USE_API && session?.user?.email) {
+    updateUserPointsDB(-1, session?.user?.email);
     return await simulateApiRequest(sampleAIrecipe);
   }
 
@@ -108,7 +107,7 @@ export async function makeARecipe(data: {
     image: `${BUCKET_URL_AI}/${imagePath}`,
   };
   // decrement one point
-
+  if (session?.user?.email) updateUserPointsDB(-1, session?.user?.email);
   return recipeData;
 }
 

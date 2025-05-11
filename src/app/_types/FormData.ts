@@ -34,5 +34,6 @@ export type UserData = {
   image: string;
   password: string;
   confirmPassword: string;
-  userPoints: string;
+  userPoints: number;
+  error?: string
 };

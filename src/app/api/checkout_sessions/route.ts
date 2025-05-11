@@ -28,7 +28,7 @@ export async function POST(req: Request) {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
-      success_url: `${origin}`,
+      success_url: `${origin}?alert='success'`,
       cancel_url: `${origin}`,
       customer_email: userSession?.user?.email,
       client_reference_id: userSession?.user?.id,
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
             currency: "inr",
             unit_amount: priceMap[points] * 100,
             product_data: {
-              name: `${priceMap[points]} points `,
+              name: `${points} points `,
               description: "This points can be used for generating AI recipe",
             },
           },

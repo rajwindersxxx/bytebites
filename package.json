@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/d1-adapter": "^1.9.1",
     "@floating-ui/dom": "^1.6.13",
     "@floating-ui/react": "^0.27.5",
     "@fullcalendar/core": "^6.1.15",

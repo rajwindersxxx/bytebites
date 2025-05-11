@@ -27,7 +27,7 @@ function UserPointsModal({ totalPoints }: props) {
     >
       <h2 className="text-2xl">
         {totalPoints
-          ? `You currently have ${totalPoints}`
+          ? `You currently have ${totalPoints} Points`
           : "You are out of points , Buy more"}
       </h2>
       <h3 className="text-md text-accent">
@@ -63,6 +63,8 @@ function UserPointsModal({ totalPoints }: props) {
           <SecondaryButton onClick={closeModal}>Cancel</SecondaryButton>
         </div>
       </div>
+      <p className="text-accent text-center">Points can be used to generate AI recipes</p>
+
     </form>
   );
 }
