@@ -86,6 +86,7 @@ The dashboard provides a comprehensive overview of user activity and key metrics
 - 🍲 **Spoonacular API:** Fetch real-world recipes, ingredient details, and nutrition data.
 - 🗄️ **Supabase:** Stores user data and recipes.
 - 🔐 **NextAuth.js:** Authentication.
+- 💸 **Stripe:** payments method.
 - ⚛️ **React Query:** Remote state management.
 
 ## Missing Features & Improvements need
@@ -97,7 +98,8 @@ The dashboard provides a comprehensive overview of user activity and key metrics
 - Drag-and-drop functionality for the meal planning calendar.
 - Notifications and user feedback.
 - Feedback form for reporting bugs.
-- Login /sigUp form need improvements
+- Login /sigUp form need improvements (done)
+- Stripe implementation (done)
 
 ## Screenshots and Demos
 
@@ -143,20 +145,7 @@ npm install
 3.Add a `.env.local` file:
 
 ```sh
-USE_API=true   # Set to false to use sample data (may cause DB mutation errors)
-# External APIs
-FOOD_API_KEY='Spoonacular API key'
-GOOGLE_AI_API_KEY='Google Gemani API key'
-CLOUDFLARE_ID='Cloudflare ID'
-CLOUDFLARE_WORKER_KEY='Stable Diffusion API key'
-
-# Supabase
-SUPABASE_URL='Supabase URL'
-SUPABASE_KEY='Supabase global key'
-
-# Authentication
-AUTH_SECRET='Random key'
-NEXTAUTH_URL=http://localhost:3000
+rename sample.env to .eve.local and put your keys
 ```
 
 4.Set up your Supabase database:
@@ -175,6 +164,8 @@ npm run dev
 ### LIVE DEMO Link: [https://bytebitesxxx.vercel.app](https://bytebitesxxx.vercel.app)
 
 As a self-taught developer, this is my first project with Next.js. I would appreciate your feedback on my project. Thank you!"
+
+- NOTE: AI feature take time more then 10s on vercel so due to serverless function limit it won't work well. It might need scheduling and running server
 
 ## Important - Non-Commercial Use Only
 
