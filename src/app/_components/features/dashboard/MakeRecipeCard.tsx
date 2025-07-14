@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { makeARecipe } from "@/app/_actions/recipesActions";
 import { useRouter } from "next/navigation";
-import MiniSpinner from "../../ui/MiniSpinner";
+// import MiniSpinner from "../../ui/MiniSpinner";
 
 function MakeRecipeCard() {
   const router = useRouter();
@@ -75,7 +75,7 @@ function MakeRecipeCard() {
         </div>
         <div className="text-center">
           <SecondaryButton type="submit" className="w-36">
-            {isLoading ? <MiniSpinner /> : "Make A.I recipe"}
+            {isLoading ? "take a while..." : "Make A.I recipe"}
           </SecondaryButton>
         </div>
       </form>

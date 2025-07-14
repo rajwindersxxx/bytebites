@@ -1,4 +1,5 @@
 "use server";
+import { recipeCost } from "../_config/aiConfig";
 import { RANDOM_RECIPE_COUNT, USE_API } from "../_config/foodApiConfig";
 import { BUCKET_URL_AI } from "../_config/supabaseConfig";
 import {
@@ -71,7 +72,6 @@ export async function getSimilarRecipesData(id: number) {
   if (!USE_API) return similarRecipe;
   return await getSimilarRecipes(id);
 }
-// todo: Error handling is missing
 export async function makeARecipe(data: {
   ingredient: {
     value: string;
@@ -79,7 +79,10 @@ export async function makeARecipe(data: {
 }) {
   const session = await auth();
   if (!session?.user) throw new Error("You need to login");
-  const { userPoints } = await getUserDataDB(["userPoints"]);
+  // * temporary typescript fix
+  const userData = await getUserDataDB(["userPoints"]) as { userPoints?: number };
+  const userPoints = userData?.userPoints;
+  if(!userPoints) return null
   console.log(userPoints);
   if (Number(userPoints) <= 0) throw new Error("You don't have enough points ");
 
@@ -107,7 +110,7 @@ export async function makeARecipe(data: {
     image: `${BUCKET_URL_AI}/${imagePath}`,
   };
   // decrement one point
-  if (session?.user?.email) updateUserPointsDB(-1, session?.user?.email);
+  if (session?.user?.email) updateUserPointsDB(-recipeCost, session?.user?.email);
   return recipeData;
 }
 

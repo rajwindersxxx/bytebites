@@ -17,7 +17,7 @@ export async function getUserDB(email: string) {
 }
 export async function getUserDataDB(requiredFields: string[]) {
   const userId = await getUserID();
-  if (!userId) throw new Error("You need to login");
+  if (!userId) return {}
   const { data, error } = await supabase
     .from("bitebytesUser")
     .select(`${requiredFields.join(", ")}`)
@@ -139,7 +139,7 @@ export async function changeUserPasswordDB(inputData: UpdatePasswordForm) {
     throw new Error("Password does not match");
   }
 }
-// *temporary solution
+// *temporary solution  is (slow)
 export async function updateUserPointsDB(pointsToAdd: number, email: string | null) {
   if (!email || typeof pointsToAdd !== "number") {
     throw new Error("Missing or invalid email or points.");
